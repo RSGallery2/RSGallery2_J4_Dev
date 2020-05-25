@@ -1,3 +1,14 @@
+//.build/
+.build/*.log
+.build/*.*.log
+.build/Translations/.idea/
+
+.packages/
+
+.test/BackupRestore/.idea/
+.test/RSG2_Backup/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
