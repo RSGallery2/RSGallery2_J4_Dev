@@ -17,10 +17,10 @@
 		* .
 		
 		command line:
-		phing -f updateProject.xml
-		phing -logfile .\updateProject.log -f updateProject.xml
-		phing -debug -logfile .\updateProject.log -f updateProject.xml
-		phing -verbose -debug -logfile .\updateProject.log -f updateProject.xml
+			phing -f updateProject.xml
+			phing -logfile .\updateProject.log -f updateProject.xml
+			phing -debug -logfile .\updateProject.log -f updateProject.xml
+			phing -verbose -debug -logfile .\updateProject.log -f updateProject.xml
 
 	</description>
 
@@ -50,7 +50,7 @@
 	-->
 	
     <!-- Version number of build -->
-    <property name="build.version" value="5.0.0.3" override="true" />
+    <property name="build.version" value="5.0.0.4" override="true" />
     <!-- additional naming postfix -->
     <property name="build.postfix" value="prepare." override="true" />
     <!--property name="build.postfix" value="" override="true" / -->
@@ -101,21 +101,22 @@
 	-->
 	
     <!-- Declare Project src files -->
-    <property name="root" value="./.." override="true" />
-    <property name="administrator" value="${root}/administrator" />
-    <property name="components" value="${root}/components" />
-    <!--property name="modules" value="${root}/plugins" / -->
-    <!--property name="plugins" value="${root}/plugins" / -->
-    <property name="media" value="${root}/media" />
+    <property name="srcRoot" value="./../../RSGallery2_J4/" override="true" />
+
+    <property name="administrator" value="${srcRoot}/administrator" />
+    <property name="components" value="${srcRoot}/components" />
+    <!--property name="modules" value="${srcRoot}/modules" / -->
+    <!--property name="plugins" value="${srcRoot}/plugins" / -->
+    <property name="media" value="${srcRoot}/media" />
 
 	<!-- 
 	.........................................................................
-	file sets
+	source file sets
 	.........................................................................
 	-->
 	
     <!-- File set root folder -->
-    <fileset dir="${root}" id="rootSet">
+    <fileset dir="${srcRoot}" id="rootSet">
         <include name="*" />
     </fileset>
 
@@ -237,7 +238,7 @@
 		
 		<reflexive>
 			<!-- File set root folder -->
-			<fileset dir="${root}" id="rootSet">
+			<fileset dir="${srcRoot}" id="rootSet">
 				<include name="*.php" />
 			</fileset>
 
@@ -290,7 +291,7 @@
 		-->
 		<reflexive>
 			<!-- File set root folder -->
-			<fileset dir="${root}" id="rootSet">
+			<fileset dir="${srcRoot}" id="rootSet">
 				<include name="*.php" />
 			</fileset>
 
