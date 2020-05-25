@@ -1,5 +1,11 @@
 # Phing tasks
 
+2020.05.25
+
+ [ ] Use version from source file RSGallery2.xml so there is only one definition 
+ [ ] 
+ [ ] ...
+ 
 2019.06.09
 
  [ ] 
