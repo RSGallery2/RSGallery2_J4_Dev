@@ -7,23 +7,24 @@ Set CmdArgs=
 ECHO python Rsg2TablesRestore.py
 
 REM JoomlaPath
-Call :AddNextArg -p "d:\xampp\htdocs"
-REM Call :AddNextArg -p "e:\xampp_J2xJ3x\htdocs"
+CALL :AddNextArg -p "d:\xampp\htdocs"
+REM CALL :AddNextArg -p "e:\xampp_J2xJ3x\htdocs"
 
 REM JoomlaName
-REM Call :AddNextArg -n "joomla4x"
-Call :AddNextArg -n "joomla4x_Sim3x"
-REM Call :AddNextArg -n "joomla3x"
-REM Call :AddNextArg -n "joomla25"
+CALL :AddNextArg -n "joomla4x"
+REM CALL :AddNextArg -n "joomla4x_Sim3x"
+REM CALL :AddNextArg -n "joomla3x"
+REM CALL :AddNextArg -n "joomla25"
 
 REM dumpFileName
-Call :AddNextArg -f "..\..\..\RSG2_Backup\\joomla3x.20200430_171320\Rsg2_TablesDump.j3x.sql"
+REM CALL :AddNextArg -f "..\..\..\RSG2_Backup\\joomla3x.20200430_171320\Rsg2_TablesDump.j3x.sql"
+CALL :AddNextArg -f "..\..\..\RSG2_Backup\\Tables\j3_rsgallery2_galleries.sql"
 
 REM
-REM Call :AddNextArg -p ""
+REM CALL :AddNextArg -p ""
 
 REM add command line
-REM Call :AddNextArg %*
+REM CALL :AddNextArg %*
 
 ECHO.
 ECHO ------------------------------------------------------------------------------
