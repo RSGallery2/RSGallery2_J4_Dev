@@ -1,11 +1,15 @@
 # Phing tasks
 
-2020.05.25
+2020.07.0x
 
- [ ] Use version from source file RSGallery2.xml so there is only one definition 
- [ ] 
+ [ ] ...
  [ ] ...
  
+2019.06.19
+
+ [ ] @since   version different spaces
+
+
 2019.06.09
 
  [ ] 
@@ -45,6 +49,14 @@
 			<mkdir dir="${basedir}/build/logs" />
 		</target>
 <<< https://github.com/joomla/jissues/blob/master/build.xml
+
+2020.05.25
+
+ [ ] Use version from source file RSGallery2.xml so there is only one definition 
+ [ ] 
+ [ ] ...
+ 
+2020.07.0x
 
  [ ] ...
  [ ] ...

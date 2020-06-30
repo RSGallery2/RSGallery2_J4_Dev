@@ -19,7 +19,9 @@ REM CALL :AddNextArg -n "joomla25"
 REM dumpFileName
 REM CALL :AddNextArg -f "..\..\..\RSG2_Backup\joomla3x.20200430_171320\Rsg2_TablesDump.j3x.sql"
 REM CALL :AddNextArg -f "..\..\..\RSG2_Backup\Tables\j3_rsgallery2_galleries.sql"
-CALL :AddNextArg -f "..\..\..\RSG2_Backup\Tables\j3_rsgallery2_galleries.20200614.sql 
+REM CALL :AddNextArg -f "..\..\..\RSG2_Backup\Tables\j3x_Tables.2020.05.16.sql
+REM CALL :AddNextArg -f "..\..\..\RSG2_Backup\Tables\j3x_tables.2020.04.30.sql
+CALL :AddNextArg -f "..\..\..\RSG2_Backup\Tables\j3x_tables.2020.06.14.sql
 
 REM
 REM CALL :AddNextArg -p ""
