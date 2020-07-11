@@ -8,17 +8,15 @@ import traceback
 
 from datetime import datetime
 
-
 HELP_MSG = """
+Restores image files of RSG2 (J3x) from backup folder to given database
+Destination configuration and paths will be taken from configuration.php 
+of referenced joomla installation
 
-yyy
-
-Reads config from external file LangManager.ini
-The segment selection tells which segment(s) to use for configuration
-
-usage: _emptyPy.py -? nnn -? xxxx -? yyyy  [-h]
-	-? nnn
-	-? 
+usage: Rsg2ImagesRestore -p joomlaPath -n joomlaName -p backup path [-h]
+	-p joomlaPath Path to joomla installation without last folder
+	-n joomlaName folder and project name
+    -b backup path where the images will be taken from
 
 	
 	-h shows this message
@@ -43,14 +41,15 @@ ToDo:
   
 """
 
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 LeaveOut_01 = False
 LeaveOut_02 = False
 LeaveOut_03 = False
 LeaveOut_04 = False
 LeaveOut_05 = False
 
-#-------------------------------------------------------------------------------
+
+# -------------------------------------------------------------------------------
 
 # ================================================================================
 # _emptyPy
@@ -64,21 +63,20 @@ class Rsg2ImagesRestore:
     """ config read from file. First segment in file defines the used segment with configuration items """
 
     def __init__(self,
-                 backupPath = '../../../RSG2_Backup',
-                 joomlaPath = 'd:/xampp/htdocs/joomla4x'):
+                 backupPath='../../../RSG2_Backup',
+                 joomlaPath='d:/xampp/htdocs/joomla4x'):
 
         print("Init Rsg2ImagesRestore: ")
         print("backupPath: " + backupPath)
         print("joomlaPath: " + joomlaPath)
 
-        self.__backupPath =          backupPath
-        self.__joomlaPath =          joomlaPath
+        self.__backupPath = backupPath
+        self.__joomlaPath = joomlaPath
 
         # --- create path to image and dump file ----------------------------------
 
         self.__SrcImagePath = os.path.join(self.__backupPath, 'images')
-        self.__DstImagePath = os.path.join(self.__joomlaPath, 'images')
-
+        self.__DstImagePath = os.path.join(self.__joomlaPath, 'images', 'rsgallery')
 
     # --------------------------------------------------------------------
     # doCopy
@@ -90,16 +88,24 @@ class Rsg2ImagesRestore:
             print('*********************************************************')
             print('doCopy')
             print("src path: " + self.__SrcImagePath)
-            print("dst path: " + self.__DstImagePath )
+            print("dst path: " + self.__DstImagePath)
             print('---------------------------------------------------------')
+
+#            # Make sure it is not the root directory
+#            if (len(self.__DstImagePath) > 10):
+#                if ('xampp' in self.__DstImagePath):
+#                    shutil.rmtree(self.__DstImagePath)
 
             # Make sure it is not the root directory
             if (len(self.__DstImagePath) > 10):
                 if ('xampp' in self.__DstImagePath):
-                    shutil.rmtree(self.__DstImagePath)
+                    if (self.__DstImagePath.endswith ('rsgallery')):
+                        print('remove old images in ...\\rsgallery')
+                        shutil.rmtree(self.__DstImagePath)
 
             # --- copy -----------------------------------------------------------------
 
+            print('start copying')
             shutil.copytree(self.__SrcImagePath, self.__DstImagePath)
 
 
@@ -107,22 +113,21 @@ class Rsg2ImagesRestore:
             print('!!! Exception: "' + str(ex) + '" !!!')
             print(traceback.format_exc())
 
-        # --------------------------------------------------------------------
+    # --------------------------------------------------------------------
 
         finally:
             print('exit doCopy')
 
         return
 
-    ##-------------------------------------------------------------------------------
 
-    def dummyFunction(self):
+##-------------------------------------------------------------------------------
 
-        print('    >>> Enter dummyFunction: ')
+def dummyFunction(self):
+    print('    >>> Enter dummyFunction: ')
 
-
-        # print ('       XXX: "' + XXX + '"')
-        print('    >>> Exit dummyFunction: ')
+    # print ('       XXX: "' + XXX + '"')
+    print('    >>> Exit dummyFunction: ')
 
 
 # ================================================================================
@@ -179,7 +184,7 @@ if __name__ == '__main__':
 
     start = datetime.today()
 
-    optlist, args = getopt.getopt(sys.argv[1:], 'l:r:12345h')
+    optlist, args = getopt.getopt(sys.argv[1:], 'p:n:b:12345h')
 
     joomlaPath = 'd:/xampp/htdocs'
     # joomlaPath = 'e:/xampp/htdocs'
@@ -187,19 +192,18 @@ if __name__ == '__main__':
     # joomlaPath = 'e:/xampp_J2xJ3x/htdocs'
     # joomlaPath = 'f:/xampp_J2xJ3x/htdocs'
 
-    #joomlaName = 'joomla4x'
-    joomlaName = 'joomla4x_Sim3x'
-    #joomlaName = 'joomla3x'
+    joomlaName = 'joomla4x'
+    # joomlaName = 'joomla4x_Sim3x'
+    # joomlaName = 'joomla3x'
     ##joomlaName = 'joomla3x'
     ##joomlaName = 'joomla3xMyGallery'
-    #joomlaName = 'joomla3xNextRelease'
-    #joomlaName = 'joomla3xRelease'
-    #joomlaName = 'joomla4x'
-    #joomlaName = 'joomla4xfrom3x'
-    #joomlaName = 'joomla4xInstall'
+    # joomlaName = 'joomla3xNextRelease'
+    # joomlaName = 'joomla3xRelease'
+    # joomlaName = 'joomla4x'
+    # joomlaName = 'joomla4xfrom3x'
+    # joomlaName = 'joomla4xInstall'
 
     backupPath = '..\..\..\RSG2_Backup\\joomla3x.20200430_171320'
-
 
     for i, j in optlist:
         if i == "-p":
@@ -237,4 +241,3 @@ if __name__ == '__main__':
     rsg2ImagesRestore.doCopy()
 
     print_end(start)
-

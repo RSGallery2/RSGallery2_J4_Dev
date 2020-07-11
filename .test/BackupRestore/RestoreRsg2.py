@@ -14,13 +14,14 @@ from Rsg2TablesRestore import Rsg2TablesRestore
 
 
 HELP_MSG = """
-Reads config from external file LangManager.ini
-The segment selection tells which segment(s) to use for configuration
+Restores dump of RSG2 tables from sql backup file to given database
+Destination configuration and paths will be taken from configuration.php 
+of referenced joomla installation
 
-usage: RestoreRsg2.py -? nnn -? xxxx -? yyyy  [-h]
-	-? nnn
-	-? 
-
+usage: RestoreRsg2.py -p joomlaPath -n joomlaName -p backup path [-h]
+	-p joomlaPath Path to joomla installation without last folder
+	-n joomlaName folder and project name
+    -b backup path where the data will be taken from
 	
 	-h shows this message
 	
@@ -85,7 +86,6 @@ class RestoreRsg2:
 
             jConfigPathFileName = os.path.join (self.__joomlaPath, self.__joomlaName, 'configuration.php')
             self.__joomlaCfg = jConfigFile(jConfigPathFileName)
-
 
 
         finally:
@@ -173,7 +173,7 @@ class RestoreRsg2:
 
             print('backupPath (used): ' + self.__backupPath)
 
-            # --- do restore image filkes ----------------------------
+            # --- do restore image files ----------------------------
 
             joomlaPath = os.path.join(self.__joomlaPath, self.__joomlaName)
 
@@ -276,7 +276,7 @@ if __name__ == '__main__':
 
     start = datetime.today()
 
-    optlist, args = getopt.getopt(sys.argv[1:], 'p:n:b:m:12345h')
+    optlist, args = getopt.getopt(sys.argv[1:], 'p:n:b:12345h')
 
     joomlaPath = 'd:/xampp/htdocs'
     # joomlaPath = 'e:/xampp/htdocs'
@@ -284,18 +284,18 @@ if __name__ == '__main__':
     # joomlaPath = 'e:/xampp_J2xJ3x/htdocs'
     # joomlaPath = 'f:/xampp_J2xJ3x/htdocs'
 
-    #joomlaName = 'joomla4x'
-    joomlaName = 'joomla4x_Sim3x'
+    joomlaName = 'joomla4x'
+    #joomlaName = 'joomla4x_Sim3x'
     #joomlaName = 'joomla3x'
     ##joomlaName = 'joomla3x'
     ##joomlaName = 'joomla3xMyGallery'
     #joomlaName = 'joomla3xNextRelease'
     #joomlaName = 'joomla3xRelease'
-    #joomlaName = 'joomla4x'
     #joomlaName = 'joomla4xfrom3x'
     #joomlaName = 'joomla4xInstall'
 
-    backupPath = '..\..\..\RSG2_Backup\\joomla3x.20200430_171320'
+    #backupPath = '..\\..\\..\\RSG2_Backup\\joomla3x.20200430_171320'
+    backupPath = '..\\..\\..\\RSG2_Backup\\joomla3x.20200425_200505'
 
     for i, j in optlist:
         if i == "-p":

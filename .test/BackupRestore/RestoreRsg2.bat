@@ -11,13 +11,14 @@ Call :AddNextArg -p "d:\xampp\htdocs"
 REM Call :AddNextArg -p "e:\xampp_J2xJ3x\htdocs"
 
 REM JoomlaName
-REM Call :AddNextArg -n "joomla4x"
-Call :AddNextArg -n "joomla4x_Sim3x"
+Call :AddNextArg -n "joomla4x"
+REM Call :AddNextArg -n "joomla4x_Sim3x"
 REM Call :AddNextArg -n "joomla3x"
 REM Call :AddNextArg -n "joomla25"
 
 REM BackupPath
-Call :AddNextArg -b "..\..\..\RSG2_Backup\joomla3x.20200430_171320"
+REM Call :AddNextArg -b "..\..\..\RSG2_Backup\joomla3x.20200430_171320"
+Call :AddNextArg -b "..\..\..\RSG2_Backup\joomla3x.20200425_200505"
 
 REM add command line 
 REM Call :AddNextArg %*

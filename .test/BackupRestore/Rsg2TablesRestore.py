@@ -12,12 +12,14 @@ from jConfigFile import jConfigFile
 
 HELP_MSG = """
 Restores dump of RSG2 tables from sql backup file to given database
-Configuration and pathes will be taken from configuration.php of referenced joomla installation
+Destination configuration and paths will be taken from configuration.php 
+of referenced joomla installation
+
 
 usage: Rsg2TablesRestore.py -p joomlaPath -n joomlaName -f dumpPathFileName  [-h]
 	-p joomlaPath Path to joomla installation without last folder
 	-n joomlaName folder and project name
-    -f dumpPathFileName destination file where the dump will be taken from
+    -f dumpPathFileName source sql file where the dump will be taken from
 
 	-h shows this message
 
@@ -369,14 +371,20 @@ if __name__ == '__main__':
 
     start = datetime.today()
 
-    optlist, args = getopt.getopt(sys.argv[1:], 'p:n:f:m:12345h')
+    optlist, args = getopt.getopt(sys.argv[1:], 'p:n:f:12345h')
 
     joomlaPath = 'd:/xampp/htdocs'
-    joomlaName = 'joomla3x'
-    #backupBasePath = '../../../RSG2_Backup'
 
-    #dumpFileName = 'Rsg2_TablesDump.20200414_215456.sql' # 'Rsg2_TablesDump'
-    #dumpFileName = os.path.join(backupBasePath, 'testRestore\Rsg2_TablesDump.sql') # 'Rsg2_TablesDump'
+    joomlaName = 'joomla3x'
+    #joomlaName = 'joomla4x_Sim3x'
+    #joomlaName = 'joomla3x'
+    ##joomlaName = 'joomla3x'
+    ##joomlaName = 'joomla3xMyGallery'
+    #joomlaName = 'joomla3xNextRelease'
+    #joomlaName = 'joomla3xRelease'
+    #joomlaName = 'joomla4xfrom3x'
+    #joomlaName = 'joomla4xInstall'
+
     dumpPathFileName = "..\..\..\RSG2_Backup\\joomla3x.20200430_171320\Rsg2_TablesDump.j3x.sql"
 
     for i, j in optlist:
