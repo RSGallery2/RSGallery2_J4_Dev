@@ -17,8 +17,8 @@ REM Call :AddNextArg -n "joomla3x"
 REM Call :AddNextArg -n "joomla25"
 
 REM BackupPath
-REM Call :AddNextArg -b "..\..\..\RSG2_Backup\joomla3x.20200430_171320"
-Call :AddNextArg -b "..\..\..\RSG2_Backup\joomla3x.20200425_200505"
+Call :AddNextArg -b "..\..\..\RSG2_Backup\joomla3x.20200430_171320"
+REM Call :AddNextArg -b "..\..\..\RSG2_Backup\joomla3x.20200425_200505"
 
 REM add command line 
 REM Call :AddNextArg %*
