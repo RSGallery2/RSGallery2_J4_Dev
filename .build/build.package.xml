@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RSG2_Package" default="build">
+	<description>
+		--- RSGallery2 package build script with phing ---
+	
+		The script collects package release files in folder 
+		..\.packages\tmp. Then it replaces or changes 
+		text in files. Then these files are zipped and the 
+		tmp folder is removed. Resulting file is named like 
+		RSGallery2_Packages.4.4.1.zip
+		(RSGallery2_Packages.4.5.0.0_20190609.zip) 
+
+		Changes are done in the copied files. 
+		Use phing -f updateProject.xml before to standardize 
+		all files of the project
+		
+		Changes in files
+		* Version and date for copyright in *.php files
+		* Set lines with @since to actual date in *.php
+		* Remove site params.ini files
+		* .
+		* .
+		
+		command line
+		phing
+		phing -logfile .\build.log
+		phing -debug -logfile .\build.log
+		phing -verbose -debug -logfile .\build.log
+
+	</description>
+
+	<!-- 
+	.........................................................................
+	ToDo:
+	.........................................................................
+	*
+	*
+	* .
+	* .
+	* .
+	* .
+	-->
+
+<!--
+=========================================================================
+   Parameter
+=========================================================================
+-->
+
+	<!-- 
+	.........................................................................
+	Version number of build
+	.........................................................................	
+	-->
+	
+    <!-- Version number of build -->
+    <property name="build.version" value="5.0.0.5" override="true" />
+	<!-- additional naming postfix -->
+    <!--property name="build.postfix" value="prepare." override="true" /-->
+    <property name="build.postfix" value="" override="true" />
+
+	<!-- 
+	.........................................................................
+	
+	.........................................................................	
+	-->
+	
+    <property name="type" value="Package" override="true" />
+    <property name="package_name" value="RSGallery2_" override="true" />
+	<property name="extension" value="RSGallery2" />
+	<php function="strtolower" returnProperty="extensionLower">
+		<param value="${extension}" />
+	</php>
+
+	<!-- No date in zip name-->
+	<property name="isNoDateInZipName" value="0" override="true" />
+
+
+	<!-- 
+	.........................................................................
+	date stamps
+	.........................................................................
+	-->
+	
+    <!-- Get the standard date for build -->
+    <!-- tstamp prefix="build.date" /-->
+
+	<tstamp>
+		<format property="dateYearMonthDay" pattern="%Y%m%d" />
+	</tstamp>
+	
+	<tstamp>
+		<format property="date.year.month.day" pattern="%Y.%m.%d" />
+	</tstamp>
+	
+	<tstamp>
+		<format property="date.day.month.year" pattern="%d. %b. %Y" />
+	</tstamp>
+	
+	<tstamp>
+		<format property="date.year" pattern="%Y" />
+	</tstamp>
+	
+	
+	<!-- 
+	.........................................................................
+	folders
+	.........................................................................
+	-->
+	
+	<!-- Declare Project src files -->
+	<property name="srcRoot" value="./../../RSGallery2_J4/" override="true" />
+
+    <!-- Set the source and destination directory for copy (sources relative to the build dir) -->
+    <property name="buildDir" value="./../.packages/" override="true" />
+    <property name="buildDirTemp" value="${buildDir}tmp/" override="true" />
+	
+    <property name="adminComponent" value="administrator/components/com_${extensionLower}/" override="true" />
+    <property name="siteComponent" value="/components/com_${extensionLower}/" override="true" />
+    <property name="media" value="/media/com_${extensionLower}/" override="true" />
+	
+<!--    <property name="modulesComponent" value="/modules/com_${extensionLower}/" override="true" />-->
+    <property name="modulesComponent" value="/modules/" override="true" />
+<!--	<property name="pluginsComponent" value="/plugins/com_${extensionLower}/" override="true" />-->
+	<property name="pluginsComponent" value="/plugins/" override="true" />
+
+    <property name="srcAdminCmp" value="${srcRoot}${adminComponent}/" />
+    <property name="srcSiteCmp" value="${srcRoot}${siteComponent}/" />
+    <property name="srcMediaCmp" value="${srcRoot}${media}/" />
+    <property name="srcModulesCmp" value="${srcRoot}${modulesComponent}/" />
+    <property name="srcPluginsCmp" value="${srcRoot}${pluginsComponent}/" />
+
+    <property name="dstAdminCmp" value="${buildDirTemp}${adminComponent}/" />
+    <property name="dstSiteCmp" value="${buildDirTemp}${siteComponent}/" />
+    <property name="dstMediaCmp" value="${buildDirTemp}${media}/" />
+    <property name="dstModulesCmp" value="${buildDirTemp}${modulesComponent}/" />
+    <property name="dstPluginsCmp" value="${buildDirTemp}${pluginsComponent}/" />
+	
+
+	<!-- 
+	.........................................................................
+	source file sets
+	.........................................................................
+	-->
+
+	<!-- File set module (name)  folder -->
+	<fileset  dir="${srcModulesCmp}" id="srcFolderSet">
+		<include name="pkg_*.xml" />
+		<!-- 2019.10.31 may be accidentally copied from installation server
+        <exclude name="changelog.xml" />
+        <exclude name="install.rsgallery2.php" />
+        <exclude name="rsgallery2.xml" /-->
+	</fileset >
+
+<!--	&lt;!&ndash; File set administrator folder &ndash;&gt;-->
+<!--    <fileset dir="${srcAdminCmp}" id="adminSet">-->
+<!--        <include name="**" />-->
+<!--		&lt;!&ndash; 2019.10.31 may be accidentally copied from installation server -->
+<!--        <exclude name="changelog.xml" />-->
+<!--        <exclude name="install.rsgallery2.php" />-->
+<!--        <exclude name="rsgallery2.xml" /&ndash;&gt;-->
+<!--    </fileset>-->
+
+<!--    &lt;!&ndash; File set site folder &ndash;&gt;-->
+<!--    <fileset dir="${srcSiteCmp}" id="siteSet">-->
+<!--        <include name="**" />-->
+<!--        <exclude name="**/params.ini" />-->
+<!--    </fileset>-->
+
+<!--    &lt;!&ndash; File set media folder &ndash;&gt;-->
+<!--    <fileset dir="${srcMediaCmp}" id="mediaSet">-->
+<!--        <include name="**" />-->
+<!--    </fileset>-->
+
+<!--
+=========================================================================
+   Targets
+=========================================================================
+-->
+
+
+	<target name="build" depends="prepareSrcFolder, buildModules">
+	
+		<!-- 
+		* prepareSrcFolder
+		* buildComponent
+		* buildModules
+		* buildPlugins
+		* zipFiles
+		* deleteTemp
+		* .
+		-->
+		<echo msg="build packages start" />
+
+		<echo msg="   package_name='${package_name}'" />
+
+		<phingcall target="copy2Temp">
+			<!--			<property name="property1" value="aaaaa" />-->
+			<!--			<property name="foo" value="baz" />-->
+		</phingcall>
+
+
+
+		<echo msg="build packages done" />
+
+		<!-- clean / tidy build artefacts -->
+		<phing phingfile="build.clean_up.xml">
+			<!-- sub task called by package -->
+			<property name="buildDirTemp" value="${buildDirTemp}" />
+
+		</phing>
+
+	</target>
+
+    <target name="prepareSrcFolder">
+		<echo msg="pck:prepareSrcFolder start" />
+
+		<!-- On source path not existing -->
+        <mkdir dir="${srcAdminCmp}" />
+        <mkdir dir="${srcSiteCmp}" />
+        <mkdir dir="${srcMediaCmp}" />
+		
+        <mkdir dir="${srcModulesCmp}" />
+        <mkdir dir="${srcPluginsCmp}" />
+        <!-- mkdir dir="${buildDir}/tmp/plugins" / -->
+		
+        <echo msg="pck:prepareSrcFolder end" />
+    </target>
+
+
+	<target name="buildComponent">
+		<echo msg="pck:buildComponent call" />
+
+		<!-- call external file "" -->
+<!--		<phing phingfile="build.comp.xml" target="sometarget">-->
+		<phing phingfile="build.comp.xml">
+			<!-- sub task called by package -->
+			<property name="isCalledByPackage" value="1" />
+
+		</phing>
+
+		<echo msg="pck:buildComponent call end" />
+	</target>
+
+
+	<target name="buildModules">
+		<echo msg="pck:buildModules call " />
+
+		<!-- call external file "" -->
+<!--		<phing phingfile="build.comp.xml" target="sometarget">-->
+		<phing phingfile="build.modules.xml">
+			<!-- sub task called by package -->
+			<property name="isCalledByPackage" value="1" />
+
+		</phing>
+
+		<echo msg="pck:buildModules call end" />
+	</target>
+
+
+	<target name="buildPlugins">
+		<echo msg="pck:buildPlugins call" />
+
+		<!-- call external file "" -->
+<!--		<phing phingfile="build.comp.xml" target="sometarget">-->
+		<phing phingfile="build.plugins.xml">
+			<!-- sub task called by package -->
+			<property name="isCalledByPackage" value="1" />
+		</phing>
+
+		<echo msg="pck:buildPlugins call end" />
+	</target>
+
+
+	<target name="copy2Temp">
+		<echo msg="      copy2Temp start" />
+
+		<!--Copy admin files to tmp folder -->
+		<copy todir="${dstModulesCmp}">
+			<fileset refid="srcFolderSet" />
+		</copy>
+
+		<echo msg="      copy2Temp end" />
+	</target>
+
+	<!--
+	.........................................................................
+	manifestFile
+	.........................................................................
+	Updates version, creationDate, and copyright date
+	-->
+
+	<target name="manifestFile">
+		<echo msg="manifestFile start" />
+		<echo msg="   build.version: ${build.version}" />
+		<echo msg="   date.day.month.year: ${date.day.month.year}" />
+
+		<echo msg="   manifest file='${dstModulesCmp}/${modul_name}.xml'" />
+
+		<reflexive>
+			<fileset dir="${dstModulesCmp}">
+				<include pattern="${modul_name}.xml" />
+			</fileset>
+			<filterchain>
+				<replaceregexp>
+					<regexp pattern="(?&lt;=&lt;version&gt;).*(?=&lt;)" replace="${build.version}"/>
+					<regexp pattern="(?&lt;=&lt;creationDate&gt;).*(?=&lt;)" replace="${date.day.month.year}"/>
+					<regexp pattern="(?&lt;=&lt;copyright&gt;\([cC]\) 20..\-).*(?= RSGallery2 Team)" replace="${date.year}"/>
+					<!-- Must be second 'copright ... -->
+					<regexp pattern="(?&lt;=&lt;copyright&gt;[^cC]).*(?=&lt;)" replace="(c) ${date.year}-${date.year} RSGallery2 Team"/>
+
+				</replaceregexp>
+			</filterchain>
+		</reflexive>
+
+		<echo msg="manifestFile end" />
+	</target>
+
+
+	<target name="zipFiles">
+		<echo msg="zipFiles start" />
+
+		<echo msg="   dstModulesCmp='${dstModulesCmp}'" />
+
+		<if>
+			<!-- on package no timestamp -->
+			<equals arg1="${isNoDateInZipName}" arg2="1" />
+			<then>
+				<echo message="zip: No timestamp" />
+				<property name="destfile" value="${buildDir}/${package_name}.zip" override="true" />
+			</then>
+			<else>
+				<echo message="zip: No timestamp" />
+				<property name="destfile" value="${buildDir}/${package_name}.${build.postfix}${build.version}_${dateYearMonthDay}.zip" override="true" />
+			</else>
+		</if>
+
+		<echo msg="destfile='${destfile}'" />
+
+		<zip destfile="${destfile}">
+			<fileset dir="${dstModulesCmp}">
+				<include name="**" />
+			</fileset>
+		</zip>
+
+		<echo msg="zipFiles end" />
+	</target>
+
+
+
+</project>

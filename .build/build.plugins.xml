@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RSG2_Plugins" default="buildPlugins">
+	<description>
+		--- RSGallery2 plugins build script with phing ---
+
+		The script collects RSG2 modules from path
+		RSGallery2_J4\modules and build them into folder
+		..\.packages\tmp. Then it replaces or changes
+		text in files. Then these files are zipped
+
+		????
+		and the
+		tmp folder is removed. Resulting file is named like
+		RSGallery2_Component.4.4.1.zip
+		(RSGallery2_Component.prepare.4.5.0.0_20190609.zip) 
+
+		Changes are done in the copied files. 
+		Use phing -f updateProject.xml before to standardize 
+		all files of the project
+		
+		Changes in files
+		* Version and date for copyright in *.php files
+		* Set lines with @since to actual date in *.php
+		* Remove site params.ini files
+		* .
+		* .
+		
+		command line
+		phing
+		phing -logfile .\build.log
+		phing -debug -logfile .\build.log
+		phing -verbose -debug -logfile .\build.log
+
+	</description>
+
+	<!-- 
+	.........................................................................
+	ToDo:
+	.........................................................................
+	* Use phingcall to order targets
+	* Make project file with major plugins ...  *.pkg 
+	* .
+	* .
+	* .
+	* .
+	-->
+
+<!--
+=========================================================================
+   Parameter
+=========================================================================
+-->
+
+	<!-- 
+	.........................................................................
+	Version number of build
+	.........................................................................	
+	-->
+	
+    <!-- Version number of build -->
+    <property name="build.version" value="5.0.0.4" override="true" />
+	    <!-- additional naming postfix -->
+    <!--property name="build.postfix" value="prepare." override="true" /-->
+    <property name="build.postfix" value="" override="true" />
+
+	<!-- 
+	.........................................................................
+	
+	.........................................................................	
+	-->
+	
+    <property name="type" value="Component" override="true" />
+    <property name="name" value="RSGallery2" override="true" />
+	<property name="extension" value="RSGallery2" />
+	<php function="strtolower" returnProperty="extensionLower">
+		<param value="${extension}" />
+	</php>
+
+	<!-- 
+	.........................................................................
+	date stamps
+	.........................................................................
+	-->
+	
+    <!-- Get the standard date for build -->
+    <!-- tstamp prefix="build.date" /-->
+
+	<tstamp>
+		<format property="dateYearMonthDay" pattern="%Y%m%d" />
+	</tstamp>
+	
+	<tstamp>
+		<format property="date.year.month.day" pattern="%Y.%m.%d" />
+	</tstamp>
+	
+	<tstamp>
+		<format property="date.day.month.year" pattern="%d. %b. %Y" />
+	</tstamp>
+	
+	<tstamp>
+		<format property="date.year" pattern="%Y" />
+	</tstamp>
+	
+	
+	<!-- 
+	.........................................................................
+	folders
+	.........................................................................
+	-->
+	
+    <!-- Declare Project src files -->
+    <property name="srcRoot" value="./../../RSGallery2_J4/" override="true" />
+
+    <!-- Set the source and destination directory for copy (sources relative to the build dir) -->
+    <property name="buildDir" value="./../.packages/" override="true" />
+    <property name="buildDirTemp" value="${buildDir}tmp/" override="true" />
+	
+    <property name="adminComponent" value="administrator/components/com_${extensionLower}/" override="true" />
+    <property name="siteComponent" value="/components/com_${extensionLower}/" override="true" />
+    <property name="media" value="/media/com_${extensionLower}/" override="true" />
+
+<!--	<property name="pluginsComponent" value="/plugins/" override="true" />-->
+	<property name="pluginsComponent" value="/plugins/" />
+	<property name="srcPluginsCmp" value="${srcRoot}${pluginsComponent}/" />
+	<property name="dstPluginsCmp" value="${buildDirTemp}${pluginsComponent}/" />
+
+	<!-- 
+	.........................................................................
+	source folder sets
+	.........................................................................
+	-->
+	
+    <!-- File set administrator folder -->
+    <dirset dir="${srcPluginsCmp}" id="srcFolderSet">
+        <include name="**" />
+		<!-- 2019.10.31 may be accidentally copied from installation server 
+        <exclude name="changelog.xml" />
+        <exclude name="install.rsgallery2.php" />
+        <exclude name="rsgallery2.xml" /-->
+    </dirset>
+
+<!--
+=========================================================================
+   Targets
+=========================================================================
+-->
+
+	<target name="buildPlugins" >
+<!--		depends="prepareDstFolder, copy2Temp, -->
+<!--	                              manifestFile, zipFiles,-->
+<!--								  deleteTemp">-->
+
+		<echo msg="buildPlugins start" />
+
+		<!--
+		* prepareDstFolder
+		* copy2Temp
+		* manifestFile
+		* zipFiles
+		* deleteTemp
+		* .
+		-->
+		
+		<!--phingcall target="bar">
+			<property name="property1" value="aaaaa" />
+			<property name="foo" value="baz" />
+		</phingcall-->
+
+		<echo msg="plgs:buildPlugins start" />
+
+		<foreach param="dirname" absparam="absname" target="callBuildPlugin">
+			<fileset dir="${srcPluginsCmp}">
+				<type type="dir" />
+				<depth max="0" min="0" />
+				<include name="plg*" />
+			</fileset>
+		</foreach>
+
+
+
+
+<!--		<echo msg="&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;" />-->
+<!--		<echo msg="Don't forget to change RSG2_... update and changelog file when releasing" />-->
+<!--		<echo msg="&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;" />-->
+<!--		<propertyprompt-->
+<!--			propertyName="reminder"-->
+<!--			promptText="Don't forget to change RSG2_... update and changelog file when releasing:"-->
+<!--		/>		-->
+
+		<echo msg="plgs:buildPlugins done" />
+	</target>
+
+	<target name="callBuildPlugin" >
+		<echo msg="plgs:callBuildPlugin start" />
+
+		<echo msg="dirname='${dirname}'" />
+		<echo msg="absname='${absname}'" />
+
+		<phing phingfile="build.plugin.xml">
+			<!-- sub task called by package -->
+			<property name="isCalledByPackage" value="${isCalledByPackage}" />
+
+			<property name="dirname" value="${dirname}'" />
+			<property name="absname" value="${absname}'" />
+
+		</phing>
+
+		<echo msg="plgs:callBuildPlugin done" />
+	</target>
+
+</project>

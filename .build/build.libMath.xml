@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Lib_Math">
+    <description>
+
+        --- RSGallery2 phing script with mathematics ---
+
+        * increment
+        * decrement
+
+    </description>
+
+    <!--
+    .........................................................................
+    ToDo:
+    .........................................................................
+    *
+    *
+    * .
+    * .
+    * .
+    * .
+    -->
+
+
+    <!--
+    =========================================================================
+      increment
+    =========================================================================
+    -->
+
+    <adhoc-task name="increment"><![CDATA[
+        class increment extends Task {
+            private $value;
+            private $result;
+
+            function setInvalue($value) {
+                $this->value = $value;
+            }
+
+            function setResult($property) {
+                $this->result = $property;
+            }
+
+            function main() {
+                $this->project->setProperty($this->result, ((int) $this->value + 1));
+            }
+        }
+  ]]></adhoc-task>
+
+
+    <!--
+    =========================================================================
+      increment
+    =========================================================================
+    -->
+
+    <adhoc-task name="decrement"><![CDATA[
+        class decrement extends Task {
+            private $value;
+            private $result;
+
+            function setValue($value) {
+                $this->value = $value;
+            }
+            function setResult($property) {
+                $this->result = $property;
+            }
+
+            function main() {
+                $this->project->setProperty($this->result, ((int) $this->value - 1));
+            }
+        }
+  ]]></adhoc-task>
+
+</project>

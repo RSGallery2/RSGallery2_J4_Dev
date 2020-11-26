@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="RSG2_component" default="build">
+<project name="RSG2_Component" default="buildComponent">
 	<description>
 		--- RSGallery2 component build script with phing ---
 	
-		The script collects release files in folder 
+		The script collects release files into folder
 		..\.packages\tmp. Then it replaces or changes 
 		text in files. Then these files are zipped and the 
 		tmp folder is removed. Resulting file is named like 
 		RSGallery2_Component.4.4.1.zip
-		(RSGallery2_Component.prepare.4.5.0.0_20190609.zip) 
+		(RSGallery2_Component.4.5.0.0_20190609.zip) 
 
 		Changes are done in the copied files. 
 		Use phing -f updateProject.xml before to standardize 
@@ -33,8 +33,8 @@
 	.........................................................................
 	ToDo:
 	.........................................................................
-	* Use phingcall to order targets
-	* Make project file with major plugins ...  *.pkg 
+	*
+	*
 	* .
 	* .
 	* .
@@ -54,10 +54,10 @@
 	-->
 	
     <!-- Version number of build -->
-    <property name="build.version" value="5.0.0.4" override="true" />
+    <property name="build.version" value="5.0.0.4"  />
 	    <!-- additional naming postfix -->
     <!--property name="build.postfix" value="prepare." override="true" /-->
-    <property name="build.postfix" value="" override="true" />
+    <property name="build.postfix" value="" />
 
 	<!-- 
 	.........................................................................
@@ -68,6 +68,8 @@
     <property name="type" value="Component" override="true" />
     <property name="name" value="RSGallery2" override="true" />
 	<property name="extension" value="RSGallery2" />
+	<property name="isCalledByPackage" value="0" />
+
 	<php function="strtolower" returnProperty="extensionLower">
 		<param value="${extension}" />
 	</php>
@@ -118,8 +120,6 @@
     <property name="srcAdminCmp" value="${srcRoot}${adminComponent}/" />
     <property name="srcSiteCmp" value="${srcRoot}${siteComponent}/" />
     <property name="srcMediaCmp" value="${srcRoot}${media}/" />
-    <!-- ??? property name="modules" value="${srcRoot}/modules" / -->
-    <!-- ??? property name="plugins" value="${srcRoot}/plugins" / -->
 
     <property name="dstAdminCmp" value="${buildDirTemp}${adminComponent}/" />
     <property name="dstSiteCmp" value="${buildDirTemp}${siteComponent}/" />
@@ -160,12 +160,13 @@
 =========================================================================
 -->
 
-	<target name="build" depends="prepareDstFolder, copy2Temp, 
-	                              manifestFile, zipFiles,
-								  deleteTemp">
-	
+<!--	<target name="build" depends="prepareSrcFolder, copy2Temp, -->
+<!--	                              manifestFile, zipFiles,-->
+<!--								  deleteTemp">-->
+	<target name="buildComponent">
+
 		<!-- 
-		* prepareDstFolder
+		* prepareSrcFolder
 		* copy2Temp
 		* manifestFile
 		* zipFiles
@@ -178,97 +179,123 @@
 			<property name="foo" value="baz" />
 		</phingcall-->
 
-		<echo msg="build done" />
+		<echo msg="cmp:build start" />
 
-		<echo msg="------------------------------------------" />
-		<echo msg="Don't forget to change RSG2_... update and changelog file when releasing" />
-		<echo msg="------------------------------------------" />
-		<propertyprompt
-			propertyName="reminder"
-			promptText="Don't forget to change RSG2_... update and changelog file when releasing:"
-		/>		
+
+
+		<if>
+			<!-- on package no timestamp -->
+			<equals arg1="${isCalledByPackage}" arg2="0" />
+			<then>
+
+
+				<phingcall target="prepareSrcFolder">
+					<!--			<property name="property1" value="aaaaa" />-->
+					<!--			<property name="foo" value="baz" />-->
+				</phingcall>
+
+				<phingcall target="copy2Temp">
+					<!--			<property name="property1" value="aaaaa" />-->
+					<!--			<property name="foo" value="baz" />-->
+				</phingcall>
+
+				<phingcall target="manifestFile">
+					<!--			<property name="property1" value="aaaaa" />-->
+					<!--			<property name="foo" value="baz" />-->
+				</phingcall>
+
+				<phingcall target="doPatchComponent">
+					<!--			<property name="property1" value="aaaaa" />-->
+					<!--			<property name="foo" value="baz" />-->
+				</phingcall>
+
+				<phingcall target="zipFiles">
+					<!--			<property name="property1" value="aaaaa" />-->
+					<!--			<property name="foo" value="baz" />-->
+				</phingcall>
+
+				<phingcall target="deleteTemp">
+					<!--			<property name="property1" value="aaaaa" />-->
+					<!--			<property name="foo" value="baz" />-->
+				</phingcall>
+
+				<phingcall target="buildDoneMessage">
+					<!--			<property name="property1" value="aaaaa" />-->
+					<!--			<property name="foo" value="baz" />-->
+				</phingcall>
+
+			</then>
+			<else>
+				<echo msg="    packages call" />
+
+			</else>
+		</if>
+		
+
+		<echo msg="cmp:build done" />
 		
 	</target>
 
-    <target name="prepareDstFolder">
-		<echo msg="prepareDstFolder start" />
-	
+    <target name="prepareSrcFolder">
+		<echo msg="prepareSrcFolder start" />
+
+		<!-- On source path not existing -->
         <mkdir dir="${srcAdminCmp}" />
         <mkdir dir="${srcSiteCmp}" />
         <mkdir dir="${srcMediaCmp}" />
         <!-- mkdir dir="${buildDir}/tmp/plugins" / -->
 		
-        <echo msg="prepareDstFolder end" />
+        <echo msg="prepareSrcFolder end" />
     </target>
 
-    <target name="zipFiles">
-		<echo msg="zipFiles start" />
-		
-		<zip destfile="${buildDir}/${name}_${type}.${build.postfix}${build.version}_${dateYearMonthDay}.zip">
-			<fileset dir="${buildDirTemp}">
-				<include name="**" />
-			</fileset>
-		</zip>
-		
-		<echo msg="zipFiles end" />
-    </target>
-
-    <target name="deleteTemp">
-		<echo msg="deleteTemp start" />
-
-		<delete dir="${buildDirTemp}" />
-		
-		<echo msg="deleteTemp end" />
-    </target>
-
-    <target name="copy2Temp">
+	<target name="copy2Temp">
 		<echo msg="copy2Temp start" />
 
-        <!--Copy admin files to tmp folder -->
-        <copy todir="${dstAdminCmp}">
-            <fileset refid="adminSet" />
-        </copy>
-        <!-- Copy site files -->
-        <copy todir="${dstSiteCmp}">
-            <fileset refid="siteSet" />
-        </copy>
-        <!-- Copy media files -->
-        <copy todir="${dstMediaCmp}">
-            <fileset refid="mediaSet" />
-        </copy>
-        <!-- copy the plugins -->
-        <!--copy todir="${buildDirTemp}plugins">
+		<!--Copy admin files to tmp folder -->
+		<copy todir="${dstAdminCmp}">
+			<fileset refid="adminSet" />
+		</copy>
+		<!-- Copy site files -->
+		<copy todir="${dstSiteCmp}">
+			<fileset refid="siteSet" />
+		</copy>
+		<!-- Copy media files -->
+		<copy todir="${dstMediaCmp}">
+			<fileset refid="mediaSet" />
+		</copy>
+		<!-- copy the plugins -->
+		<!--copy todir="${buildDirTemp}plugins">
             <fileset refid="pluginsSet" />
         </copy-->
-        <!-- Copy the root admin files manifest.xml, install....php-->
-        <copy file="${srcAdminCmp}${extensionLower}.xml" tofile="${buildDirTemp}${extensionLower}.xml" />
-        <copy file="${srcAdminCmp}changelog.xml" tofile="${buildDirTemp}changelog.xml" />
-        <copy file="${srcAdminCmp}install_rsg2.php" tofile="${buildDirTemp}install_rsg2.php" />
-        <copy file="${srcAdminCmp}config.xml" tofile="${buildDirTemp}config.xml" />
-        <copy file="${srcRoot}/LICENSE.txt" tofile="${buildDirTemp}LICENSE.txt" />
+		<!-- Copy the root admin files manifest.xml, install....php-->
+		<copy file="${srcAdminCmp}${extensionLower}.xml" tofile="${buildDirTemp}${extensionLower}.xml" />
+		<copy file="${srcAdminCmp}changelog.xml" tofile="${buildDirTemp}changelog.xml" />
+		<copy file="${srcAdminCmp}install_rsg2.php" tofile="${buildDirTemp}install_rsg2.php" />
+		<copy file="${srcAdminCmp}config.xml" tofile="${buildDirTemp}config.xml" />
+		<copy file="${srcRoot}/LICENSE.txt" tofile="${buildDirTemp}LICENSE.txt" />
 
-        <!-- Update files in administrator folder manifest.xml -->
-        <!--copy file="${srcRoot}/${extensionLower}.xml" tofile="${buildDirTemp}administrator/components/com_rsgallery2/${extensionLower}.xml" /-->
-        <!--copy file="${srcRoot}/install_rsg2.php" tofile="${buildDirTemp}administrator/components/com_rsgallery2/install_rsg2.php" /-->
- 
-        <!--copy file="${admin}/install.php" tofile="${buildDir}/tmp/install.php" /-->
-        <echo msg="Copy was successful" />
-        <!-- insert version, build number and date into the xml files -->
+		<!-- Update files in administrator folder manifest.xml -->
+		<!--copy file="${srcRoot}/${extensionLower}.xml" tofile="${buildDirTemp}administrator/components/com_rsgallery2/${extensionLower}.xml" /-->
+		<!--copy file="${srcRoot}/install_rsg2.php" tofile="${buildDirTemp}administrator/components/com_rsgallery2/install_rsg2.php" /-->
 
-        <!--reflexive>
+		<!--copy file="${admin}/install.php" tofile="${buildDir}/tmp/install.php" /-->
+		<echo msg="Copy was successful" />
+		<!-- insert version, build number and date into the xml files -->
+
+		<!--reflexive>
             <fileset id="sourcefiles" dir="${buildDir}/tmp/">
                 <include name="rsgallery2.xml" />
             </fileset>
             <filterchain>
                 <replaceregexp>
-			        <! - -
-				        
-				        
-			        - - >
-			        < ! - -
+                    <! - -
+                        
+                        
+                    - - >
+                    < ! - -
                     <regexp pattern="<creationDate>.*</creationDate>" replace="<creationDate>${build.date.DSTAMP}<creationDate>" />
                     <regexp pattern="<copyright>\(c\) (\d)\-.*RSGallery2 Team</copyright>" replace="<copyright>\(c\) \1-${dateYearMonthDay}RSGallery2 Team</copyright>" />
-			        - - >
+                    - - >
                 </replaceregexp>
             </filterchain>
         </reflexive-->
@@ -285,9 +312,29 @@
 		</reflexive-->
 
 		<echo msg="copy2Temp end" />
-    </target>
+	</target>
 
-	<!-- 
+	<!--
+	.........................................................................
+	doPatchComponent
+	.........................................................................
+	ToDo: Exchange things like date, copyrght and others (?
+	-->
+
+	<target name="doPatchComponent" >
+		<echo msg="mod:doBuildModule start" />
+
+		<echo msg="   srcModulesCmp='${srcModulesCmp}'" />
+		<echo msg="   srcModulesCmp='${srcModulesCmp}'" />
+
+
+
+
+
+		<echo msg="mod:doBuildModule done" />
+	</target>
+
+	<!--
 	.........................................................................
 	manifestFile
 	.........................................................................
@@ -312,6 +359,47 @@
 		</reflexive>
 		<echo msg="manifestFile end" />
     </target>
+
+	<!--
+	.........................................................................
+	manifestFile
+	.........................................................................
+	Updates version, creationDate, and copyright date
+	-->
+
+	<target name="zipFiles">
+		<echo msg="zipFiles start" />
+
+		<zip destfile="${buildDir}/${name}_${type}.${build.postfix}${build.version}_${dateYearMonthDay}.zip">
+			<fileset dir="${buildDirTemp}">
+				<include name="**" />
+			</fileset>
+		</zip>
+
+		<echo msg="zipFiles end" />
+	</target>
+
+	<target name="deleteTemp">
+		<echo msg="deleteTemp start" />
+
+		<delete dir="${buildDirTemp}" />
+
+		<echo msg="deleteTemp end" />
+	</target>
+
+	<target name="buildDoneMessage">
+		<echo msg="      buildDoneMessage start" />
+
+		<echo msg="------------------------------------------" />
+		<echo msg="Don't forget to change RSG2_... update and changelog file when releasing" />
+		<echo msg="------------------------------------------" />
+		<propertyprompt
+				propertyName="reminder"
+				promptText="Don't forget to change RSG2_... update and changelog file when releasing:"
+		/>
+
+		<echo msg="      buildDoneMessage end" />
+	</target>
 
 
 </project>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Lib_buildNumber">
+    <description>
+
+        --- RSGallery2 phing script for build and version number  ---
+
+        Build number will be retrieved by given file , increased and written back
+    </description>
+
+    <!--
+    .........................................................................
+    ToDo:
+    .........................................................................
+    *
+    *
+    * .
+    * .
+    * .
+    * .
+    -->
+
+    <!--
+    =========================================================================
+       Parameter
+    =========================================================================
+    -->
+
+    <property name="buildNumberFile" value="buildNumberFile????" override="true" />
+
+<!--    <property name="buildNumberNotDefined" value="999999999999" override="true" />-->
+<!--    <property name="libBuildNumber" value="${buildNumberNotDefined}" override="true" />&ndash;&gt;-->
+
+    <!--
+    =========================================================================
+      increment build number in file and return it
+    =========================================================================
+    -->
+
+    <target name="lib_incrementBuildNumber" >
+        <echo msg="lib:incrementBuildNumber start" />
+
+<!--        <echo msg="libBuildNumberFile: ${libBuildNumberFile}" />-->
+
+        <loadfile property="oldBuildNbr" file="${buildNumberFile}">
+            <filterchain><striplinebreaks /></filterchain>
+        </loadfile>
+
+        <echo msg="oldBuildNbr: ${oldBuildNbr}" />
+
+<!--        <increment value="${oldBuildNbr}" property="buildNumber"/>-->
+<!--        <increment result="newBuildNbr" invalue="${oldBuildNbr}" />-->
+<!--        <echo msg="newBuildNbr: ${newBuildNbr}" />-->
+        <increment result="libBuildNumber" invalue="${oldBuildNbr}" />
+        <echo msg="libBuildNumber: ${libBuildNumber}" />
+
+        <!-- write back build number -->
+        <echo file="${buildNumberFile}" append="false">${libBuildNumber}</echo>
+
+        <echo msg="lib:incrementBuildNumber done" />
+    </target>
+
+    <!--
+    .........................................................................
+
+    .........................................................................
+    ToDo:
+    -->
+
+    <adhoc-task name="lib_versionWithBuildNumber"><![CDATA[
+        class lib_versionWithBuildNumber extends Task {
+            private $version;
+            private $buildNumber;
+            private $result;
+
+            function setVersion($value) {
+                $this->version = $value;
+            }
+            function setBuildNumber($value) {
+                $this->buildNumber = $value;
+            }
+            function setResult($property) {
+                $this->result = $property;
+            }
+
+            function main() {
+                echo (" >>>> version" . $this->version);
+
+                $tokens = explode('.', $this->version);      // split string on :
+                if (count($tokens) > 3) {
+                    array_pop($tokens);                   // get rid of last element
+                    $this->version = implode('.', $tokens);   // wrap back
+                }
+
+                $this->project->setProperty($this->result, ($this->version . '.' . $this->buildNumber));
+            }
+        }
+  ]]></adhoc-task>
+
+
+
+</project>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RSG2_Module" default="buildCleanUp">
+	<description>
+
+		--- RSGallery2 clean up build script with phing ---
+
+        clean / tidy build artefacts
+		* delte temp
+        * write reminder for changelog file
+
+	</description>
+
+	<!-- 
+	.........................................................................
+	ToDo:
+	.........................................................................
+	*
+	*
+	* .
+	* .
+	* .
+	* .
+	-->
+
+	<!--
+	=========================================================================
+	   Parameter
+	=========================================================================
+	-->
+
+    <!-- Set the source and destination directory for copy (sources relative to the build dir) -->
+    <property name="buildDir" value="./../.packages/" override="true" />
+    <property name="buildDirTemp" value="${buildDir}tmp/" override="true" />
+
+
+    <!--
+    =========================================================================
+       Targets
+    =========================================================================
+    -->
+
+	<target name="buildCleanUp" >
+		<echo msg="...:buildCleanUp start" />
+
+			<phingcall target="deleteTemp">
+				<!--			<property name="property1" value="aaaaa" />-->
+				<!--			<property name="foo" value="baz" />-->
+			</phingcall>
+
+			<phingcall target="buildDoneMessage">
+				<!--			<property name="property1" value="aaaaa" />-->
+				<!--			<property name="foo" value="baz" />-->
+			</phingcall>
+
+		<echo msg="...:buildCleanUp done" />
+	</target>
+
+	<target name="deleteTemp">
+		<echo msg="deleteTemp start" />
+
+			<echo msg="   delete path '${buildDirTemp}'" />
+
+		<delete dir="${buildDirTemp}" />
+
+		<echo msg="deleteTemp end" />
+	</target>
+
+
+	<target name="buildDoneMessage">
+		<echo msg="      buildDoneMessage start" />
+
+		<echo msg="------------------------------------------" />
+		<echo msg="Don't forget to change RSG2_... update and changelog file when releasing" />
+		<echo msg="------------------------------------------" />
+		<propertyprompt
+				propertyName="reminder"
+				promptText="Don't forget to change RSG2_... update and changelog file when releasing:"
+		/>
+
+		<echo msg="      buildDoneMessage end" />
+	</target>
+
+
+</project>

@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RSG2_Module" default="buildModule">
+	<description>
+		--- RSGallery2 modules build script with phing ---
+
+		The script collects RSG2 modules from path
+		RSGallery2_J4\modules and build them into folder
+		..\.packages\tmp. Then it replaces or changes
+		text in files. Then these files are zipped
+
+		All paths starts at the build folder
+
+		????
+
+		and the
+		tmp folder is removed. Resulting file is named like
+		RSGallery2_Component.4.4.1.zip
+		(RSGallery2_Component.prepare.4.5.0.0_20190609.zip)
+
+		Changes are done in the copied files.
+		Use phing -f updateProject.xml before to standardize
+		all files of the project
+
+		Changes in files
+		* Version and date for copyright in *.php files
+		* Set lines with @since to actual date in *.php
+		* Remove site params.ini files
+		* .
+		* .
+
+		command line
+		phing
+		phing -logfile .\build.log
+		phing -debug -logfile .\build.log
+		phing -verbose -debug -logfile .\build.log
+
+	</description>
+
+	<!-- 
+	.........................................................................
+	ToDo:
+	.........................................................................
+	*
+	*
+	* .
+	* .
+	* .
+	* .
+	-->
+
+	<!--
+	=========================================================================
+	   include libraries
+	=========================================================================
+	-->
+
+	<import file="build.libMath.xml"/>
+	<import file="build.libBuildNumber.xml"/>
+
+	<!--
+	=========================================================================
+	   Parameter
+	=========================================================================
+	-->
+
+	<!--
+	.........................................................................
+	Version number of build
+	.........................................................................
+	-->
+
+	<!-- Version number of build -->
+	<property name="build.version" value="5.0.0.4" override="true" />
+	<!-- additional naming postfix -->
+	<!--property name="build.postfix" value="prepare." override="true" /-->
+	<property name="build.postfix" value="" override="true" />
+	<property name="buildNumber" value="1000" override="true" />
+	<!--	<var name="buildNumber" value="1000" />-->
+
+	<!--
+	.........................................................................
+
+	.........................................................................
+	-->
+
+	<property name="type" value="Module" />
+	<property name="module_name" value="mod_xxx" override="true" />
+	<property name="extension" value="RSGallery2" />
+
+	<!--
+	.........................................................................
+	external parameter
+	.........................................................................
+	-->
+	<!-- Not delete of tem, no exit message -->
+	<property name="isCalledByPackage" value="0" override="true" />
+	<!-- Not add date in zip name -->
+	<property name="isNoDateInZipName" value="0" override="true" />
+
+	<!--	<php function="strtolower" returnProperty="extensionLower">-->
+	<!--		<param value="${extension}" />-->
+	<!--	</php>-->
+
+	<!--
+	.........................................................................
+	date stamps
+	.........................................................................
+	-->
+
+	<!-- Get the standard date for build -->
+	<!-- tstamp prefix="build.date" /-->
+
+	<tstamp>
+		<format property="dateYearMonthDay" pattern="%Y%m%d" />
+	</tstamp>
+
+	<tstamp>
+		<format property="date.year.month.day" pattern="%Y.%m.%d" />
+	</tstamp>
+
+	<tstamp>
+		<format property="date.day.month.year" pattern="%d. %b. %Y" />
+	</tstamp>
+
+	<tstamp>
+		<format property="date.year" pattern="%Y" />
+	</tstamp>
+
+
+	<!--
+	.........................................................................
+	folders
+	.........................................................................
+	-->
+
+	<!-- Declare Project src files -->
+	<property name="srcRoot" value="./../../RSGallery2_J4/" override="true" />
+
+	<!-- Set the source and destination directory for copy (sources relative to the build dir) -->
+	<property name="buildDir" value="./../.packages/" override="true" />
+	<property name="buildDirTemp" value="${buildDir}tmp/" override="true" />
+
+	<property name="modulesComponent" value="modules/${module_name}" override="true" />
+	<property name="srcModulesCmp" value="${srcRoot}${modulesComponent}" override="true" />
+	<property name="dstModulesCmp" value="${buildDirTemp}${modulesComponent}" override="true" />
+	<property name="srcBuildNumberFile" value="${srcModulesCmp}/buildNumber.txt" override="true" />
+	<!--	<property name="srcModulePath" value="${srcModulesCmp}${module_name}" />-->
+	<!--	<property name="dstModulePath" value="${dstModulesCmp}${module_name}" />-->
+
+	<echo msg="   manifest file='${dstModulesCmp}/${module_name}.xml'" />
+
+	<!--	<include pattern="${srcModulesCmp}${module_name}.xml" />-->
+
+<!--	<loadfile property="versionFound" file="${srcModulesCmp}/${module_name}.xml" >-->
+<!--		<filterchain>-->
+<!--			&lt;!&ndash; find line&ndash;&gt;-->
+<!--			<linecontainsregexp>-->
+<!--				<regexp pattern="&lt;version&gt;(.*)&lt;" />-->
+<!--			</linecontainsregexp>-->
+<!--			&lt;!&ndash; extract version&ndash;&gt;-->
+<!--			<replaceregexp>-->
+<!--				<regexp pattern="(&lt;version&gt;)(.*)(&lt;&#47;version&gt;)" replace="\2" />-->
+<!--			</replaceregexp>-->
+<!--			<striplinebreaks />-->
+<!--		</filterchain>-->
+<!--	</loadfile>-->
+	<!--	<echo msg="versionFound: ${versionFound}" />-->
+	<!--	<echo msg="versionFound: ${versionFound}" />-->
+
+	<!--
+	.........................................................................
+	source file sets
+	.........................................................................
+	-->
+
+	<!--	&lt;!&ndash; File set administrator folder &ndash;&gt;-->
+	<!--	<dirset dir="${srcModulesCmp" }" id="srcFolderSet">-->
+	<!--		<include name="**" />-->
+	<!--		&lt;!&ndash; 2019.10.31 may be accidentally copied from installation server-->
+	<!--        <exclude name="changelog.xml" />-->
+	<!--        <exclude name="install.rsgallery2.php" />-->
+	<!--        <exclude name="rsgallery2.xml" /&ndash;&gt;-->
+	<!--	</dirset>-->
+
+	<!-- File set module (name)  folder -->
+	<fileset  dir="${srcModulesCmp}" id="srcFolderSet">
+		<include name="**" />
+		<!-- 2019.10.31 may be accidentally copied from installation server
+        <exclude name="changelog.xml" />
+        <exclude name="install.rsgallery2.php" />
+        <exclude name="rsgallery2.xml" /-->
+	</fileset >
+
+	<!--
+    =========================================================================
+       Targets
+    =========================================================================
+    -->
+
+	<target name="buildModule" >
+		<!--		depends="prepareDstFolder, copy2Temp,-->
+		<!--	                              manifestFile, zipFiles,-->
+		<!--								  deleteTemp">-->
+
+		<!--
+		* prepareDstFolder
+		* copy2Temp
+		* manifestFile
+		* zipFiles
+		* deleteTemp
+		* .
+		-->
+
+		<echo msg="mod:buildModule start" />
+
+		<echo msg="   modulesComponent='${modulesComponent}'" />
+		<echo msg="   srcModulesCmp='${srcModulesCmp}'" />
+		<echo msg="   dstModulesCmp='${dstModulesCmp}'" />
+		<!--		<echo msg="   srcModulePath='${srcModulePath}'" />-->
+		<!--		<echo msg="   dstModulePath='${dstModulePath}'" />-->
+
+		<echo msg="   isCalledByPackage='${isCalledByPackage}'" />
+		<echo msg="   module_name='${module_name}'" />
+
+
+		<!--		<property name="relative_path" value="./dirname"/>-->
+		<!--		<resolvepath propertyName="absolute_path" file="${srcModulesCmp}"/>-->
+		<!--		<echo>Resolved [absolute] path: ${absolute_path}</echo>-->
+
+		<if>
+			<!-- on package no timestamp -->
+			<equals arg1="${isCalledByPackage}" arg2="0" />
+			<then>
+				<echo msg="    direct call" />
+			</then>
+			<else>
+				<echo msg="    modules call" />
+			</else>
+		</if>
+
+		<phingcall target="incrementBuildNumber">
+		</phingcall>
+
+		<phingcall target="versionWithBuildNumber">
+		</phingcall>
+
+				<phingcall target="copy2Temp">
+				</phingcall>
+
+				<phingcall target="doPatchModule">
+				</phingcall>
+
+				<phingcall target="manifestFile">
+				</phingcall>
+
+
+				<phingcall target="zipFiles">
+				</phingcall>
+
+				<echo msg="   ??? isCalledByPackage='${isCalledByPackage}' ???" />
+
+				<!-- Not called external, do clean up  -->
+				<if>
+					<equals arg1="${isCalledByPackage}" arg2="0" />
+					<then>
+
+						<!-- clean / tidy build artefacts -->
+						<phing phingfile="build.clean_up.xml">
+							<!-- sub task called by package -->
+							<property name="buildDirTemp" value="${buildDirTemp}" />
+
+						</phing>
+
+					</then>
+				</if>
+
+		<echo msg="mod:buildModule done" />
+	</target>
+
+	<!--
+    =========================================================================
+       SUB - Targets
+    =========================================================================
+    -->
+
+
+	<!--
+	.........................................................................
+	incrementBuildNumber
+	.........................................................................
+	ToDo: Exchange things like date, copyrght and others (?
+	-->
+
+	<target name="incrementBuildNumber">
+		<echo msg="      incrementBuildNumber start" />
+
+		<phingcall target="lib_incrementBuildNumber">
+			<property name="buildNumberFile" value="${srcBuildNumberFile}" />
+		</phingcall>
+
+		<loadfile property="newBuildNbr" file="${srcBuildNumberFile}">
+			<filterchain><striplinebreaks /></filterchain>
+		</loadfile>
+		<echo msg="newBuildNbr: ${newBuildNbr}" />
+
+		<property name="buildNumber" value="${newBuildNbr}"  override="true" />
+
+		<echo msg="outer buildNumber: ${buildNumber}" />
+
+		<echo msg="      incrementBuildNumber end" />
+	</target>
+
+	<!--
+	.........................................................................
+	versionWithBuildNumber
+	.........................................................................
+	ToDo: Exchange things like date, copyrght and others (?
+	-->
+
+	<target name="versionWithBuildNumber">
+		<echo msg="      versionWithBuildNumber start" />
+
+		<loadfile property="newBuildNbr" file="${srcBuildNumberFile}">
+			<filterchain><striplinebreaks /></filterchain>
+		</loadfile>
+		<echo msg="newBuildNbr: ${newBuildNbr}" />
+
+		<echo msg="versionFound: ${versionFound}" />
+
+		<lib_versionWithBuildNumber result="versionWithBuild" version="${versionFound}" buildNumber="${newBuildNbr}" />
+		<echo msg="versionWithBuild: ${versionWithBuild}" />
+
+		<!--		<property name="versionWithBuild" value="${result}"  override="true" />-->
+
+		<echo msg="      versionWithBuildNumber end" />
+	</target>
+
+	<!--
+	.........................................................................
+	copy2Temp
+	.........................................................................
+	ToDo: Exchange things like date, copyrght and others (?
+	-->
+
+	<target name="copy2Temp">
+		<echo msg="      copy2Temp start" />
+
+		<!--Copy admin files to tmp folder -->
+		<copy todir="${dstModulesCmp}">
+			<fileset refid="srcFolderSet" />
+		</copy>
+
+		<echo msg="      copy2Temp end" />
+	</target>
+
+	<!--
+	.........................................................................
+	doPatchModule
+	.........................................................................
+	ToDo: Exchange things like date, copyrght and others (?
+	-->
+
+	<target name="doPatchModule" >
+		<echo msg="mod:doBuildModule start" />
+
+		<echo msg="   srcModulesCmp='${srcModulesCmp}'" />
+
+
+
+
+
+		<echo msg="mod:doBuildModule done" />
+	</target>
+
+	<!--
+	.........................................................................
+	manifestFile
+	.........................................................................
+	Updates version, creationDate, and copyright date
+	-->
+
+	<target name="manifestFile">
+		<echo msg="manifestFile start" />
+		<echo msg="   build.version: ${build.version}" />
+		<echo msg="   date.day.month.year: ${date.day.month.year}" />
+
+		<echo msg="   manifest file='${dstModulesCmp}/${module_name}.xml'" />
+
+		<reflexive>
+			<fileset dir="${dstModulesCmp}">
+				<include pattern="${module_name}.xml" />
+			</fileset>
+			<filterchain>
+				<replaceregexp>
+					<regexp pattern="(?&lt;=&lt;version&gt;).*(?=&lt;)" replace="${build.version}"/>
+					<regexp pattern="(?&lt;=&lt;creationDate&gt;).*(?=&lt;)" replace="${date.day.month.year}"/>
+					<regexp pattern="(?&lt;=&lt;copyright&gt;\([cC]\) 20..\-).*(?= RSGallery2 Team)" replace="${date.year}"/>
+					<!-- Must be second 'copright ... -->
+					<regexp pattern="(?&lt;=&lt;copyright&gt;[^cC]).*(?=&lt;)" replace="(c) ${date.year}-${date.year} RSGallery2 Team"/>
+
+				</replaceregexp>
+			</filterchain>
+		</reflexive>
+
+		<echo msg="manifestFile end" />
+	</target>
+
+
+	<target name="zipFiles">
+		<echo msg="zipFiles start" />
+
+		<echo msg="   dstModulesCmp='${dstModulesCmp}'" />
+
+		<if>
+			<!-- on package no timestamp -->
+			<equals arg1="${isNoDateInZipName}" arg2="1" />
+			<then>
+				<echo message="zip: No timestamp" />
+				<property name="destfile" value="${buildDir}/${module_name}.zip" override="true" />
+			</then>
+			<else>
+				<echo message="zip: No timestamp" />
+				<property name="destfile" value="${buildDir}/${module_name}.${build.postfix}${build.version}_${dateYearMonthDay}.zip" override="true" />
+			</else>
+		</if>
+
+		<echo msg="destfile='${destfile}'" />
+
+		<zip destfile="${destfile}">
+			<fileset dir="${dstModulesCmp}">
+				<include name="**" />
+			</fileset>
+		</zip>
+
+		<echo msg="zipFiles end" />
+	</target>
+
+
+
+</project>
