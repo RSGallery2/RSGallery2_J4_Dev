@@ -72,4 +72,16 @@
         }
   ]]></adhoc-task>
 
+
+
+<!--    https://stackoverflow.com/questions/36641479/how-to-collect-output-of-a-custom-phing-task-in-a-phing-property-->
+<!--    Oh it is simple. We can set a property within the custom task class like this - -->
+
+<!--    $this->getProject()->setNewProperty('output', "hello world");-->
+<!--    and it can be accessed in the build xml, after the task call, like this - -->
+
+<!--    <addedfiles message="Hello World" />-->
+<!--    <echo>See ${output}</echo>-->
+
+
 </project>

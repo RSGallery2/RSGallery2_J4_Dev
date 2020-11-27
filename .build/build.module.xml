@@ -3,44 +3,37 @@
 	<description>
 		--- RSGallery2 modules build script with phing ---
 
-		The script collects RSG2 modules from path
-		RSGallery2_J4\modules and build them into folder
-		..\.packages\tmp. Then it replaces or changes
+		The script copies a RSG2 module from path
+		RSGallery2_J4\modules and create a build in
+		folder ..\.packages\tmp. It replaces or changes
 		text in files. Then these files are zipped
 
-		All paths starts at the build folder
-
-		????
-
-		and the
-		tmp folder is removed. Resulting file is named like
-		RSGallery2_Component.4.4.1.zip
-		(RSGallery2_Component.prepare.4.5.0.0_20190609.zip)
-
-		Changes are done in the copied files.
-		Use phing -f updateProject.xml before to standardize
-		all files of the project
+		All paths start at the build folder. Changes
+		are done in the copied files. Use command
+		"phing -f updateProject.xml" before to
+		standardize all files of the project
 
 		Changes in files
 		* Version and date for copyright in *.php files
-		* Set lines with @since to actual date in *.php
-		* Remove site params.ini files
+		* Build ID (file) will be increased and used in version string
+		*
+		* (Set lines with @since to actual date in *.php)
+		*
 		* .
 		* .
 
 		command line
-		phing
-		phing -logfile .\build.log
-		phing -debug -logfile .\build.log
-		phing -verbose -debug -logfile .\build.log
-
+		phing -logfile .\build.module.log  -f .\build.module.xml -Dmodule_name=%ModuleName%
 	</description>
 
 	<!-- 
 	.........................................................................
 	ToDo:
 	.........................................................................
-	*
+	* Patch: Set lines with @since to actual date in *.php
+		<author>[AUTHOR]</author>
+		<authorEmail>[AUTHOR_EMAIL]</authorEmail>
+		<authorUrl>[AUTHOR_URL]</authorUrl>
 	*
 	* .
 	* .
@@ -74,8 +67,6 @@
 	<!-- additional naming postfix -->
 	<!--property name="build.postfix" value="prepare." override="true" /-->
 	<property name="build.postfix" value="" override="true" />
-	<property name="buildNumber" value="1000" override="true" />
-	<!--	<var name="buildNumber" value="1000" />-->
 
 	<!--
 	.........................................................................
@@ -84,7 +75,7 @@
 	-->
 
 	<property name="type" value="Module" />
-	<property name="module_name" value="mod_xxx" override="true" />
+	<property name="module_name" value="mod_xxx"/>
 	<property name="extension" value="RSGallery2" />
 
 	<!--
@@ -92,14 +83,10 @@
 	external parameter
 	.........................................................................
 	-->
-	<!-- Not delete of tem, no exit message -->
+	<!-- Not delete of item, no exit message -->
 	<property name="isCalledByPackage" value="0" override="true" />
 	<!-- Not add date in zip name -->
 	<property name="isNoDateInZipName" value="0" override="true" />
-
-	<!--	<php function="strtolower" returnProperty="extensionLower">-->
-	<!--		<param value="${extension}" />-->
-	<!--	</php>-->
 
 	<!--
 	.........................................................................
@@ -140,55 +127,35 @@
 	<property name="buildDir" value="./../.packages/" override="true" />
 	<property name="buildDirTemp" value="${buildDir}tmp/" override="true" />
 
-	<property name="modulesComponent" value="modules/${module_name}" override="true" />
+	<property name="modulesComponent" value="modules/${module_name}" />
+	<property name="srcModulesCmp" value="${srcRoot}${modulesComponent}" />
+	<property name="dstModulesCmp" value="${buildDirTemp}${modulesComponent}" />
+
 	<property name="srcModulesCmp" value="${srcRoot}${modulesComponent}" override="true" />
 	<property name="dstModulesCmp" value="${buildDirTemp}${modulesComponent}" override="true" />
 	<property name="srcBuildNumberFile" value="${srcModulesCmp}/buildNumber.txt" override="true" />
-	<!--	<property name="srcModulePath" value="${srcModulesCmp}${module_name}" />-->
-	<!--	<property name="dstModulePath" value="${dstModulesCmp}${module_name}" />-->
 
-	<echo msg="   manifest file='${dstModulesCmp}/${module_name}.xml'" />
-
-	<!--	<include pattern="${srcModulesCmp}${module_name}.xml" />-->
-
-<!--	<loadfile property="versionFound" file="${srcModulesCmp}/${module_name}.xml" >-->
-<!--		<filterchain>-->
-<!--			&lt;!&ndash; find line&ndash;&gt;-->
-<!--			<linecontainsregexp>-->
-<!--				<regexp pattern="&lt;version&gt;(.*)&lt;" />-->
-<!--			</linecontainsregexp>-->
-<!--			&lt;!&ndash; extract version&ndash;&gt;-->
-<!--			<replaceregexp>-->
-<!--				<regexp pattern="(&lt;version&gt;)(.*)(&lt;&#47;version&gt;)" replace="\2" />-->
-<!--			</replaceregexp>-->
-<!--			<striplinebreaks />-->
-<!--		</filterchain>-->
-<!--	</loadfile>-->
-	<!--	<echo msg="versionFound: ${versionFound}" />-->
-	<!--	<echo msg="versionFound: ${versionFound}" />-->
+	<property name="dstManifestFileName" value="${module_name}.xml" override="true" />
+	<property name="dstManifestFile" value="${dstModulesCmp}/${dstManifestFileName}" override="true" />
 
 	<!--
 	.........................................................................
-	source file sets
+	build number (from file later)
 	.........................................................................
 	-->
 
-	<!--	&lt;!&ndash; File set administrator folder &ndash;&gt;-->
-	<!--	<dirset dir="${srcModulesCmp" }" id="srcFolderSet">-->
-	<!--		<include name="**" />-->
-	<!--		&lt;!&ndash; 2019.10.31 may be accidentally copied from installation server-->
-	<!--        <exclude name="changelog.xml" />-->
-	<!--        <exclude name="install.rsgallery2.php" />-->
-	<!--        <exclude name="rsgallery2.xml" /&ndash;&gt;-->
-	<!--	</dirset>-->
+	<property name="buildNumber" value="not defined yet" />
+
+
+	<!--
+	.........................................................................
+	source folder sets
+	.........................................................................
+	-->
 
 	<!-- File set module (name)  folder -->
 	<fileset  dir="${srcModulesCmp}" id="srcFolderSet">
 		<include name="**" />
-		<!-- 2019.10.31 may be accidentally copied from installation server
-        <exclude name="changelog.xml" />
-        <exclude name="install.rsgallery2.php" />
-        <exclude name="rsgallery2.xml" /-->
 	</fileset >
 
 	<!--
@@ -198,34 +165,24 @@
     -->
 
 	<target name="buildModule" >
-		<!--		depends="prepareDstFolder, copy2Temp,-->
-		<!--	                              manifestFile, zipFiles,-->
-		<!--								  deleteTemp">-->
-
 		<!--
-		* prepareDstFolder
+		* incrementBuildNumber
 		* copy2Temp
+		* versionWithBuildNumber
+		* doPatchModule
 		* manifestFile
 		* zipFiles
-		* deleteTemp
 		* .
 		-->
 
 		<echo msg="mod:buildModule start" />
 
+		<echo msg="   module_name='${module_name}'" />
 		<echo msg="   modulesComponent='${modulesComponent}'" />
 		<echo msg="   srcModulesCmp='${srcModulesCmp}'" />
 		<echo msg="   dstModulesCmp='${dstModulesCmp}'" />
-		<!--		<echo msg="   srcModulePath='${srcModulePath}'" />-->
-		<!--		<echo msg="   dstModulePath='${dstModulePath}'" />-->
 
 		<echo msg="   isCalledByPackage='${isCalledByPackage}'" />
-		<echo msg="   module_name='${module_name}'" />
-
-
-		<!--		<property name="relative_path" value="./dirname"/>-->
-		<!--		<resolvepath propertyName="absolute_path" file="${srcModulesCmp}"/>-->
-		<!--		<echo>Resolved [absolute] path: ${absolute_path}</echo>-->
 
 		<if>
 			<!-- on package no timestamp -->
@@ -241,38 +198,54 @@
 		<phingcall target="incrementBuildNumber">
 		</phingcall>
 
+		<phingcall target="copy2Temp">
+		</phingcall>
+
 		<phingcall target="versionWithBuildNumber">
 		</phingcall>
 
-				<phingcall target="copy2Temp">
-				</phingcall>
+		<phingcall target="doPatchModule">
+		</phingcall>
 
-				<phingcall target="doPatchModule">
-				</phingcall>
+		<!-- Retrieve changed version number ................................. -->
 
-				<phingcall target="manifestFile">
-				</phingcall>
+		<loadfile property="newVersion" file="${dstManifestFile}" >
+			<filterchain>
+				<!-- find line-->
+				<linecontainsregexp>
+					<regexp pattern="&lt;version&gt;(.*)&lt;" />
+				</linecontainsregexp>
+				<!-- extract version-->
+				<replaceregexp>
+					<regexp pattern="(.*&lt;version&gt;)(.*)(&lt;&#47;version&gt;)" replace="\2" />
+				</replaceregexp>
+				<striplinebreaks />
+			</filterchain>
+		</loadfile>
+		<echo msg="newVersion: ${newVersion}" />
+		<!-- ................................................................	-->
 
+		<phingcall target="manifestFile">
+		</phingcall>
 
-				<phingcall target="zipFiles">
-				</phingcall>
+		<phingcall target="zipFiles">
+		</phingcall>
 
-				<echo msg="   ??? isCalledByPackage='${isCalledByPackage}' ???" />
+<!--		<echo msg="   ??? isCalledByPackage='${isCalledByPackage}' ???" />-->
 
-				<!-- Not called external, do clean up  -->
-				<if>
-					<equals arg1="${isCalledByPackage}" arg2="0" />
-					<then>
+		<!-- Not called external, do clean up  -->
+		<if>
+			<equals arg1="${isCalledByPackage}" arg2="0" />
+			<then>
 
-						<!-- clean / tidy build artefacts -->
-						<phing phingfile="build.clean_up.xml">
-							<!-- sub task called by package -->
-							<property name="buildDirTemp" value="${buildDirTemp}" />
+				<!-- clean / tidy build artefacts -->
+				<phing phingfile="build.clean_up.xml">
+					<!-- sub task called by package -->
+					<property name="buildDirTemp" value="${buildDirTemp}" />
+				</phing>
 
-						</phing>
-
-					</then>
-				</if>
+			</then>
+		</if>
 
 		<echo msg="mod:buildModule done" />
 	</target>
@@ -282,7 +255,6 @@
        SUB - Targets
     =========================================================================
     -->
-
 
 	<!--
 	.........................................................................
@@ -320,17 +292,59 @@
 	<target name="versionWithBuildNumber">
 		<echo msg="      versionWithBuildNumber start" />
 
+		<!-- Retrieve actual build number ................................. -->
+
 		<loadfile property="newBuildNbr" file="${srcBuildNumberFile}">
 			<filterchain><striplinebreaks /></filterchain>
 		</loadfile>
 		<echo msg="newBuildNbr: ${newBuildNbr}" />
 
-		<echo msg="versionFound: ${versionFound}" />
+		<!-- Retrieve previous version number ................................. -->
+
+		<loadfile property="versionFound" file="${dstManifestFile}" >
+			<filterchain>
+				<!-- find line -->
+				<linecontainsregexp>
+					<regexp pattern="&lt;version&gt;(.*)&lt;" />
+				</linecontainsregexp>
+				<stripwhitespace />
+				<!-- extract version -->
+				<replaceregexp>
+					<regexp pattern="(.*&lt;version&gt;)(.*)(&lt;&#47;version&gt;)" replace="\2" />
+				</replaceregexp>
+				<striplinebreaks />
+			</filterchain>
+		</loadfile>
+		<echo msg="   versionFound: '${versionFound}'" />
+
+		<!-- replace __BUMP_VERSION__ if found ................................. -->
+
+		<if>
+			<!-- on package no timestamp -->
+			<equals arg1="${versionFound}" arg2="__BUMP_VERSION__" />
+			<then>
+				<property name="versionFound" value="${build.version}"  override="true" />
+				<echo msg="   versionFound replaced: ${versionFound}" />
+			</then>
+		</if>
+
+		<!-- add build number to version  ................................. -->
 
 		<lib_versionWithBuildNumber result="versionWithBuild" version="${versionFound}" buildNumber="${newBuildNbr}" />
 		<echo msg="versionWithBuild: ${versionWithBuild}" />
 
-		<!--		<property name="versionWithBuild" value="${result}"  override="true" />-->
+		<!--  write changed version back  ................................. -->
+
+		<reflexive>
+			<fileset dir="${dstPluginsCmp}">
+				<include pattern="${dstManifestFileName}" />
+			</fileset>
+			<filterchain>
+				<replaceregexp>
+					<regexp pattern="(?&lt;=&lt;version&gt;).*(?=&lt;)" replace="${versionWithBuild}"/>
+				</replaceregexp>
+			</filterchain>
+		</reflexive>
 
 		<echo msg="      versionWithBuildNumber end" />
 	</target>
@@ -339,7 +353,7 @@
 	.........................................................................
 	copy2Temp
 	.........................................................................
-	ToDo: Exchange things like date, copyrght and others (?
+	ToDo: Exchange things like date, copyright and others (?
 	-->
 
 	<target name="copy2Temp">
@@ -365,6 +379,11 @@
 
 		<echo msg="   srcModulesCmp='${srcModulesCmp}'" />
 
+		<!--		<echo msg="   srcModulesCmp='${srcModulesCmp}'" />-->
+		<!--		-->
+		<!--		reflective .... -->
+		<!--		<loadfile property="version" file="${dstManifestFile}" />-->
+		<!--		<echo message="manifest version = ${version}" />-->
 
 
 
@@ -381,7 +400,6 @@
 
 	<target name="manifestFile">
 		<echo msg="manifestFile start" />
-		<echo msg="   build.version: ${build.version}" />
 		<echo msg="   date.day.month.year: ${date.day.month.year}" />
 
 		<echo msg="   manifest file='${dstModulesCmp}/${module_name}.xml'" />
@@ -391,14 +409,14 @@
 				<include pattern="${module_name}.xml" />
 			</fileset>
 			<filterchain>
+
 				<replaceregexp>
-					<regexp pattern="(?&lt;=&lt;version&gt;).*(?=&lt;)" replace="${build.version}"/>
 					<regexp pattern="(?&lt;=&lt;creationDate&gt;).*(?=&lt;)" replace="${date.day.month.year}"/>
 					<regexp pattern="(?&lt;=&lt;copyright&gt;\([cC]\) 20..\-).*(?= RSGallery2 Team)" replace="${date.year}"/>
-					<!-- Must be second 'copright ... -->
+					<!-- Must be after first 'copright ...' command -->
 					<regexp pattern="(?&lt;=&lt;copyright&gt;[^cC]).*(?=&lt;)" replace="(c) ${date.year}-${date.year} RSGallery2 Team"/>
-
 				</replaceregexp>
+
 			</filterchain>
 		</reflexive>
 

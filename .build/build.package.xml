@@ -199,7 +199,23 @@
 			<!--			<property name="foo" value="baz" />-->
 		</phingcall>
 
+		<!--
+			add zip file names (mod/plg) to pkg manifest
 
+				How to append text to a specific place in a file using Phing
+				https://stackoverflow.com/questions/17936380/how-to-append-text-to-a-specific-place-in-a-file-using-phing
+				The only solution I came up with was to replace the existing text before where you want to include data and then just add it back.
+
+				For example:
+
+				 <reflexive file="\config.php">
+					<filterchain>
+					   <replaceregexp>
+						<regexp pattern="line2" replace="line2 ${line.separator} Hello World" />
+					   </replaceregexp>
+					</filterchain>
+				 </reflexive>
+			-->
 
 		<echo msg="build packages done" />
 

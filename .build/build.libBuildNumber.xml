@@ -83,18 +83,61 @@
             }
 
             function main() {
-                echo (" >>>> version" . $this->version);
+                echo (" >>>> version: " . $this->version . " and build number: " . $this->buildNumber);
 
-                $tokens = explode('.', $this->version);      // split string on :
-                if (count($tokens) > 3) {
+                $tokens = explode('.', $this->version);      // split string on '.''
+
+                echo (" >>>> count(\$tokens): " . count($tokens));
+                $count = (int) count($tokens);
+                if ($count > 3) {
+                    echo (" >>>> count: " . $count);
                     array_pop($tokens);                   // get rid of last element
-                    $this->version = implode('.', $tokens);   // wrap back
+                    $this->version = implode('.', $tokens)  . '.' . $this->buildNumber;   // wrap back
                 }
 
-                $this->project->setProperty($this->result, ($this->version . '.' . $this->buildNumber));
+                $result = ($this->version);
+                echo (" >>>> result: " . $result);
+                $this->project->setProperty($this->result, $result);
             }
         }
   ]]></adhoc-task>
+
+    <!--
+    .........................................................................
+
+    .........................................................................
+    ToDo:
+    -->
+
+<!--    <adhoc-task name="lib_versionRemoveBuildNumber"><![CDATA[-->
+<!--        class lib_versionWithBuildNumber extends Task {-->
+<!--            private $version;-->
+<!--            private $buildNumber;-->
+<!--            private $result;-->
+
+<!--            function setVersion($value) {-->
+<!--                $this->version = $value;-->
+<!--            }-->
+<!--            function setBuildNumber($value) {-->
+<!--                $this->buildNumber = $value;-->
+<!--            }-->
+<!--            function setResult($property) {-->
+<!--                $this->result = $property;-->
+<!--            }-->
+
+<!--            function main() {-->
+<!--                echo (" >>>> remove build number" . $this->version);-->
+
+<!--                $tokens = explode('.', $this->version);      // split string on :-->
+<!--                if (count($tokens) > 3) {-->
+<!--                    array_pop($tokens);                   // get rid of last element-->
+<!--                    $this->version = implode('.', $tokens);   // wrap back-->
+<!--                }-->
+
+<!--                $this->project->setProperty($this->result, ($this->version . '.' . $this->buildNumber));-->
+<!--            }-->
+<!--        }-->
+<!--  ]]></adhoc-task>-->
 
 
 
