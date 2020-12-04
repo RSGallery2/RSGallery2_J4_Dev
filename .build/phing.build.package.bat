@@ -1,12 +1,13 @@
 @ECHO off
-REM starts the standard build process
+REM starts the package build process
 
 CLS
 
-REM phing -verbose -debug -logfile .\build.log
-REM phing -verbose -logfile .\build.log 
-REM phing -logfile .\build.log .\build.xml
+REM phing -f .\build.package.xml -logfile .\build.package.log -verbose -debug
+REM phing -f .\build.package.xml -logfile .\build.package.log -verbose
+REM phing -f .\build.package.xml -logfile .\build.package.log
 
+ECHO phing -logfile .\build.package.log  -f .\build.package.xml %*
 phing -logfile .\build.package.log  -f .\build.package.xml %*
 
 

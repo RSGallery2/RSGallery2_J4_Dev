@@ -58,7 +58,7 @@
 	<target name="deleteTemp">
 		<echo msg="deleteTemp start" />
 
-			<echo msg="   delete path '${buildDirTemp}'" />
+		<echo msg="   delete path '${buildDirTemp}'" />
 
 		<delete dir="${buildDirTemp}" />
 

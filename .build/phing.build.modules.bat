@@ -3,10 +3,11 @@ REM starts the standard build process
 
 CLS
 
-REM phing -verbose -debug -logfile .\build.log
-REM phing -verbose -logfile .\build.log 
-REM phing -logfile .\build.log .\build.xml
+REM phing -f .\build.modules.xml -logfile .\build.modules.log -verbose -debug
+REM phing -f .\build.modules.xml -logfile .\build.modules.log -verbose
+REM phing -f .\build.modules.xml -logfile .\build.modules.log
 
+ECHO phing -logfile .\build.modules.log  -f .\build.modules.xml
 phing -logfile .\build.modules.log  -f .\build.modules.xml
 
 

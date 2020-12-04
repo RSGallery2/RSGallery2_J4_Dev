@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Lib_pkgManifest">
+    <description>
+
+        --- RSGallery2 phing script for patching package manifest file  ---
+
+        * Supports insert of " file type="component" ... " lines into manifest file
+        *
+
+    </description>
+
+    <!--
+    .........................................................................
+    ToDo:
+    .........................................................................
+    *
+    *
+    * .
+    * .
+    * .
+    * .
+    -->
+
+    <!--
+    =========================================================================
+       Parameter
+    =========================================================================
+    -->
+
+<!--    <property name="buildNumberFile" value="buildNumberFile????" override="true" />-->
+
+<!--    <property name="buildNumberNotDefined" value="999999999999" override="true" />-->
+<!--    <property name="libBuildNumber" value="${buildNumberNotDefined}" override="true" />&ndash;&gt;-->
+
+    <!--
+    =========================================================================
+
+    =========================================================================
+    -->
+
+    <!--
+    .........................................................................
+    collectZippedFileNames
+    .........................................................................
+    -->
+
+    <adhoc-task name="collectZippedFileNames">
+        <![CDATA[
+		class collectZippedFileNames extends Task {
+			private $path;
+			private $zippedFileNames;
+
+			function setPath($path) {
+				$this->path = $path;
+			}
+
+			function setZippedFileNames($strList) {
+				$this->zippedFileNames = $strList;
+			}
+
+			function main() {
+
+				echo ("\n\rcollectZippedFileNames:: ");
+				$query =  $this->path .'*.zip';
+//                echo (" >>> \$query): " . $query);
+
+				$temp_files = glob($query);
+
+                $count = (int) count($temp_files);
+//                echo (" >>> count(\$temp_files): " . $count;
+
+				$strList = "";
+
+				if ($count > 0) {
+					$strList = implode(';', $temp_files);
+				}
+                // echo ("   >>> strList: " . $strList);
+
+				$this->getProject()->setProperty($this->zippedFileNames, $strList);
+			}
+		}
+	]]>
+    </adhoc-task>
+
+
+    <!--
+   .........................................................................
+   collectZippedFileNames
+   .........................................................................
+   -->
+
+    <adhoc-task name="filesZippedLines4Manifest">
+        <![CDATA[
+		class zippedLines4Manifest extends Task {
+			private $zippedFileNames;
+			private $text4ManifestFile;
+
+			function setZippedFileNames($strList) {
+				$this->zippedFileNames = $strList;
+			}
+
+			function setText4ManifestFile($text4ManifestFile) {
+				$this->text4ManifestFile = $text4ManifestFile;
+			}
+
+			function main() {
+
+				echo ("\nfilesZippedLines4Manifest:: ");
+
+				$filenames = explode(';', $this->zippedFileNames);
+
+                $count = (int) count($filenames);
+                echo (" >>> count(\$filenames): " . $count);
+
+				// toDo: Read xml of plugin for .... instead of reading ...
+				// <file type="component" id="com_rsgallery2" >com_eventgallery_3_7_2.zip</file>
+				// <file type="module" client="site" >mod_powrphotogallery.zip</file>
+				// <file type="plugin" group="content" >plg_powrshortcodes.zip</file>
+				// <file type="plugin" group="content" >plg_powricon.zip</file>
+
+				// $strLines = "";
+				// foreach ($filenames as $filename) {
+				// 	// 		<file id="com_rsgallery2" type="plugin" group="content">.zip</file>
+				// 	$strLine = ' 		<file id="' . $filename . '" >' . $filename . '</file>';
+	            //     echo (" >>> \$strLine: " . $strLine);
+	            //     $strLines += $strLine . "\r\n";
+				// }
+
+                /**
+				$strLines = "";
+
+				$strLines .= "\n\t\t" . '<file type="component" id="com_rsgallery2" >rsgallery2.zip</file>';
+				$strLines .= "\n\t\t" . '<file type="module" id="mod_rsg2_images" client="site" >mod_rsg2_images.zip</file>';
+				$strLines .= "\n\t\t" . '<file type="module" id="mod_rsg2_galleries" client="site" >mod_rsg2_galleries.zip</file>';
+				$strLines .= "\n\t\t" . '<file type="plugin" id="plg_rsg2_images" group="content" >plg_rsg2_images.zip</file>';
+				$strLines .= "\n\t\t" . '<file type="plugin" id="plg_rsg2_galleries" group="content" >plg_rsg2_galleries.zip</file>';
+                /**/
+
+				$strLines = "";
+				foreach ($filenames as $filename) {
+    				$name = substr($filename, strrpos ($filename, '/')+1, -4);
+    				// echo (" \r\n \$name: " . $name);
+
+    				$type =  substr($name, 0, 4); // rsg2, mod_, plg_
+                    // echo (" ??? \$type: " . $type);
+
+                    $strLine = 'Type n ot defined';
+
+                    switch ($type) {
+
+                        case 'rsga':
+        				 	$strLine = ' 		<file type="component" id="com_' . $name . '" >' . $name . '.zip</file>';
+                        break;
+
+                        case 'mod_':
+                            // ToDo: client may be other then site
+        				 	$strLine = ' 		<file type="module" client="site" id="' . $name . '" >' . $name . '.zip</file>';
+                        break;
+
+                        case 'plg_':
+                            // ToDo: group may be other then content
+        				 	$strLine = ' 		<file type="plugin" group="content" id="' . $name . '" >' . $name . '.zip</file>';
+                        break;
+
+                    }
+
+					// 		<file id="com_rsgallery2" type="plugin" group="content">.zip</file>
+	                // echo (" === \$strLine: " . $strLine);
+	                $strLines .= "\r\n" . $strLine;
+				}
+
+                // echo ("\n\r>>> strLines: " . $strLines);
+
+				$this->getProject()->setProperty($this->text4ManifestFile, $strLines);
+			}
+		}
+	]]>
+    </adhoc-task>
+
+</project>

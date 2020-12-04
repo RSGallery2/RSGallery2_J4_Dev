@@ -1,11 +1,7 @@
 @ECHO off
-REM starts the standard build process
+REM starts the single plugin build process
 
 CLS
-
-REM phing -verbose -debug -logfile .\build.log
-REM phing -verbose -logfile .\build.log 
-REM phing -logfile .\build.log .\build.xml
 
 REM setlocal ENABLEDELAYEDEXPANSION
 REM   set "_args=%*"
@@ -18,13 +14,13 @@ SET PluginName=plg_rsg2_images
 if NOT %1A==A (
 	SET PluginName=%1
 )
+ECHO PluginName=%PluginName%
 
 SHIFT
 
-ECHO PluginName=%PluginName%
-REM phing -verbose -debug -logfile .\build.log
-REM phing -verbose -logfile .\build.log 
-REM phing -logfile .\build.log .\build.xml
+REM phing -f .\build.plugin.xml -logfile .\build.plugin.log -verbose -debug
+REM phing -f .\build.plugin.xml -logfile .\build.plugin.log -verbose
+REM phing -f .\build.plugin.xml -logfile .\build.plugin.log
 
 REM  %1 %2 %3
 ECHO phing -logfile .\build.plugin.log  -f .\build.plugin.xml -Dplugin_name=%PluginName% %1 %2 %3

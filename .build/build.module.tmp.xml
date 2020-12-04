@@ -167,13 +167,17 @@
 <!--	</phingcall>-->
 
 	<loadfile property="buildNumber" file="${srcBuildNumberFile}">
-		<filterchain><striplinebreaks /></filterchain>
+		<filterchain>
+			<striplinebreaks />
+		</filterchain>
 	</loadfile>
 	<echo msg="buildNumber: ${buildNumber}" />
 
 
 	<loadfile property="oldBuildNbr" file="${buildNumberFile}">
-		<filterchain><striplinebreaks /></filterchain>
+		<filterchain>
+			<striplinebreaks />
+		</filterchain>
 	</loadfile>
 
 	<echo msg="oldBuildNbr: ${oldBuildNbr}" />
@@ -347,7 +351,9 @@
 <!--		</phingcall>-->
 
 <!--		<loadfile property="newBuildNbr" file="${srcBuildNumberFile}">-->
-<!--			<filterchain><striplinebreaks /></filterchain>-->
+<!--			<filterchain>
+			<striplinebreaks />
+		</filterchain>-->
 <!--		</loadfile>-->
 <!--		<echo msg="newBuildNbr: ${newBuildNbr}" />-->
 
@@ -369,7 +375,9 @@
 <!--		<echo msg="      versionWithBuildNumber start" />-->
 
 <!--		<loadfile property="newBuildNbr" file="${srcBuildNumberFile}">-->
-<!--			<filterchain><striplinebreaks /></filterchain>-->
+<!--			<filterchain>
+			<striplinebreaks />
+		</filterchain>-->
 <!--		</loadfile>-->
 <!--		<echo msg="newBuildNbr: ${newBuildNbr}" />-->
 
@@ -490,7 +498,9 @@
 <!--		&lt;!&ndash;        <echo msg="libBuildNumberFile: ${libBuildNumberFile}" />&ndash;&gt;-->
 
 <!--		<loadfile property="oldBuildNbr" file="${buildNumberFile}">-->
-<!--			<filterchain><striplinebreaks /></filterchain>-->
+<!--			<filterchain>
+			<striplinebreaks />
+		</filterchain>-->
 <!--		</loadfile>-->
 
 <!--		<echo msg="oldBuildNbr: ${oldBuildNbr}" />-->

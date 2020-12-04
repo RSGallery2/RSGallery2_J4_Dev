@@ -8,7 +8,7 @@
 		..\.packages\tmp. Then it replaces or changes 
 		text in files. Then these files are zipped
 
-		????
+???		????
 		and the
 		tmp folder is removed. Resulting file is named like 
 		RSGallery2_Component.4.4.1.zip
@@ -75,11 +75,6 @@
 	
 	.........................................................................	
 	-->
-	
-<!--	<property name="extension" value="RSGallery2" />-->
-<!--	<php function="strtolower" returnProperty="extensionLower">-->
-<!--		<param value="${extension}" />-->
-<!--	</php>-->
 
 	<!-- 
 	.........................................................................
@@ -147,10 +142,7 @@
     -->
 
 	<target name="buildModules" >
-<!--		depends="prepareDstFolder, copy2Temp,-->
-<!--	                              manifestFile, zipFiles,-->
-<!--								  deleteTemp">-->
-	
+
 		<!-- 
 		* prepareDstFolder
 		* copy2Temp
@@ -160,11 +152,6 @@
 		* .
 		-->
 		
-		<!--phingcall target="bar">
-			<property name="property1" value="aaaaa" />
-			<property name="foo" value="baz" />
-		</phingcall-->
-
 		<echo msg="mods:buildModules start" />
 
 		<echo msg="   srcModulesCmp='${srcModulesCmp}'" />
@@ -224,6 +211,14 @@
 <!--			<property name="absname" value="${absname}'" />-->
 
 		</phing>
+
+		<if>
+			<!-- on package no timestamp -->
+			<equals arg1="${isCalledByPackage}" arg2="1" />
+			<then>
+				<echo msg="    Move ZIP to package folder " />
+			</then>
+		</if>
 
 
 		<echo msg="mods:callBuildModule done" />

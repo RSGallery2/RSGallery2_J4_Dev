@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="RSG2_Module" default="buildModule">
 	<description>
-		--- RSGallery2 modules build script with phing ---
+		--- RSGallery2 single module build script with phing ---
 
 		The script copies a RSG2 module from path
-		RSGallery2_J4\modules and create a build in
+		RSGallery2_J4\modules and creates a build in
 		folder ..\.packages\tmp. It replaces or changes
 		text in files. Then these files are zipped
 
@@ -50,6 +50,8 @@
 	<import file="build.libMath.xml"/>
 	<import file="build.libBuildNumber.xml"/>
 
+	<import file="build.libGeneral.xml" />
+
 	<!--
 	=========================================================================
 	   Parameter
@@ -64,7 +66,6 @@
 
 	<!-- Version number of build -->
 	<property name="build.version" value="5.0.0.4" override="true" />
-	<!-- additional naming postfix -->
 	<!--property name="build.postfix" value="prepare." override="true" /-->
 	<property name="build.postfix" value="" override="true" />
 
@@ -75,7 +76,7 @@
 	-->
 
 	<property name="type" value="Module" />
-	<property name="module_name" value="mod_xxx"/>
+	<property name="module_name" value="mod_xxx" />
 	<property name="extension" value="RSGallery2" />
 
 	<!--
@@ -85,6 +86,7 @@
 	-->
 	<!-- Not delete of item, no exit message -->
 	<property name="isCalledByPackage" value="0" override="true" />
+	<property name="buildPackageDir" value="??? PackageDir" override="true" />
 	<!-- Not add date in zip name -->
 	<property name="isNoDateInZipName" value="0" override="true" />
 
@@ -124,15 +126,13 @@
 	<property name="srcRoot" value="./../../RSGallery2_J4/" override="true" />
 
 	<!-- Set the source and destination directory for copy (sources relative to the build dir) -->
-	<property name="buildDir" value="./../.packages/" override="true" />
+	<property name="buildDir" value="./../.packages/" />
 	<property name="buildDirTemp" value="${buildDir}tmp/" override="true" />
 
-	<property name="modulesComponent" value="modules/${module_name}" />
-	<property name="srcModulesCmp" value="${srcRoot}${modulesComponent}" />
-	<property name="dstModulesCmp" value="${buildDirTemp}${modulesComponent}" />
-
+	<property name="modulesComponent" value="modules/${module_name}" override="true" />
 	<property name="srcModulesCmp" value="${srcRoot}${modulesComponent}" override="true" />
 	<property name="dstModulesCmp" value="${buildDirTemp}${modulesComponent}" override="true" />
+
 	<property name="srcBuildNumberFile" value="${srcModulesCmp}/buildNumber.txt" override="true" />
 
 	<property name="dstManifestFileName" value="${module_name}.xml" override="true" />
@@ -260,7 +260,6 @@
 	.........................................................................
 	incrementBuildNumber
 	.........................................................................
-	ToDo: Exchange things like date, copyrght and others (?
 	-->
 
 	<target name="incrementBuildNumber">
@@ -271,7 +270,9 @@
 		</phingcall>
 
 		<loadfile property="newBuildNbr" file="${srcBuildNumberFile}">
-			<filterchain><striplinebreaks /></filterchain>
+			<filterchain>
+				<striplinebreaks />
+			</filterchain>
 		</loadfile>
 		<echo msg="newBuildNbr: ${newBuildNbr}" />
 
@@ -286,7 +287,6 @@
 	.........................................................................
 	versionWithBuildNumber
 	.........................................................................
-	ToDo: Exchange things like date, copyrght and others (?
 	-->
 
 	<target name="versionWithBuildNumber">
@@ -295,7 +295,9 @@
 		<!-- Retrieve actual build number ................................. -->
 
 		<loadfile property="newBuildNbr" file="${srcBuildNumberFile}">
-			<filterchain><striplinebreaks /></filterchain>
+			<filterchain>
+				<striplinebreaks />
+			</filterchain>
 		</loadfile>
 		<echo msg="newBuildNbr: ${newBuildNbr}" />
 
@@ -336,7 +338,7 @@
 		<!--  write changed version back  ................................. -->
 
 		<reflexive>
-			<fileset dir="${dstPluginsCmp}">
+			<fileset dir="${dstModulesCmp}">
 				<include pattern="${dstManifestFileName}" />
 			</fileset>
 			<filterchain>
@@ -353,14 +355,13 @@
 	.........................................................................
 	copy2Temp
 	.........................................................................
-	ToDo: Exchange things like date, copyright and others (?
 	-->
 
 	<target name="copy2Temp">
 		<echo msg="      copy2Temp start" />
 
 		<!--Copy admin files to tmp folder -->
-		<copy todir="${dstModulesCmp}">
+		<copy todir="${dstModulesCmp}" overwrite="true">
 			<fileset refid="srcFolderSet" />
 		</copy>
 
@@ -379,13 +380,10 @@
 
 		<echo msg="   srcModulesCmp='${srcModulesCmp}'" />
 
-		<!--		<echo msg="   srcModulesCmp='${srcModulesCmp}'" />-->
 		<!--		-->
 		<!--		reflective .... -->
 		<!--		<loadfile property="version" file="${dstManifestFile}" />-->
 		<!--		<echo message="manifest version = ${version}" />-->
-
-
 
 
 		<echo msg="mod:doBuildModule done" />
@@ -393,36 +391,9 @@
 
 	<!--
 	.........................................................................
-	manifestFile
+	zipFiles
 	.........................................................................
-	Updates version, creationDate, and copyright date
 	-->
-
-	<target name="manifestFile">
-		<echo msg="manifestFile start" />
-		<echo msg="   date.day.month.year: ${date.day.month.year}" />
-
-		<echo msg="   manifest file='${dstModulesCmp}/${module_name}.xml'" />
-
-		<reflexive>
-			<fileset dir="${dstModulesCmp}">
-				<include pattern="${module_name}.xml" />
-			</fileset>
-			<filterchain>
-
-				<replaceregexp>
-					<regexp pattern="(?&lt;=&lt;creationDate&gt;).*(?=&lt;)" replace="${date.day.month.year}"/>
-					<regexp pattern="(?&lt;=&lt;copyright&gt;\([cC]\) 20..\-).*(?= RSGallery2 Team)" replace="${date.year}"/>
-					<!-- Must be after first 'copright ...' command -->
-					<regexp pattern="(?&lt;=&lt;copyright&gt;[^cC]).*(?=&lt;)" replace="(c) ${date.year}-${date.year} RSGallery2 Team"/>
-				</replaceregexp>
-
-			</filterchain>
-		</reflexive>
-
-		<echo msg="manifestFile end" />
-	</target>
-
 
 	<target name="zipFiles">
 		<echo msg="zipFiles start" />
@@ -434,7 +405,17 @@
 			<equals arg1="${isNoDateInZipName}" arg2="1" />
 			<then>
 				<echo message="zip: No timestamp" />
-				<property name="destfile" value="${buildDir}/${module_name}.zip" override="true" />
+				<!-- called by package -->
+				<if>
+					<equals arg1="${isCalledByPackage}" arg2="0" />
+					<then>
+						<echo msg="    direct call" />
+						<property name="destfile" value="${buildDir}/${module_name}.zip" override="true" />
+					</then>
+					<else>
+						<property name="destfile" value="${buildPackageDir}/${module_name}.zip" override="true" />
+					</else>
+				</if>
 			</then>
 			<else>
 				<echo message="zip: No timestamp" />
@@ -452,7 +433,6 @@
 
 		<echo msg="zipFiles end" />
 	</target>
-
 
 
 </project>

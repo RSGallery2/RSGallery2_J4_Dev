@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Lib_genral">
+    <description>
+
+        --- RSGallery2 phing general use file  ---
+
+        * Supports patch of manifest file
+        *
+
+    </description>
+
+    <!--
+    .........................................................................
+    ToDo:
+    .........................................................................
+    *
+    *
+    * .
+    * .
+    * .
+    * .
+    -->
+
+    <!--
+    =========================================================================
+       Parameter
+    =========================================================================
+    -->
+
+<!--    <property name="buildNumberFile" value="buildNumberFile????" override="true" />-->
+
+<!--    <property name="buildNumberNotDefined" value="999999999999" override="true" />-->
+<!--    <property name="libBuildNumber" value="${buildNumberNotDefined}" override="true" />&ndash;&gt;-->
+
+    <!--
+    =========================================================================
+
+    =========================================================================
+    -->
+
+	<!--
+	.........................................................................
+	manifestFile
+	.........................................................................
+	Updates version, creationDate, and copyright date
+	-->
+
+	<target name="manifestFile">
+		<echo msg="manifestFile start" />
+		<echo msg="   date.day.month.year: ${date.day.month.year}" />
+
+		<echo msg="   manifest file='${dstManifestFile}'" />
+
+		<reflexive file="${dstManifestFile}">
+			<filterchain>
+				<replaceregexp>
+					<regexp pattern="(?&lt;=&lt;creationDate&gt;).*(?=&lt;)" replace="${date.day.month.year}"/>
+
+					<!-- <copyright>(c) 2003-2020 RSGallery2 Team</copyright> -->
+					<regexp pattern="(?&lt;=&lt;copyright&gt;\([cC]\) 20..\-).*(?= RSGallery2 Team)" replace="${date.year}"/>
+					<!-- <copyright>anything which does not start with (C) </copyright> -->
+					<regexp pattern="&lt;copyright&gt;(?!\(c\))(.*)(?=&lt;)" replace="&lt;copyright&gt;(c) ${date.year}-${date.year} RSGallery2 Team"/>
+				</replaceregexp>
+			</filterchain>
+		</reflexive>
+
+		<echo msg="manifestFile end" />
+	</target>
+
+
+</project>

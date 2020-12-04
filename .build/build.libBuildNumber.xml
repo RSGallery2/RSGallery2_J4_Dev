@@ -32,9 +32,15 @@
 
     <!--
     =========================================================================
-      increment build number in file and return it
+
     =========================================================================
     -->
+
+    <!--
+   .........................................................................
+   increment build number in file and return it
+   .........................................................................
+   -->
 
     <target name="lib_incrementBuildNumber" >
         <echo msg="lib:incrementBuildNumber start" />
@@ -42,7 +48,9 @@
 <!--        <echo msg="libBuildNumberFile: ${libBuildNumberFile}" />-->
 
         <loadfile property="oldBuildNbr" file="${buildNumberFile}">
-            <filterchain><striplinebreaks /></filterchain>
+            <filterchain>
+				<striplinebreaks />
+			</filterchain>
         </loadfile>
 
         <echo msg="oldBuildNbr: ${oldBuildNbr}" />
@@ -83,6 +91,7 @@
             }
 
             function main() {
+				echo ("\n\r");
                 echo (" >>>> version: " . $this->version . " and build number: " . $this->buildNumber);
 
                 $tokens = explode('.', $this->version);      // split string on '.''

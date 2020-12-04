@@ -1,8 +1,5 @@
 @ECHO off
-REM starts the standard build process
-REM phing.build.module.bat mod_rsg2_images -DisCalledByPackage=0
-REM phing.build.module.bat mod_rsg2_images
-REM phing.build.module.bat -Dmodule_name=mod_rsg2_images
+REM starts the single module build process
 
 CLS
 
@@ -17,15 +14,15 @@ SET ModuleName=mod_rsg2_images
 if NOT %1A==A (
 	SET ModuleName=%1
 )
+ECHO ModuleName=%ModuleName%
 
 SHIFT
 
-ECHO ModuleName=%ModuleName%
-REM phing -verbose -debug -logfile .\build.log
-REM phing -verbose -logfile .\build.log 
-REM phing -logfile .\build.log .\build.xml
+REM phing -f .\build.module.xml -logfile .\build.module.log -verbose -debug
+REM phing -f .\build.module.xml -logfile .\build.module.log -verbose
+REM phing -f .\build.module.xml -logfile .\build.module.log
 
 REM  %1 %2 %3
 ECHO phing -logfile .\build.module.log  -f .\build.module.xml -Dmodule_name=%ModuleName% %1 %2 %3
-phing -logfile .\build.module.log  -f .\build.module.xml -Dmodule_name=%ModuleName% %1 %2 %3
+phing -logfile .\build.module.log -f .\build.module.xml -Dmodule_name=%ModuleName% %1 %2 %3
 
