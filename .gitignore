@@ -7,7 +7,7 @@
 
 .test/BackupRestore/.idea/
 .test/RSG2_Backup/
-
+.test/.idea 
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
