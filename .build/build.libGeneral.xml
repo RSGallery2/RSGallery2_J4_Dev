@@ -40,7 +40,7 @@
 
 	<!--
 	.........................................................................
-	manifestFile
+	update manifestFile
 	.........................................................................
 	Updates version, creationDate, and copyright date
 	-->
@@ -66,6 +66,72 @@
 
 		<echo msg="manifestFile end" />
 	</target>
+
+	<!--
+	.........................................................................
+	zipFiles
+	.........................................................................
+	-->
+
+	<target name="zipFiles">
+		<echo msg="zipFiles start" />
+
+		<echo msg="   dstModulesCmp='${dstModulesCmp}'" />
+		<echo msg="   build.version: ${build.version}" />
+
+
+		<if>
+			<!-- on package no timestamp -->
+			<equals arg1="${isNoDateInZipName}" arg2="1" />
+			<then>
+				<echo message="zip: No timestamp" />
+				<!-- called by package -->
+				<if>
+					<equals arg1="${isCalledByPackage}" arg2="0" />
+					<then>
+						<echo msg="    direct call" />
+						<property name="destfile" value="${buildDir}/${main_name}.zip" override="true" />
+					</then>
+					<else>
+						<property name="destfile" value="${buildPackageDir}/${main_name}.zip" override="true" />
+					</else>
+				</if>
+			</then>
+			<else>
+				<echo message="zip: with timestamp" />
+
+				<!-- Retrieve changed version number for zip ? ................................. -->
+
+				<loadfile property="newVersion" file="${dstManifestFile}" >
+					<filterchain>
+						<!-- find line-->
+						<linecontainsregexp>
+							<regexp pattern="&lt;version&gt;(.*)&lt;" />
+						</linecontainsregexp>
+						<!-- extract version-->
+						<replaceregexp>
+							<regexp pattern="(.*&lt;version&gt;)(.*)(&lt;&#47;version&gt;)" replace="\2" />
+						</replaceregexp>
+						<striplinebreaks />
+					</filterchain>
+				</loadfile>
+				<echo msg="newVersion: ${newVersion}" />
+
+				<property name="destfile" value="${buildDir}/${main_name}.${build.postfix}${newVersion}_${dateYearMonthDay}.zip" override="true" />
+			</else>
+		</if>
+
+		<echo msg="destfile='${destfile}'" />
+
+		<zip destfile="${destfile}">
+			<fileset dir="${dstPath}">
+				<include name="**" />
+			</fileset>
+		</zip>
+
+		<echo msg="zipFiles end" />
+	</target>
+
 
 
 </project>

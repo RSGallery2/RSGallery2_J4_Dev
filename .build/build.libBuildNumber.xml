@@ -36,45 +36,71 @@
     =========================================================================
     -->
 
+
     <!--
-   .........................................................................
-   increment build number in file and return it
-   .........................................................................
-   -->
+    .........................................................................
+    increment build number in manifestFile
+    .........................................................................
+    -->
 
-    <target name="lib_incrementBuildNumber" >
-        <echo msg="lib:incrementBuildNumber start" />
+    <!--	<target name="incrementBuildNumber">-->
+    <target name="ManifestBuildNumber">
+        <echo msg="ManifestBuildNumber start" />
 
-<!--        <echo msg="libBuildNumberFile: ${libBuildNumberFile}" />-->
+        <echo msg="   manifest file='${srcManifestFile}'" />
 
-        <loadfile property="oldBuildNbr" file="${buildNumberFile}">
+        <loadfile property="versionFound" file="${srcManifestFile}" >
             <filterchain>
-				<striplinebreaks />
-			</filterchain>
+                <!-- find line -->
+                <linecontainsregexp>
+                    <regexp pattern="&lt;version&gt;(.*)&lt;" />
+                </linecontainsregexp>
+                <stripwhitespace />
+                <!-- extract version -->
+                <replaceregexp>
+                    <regexp pattern="(.*&lt;version&gt;)(.*)(&lt;&#47;version&gt;)" replace="\2" />
+                </replaceregexp>
+                <striplinebreaks />
+            </filterchain>
         </loadfile>
+        <echo msg="   versionFound: '${versionFound}'" />
 
-        <echo msg="oldBuildNbr: ${oldBuildNbr}" />
+        <!-- replace __BUMP_VERSION__ if found ................................. -->
 
-<!--        <increment value="${oldBuildNbr}" property="buildNumber"/>-->
-<!--        <increment result="newBuildNbr" invalue="${oldBuildNbr}" />-->
-<!--        <echo msg="newBuildNbr: ${newBuildNbr}" />-->
-        <increment result="libBuildNumber" invalue="${oldBuildNbr}" />
-        <echo msg="libBuildNumber: ${libBuildNumber}" />
+        <if>
+            <!-- on package no timestamp -->
+            <equals arg1="${versionFound}" arg2="__BUMP_VERSION__" />
+            <then>
+                <property name="versionFound" value="${build.version}"  override="true" />
+                <echo msg="   versionFound replaced: ${versionFound}" />
+            </then>
+        </if>
 
-        <!-- write back build number -->
-        <echo file="${buildNumberFile}" append="false">${libBuildNumber}</echo>
+        <incrementBuildNumber result="versionWithBuild" version="${versionFound}" />
+        <echo msg="versionWithBuild: ${versionWithBuild}" />
 
-        <echo msg="lib:incrementBuildNumber done" />
+        <!--  write changed version back  ................................. -->
+
+        <reflexive file="${srcManifestFile}">
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="(?&lt;=&lt;version&gt;).*(?=&lt;)" replace="${versionWithBuild}"/>
+                </replaceregexp>
+            </filterchain>
+        </reflexive>
+
+        <echo msg="      versionWithBuildNumber end" />
+
+        <echo msg="manifestFile end" />
     </target>
 
     <!--
     .........................................................................
-
+    incrementBuildNumber
     .........................................................................
-    ToDo:
     -->
 
-    <adhoc-task name="lib_versionWithBuildNumber"><![CDATA[
+    <adhoc-task name="incrementBuildNumber"><![CDATA[
         class lib_versionWithBuildNumber extends Task {
             private $version;
             private $buildNumber;
@@ -83,26 +109,30 @@
             function setVersion($value) {
                 $this->version = $value;
             }
-            function setBuildNumber($value) {
-                $this->buildNumber = $value;
-            }
             function setResult($property) {
                 $this->result = $property;
             }
 
             function main() {
 				echo ("\n\r");
-                echo (" >>>> version: " . $this->version . " and build number: " . $this->buildNumber);
+                echo (" >>>> incrementBuildNumber version: " . $this->version);
 
                 $tokens = explode('.', $this->version);      // split string on '.''
 
+                $buildNumber = 0;
                 echo (" >>>> count(\$tokens): " . count($tokens));
                 $count = (int) count($tokens);
                 if ($count > 3) {
+
                     echo (" >>>> count: " . $count);
-                    array_pop($tokens);                   // get rid of last element
-                    $this->version = implode('.', $tokens)  . '.' . $this->buildNumber;   // wrap back
+                    $buildNumber = array_pop($tokens);                   // get rid of last element
+                    echo ("     : " . $buildNumber);
+                    $buildNumber++;
+                    echo ("     : " . $buildNumber);
+
                 }
+
+                $this->version = implode('.', $tokens)  . '.' . $buildNumber;   // wrap back
 
                 $result = ($this->version);
                 echo (" >>>> result: " . $result);
@@ -110,44 +140,6 @@
             }
         }
   ]]></adhoc-task>
-
-    <!--
-    .........................................................................
-
-    .........................................................................
-    ToDo:
-    -->
-
-<!--    <adhoc-task name="lib_versionRemoveBuildNumber"><![CDATA[-->
-<!--        class lib_versionWithBuildNumber extends Task {-->
-<!--            private $version;-->
-<!--            private $buildNumber;-->
-<!--            private $result;-->
-
-<!--            function setVersion($value) {-->
-<!--                $this->version = $value;-->
-<!--            }-->
-<!--            function setBuildNumber($value) {-->
-<!--                $this->buildNumber = $value;-->
-<!--            }-->
-<!--            function setResult($property) {-->
-<!--                $this->result = $property;-->
-<!--            }-->
-
-<!--            function main() {-->
-<!--                echo (" >>>> remove build number" . $this->version);-->
-
-<!--                $tokens = explode('.', $this->version);      // split string on :-->
-<!--                if (count($tokens) > 3) {-->
-<!--                    array_pop($tokens);                   // get rid of last element-->
-<!--                    $this->version = implode('.', $tokens);   // wrap back-->
-<!--                }-->
-
-<!--                $this->project->setProperty($this->result, ($this->version . '.' . $this->buildNumber));-->
-<!--            }-->
-<!--        }-->
-<!--  ]]></adhoc-task>-->
-
 
 
 </project>

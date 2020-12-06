@@ -137,6 +137,7 @@
 
 	<property name="dstManifestFileName" value="${plugin_name}.xml" override="true" />
 	<property name="dstManifestFile" value="${dstPluginsCmp}/${dstManifestFileName}" override="true" />
+	<property name="srcManifestFile" value="${srcPluginsCmp}/${dstManifestFileName}" override="true" />
 
 	<!--
 	.........................................................................
@@ -194,41 +195,21 @@
 			</else>
 		</if>
 
-		<phingcall target="incrementBuildNumber">
+		<phingcall target="ManifestBuildNumber">
 		</phingcall>
 
 		<phingcall target="copy2Temp">
 		</phingcall>
 
-		<phingcall target="versionWithBuildNumber">
-		</phingcall>
-
 		<phingcall target="doPatchPlugin">
 		</phingcall>
-
-		<!-- Retrieve changed version number ................................. -->
-
-		<!-- 	-->
-		<loadfile property="newVersion" file="${dstManifestFile}" >
-			<filterchain>
-				<!-- find line-->
-				<linecontainsregexp>
-					<regexp pattern="&lt;version&gt;(.*)&lt;" />
-				</linecontainsregexp>
-				<!-- extract version-->
-				<replaceregexp>
-					<regexp pattern="(.*&lt;version&gt;)(.*)(&lt;&#47;version&gt;)" replace="\2" />
-				</replaceregexp>
-				<striplinebreaks />
-			</filterchain>
-		</loadfile>
-		<echo msg="newVersion: ${newVersion}" />
-		<!-- ................................................................	-->
 
 		<phingcall target="manifestFile">
 		</phingcall>
 
 		<phingcall target="zipFiles">
+			<property name="main_name" value="${plugin_name}" override="true" />
+			<property name="dstPath" value="${dstPluginsCmp}" override="true" />
 		</phingcall>
 
 <!--		<echo msg="   ??? isCalledByPackage='${isCalledByPackage}' ???" />-->
@@ -256,101 +237,6 @@
     =========================================================================
     -->
 
-	<!--
-	.........................................................................
-	incrementBuildNumber
-	.........................................................................
-
-	-->
-
-	<target name="incrementBuildNumber">
-		<echo msg="      incrementBuildNumber start" />
-
-		<phingcall target="lib_incrementBuildNumber">
-			<property name="buildNumberFile" value="${srcBuildNumberFile}" />
-		</phingcall>
-
-		<loadfile property="newBuildNbr" file="${srcBuildNumberFile}">
-			<filterchain>
-			<striplinebreaks />
-		</filterchain>
-		</loadfile>
-		<echo msg="newBuildNbr: ${newBuildNbr}" />
-
-		<property name="buildNumber" value="${newBuildNbr}"  override="true" />
-
-<!--		<echo msg="outer buildNumber: ${buildNumber}" />-->
-
-		<echo msg="      incrementBuildNumber end" />
-	</target>
-
-	<!--
-	.........................................................................
-	versionWithBuildNumber
-	.........................................................................
-	-->
-
-	<target name="versionWithBuildNumber">
-		<echo msg="      versionWithBuildNumber start" />
-
-		<!-- Retrieve actual build number ................................. -->
-
-		<loadfile property="newBuildNbr" file="${srcBuildNumberFile}">
-			<filterchain>
-			<striplinebreaks />
-		</filterchain>
-		</loadfile>
-		<echo msg="newBuildNbr: ${newBuildNbr}" />
-
-		<!-- Retrieve previous version number ................................. -->
-
-		<loadfile property="versionFound" file="${dstManifestFile}" >
-			<filterchain>
-				<!-- find line -->
-				<linecontainsregexp>
-					<regexp pattern="&lt;version&gt;(.*)&lt;" />
-				</linecontainsregexp>
-				<stripwhitespace />
-				<!-- extract version -->
-				<replaceregexp>
-					<regexp pattern="(.*&lt;version&gt;)(.*)(&lt;&#47;version&gt;)" replace="\2" />
-				</replaceregexp>
-				<striplinebreaks />
-			</filterchain>
-		</loadfile>
-		<echo msg="   versionFound: '${versionFound}'" />
-
-		<!-- replace __BUMP_VERSION__ if found ................................. -->
-
-		<if>
-			<!-- on package no timestamp -->
-			<equals arg1="${versionFound}" arg2="__BUMP_VERSION__" />
-			<then>
-				<property name="versionFound" value="${build.version}"  override="true" />
-				<echo msg="   versionFound replaced: ${versionFound}" />
-			</then>
-		</if>
-
-		<!-- add build number to version  ................................. -->
-
-		<lib_versionWithBuildNumber result="versionWithBuild" version="${versionFound}" buildNumber="${newBuildNbr}" />
-		<echo msg="versionWithBuild: ${versionWithBuild}" />
-
-		<!--  write changed version back  ................................. -->
-
-		<reflexive>
-			<fileset dir="${dstPluginsCmp}">
-				<include pattern="${dstManifestFileName}" />
-			</fileset>
-			<filterchain>
-				<replaceregexp>
-					<regexp pattern="(?&lt;=&lt;version&gt;).*(?=&lt;)" replace="${versionWithBuild}"/>
-				</replaceregexp>
-			</filterchain>
-		</reflexive>
-
-		<echo msg="      versionWithBuildNumber end" />
-	</target>
 
 	<!--
 	.........................................................................
@@ -387,53 +273,5 @@
 
 		<echo msg="mod:doPatchPlugin done" />
 	</target>
-
-	<!--
-	.........................................................................
-	zipFiles
-	.........................................................................
-	-->
-
-	<target name="zipFiles">
-		<echo msg="zipFiles start" />
-
-		<echo msg="   dstPluginsCmp='${dstPluginsCmp}'" />
-
-		<if>
-			<!-- on package no timestamp -->
-			<equals arg1="${isNoDateInZipName}" arg2="1" />
-			<then>
-				<echo message="zip: No timestamp" />
-				<property name="destfile" value="${buildDir}/${plugin_name}.zip" override="true" />
-				<!-- called by package -->
-				<if>
-					<equals arg1="${isCalledByPackage}" arg2="0" />
-					<then>
-						<echo msg="    direct call" />
-						<property name="destfile" value="${buildDir}/${plugin_name}.zip" override="true" />
-					</then>
-					<else>
-						<property name="destfile" value="${buildPackageDir}/${plugin_name}.zip" override="true" />
-					</else>
-				</if>
-			</then>
-			<else>
-				<echo message="zip: No timestamp" />
-				<property name="destfile" value="${buildDir}/${plugin_name}.${build.postfix}${newVersion}_${dateYearMonthDay}.zip" override="true" />
-			</else>
-		</if>
-
-		<echo msg="destfile='${destfile}'" />
-
-		<zip destfile="${destfile}">
-			<fileset dir="${dstPluginsCmp}">
-				<include name="**" />
-			</fileset>
-		</zip>
-
-		<echo msg="zipFiles end" />
-	</target>
-
-
 
 </project>
