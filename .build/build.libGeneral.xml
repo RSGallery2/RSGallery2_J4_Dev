@@ -49,9 +49,9 @@
 		<echo msg="manifestFile start" />
 		<echo msg="   date.day.month.year: ${date.day.month.year}" />
 
-		<echo msg="   manifest file='${dstManifestFile}'" />
+		<echo msg="   manifest file='${srcManifestFile}'" />
 
-		<reflexive file="${dstManifestFile}">
+		<reflexive file="${srcManifestFile}">
 			<filterchain>
 				<replaceregexp>
 					<regexp pattern="(?&lt;=&lt;creationDate&gt;).*(?=&lt;)" replace="${date.day.month.year}"/>
@@ -78,7 +78,6 @@
 
 		<echo msg="   dstModulesCmp='${dstModulesCmp}'" />
 		<echo msg="   build.version: ${build.version}" />
-
 
 		<if>
 			<!-- on package no timestamp -->

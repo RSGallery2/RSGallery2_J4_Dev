@@ -228,13 +228,13 @@
 		<phingcall target="ManifestBuildNumber">
 		</phingcall>
 
+		<phingcall target="manifestFile">
+		</phingcall>
+
 		<phingcall target="copy2Temp">
 		</phingcall>
 
 		<phingcall target="doPatchComponent">
-		</phingcall>
-
-		<phingcall target="manifestFile">
 		</phingcall>
 
 		<phingcall target="zipFiles">

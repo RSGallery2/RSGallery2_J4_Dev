@@ -171,7 +171,7 @@
 	<property name="dstManifestFile" value="${dstPackageCmp}/${dstManifestFileName}" override="true" />
 	<property name="srcManifestFile" value="${srcPackageCmp}/${dstManifestFileName}" override="true" />
 
-	
+
 	<!--
 	.........................................................................
 	source folder sets
@@ -217,6 +217,9 @@
 		<phingcall target="ManifestBuildNumber">
 		</phingcall>
 
+		<phingcall target="manifestFile">
+		</phingcall>
+
 		<phingcall target="copy2Pkg">
 		</phingcall>
 
@@ -243,9 +246,6 @@
 
 
 		<phingcall target="manifestAddZipNames">
-		</phingcall>
-
-		<phingcall target="manifestFile">
 		</phingcall>
 
 		<phingcall target="zipFiles">
