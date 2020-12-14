@@ -88,6 +88,8 @@
 	-->
 	<!-- Not add date in zip name -->
 	<property name="isNoDateInZipName" value="0" override="true" />
+	<!-- Do update maifest file (date/ version -->
+	<property name="isUpdateManifest" value="0" override="true" />
 
 	<!--
 	.........................................................................
@@ -214,12 +216,19 @@
 		<phingcall target="prepareSrcFolder">
 		</phingcall>
 
-		<phingcall target="ManifestBuildNumber">
-		</phingcall>
+		<if>
+			<!-- on update maifest file -->
+			<equals arg1="${isUpdateManifest}" arg2="1" />
+			<then>
+				<phingcall target="ManifestBuildNumber">
+				</phingcall>
 
-		<phingcall target="manifestFile">
-		</phingcall>
+				<phingcall target="manifestFile">
+				</phingcall>
 
+			</then>
+		</if>
+		
 		<phingcall target="copy2Pkg">
 		</phingcall>
 

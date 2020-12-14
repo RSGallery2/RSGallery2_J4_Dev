@@ -96,6 +96,8 @@
 	<property name="buildPackageDir" value="??? PackageDir" override="true" />
 	<!-- Not add date in zip name -->
 	<property name="isNoDateInZipName" value="0" override="true" />
+	<!-- Do update maifest file (date/ version -->
+	<property name="isUpdateManifest" value="0" override="true" />
 
 	<!--
 	.........................................................................
@@ -224,13 +226,20 @@
 				<echo msg="    package call" />
 			</else>
 		</if>
+		
+		<if>
+			<!-- on update maifest file -->
+			<equals arg1="${isUpdateManifest}" arg2="1" />
+			<then>
+				<phingcall target="ManifestBuildNumber">
+				</phingcall>
 
-		<phingcall target="ManifestBuildNumber">
-		</phingcall>
+				<phingcall target="manifestFile">
+				</phingcall>
 
-		<phingcall target="manifestFile">
-		</phingcall>
-
+			</then>
+		</if>
+		
 		<phingcall target="copy2Temp">
 		</phingcall>
 
