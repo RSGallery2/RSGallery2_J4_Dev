@@ -238,6 +238,24 @@
 			</then>
 		</if>
 
+		<!-- direct call and develop intention -->
+		<if>
+			<and>
+				<equals arg1="${isCalledByPackage}" arg2="0" />
+				<equals arg1="${isUpdateManifest}" arg2="1" />
+			</and>
+			<then>
+
+				<!-- clean / tidy build artefacts -->
+				<phing phingfile="build.clean_up.xml">
+					<!-- sub task called by package -->
+					<property name="buildDoneMessage" value="${buildDirTemp}" />
+				</phing>
+
+			</then>
+		</if>
+
+
 		<echo msg="mod:buildModule done" />
 	</target>
 

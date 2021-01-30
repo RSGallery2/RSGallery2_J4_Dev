@@ -228,7 +228,7 @@
 		</if>
 		
 		<if>
-			<!-- on update maifest file -->
+			<!-- on update manifest file -->
 			<equals arg1="${isUpdateManifest}" arg2="1" />
 			<then>
 				<phingcall target="ManifestBuildNumber">
@@ -239,12 +239,18 @@
 
 			</then>
 		</if>
-		
+
+		<echo msg="01" />
+
 		<phingcall target="copy2Temp">
 		</phingcall>
 
+		<echo msg="02" />
+
 		<phingcall target="doPatchComponent">
 		</phingcall>
+
+		<echo msg="03" />
 
 		<phingcall target="zipFiles">
 			<property name="main_name" value="${comp_name}" override="true" />
@@ -252,6 +258,8 @@
 		</phingcall>
 
 		<!--		<echo msg="   ??? isCalledByPackage='${isCalledByPackage}' ???" />-->
+
+		<echo msg="04" />
 
 		<!-- Not called external, do clean up  -->
 		<if>
@@ -266,6 +274,35 @@
 
 			</then>
 		</if>
+
+		<echo msg="05" />
+		<echo msg="05 ${isCalledByPackage}" />
+		<echo msg="05 ${isUpdateManifest}" />
+
+		<!-- direct call and develop intention -->
+		<if>
+			<and>
+				<equals arg1="${isCalledByPackage}" arg2="0" />
+				<equals arg1="${isUpdateManifest}" arg2="1" />
+			</and>
+			<then>
+
+				<echo msg="05A" />
+
+				<!-- clean / tidy build artefacts -->
+				<phing phingfile="build.clean_up.xml">
+					<!-- sub task called by package -->
+<!--					<property name="buildDoneMessage" value="${buildDirTemp}" />-->
+					<property name="buildDoneMessage" />
+				</phing>
+
+				<echo msg="05X" />
+
+			</then>
+		</if>
+
+		<echo msg="06" />
+
 
 		<echo msg="cmp:build done" />
 		

@@ -68,9 +68,25 @@
 	for called script / from external call
 	.........................................................................
 	-->
+
 	<property name="isCalledByPackage" value="0" />
 	<property name="isNoDateInZipName" value="0" />
 
+	<!--
+	.........................................................................
+	external parameter
+	.........................................................................
+	-->
+	<!-- Not add date in zip name -->
+	<property name="isNoDateInZipName" value="0" override="true" />
+	<!-- Do update maifest file (date/ version -->
+	<property name="isUpdateManifest" value="0" override="true" />
+
+	<!--
+	.........................................................................
+
+	.........................................................................
+	-->
 
 	<!-- 
 	.........................................................................
@@ -111,7 +127,6 @@
     <property name="buildDir" value="./../.packages/" override="true" />
     <property name="buildDirTemp" value="${buildDir}tmp/" override="true" />
 
-<!--	<property name="pluginsComponent" value="/plugins/" override="true" />-->
 	<property name="pluginsComponent" value="/plugins/" />
 	<property name="srcPluginsCmp" value="${srcRoot}${pluginsComponent}/" />
 	<property name="dstPluginsCmp" value="${buildDirTemp}${pluginsComponent}/" />
@@ -191,8 +206,19 @@
 			</then>
 		</if>
 
+		<!-- direct call and develop intention -->
+		<if>
+			<equals arg1="${isUpdateManifest}" arg2="1" />
+			<then>
 
+				<!-- clean / tidy build artefacts -->
+				<phing phingfile="build.clean_up.xml">
+					<!-- sub task called by package -->
+					<property name="buildDoneMessage" value="${buildDirTemp}" />
+				</phing>
 
+			</then>
+		</if>
 
 		<echo msg="plgs:buildPlugins done" />
 	</target>
