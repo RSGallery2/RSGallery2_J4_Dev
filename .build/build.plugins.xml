@@ -81,6 +81,7 @@
 	<property name="isNoDateInZipName" value="0" override="true" />
 	<!-- Do update maifest file (date/ version -->
 	<property name="isUpdateManifest" value="0" override="true" />
+	<property name="isShowReminder" value="0" override="true" />
 
 	<!--
 	.........................................................................
@@ -191,31 +192,22 @@
 			</fileset>
 		</foreach>
 
-		<!-- Not called external, do clean up  -->
+		<!-- write reminder for "Update changelog file" before release -->
 		<if>
-			<equals arg1="${isCalledByPackage}" arg2="0" />
+			<and>
+				<equals arg1="${isCalledByPackage}" arg2="0" />
+				<equals arg1="${isShowReminder}" arg2="1" />
+			</and>
 			<then>
 
-				<!-- clean / tidy build artefacts -->
-				<phing phingfile="build.clean_up.xml">
-					<!-- sub task called by package -->
-					<property name="buildDirTemp" value="${buildDirTemp}" />
-
-				</phing>
-
-			</then>
-		</if>
-
-		<!-- direct call and develop intention -->
-		<if>
-			<equals arg1="${isUpdateManifest}" arg2="1" />
-			<then>
+				<echo msg="05A" />
 
 				<!-- clean / tidy build artefacts -->
-				<phing phingfile="build.clean_up.xml">
-					<!-- sub task called by package -->
-					<property name="buildDoneMessage" value="${buildDirTemp}" />
+				<phing phingfile="build.goodByeMessage.xml">
+					<property name="buildDoneMessage" value="" />
 				</phing>
+
+				<echo msg="05X" />
 
 			</then>
 		</if>
@@ -232,7 +224,7 @@
 		<phing phingfile="build.plugin.xml">
 			<!-- sub task called by package -->
 			<property name="plugin_name" value="${dirname}" />
-			<property name="isCalledByPackage" value="${isCalledByPackage}" />
+			<property name="isCalledByPackage" value="1" />
 
 			<property name="dirname" value="${dirname}'" />
 			<property name="absname" value="${absname}'" />

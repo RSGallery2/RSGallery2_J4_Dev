@@ -3,12 +3,38 @@ REM starts the standard build process
 
 CLS
 
-REM phing -f .\build.modules.xml -logfile .\build.modules.log -verbose -debug
-REM phing -f .\build.modules.xml -logfile .\build.modules.log -verbose
-REM phing -f .\build.modules.xml -logfile .\build.modules.log
+Set CmdArgs=
+ECHO ....
 
-ECHO phing -logfile .\build.modules.log  -f .\build.modules.xml
-phing -logfile .\build.modules.log  -f .\build.modules.xml -DisUpdateManifest=1
+REM phing -f .\build.modules.xml -logfile .\build.modules.log -verbose -debug
+
+REM do increase manifest version number
+Call :AddNextArg -DisUpdateManifest=1
+
+REM do show reminder of "update changelog"  and minor/major version numbers
+Call :AddNextArg -DisShowReminder=1
+
+REM
+REM Call :AddNextArg ???
+
+
+ECHO.
+ECHO ------------------------------------------------------------------------------
+ECHO Start cmd:
+ECHO.
+ECHO phing -logfile .\build.modules.log  -f .\build.modules.xml %CmdArgs% %*
+     phing -logfile .\build.modules.log  -f .\build.modules.xml %CmdArgs% %*
+
+GOTO :EOF
+
+REM -------------------------------------------------------------
+REM -------------------------------------------------------------
+REM Adds given argument to the already known command arguments
+:AddNextArg
+	Set NextArg=%*
+	Set CmdArgs=%CmdArgs% %NextArg%
+	ECHO  '%NextArg%'
+GOTO :EOF
 
 
 

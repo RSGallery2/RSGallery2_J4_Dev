@@ -19,12 +19,37 @@ ECHO PluginName=%PluginName%
 SHIFT
 
 REM phing -f .\build.plugin.xml -logfile .\build.plugin.log -verbose -debug
-REM phing -f .\build.plugin.xml -logfile .\build.plugin.log -verbose
-REM phing -f .\build.plugin.xml -logfile .\build.plugin.log
 
-REM  %1 %2 %3
-ECHO phing -logfile .\build.plugin.log  -f .\build.plugin.xml -DisUpdateManifest=1 -Dplugin_name=%PluginName% %1 %2 %3
-phing -logfile .\build.plugin.log  -f .\build.plugin.xml -DisUpdateManifest=1 -Dplugin_name=%PluginName% %1 %2 %3
+REM Plugin name
+Call :AddNextArg -Dplugin_name=%PluginName%
+
+REM do increase manifest version number
+Call :AddNextArg -DisUpdateManifest=1
+
+REM do show reminder of "update changelog"  and minor/major version numbers
+Call :AddNextArg -DisShowReminder=1
+
+REM
+REM Call :AddNextArg ???
+
+
+ECHO.
+ECHO ------------------------------------------------------------------------------
+ECHO Start cmd:
+ECHO.
+ECHO phing -logfile .\build.plugin.log  -f .\build.plugin.xml %CmdArgs% %*
+     phing -logfile .\build.plugin.log  -f .\build.plugin.xml %CmdArgs% %*
+
+GOTO :EOF
+
+REM -------------------------------------------------------------
+REM -------------------------------------------------------------
+REM Adds given argument to the already known command arguments
+:AddNextArg
+	Set NextArg=%*
+	Set CmdArgs=%CmdArgs% %NextArg%
+	ECHO  '%NextArg%'
+GOTO :EOF
 
 
 

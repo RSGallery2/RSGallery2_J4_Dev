@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="RSG2_Module" default="buildCleanUp">
+<project name="RSG2_Module" default="buildDoneMessage">
 	<description>
 
-		--- RSGallery2 clean up build script with phing ---
+		--- RSGallery2 good by message for developer build ---
 
-        clean / tidy build artefacts
-		* delete temp folder
+		* write reminder for "Update changelog file" before release
+		* write reminder for "Increase of Major/Minor version" before release
 
 	</description>
 
@@ -15,8 +15,6 @@
 	.........................................................................
 	*
 	*
-	* .
-	* .
 	* .
 	* .
 	-->
@@ -31,34 +29,26 @@
     <property name="buildDir" value="./../.packages/" override="true" />
     <property name="buildDirTemp" value="${buildDir}tmp/" override="true" />
 
-
     <!--
     =========================================================================
        Targets
     =========================================================================
     -->
 
-	<target name="buildCleanUp" >
-		<echo msg="...:buildCleanUp start" />
+	<target name="buildDoneMessage">
+		<echo msg="      buildDoneMessage start" />
 
-		<phingcall target="deleteTemp">
-			<!--			<property name="property1" value="aaaaa" />-->
-			<!--			<property name="foo" value="baz" />-->
-		</phingcall>
+		<echo msg="\n------------------------------------------\n" />
+		<echo msg="When releasing don't forget to \n" />
+		<echo msg="   * update changelog file" />
+		<echo msg="   * increase Major or Minor version number \n" />
+		<echo msg="------------------------------------------" />
+		<propertyprompt
+				propertyName="reminder"
+				promptText="When releasing don't forget to \n   * update changelog file\n    * increase Major or Minor version number \n:"
+		/>
 
-		<!-- may be  more ....  -->
-
-		<echo msg="...:buildCleanUp done" />
-	</target>
-
-	<target name="deleteTemp">
-		<echo msg="deleteTemp start" />
-
-		<echo msg="   delete path '${buildDirTemp}'" />
-
-		<delete dir="${buildDirTemp}" />
-
-		<echo msg="deleteTemp end" />
+		<echo msg="      buildDoneMessage end" />
 	</target>
 
 </project>

@@ -91,6 +91,7 @@
 	<property name="isNoDateInZipName" value="0" override="true" />
 	<!-- Do update maifest file (date/ version -->
 	<property name="isUpdateManifest" value="0" override="true" />
+	<property name="isShowReminder" value="0" override="true" />
 
 	<!--
 	.........................................................................
@@ -237,18 +238,17 @@
 			</then>
 		</if>
 
-		<!-- direct call and develop intention -->
+		<!-- write reminder for "Update changelog file" before release -->
 		<if>
 			<and>
 				<equals arg1="${isCalledByPackage}" arg2="0" />
-				<equals arg1="${isUpdateManifest}" arg2="1" />
+				<equals arg1="${isShowReminder}" arg2="1" />
 			</and>
 			<then>
 
 				<!-- clean / tidy build artefacts -->
-				<phing phingfile="build.clean_up.xml">
-					<!-- sub task called by package -->
-					<property name="buildDoneMessage" value="${buildDirTemp}" />
+				<phing phingfile="build.goodByeMessage.xml">
+					<property name="buildDoneMessage" value="" />
 				</phing>
 
 			</then>
