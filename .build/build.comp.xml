@@ -51,7 +51,6 @@
 
 	<import file="build.libMath.xml"/>
 	<import file="build.libBuildNumber.xml"/>
-
 	<import file="build.libGeneral.xml" />
 
 	<!--
@@ -214,8 +213,9 @@
 		<echo msg="cmp:build start" />
 
 		<echo msg="   comp_name='${comp_name}'" />
-
 		<echo msg="   isCalledByPackage='${isCalledByPackage}'" />
+
+		<echoConsole usrText=" * build ${comp_name}" />
 
 		<if>
 			<!-- on package no timestamp -->

@@ -187,6 +187,8 @@
 
 		<echo msg="   isCalledByPackage='${isCalledByPackage}'" />
 
+		<echoConsole usrText=" * build ${plugin_name}" />
+
 		<if>
 			<!-- on package no timestamp -->
 			<equals arg1="${isCalledByPackage}" arg2="0" />

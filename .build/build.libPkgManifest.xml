@@ -60,7 +60,7 @@
 
 			function main() {
 
-				echo ("\n\rcollectZippedFileNames:: ");
+				echo ("\n\rcollectZippedFileNames ");
 				$query =  $this->path .'*.zip';
 //                echo (" >>> \$query): " . $query);
 
@@ -110,7 +110,8 @@
 				$filenames = explode(';', $this->zippedFileNames);
 
                 $count = (int) count($filenames);
-                echo (" >>> count(\$filenames): " . $count);
+                //echo (" >>> count(\$filenames): " . $count);
+                echo (" items " . $count);
 
 				// toDo: Read xml of plugin for .... instead of reading ...
 				// <file type="component" id="com_rsgallery2" >com_eventgallery_3_7_2.zip</file>

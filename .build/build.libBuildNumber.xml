@@ -114,32 +114,33 @@
             }
 
             function main() {
-				echo ("\n\r");
-                echo (" >>>> incrementBuildNumber version: " . $this->version);
+//				echo ("\n\r");
+                echo ("   >>> incrementBuildNumber version: " . $this->version);
 
                 $tokens = explode('.', $this->version);      // split string on '.''
 
                 $buildNumber = 0;
-                echo (" >>>> count(\$tokens): " . count($tokens));
+                //echo (" >>>> count(\$tokens): " . count($tokens));
                 $count = (int) count($tokens);
                 if ($count > 3) {
 
-                    echo (" >>>> count: " . $count);
+                    //echo (" >>>> count: " . $count);
                     $buildNumber = array_pop($tokens);                   // get rid of last element
-                    echo ("     : " . $buildNumber);
+                    //echo ("     : " . $buildNumber);
                     $buildNumber++;
-                    echo ("     : " . $buildNumber);
+                    //echo ("     : " . $buildNumber);
 
                 }
 
                 $this->version = implode('.', $tokens)  . '.' . $buildNumber;   // wrap back
 
                 $result = ($this->version);
-                echo (" >>>> result: " . $result);
+                //echo (" >>>> result: " . $result);
+                echo (" >> " . $result . PHP_EOL);
                 $this->project->setProperty($this->result, $result);
             }
         }
-  ]]></adhoc-task>
+    ]]></adhoc-task>
 
 
 </project>

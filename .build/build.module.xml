@@ -206,6 +206,8 @@
 
 		<echo msg="   isCalledByPackage='${isCalledByPackage}'" />
 
+		<echoConsole usrText=" * build ${module_name}" />
+
 		<if>
 			<!-- on package no timestamp -->
 			<equals arg1="${isCalledByPackage}" arg2="0" />

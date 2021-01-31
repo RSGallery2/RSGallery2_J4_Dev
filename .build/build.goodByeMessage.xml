@@ -45,7 +45,7 @@
 		<echo msg="------------------------------------------" />
 		<propertyprompt
 				propertyName="reminder"
-				promptText="When releasing don't forget to \n   * update changelog file\n    * increase Major or Minor version number \n:"
+				promptText="When releasing don't forget to \r\n  * update changelog file \r\n * increase Major or Minor version number: "
 		/>
 
 		<echo msg="      buildDoneMessage end" />

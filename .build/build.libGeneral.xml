@@ -131,6 +131,29 @@
 		<echo msg="zipFiles end" />
 	</target>
 
+	<!--
+    =========================================================================
+      increment
+    =========================================================================
+    -->
+
+	<adhoc-task name="echoConsole"><![CDATA[
+        class echoConsole extends Task {
+            private $usrText;
+
+            function setUsrText($usrText) {
+                $this->usrText = $usrText;
+            }
+
+            function main() {
+
+				echo ($this->usrText . PHP_EOL);
+
+            }
+        }
+	]]></adhoc-task>
+
+
 
 
 </project>
