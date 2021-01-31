@@ -41,6 +41,10 @@
 	* .
 	-->
 
+	<import file="build.libMath.xml"/>
+	<import file="build.libBuildNumber.xml"/>
+	<import file="build.libGeneral.xml" />
+
 	<!--
 	=========================================================================
 	   include libraries

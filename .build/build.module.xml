@@ -47,10 +47,28 @@
 	=========================================================================
 	-->
 
+<!--	<if>-->
+<!--		&lt;!&ndash; nop already active ? &ndash;&gt;-->
+<!--		<equals arg1="${isCalledByPackage}" arg2="0" />-->
+<!--&lt;!&ndash;		<isfalse value="${LibsAreLoaded}"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<isset property="LibsAreLoaded" />&ndash;&gt;-->
+<!--		<then>-->
+<!--			<echo msg="module:include lib (01)" />-->
+
+<!--			<import file="build.libMath.xml"/>-->
+<!--			<echo msg="module:include lib (02)" />-->
+<!--			<import file="build.libBuildNumber.xml"/>-->
+<!--			<echo msg="module:include lib (03)" />-->
+<!--			<import file="build.libGeneral.xml" />-->
+<!--			<echo msg="module:include lib (04)" />-->
+<!--		</then>-->
+<!--	</if>-->
+
 	<import file="build.libMath.xml"/>
 	<import file="build.libBuildNumber.xml"/>
-
 	<import file="build.libGeneral.xml" />
+
+<!--	<property name="LibsAreLoaded" value="true" override="true" />-->
 
 	<!--
 	=========================================================================
