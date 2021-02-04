@@ -292,71 +292,76 @@
 		<reflexive>
 			<!-- File set root folder -->
 			<fileset dir="${srcRoot}" id="rootSet">
-				<include name="*.php" />
+				<include name="**/*.php" />
+				<include name="**/*.ini" />
 			</fileset>
 
-			<!-- File set admin folder -->
-			<fileset dir="${admininistrator}" id="adminSet">
-				<include name="**/*.php" />
-				<!-- may be accidentally copied from installation server -->
-			</fileset>
+<!--			&lt;!&ndash; File set admin folder &ndash;&gt;-->
+<!--			<fileset dir="${admininistrator}" id="adminSet">-->
+<!--				<include name="**/*.php" />-->
+<!--				&lt;!&ndash; may be accidentally copied from installation server &ndash;&gt;-->
+<!--			</fileset>-->
 
-			<!-- File set site folder -->
-			<fileset dir="${components}" id="siteSet">
-				<include name="**/*.php" />
-				<!--exclude name="**/params.ini" /-->
-			</fileset>
+<!--			&lt;!&ndash; File set site folder &ndash;&gt;-->
+<!--			<fileset dir="${components}" id="siteSet">-->
+<!--				<include name="**/*.php" />-->
+<!--				&lt;!&ndash;exclude name="**/params.ini" /&ndash;&gt;-->
+<!--			</fileset>-->
 
-			<!-- File set media folder -->
-			<fileset dir="${media}" id="mediaSet">
-				<include name="**/*.php" />
-				<!--exclude name="**/params.ini" /-->
-			</fileset>
+<!--			&lt;!&ndash; File set media folder &ndash;&gt;-->
+<!--			<fileset dir="${media}" id="mediaSet">-->
+<!--				<include name="**/*.php" />-->
+<!--				&lt;!&ndash;exclude name="**/params.ini" /&ndash;&gt;-->
+<!--			</fileset>-->
 
 			<filterchain>
 				<replaceregexp>
 
 					<!--regexp pattern="@since(?=\s*$)" replace="@since ${build.version}" /-->
-					<regexp pattern="(?&lt;=\([cC]\)\s)(\d+\s*-\s*)\d+" replace="${1}${date.year}" />
+<!--					<regexp pattern="(?&lt;=\([cC]\)\s)(\d+\s*-\s*)\d+" replace="${1}${date.year}" />-->
+
+					<!-- @copyright   (C) 2016-2021 RSGallery2 Team -->
+					<!-- @ == &commat; -->
+					<regexp pattern="(@copyright\s*\([cC]\) 20..\-).*(?= RSGallery2 Team)" replace="${1}${date.year}"/>
+
+					<!-- @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved. -->
+					<!-- @ == &commat; -->
+					<regexp pattern="@copyright\s*Copyright\s\([cC]\)\s(20.. *-).*(?= Open Source Matters).*" replace="@copyright   (C) ${1} ${date.year} RSGallery2 Team "/>
+
+					<!-- <copyright>anything which does not start with (C) </copyright> -->
+					<!-- <regexp pattern="&lt;copyright&gt;(?!\(c\))(.*)(?=&lt;)" replace="&lt;copyright&gt;(c) ${date.year}-${date.year} RSGallery2 Team"/> -->
 
 				</replaceregexp>
 			</filterchain>
 		</reflexive>
-		
-		<!-- 
-		*.xml
-		-->
+
+<!--
+*.xml
+-->
 		<echo msg="UpdateCopyrightYear start *.xml" />
 		
 		<reflexive>
-			<!-- File set admin folder -->
-			<fileset dir="${admininistrator}" id="adminSet">
-				<include name="**/*.php" />
-				<!-- may be accidentally copied from installation server -->
-			</fileset>
-
-			<!-- File set site folder -->
-			<fileset dir="${components}" id="siteSet">
-				<include name="**/*.php" />
-				<!--exclude name="**/params.ini" /-->
-			</fileset>
-
-			<!-- File set media folder -->
-			<fileset dir="${media}" id="mediaSet">
-				<include name="**/*.php" />
-				<!--exclude name="**/params.ini" /-->
+			<!-- File set root folder -->
+			<fileset dir="${srcRoot}" id="rootSet">
+				<include name="**/*.xml" />
 			</fileset>
 
 			<filterchain>
 				<replaceregexp>
 					<!--regexp pattern="(?&lt;=&lt;copyright&gt;\(c\) 2003\-).*(?= RSGallery2 Team)" replace="${date.year}"/-->
 					<!--regexp pattern="(?&lt;=&lt;copyright&gt;\([cC]\)\s) yyyy 2003\-).*(?= RSGallery2 Team)" replace="${date.year}"/-->
-					<regexp pattern="(?&lt;=\([cC]\)\s)(\d+\s*-\s*)\d+" replace="${1}${date.year}" />
+					<!-- <regexp pattern="(?&lt;=\([cC]\)\s)(\d+\s*-\s*)\d+" replace="${1}${date.year}" />-->
+
+					<!-- <copyright>(c) 2003-2020 RSGallery2 Team</copyright> -->
+					<regexp pattern="(?&lt;=&lt;copyright&gt;\([cC]\) 20..\-).*(?= RSGallery2 Team)" replace="${date.year}"/>
+					<!-- <copyright>anything which does not start with (C) </copyright> -->
+					<regexp pattern="&lt;copyright&gt;(?!\(c\))(.*)(?=&lt;)" replace="&lt;copyright&gt;(c) ${date.year}-${date.year} RSGallery2 Team"/>
+
 				</replaceregexp>
 			</filterchain>
 		</reflexive>
-		
-		
+
+
 		
 		<echo msg="UpdateCopyrightYear end" />
     </target>
