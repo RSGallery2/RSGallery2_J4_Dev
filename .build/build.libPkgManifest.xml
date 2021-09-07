@@ -110,7 +110,6 @@
 				$filenames = explode(';', $this->zippedFileNames);
 
                 $count = (int) count($filenames);
-                //echo (" >>> count(\$filenames): " . $count);
                 echo (" items " . $count);
 
 				// toDo: Read xml of plugin for .... instead of reading ...
@@ -140,9 +139,9 @@
 				$strLines = "";
 				foreach ($filenames as $filename) {
     				$name = substr($filename, strrpos ($filename, '/')+1, -4);
-    				// echo (" \r\n \$name: " . $name);
+    				echo (" \r\n \$name: " . $name);
 
-    				$type =  substr($name, 0, 4); // rsg2, mod_, plg_
+    				$type =  substr($name, 0, 4); // rsg2, mod_, (plg_)
                     // echo (" ??? \$type: " . $type);
 
                     $strLine = 'Type n ot defined';
@@ -158,7 +157,7 @@
         				 	$strLine = ' 		<file type="module" client="site" id="' . $name . '" >' . $name . '.zip</file>';
                         break;
 
-                        case 'plg_':
+                        case 'rsg2': //'plg_':
                             // ToDo: group may be other then content
         				 	$strLine = ' 		<file type="plugin" group="content" id="' . $name . '" >' . $name . '.zip</file>';
                         break;
