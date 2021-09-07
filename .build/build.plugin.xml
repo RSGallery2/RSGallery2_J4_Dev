@@ -178,7 +178,7 @@
 		* .
 		-->
 
-		<echo msg="buildPlugins start" />
+		<echo msg="buildPlugin start" />
 
 		<echo msg="   plugin_name='${plugin_name}'" />
 		<echo msg="   pluginsComponent='${pluginsComponent}'" />
