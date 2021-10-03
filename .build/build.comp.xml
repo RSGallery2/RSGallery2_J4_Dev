@@ -205,11 +205,6 @@
 		* .
 		-->
 		
-		<!--phingcall target="bar">
-			<property name="property1" value="aaaaa" />
-			<property name="foo" value="baz" />
-		</phingcall-->
-
 		<echo msg="cmp:build start" />
 
 		<echo msg="   comp_name='${comp_name}'" />

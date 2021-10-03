@@ -152,11 +152,6 @@
 	<target name="build" depends="manifestFile, AddVersion2PhpSinceDoc,
 								  UpdateCopyrightYear,RemoveSite_ParamsIniFiles">	
 
-		<!--phingcall target="bar">
-			<property name="property1" value="aaaaa" />
-			<property name="foo" value="baz" />
-		</phingcall-->
-
 		<phingcall 
 			target="RemoveSite_ParamsIniFiles">
 		</phingcall>

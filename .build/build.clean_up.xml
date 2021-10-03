@@ -42,8 +42,7 @@
 		<echo msg="...:buildCleanUp start" />
 
 		<phingcall target="deleteTemp">
-			<!--			<property name="property1" value="aaaaa" />-->
-			<!--			<property name="foo" value="baz" />-->
+
 		</phingcall>
 
 		<!-- may be  more ....  -->
