@@ -123,9 +123,6 @@
     <!-- File set admin folder -->
     <fileset dir="${administrator}" id="adminSet">
         <include name="**" />
-		<!-- may be accidentally copied from installation server -->
-        <exclude name="rsgallery2.xml" />
-        <exclude name="install.rsgallery2.php" />
     </fileset>
 
     <!-- File set site folder -->

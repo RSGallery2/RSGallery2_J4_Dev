@@ -4,7 +4,7 @@
 		--- RSGallery2 component build script with phing ---
 	
 		The script 2 copies the component files from path
-		RSGallery2_J4\ and creates a build in folder
+		..\..\RSGallery2_J4\ and creates a build in folder
 		..\.packages\tmp. It replaces or changes
 		text in files. Then these files are zipped
 
@@ -166,10 +166,6 @@
     <!-- File set administrator folder -->
     <fileset dir="${srcAdminCmp}" id="adminSet">
         <include name="**" />
-		<!-- 2019.10.31 may be accidentally copied from installation server 
-        <exclude name="changelog.xml" />
-        <exclude name="install.rsgallery2.php" />
-        <exclude name="rsgallery2.xml" /-->
     </fileset>
 
     <!-- File set site folder -->
@@ -281,7 +277,7 @@
 
 
 
-		<echo msg="cmp:build done" />
+		<echoConsole msg="component:build done" />
 		
 	</target>
 
