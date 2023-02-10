@@ -12,7 +12,7 @@ define("doCopyFiles", 5);
 
 
 // for debug
-$startOn = doCopyFiles;
+$startOn = doDeleteFiles;
 
 // extract from database
 $db_access = new db_access ();

@@ -34,42 +34,7 @@ class copyFiles
 		}
 
 		$absDscFolder = realpath("..\\" . $this->dstFolder);
-
-		$files = array_diff(scandir($absDscFolder), array('.', '..'));
-
-		foreach ($files as $file)
-		{
-
-			$baseName = basename($file);
-
-			if ($baseName != '.idea')
-			{
-
-				$dstFile = $absDscFolder . '/' . $baseName;
-
-				if (is_file($dstFile))
-				{
-
-					unlink($dstFile);
-
-				}
-				else
-				{
-					// delete file / folders
-
-					$this->delTree($dstFile);
-				}
-
-			}
-			else
-			{
-				// .idea;
-
-				$dstFile = $absDscFolder . '/' . $baseName;
-
-			}
-
-		}
+		$this->delTree($absDscFolder);
 
 	}
 
@@ -96,18 +61,35 @@ class copyFiles
 
 	function delTree($dir)
 	{
-		if (strlen($dir) > strlen('d:\wamp64\www\joomla4x_'))
+		$hasError = false;
+
+		$files = $this->FilesInDir($dir);
+
+		foreach ($files as $file)
 		{
+			unlink ($file);
+		}
 
-			$files = array_diff(scandir($dir), array('.', '..'));
+		$folders = $this->DirectoryInDir($dir);
 
-			foreach ($files as $file)
-			{
-				(is_dir("$dir/$file")) ? $this->delTree("$dir/$file") : unlink("$dir/$file");
+		foreach ($folders as $srcFolder)
+		{
+			$baseName = basename($srcFolder);
+
+			if ($baseName == '.idea') {
+				continue;
 			}
 
-			return rmdir($dir);
+			if ($baseName == '.' || $baseName == '..') {
+				continue;
+			}
+
+			$hasError |= $this->delTree($srcFolder);
+
+			$hasError = rmdir($dir);
 		}
+
+		return $hasError; // hasError
 	}
 
 	function recurse_copy($src,$dst) {
@@ -116,42 +98,44 @@ class copyFiles
 
 		try
 		{
-			//--- copy files ------------------------------------
+			$files = $this->FilesInDir($src);
 
-			$files = array_diff(array_filter(glob($src . '/*'), 'is_file'), array('.', '..'));
+			//--- copy files ------------------------------------
 
 			foreach ($files as $srcFile)
 			{
 				$baseName = basename($srcFile);
 				$dstFile = $dst . '/' . $baseName;
 
-				if ($baseName != '.idea')
-				{
-					copy($srcFile, $dstFile);
-					$isOneFileCopied = true;
-				}
+				copy($srcFile, $dstFile);
+				$isOneFileCopied = true;
 			}
-
 
 			//--- copy folders ------------------------------------
 
-			$folders = array_diff(array_filter(glob($src . '/*'), 'is_dir'), array('.', '..'));
+			$folders = $this->DirectoryInDir($src);
 
 			foreach ($folders as $srcFolder)
 			{
 				$baseName = basename($srcFolder);
+
+				if ($baseName == '.idea') {
+					continue;
+				}
+
+				if ($baseName == '.' || $baseName == '..') {
+					continue;
+				}
+
 				$dstFolder = $dst . '/' . $baseName;
 
-				if ($baseName != '.idea')
+				if (is_dir($dstFolder) === false)
 				{
-					if (is_dir($dstFolder) === false)
-					{
-						mkdir($dstFolder);
-						$isOneFileCopied = true;
-					}
-
-					$isOneFileCopied |= $this->recurse_copy($srcFolder, $dstFolder);
+					mkdir($dstFolder);
+					$isOneFileCopied = true;
 				}
+
+				$isOneFileCopied |= $this->recurse_copy($srcFolder, $dstFolder);
 			}
 
 		}
@@ -161,6 +145,34 @@ class copyFiles
 		}
 
 		return $isOneFileCopied;
+	}
+
+
+
+	function DirectoryInDir(string $path) : array
+	{
+		$directories = [];
+		$items = scandir($path);
+		foreach ($items as $item) {
+			if($item == '..' || $item == '.')
+				continue;
+			if(is_dir($path.'/'.$item))
+				$directories[] = $item;
+		}
+		return $directories;
+	}
+
+	function FilesInDir(string $path) : array
+	{
+		$files = [];
+		$items = scandir($path);
+		foreach ($items as $item) {
+			if($item == '..' || $item == '.')
+				continue;
+			if(is_file($path.'/'.$item))
+				$files[] = $item;
+		}
+		return $files;
 	}
 
 } // class
