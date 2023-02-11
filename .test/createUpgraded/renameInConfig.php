@@ -2,22 +2,23 @@
 
 class renameInConfig
 {
-	public string $srcFolder = "";
+	public string $dstFolder = "";
 	public string $cfgFile = "";
 	public string $srcString = "";
 	public string $dstString = "";
+	public bool $isOverwrite = false;
 
-	public function __construct($srcFolder = '', $cfgFile = '', $srcString = '', $dstString = '')
+	public function __construct($dstFolder = '', $cfgFile = '', $srcString = '', $dstString = '')
 	{
 		$this->init();
 
-		if ($srcFolder != '')
+		if ($dstFolder != '')
 		{
-			$this->srcFolder = $srcFolder;
+			$this->dstFolder = $dstFolder;
 		}
 		if ($cfgFile != '')
 		{
-			$this->dstFolder = $cfgFile;
+			$this->cfgFile = $cfgFile;
 		}
 		if ($srcString != '')
 		{
@@ -32,21 +33,24 @@ class renameInConfig
 
 	public function init()
 	{
-		$this->srcFolder = "joomla4x_RSG2_ReleaseBase";
-		$this->cfgFile = "configuration.php";
+		$this->dstFolder = "joomla4x_RSG2_ReleaseBase";
+		$this->cfgFile   = "configuration.php";
 		$this->srcString = "joomla4x_rsg2_releasebase";
 		$this->dstString = "joomla4x_upgraded";
+		$this->isOverwrite = false;
 	}
 
-	public function renameInConfig ($srcFolder = '', $cfgFile = '', $srcString = '', $dstString = '')
+	public function renameInConfig ($dstFolder = '', $cfgFile = '', $srcString = '', $dstString = '')
 	{
-		if ($srcFolder != '')
+		$hasError = false;
+
+		if ($dstFolder != '')
 		{
-			$this->srcFolder = $srcFolder;
+			$this->dstFolder = $dstFolder;
 		}
 		if ($cfgFile != '')
 		{
-			$this->dstFolder = $cfgFile;
+			$this->cfgFile = $cfgFile;
 		}
 		if ($srcString != '')
 		{
@@ -57,38 +61,70 @@ class renameInConfig
 			$this->dstString = $dstString;
 		}
 
+		try
+		{
 
-		//--- read file --------------------------------------------
+			//--- read file --------------------------------------------
 
-		$handle = fopen("inputfile.txt", "r");
-		if ($handle) {
-			while (($line = fgets($handle)) !== false) {
-				// process the line read.
+			$cfgFile = realpath("..\\" . $this->dstFolder) . '/' . $this->cfgFile;
+
+
+			// ? PHP_EOL
+			$srcLines = explode("\n", file_get_contents($cfgFile));
+			if ($srcLines === false) {
+
+				$hasError = true;
 			}
 
-			fclose($handle);
+
+			if ($hasError === false)
+			{
+
+
+				//--- exchange lines --------------------------------------------
+
+				$dstLines = [];
+
+				foreach ($srcLines as $line)
+				{
+
+					$dstLines[] = str_replace($this->srcString, $this->dstString, $line);
+
+				}
+
+				//--- permission remove readonlay ------------------------------------
+
+				$dstFile = $cfgFile;
+
+				// test file ?
+				if ($this->isOverwrite == false)
+				{
+
+					$dstFile = $dstFile . '.new.php';
+
+				}
+
+				if (file_exists($dstFile))
+				{
+					$this->changePermission($dstFile, "remove_readonly");
+				}
+
+				//--- write file ----------------------------------------------
+
+				$result   = file_put_contents($dstFile, implode(PHP_EOL, $dstLines));
+				$hasError = $result === false;
+
+				//--- permission add readonly ------------------------------------
+
+				$this->changePermission($dstFile, "add_readonly");
+			}
+		}
+		catch (\RuntimeException $exception)
+		{
+			;
 		}
 
-		//--- exchange lines --------------------------------------------
-
-
-
-
-
-		//--- permission remove readonlay ------------------------------------
-
-		$this->changePermission($this->srcFolder, "remove_readonly");
-
-		//--- write file ----------------------------------------------
-
-
-
-
-
-		//--- permission add readonly ------------------------------------
-
-		$this->changePermission($this->srcFolder, "add_readonly");
-
+		return $hasError;
 	}
 
 
@@ -102,7 +138,7 @@ class renameInConfig
 				chmod( $file, '0600' );
 				break;
 			default:  // default action if no action is matched
-				chanchmodgepermission( $file, '0755' );
+				chmod( $file, '0755' );
 		}
 
 

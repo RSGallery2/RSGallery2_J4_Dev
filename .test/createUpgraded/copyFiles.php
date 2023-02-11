@@ -33,8 +33,8 @@ class copyFiles
 			$this->dstFolder = $dstFolder;
 		}
 
-		$absDscFolder = realpath("..\\" . $this->dstFolder);
-		$this->delTree($absDscFolder);
+		$absDstFolder = realpath("..\\" . $this->dstFolder);
+		$this->delTree($absDstFolder);
 
 	}
 

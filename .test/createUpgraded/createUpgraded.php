@@ -2,17 +2,20 @@
 
 require_once('exportDB.php');
 require_once('copyFiles.php');
+require_once('renameInConfig.php');
 
-define("doExport", 1);
-define("doRecreate", 2);
-define("doImport", 3);
+const doExport = 1;
+const doRecreate = 2;
+const doImport = 3;
 
-define("doDeleteFiles", 4);
-define("doCopyFiles", 5);
+const doDeleteFiles = 4;
+const doCopyFiles   = 5;
+
+const doRenameConfig = 6;
 
 
 // for debug
-$startOn = doDeleteFiles;
+$startOn = doRenameConfig;
 
 // extract from database
 $db_access = new db_access ();
@@ -38,11 +41,8 @@ if ($startOn <= doImport)
 }
 
 
-
-// extract from database
+// class 4 delete and copy files
 $copyFiles = new copyFiles ();
-
-
 
 if ($startOn <= doDeleteFiles)
 {
@@ -58,5 +58,16 @@ if ($startOn <= doCopyFiles)
 	$copyFiles->copyFiles();
 }
 
+$renameInConfig = new renameInConfig();
+if ($startOn <= doRenameConfig)
+{
+	$renameInConfig->dstFolder = "joomla4x_upgraded";
+	$renameInConfig->cfgFile   = "configuration.php";
+	$renameInConfig->srcString = "joomla4x_rsg2_releasebase";
+	$renameInConfig->dstString = "joomla4x_upgraded";
+	$renameInConfig->isOverwrite = true;
+
+	$renameInConfig->renameInConfig();
+}
 
 
