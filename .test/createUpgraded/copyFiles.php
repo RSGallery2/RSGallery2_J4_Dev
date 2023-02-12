@@ -45,6 +45,7 @@ class copyFiles
 		{
 			$this->srcFolder = $srcFolder;
 		}
+
 		$absSrcFolder = realpath('../' . $this->srcFolder);
 
 		if ($dstFolder != '')
@@ -67,14 +68,16 @@ class copyFiles
 
 		foreach ($files as $file)
 		{
-			unlink ($file);
+			$delFile = $dir . '/' . $file;
+			chmod( $delFile, '0755' );
+			unlink ($delFile);
 		}
 
 		$folders = $this->DirectoryInDir($dir);
 
-		foreach ($folders as $srcFolder)
+		foreach ($folders as $folder)
 		{
-			$baseName = basename($srcFolder);
+			$baseName = basename($folder);
 
 			if ($baseName == '.idea') {
 				continue;
@@ -84,9 +87,11 @@ class copyFiles
 				continue;
 			}
 
-			$hasError |= $this->delTree($srcFolder);
+			$delFolder = $dir . '/' . $folder;
+			$hasError |= ! $this->delTree($delFolder);
 
-			$hasError = rmdir($dir);
+			chmod( $delFolder, '0755' );
+			$hasError |= rmdir($delFolder);
 		}
 
 		return $hasError; // hasError
@@ -105,6 +110,8 @@ class copyFiles
 			foreach ($files as $srcFile)
 			{
 				$baseName = basename($srcFile);
+
+				$srcFile = $src . '/' . $baseName;
 				$dstFile = $dst . '/' . $baseName;
 
 				copy($srcFile, $dstFile);
@@ -127,6 +134,7 @@ class copyFiles
 					continue;
 				}
 
+				$srcFolder = $src . '/' . $baseName;
 				$dstFolder = $dst . '/' . $baseName;
 
 				if (is_dir($dstFolder) === false)

@@ -167,7 +167,6 @@ class db_access
 			//$backup_name = $backup_name . ".sql";
 
 			$myfile = fopen($backup_name, "w") or die("Unable to open file!");
-			$txt = "Mickey Mouse\n";
 			fwrite($myfile, $content);
 			fclose($myfile);
 
