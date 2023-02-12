@@ -51,7 +51,7 @@ CREATE TABLE `j4x_action_logs` (
   KEY `idx_user_id_logdate` (`user_id`,`log_date`),
   KEY `idx_user_id_extension` (`user_id`,`extension`),
   KEY `idx_extension_item_id` (`extension`,`item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 INSERT INTO j4x_action_logs VALUES
@@ -73,17 +73,15 @@ INSERT INTO j4x_action_logs VALUES
 ("16","PLG_ACTIONLOG_JOOMLA_USER_CHECKIN","{\"action\":\"checkin\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_USER\",\"id\":\"424\",\"title\":\"finnern\",\"itemlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"userid\":\"424\",\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"table\":\"#__menu\"}","2022-12-11 15:56:08","com_checkin","424","424","COM_ACTIONLOGS_DISABLED"),
 ("17","PLG_ACTIONLOG_JOOMLA_USER_LOGGED_IN","{\"action\":\"login\",\"userid\":\"424\",\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"app\":\"PLG_ACTIONLOG_JOOMLA_APPLICATION_ADMINISTRATOR\"}","2023-01-06 18:49:39","com_users","424","0","COM_ACTIONLOGS_DISABLED"),
 ("18","PLG_ACTIONLOG_JOOMLA_USER_LOGGED_IN","{\"action\":\"login\",\"userid\":\"424\",\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"app\":\"PLG_ACTIONLOG_JOOMLA_APPLICATION_ADMINISTRATOR\"}","2023-02-03 20:19:40","com_users","424","0","COM_ACTIONLOGS_DISABLED"),
-("19","PLG_ACTIONLOG_JOOMLA_COMPONENT_CONFIG_UPDATED","{\"action\":\"update\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_COMPONENT_CONFIG\",\"id\":\"28\",\"title\":\"com_joomlaupdate\",\"extension_name\":\"com_joomlaupdate\",\"itemlink\":\"index.php?option=com_config&task=component.edit&extension_id=28\",\"userid\":\"424\",\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\"}","2023-02-03 20:58:14","com_config.component","424","28","COM_ACTIONLOGS_DISABLED"),
-("20","PLG_ACTIONLOG_JOOMLA_USER_UPDATE","{\"action\":\"joomlaupdate\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_USER\",\"id\":424,\"title\":\"finnern\",\"itemlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"userid\":424,\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"version\":\"4.2.7\",\"oldversion\":\"Unknown\"}","2023-02-03 21:00:04","com_joomlaupdate","424","424","COM_ACTIONLOGS_DISABLED"),
-("21","PLG_ACTIONLOG_JOOMLA_USER_UPDATE","{\"action\":\"joomlaupdate\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_USER\",\"id\":424,\"title\":\"finnern\",\"itemlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"userid\":424,\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"version\":\"4.2.7\",\"oldversion\":\"3.10.11\"}","2023-02-03 21:00:04","com_joomlaupdate","424","424","COM_ACTIONLOGS_DISABLED"),
-("22","PLG_SYSTEM_ACTIONLOGS_CONTENT_ADDED","{\"action\":\"add\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_MODULE\",\"id\":109,\"title\":\"Rsgallery2 Dashboard\",\"extension_name\":\"Rsgallery2 Dashboard\",\"itemlink\":\"index.php?option=com_modules&task=module.edit&id=109\",\"userid\":424,\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\"}","2023-02-03 21:13:15","com_modules.module","424","109","COM_ACTIONLOGS_DISABLED"),
-("23","PLG_ACTIONLOG_JOOMLA_EXTENSION_INSTALLED","{\"action\":\"install\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_COMPONENT\",\"id\":10000,\"name\":\"COM_RSGALLERY2\",\"extension_name\":\"COM_RSGALLERY2\",\"userid\":424,\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\"}","2023-02-03 21:13:15","com_installer","424","10000","COM_ACTIONLOGS_DISABLED"),
-("24","PLG_SYSTEM_ACTIONLOGS_CONTENT_ADDED","{\"action\":\"add\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_MODULE\",\"id\":110,\"title\":\"Rsgallery2 Dashboard\",\"extension_name\":\"Rsgallery2 Dashboard\",\"itemlink\":\"index.php?option=com_modules&task=module.edit&id=110\",\"userid\":424,\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\"}","2023-02-03 21:36:23","com_modules.module","424","110","COM_ACTIONLOGS_DISABLED"),
-("25","PLG_ACTIONLOG_JOOMLA_EXTENSION_INSTALLED","{\"action\":\"install\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_COMPONENT\",\"id\":10000,\"name\":\"COM_RSGALLERY2\",\"extension_name\":\"COM_RSGALLERY2\",\"userid\":424,\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\"}","2023-02-03 21:36:23","com_installer","424","10000","COM_ACTIONLOGS_DISABLED"),
-("26","PLG_SYSTEM_ACTIONLOGS_CONTENT_ADDED","{\"action\":\"add\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_MODULE\",\"id\":111,\"title\":\"Rsgallery2 Dashboard\",\"extension_name\":\"Rsgallery2 Dashboard\",\"itemlink\":\"index.php?option=com_modules&task=module.edit&id=111\",\"userid\":424,\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\"}","2023-02-03 21:39:16","com_modules.module","424","111","COM_ACTIONLOGS_DISABLED"),
-("27","PLG_ACTIONLOG_JOOMLA_EXTENSION_INSTALLED","{\"action\":\"install\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_COMPONENT\",\"id\":10000,\"name\":\"COM_RSGALLERY2\",\"extension_name\":\"COM_RSGALLERY2\",\"userid\":424,\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\"}","2023-02-03 21:39:16","com_installer","424","10000","COM_ACTIONLOGS_DISABLED"),
-("28","PLG_SYSTEM_ACTIONLOGS_CONTENT_ADDED","{\"action\":\"add\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_MODULE\",\"id\":112,\"title\":\"Rsgallery2 Dashboard\",\"extension_name\":\"Rsgallery2 Dashboard\",\"itemlink\":\"index.php?option=com_modules&task=module.edit&id=112\",\"userid\":424,\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\"}","2023-02-03 21:59:11","com_modules.module","424","112","COM_ACTIONLOGS_DISABLED"),
-("29","PLG_ACTIONLOG_JOOMLA_EXTENSION_INSTALLED","{\"action\":\"install\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_COMPONENT\",\"id\":10000,\"name\":\"COM_RSGALLERY2\",\"extension_name\":\"COM_RSGALLERY2\",\"userid\":424,\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\"}","2023-02-03 21:59:11","com_installer","424","10000","COM_ACTIONLOGS_DISABLED");
+("19","PLG_ACTIONLOG_JOOMLA_USER_LOGGED_IN","{\"action\":\"login\",\"userid\":\"424\",\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"app\":\"PLG_ACTIONLOG_JOOMLA_APPLICATION_ADMINISTRATOR\"}","2023-02-12 15:59:12","com_users","424","0","COM_ACTIONLOGS_DISABLED"),
+("20","PLG_ACTIONLOG_JOOMLA_USER_CHECKIN","{\"action\":\"checkin\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_USER\",\"id\":\"424\",\"title\":\"finnern\",\"itemlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"userid\":\"424\",\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"table\":\"#__rsgallery2_galleries\"}","2023-02-12 16:53:32","com_checkin","424","424","COM_ACTIONLOGS_DISABLED"),
+("21","PLG_ACTIONLOG_JOOMLA_USER_CHECKIN","{\"action\":\"checkin\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_USER\",\"id\":\"424\",\"title\":\"finnern\",\"itemlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"userid\":\"424\",\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"table\":\"#__rsgallery2_galleries\"}","2023-02-12 16:53:42","com_checkin","424","424","COM_ACTIONLOGS_DISABLED"),
+("22","PLG_ACTIONLOG_JOOMLA_USER_CHECKIN","{\"action\":\"checkin\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_USER\",\"id\":\"424\",\"title\":\"finnern\",\"itemlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"userid\":\"424\",\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"table\":\"#__rsgallery2_galleries\"}","2023-02-12 16:53:51","com_checkin","424","424","COM_ACTIONLOGS_DISABLED"),
+("23","PLG_ACTIONLOG_JOOMLA_USER_CHECKIN","{\"action\":\"checkin\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_USER\",\"id\":\"424\",\"title\":\"finnern\",\"itemlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"userid\":\"424\",\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"table\":\"#__rsgallery2_galleries\"}","2023-02-12 17:01:25","com_checkin","424","424","COM_ACTIONLOGS_DISABLED"),
+("24","PLG_ACTIONLOG_JOOMLA_USER_LOGGED_IN","{\"action\":\"login\",\"userid\":\"424\",\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"app\":\"PLG_ACTIONLOG_JOOMLA_APPLICATION_ADMINISTRATOR\"}","2023-02-12 19:12:06","com_users","424","0","COM_ACTIONLOGS_DISABLED"),
+("25","PLG_ACTIONLOG_JOOMLA_COMPONENT_CONFIG_UPDATED","{\"action\":\"update\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_COMPONENT_CONFIG\",\"id\":\"28\",\"title\":\"com_joomlaupdate\",\"extension_name\":\"com_joomlaupdate\",\"itemlink\":\"index.php?option=com_config&task=component.edit&extension_id=28\",\"userid\":\"424\",\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\"}","2023-02-12 19:14:19","com_config.component","424","28","COM_ACTIONLOGS_DISABLED"),
+("26","PLG_ACTIONLOG_JOOMLA_USER_UPDATE","{\"action\":\"joomlaupdate\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_USER\",\"id\":424,\"title\":\"finnern\",\"itemlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"userid\":424,\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"version\":\"4.2.7\",\"oldversion\":\"Unknown\"}","2023-02-12 19:16:38","com_joomlaupdate","424","424","COM_ACTIONLOGS_DISABLED"),
+("27","PLG_ACTIONLOG_JOOMLA_USER_UPDATE","{\"action\":\"joomlaupdate\",\"type\":\"PLG_ACTIONLOG_JOOMLA_TYPE_USER\",\"id\":424,\"title\":\"finnern\",\"itemlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"userid\":424,\"username\":\"finnern\",\"accountlink\":\"index.php?option=com_users&task=user.edit&id=424\",\"version\":\"4.2.7\",\"oldversion\":\"3.10.11\"}","2023-02-12 19:16:38","com_joomlaupdate","424","424","COM_ACTIONLOGS_DISABLED");
 
 
 
@@ -145,11 +143,11 @@ CREATE TABLE `j4x_assets` (
   UNIQUE KEY `idx_asset_name` (`name`),
   KEY `idx_lft_rgt` (`lft`,`rgt`),
   KEY `idx_parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 INSERT INTO j4x_assets VALUES
-("1","0","0","223","0","root.1","Root Asset","{\"core.login.site\":{\"6\":1,\"2\":1},\"core.login.admin\":{\"6\":1},\"core.login.offline\":{\"6\":1},\"core.admin\":{\"8\":1},\"core.manage\":{\"7\":1},\"core.create\":{\"6\":1,\"3\":1},\"core.delete\":{\"6\":1},\"core.edit\":{\"6\":1,\"4\":1},\"core.edit.state\":{\"6\":1,\"5\":1},\"core.edit.own\":{\"6\":1,\"3\":1}}"),
+("1","0","0","305","0","root.1","Root Asset","{\"core.login.site\":{\"6\":1,\"2\":1},\"core.login.admin\":{\"6\":1},\"core.login.offline\":{\"6\":1},\"core.admin\":{\"8\":1},\"core.manage\":{\"7\":1},\"core.create\":{\"6\":1,\"3\":1},\"core.delete\":{\"6\":1},\"core.edit\":{\"6\":1,\"4\":1},\"core.edit.state\":{\"6\":1,\"5\":1},\"core.edit.own\":{\"6\":1,\"3\":1}}"),
 ("2","1","1","2","1","com_admin","com_admin","{}"),
 ("3","1","3","6","1","com_banners","com_banners","{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1}}"),
 ("4","1","7","8","1","com_cache","com_cache","{\"core.admin\":{\"7\":1},\"core.manage\":{\"7\":1}}"),
@@ -166,25 +164,25 @@ INSERT INTO j4x_assets VALUES
 ("15","1","33","34","1","com_media","com_media","{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.create\":{\"3\":1},\"core.delete\":{\"5\":1}}"),
 ("16","1","35","38","1","com_menus","com_menus","{\"core.admin\":{\"7\":1}}"),
 ("17","1","39","40","1","com_messages","com_messages","{\"core.admin\":{\"7\":1},\"core.manage\":{\"7\":1}}"),
-("18","1","41","86","1","com_modules","com_modules","{\"core.admin\":{\"7\":1}}"),
-("19","1","87","90","1","com_newsfeeds","com_newsfeeds","{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1}}"),
-("20","1","91","92","1","com_plugins","com_plugins","{\"core.admin\":{\"7\":1}}"),
-("21","1","93","94","1","com_redirect","com_redirect","{\"core.admin\":{\"7\":1}}"),
-("22","1","95","96","1","com_search","com_search","{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1}}"),
-("23","1","97","98","1","com_templates","com_templates","{\"core.admin\":{\"7\":1}}"),
-("24","1","99","102","1","com_users","com_users","{\"core.admin\":{\"7\":1}}"),
-("26","1","103","104","1","com_wrapper","com_wrapper","{}"),
+("18","1","41","78","1","com_modules","com_modules","{\"core.admin\":{\"7\":1}}"),
+("19","1","79","82","1","com_newsfeeds","com_newsfeeds","{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1}}"),
+("20","1","83","84","1","com_plugins","com_plugins","{\"core.admin\":{\"7\":1}}"),
+("21","1","85","86","1","com_redirect","com_redirect","{\"core.admin\":{\"7\":1}}"),
+("22","1","87","88","1","com_search","com_search","{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1}}"),
+("23","1","89","90","1","com_templates","com_templates","{\"core.admin\":{\"7\":1}}"),
+("24","1","91","94","1","com_users","com_users","{\"core.admin\":{\"7\":1}}"),
+("26","1","95","96","1","com_wrapper","com_wrapper","{}"),
 ("27","8","18","19","2","com_content.category.2","Uncategorised","{}"),
 ("28","3","4","5","2","com_banners.category.3","Uncategorised","{}"),
 ("29","7","14","15","2","com_contact.category.4","Uncategorised","{}"),
-("30","19","88","89","2","com_newsfeeds.category.5","Uncategorised","{}"),
-("32","24","100","101","2","com_users.category.7","Uncategorised","{}"),
-("33","1","105","106","1","com_finder","com_finder","{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1}}"),
-("34","1","107","108","1","com_joomlaupdate","com_joomlaupdate","{}"),
-("35","1","109","110","1","com_tags","com_tags","{}"),
-("36","1","111","112","1","com_contenthistory","com_contenthistory","{}"),
-("37","1","113","114","1","com_ajax","com_ajax","{}"),
-("38","1","115","116","1","com_postinstall","com_postinstall","{}"),
+("30","19","80","81","2","com_newsfeeds.category.5","Uncategorised","{}"),
+("32","24","92","93","2","com_users.category.7","Uncategorised","{}"),
+("33","1","97","98","1","com_finder","com_finder","{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1}}"),
+("34","1","99","100","1","com_joomlaupdate","com_joomlaupdate","{}"),
+("35","1","101","102","1","com_tags","com_tags","{}"),
+("36","1","103","104","1","com_contenthistory","com_contenthistory","{}"),
+("37","1","105","106","1","com_ajax","com_ajax","{}"),
+("38","1","107","108","1","com_postinstall","com_postinstall","{}"),
 ("39","18","42","43","2","com_modules.module.1","Main Menu","{}"),
 ("40","18","44","45","2","com_modules.module.2","Login","{}"),
 ("41","18","46","47","2","com_modules.module.3","Popular Articles","{}"),
@@ -202,66 +200,107 @@ INSERT INTO j4x_assets VALUES
 ("53","18","70","71","2","com_modules.module.86","Joomla Version","{}"),
 ("54","16","36","37","2","com_menus.menu.1","Main Menu","{}"),
 ("55","18","72","73","2","com_modules.module.87","Sample Data","{}"),
-("56","1","117","118","1","com_privacy","com_privacy","{}"),
-("57","1","119","120","1","com_actionlogs","com_actionlogs","{}"),
+("56","1","109","110","1","com_privacy","com_privacy","{}"),
+("57","1","111","112","1","com_actionlogs","com_actionlogs","{}"),
 ("58","18","74","75","2","com_modules.module.88","Latest Actions","{}"),
 ("59","18","76","77","2","com_modules.module.89","Privacy Dashboard","{}"),
-("60","1","121","122","1","com_rsgallery2","com_rsgallery2","{}"),
-("61","1","123","124","1","#__rsgallery2_galleries.1","#__rsgallery2_galleries.1","{}"),
-("62","1","125","126","1","#__rsgallery2_galleries.2","#__rsgallery2_galleries.2","{}"),
-("63","1","127","128","1","#__rsgallery2_galleries.3","#__rsgallery2_galleries.3","{}"),
-("64","1","129","130","1","#__rsgallery2_galleries.4","#__rsgallery2_galleries.4","{}"),
-("65","1","131","132","1","#__rsgallery2_files.1","#__rsgallery2_files.1","{}"),
-("66","1","133","134","1","#__rsgallery2_files.2","#__rsgallery2_files.2","{}"),
-("67","1","135","136","1","#__rsgallery2_files.3","#__rsgallery2_files.3","{}"),
-("68","1","137","138","1","#__rsgallery2_files.4","#__rsgallery2_files.4","{}"),
-("69","1","139","140","1","#__rsgallery2_files.5","#__rsgallery2_files.5","{}"),
-("70","1","141","142","1","#__rsgallery2_files.6","#__rsgallery2_files.6","{}"),
-("71","1","143","144","1","#__rsgallery2_files.7","#__rsgallery2_files.7","{}"),
-("72","1","145","146","1","#__rsgallery2_files.8","#__rsgallery2_files.8","{}"),
-("73","1","147","148","1","#__rsgallery2_files.9","#__rsgallery2_files.9","{}"),
-("74","1","149","150","1","#__rsgallery2_files.10","#__rsgallery2_files.10","{}"),
-("75","1","151","152","1","#__rsgallery2_files.11","#__rsgallery2_files.11","{}"),
-("76","1","153","154","1","#__rsgallery2_files.12","#__rsgallery2_files.12","{}"),
-("77","1","155","156","1","#__rsgallery2_files.13","#__rsgallery2_files.13","{}"),
-("78","1","157","158","1","#__rsgallery2_files.14","#__rsgallery2_files.14","{}"),
-("79","1","159","160","1","#__rsgallery2_files.15","#__rsgallery2_files.15","{}"),
-("80","1","161","162","1","#__rsgallery2_files.16","#__rsgallery2_files.16","{}"),
-("81","1","163","164","1","#__rsgallery2_files.17","#__rsgallery2_files.17","{}"),
-("82","1","165","166","1","#__rsgallery2_files.18","#__rsgallery2_files.18","{}"),
-("83","1","167","168","1","#__rsgallery2_files.19","#__rsgallery2_files.19","{}"),
-("84","1","169","170","1","#__rsgallery2_files.20","#__rsgallery2_files.20","{}"),
-("85","1","171","172","1","#__rsgallery2_files.21","#__rsgallery2_files.21","{}"),
-("86","1","173","174","1","#__rsgallery2_files.22","#__rsgallery2_files.22","{}"),
-("87","1","175","176","1","#__rsgallery2_files.23","#__rsgallery2_files.23","{}"),
-("88","1","177","178","1","#__rsgallery2_files.24","#__rsgallery2_files.24","{}"),
-("89","1","179","180","1","#__rsgallery2_files.25","#__rsgallery2_files.25","{}"),
-("90","1","181","182","1","#__rsgallery2_files.26","#__rsgallery2_files.26","{}"),
-("91","1","183","184","1","#__rsgallery2_files.27","#__rsgallery2_files.27","{}"),
-("92","1","185","186","1","#__rsgallery2_files.28","#__rsgallery2_files.28","{}"),
-("93","1","187","188","1","#__rsgallery2_files.29","#__rsgallery2_files.29","{}"),
-("94","1","189","190","1","#__rsgallery2_files.30","#__rsgallery2_files.30","{}"),
-("95","1","191","192","1","#__rsgallery2_files.31","#__rsgallery2_files.31","{}"),
-("96","1","193","194","1","#__rsgallery2_files.32","#__rsgallery2_files.32","{}"),
-("97","1","195","196","1","#__rsgallery2_files.33","#__rsgallery2_files.33","{}"),
-("98","1","197","198","1","#__rsgallery2_files.34","#__rsgallery2_files.34","{}"),
-("99","1","199","200","1","#__rsgallery2_files.35","#__rsgallery2_files.35","{}"),
-("100","1","201","202","1","#__rsgallery2_files.36","#__rsgallery2_files.36","{}"),
-("101","1","203","204","1","#__rsgallery2_files.37","#__rsgallery2_files.37","{}"),
-("102","1","205","206","1","#__rsgallery2_files.38","#__rsgallery2_files.38","{}");
+("60","1","113","114","1","com_rsgallery2","com_rsgallery2","{}"),
+("61","1","115","116","1","#__rsgallery2_galleries.1","#__rsgallery2_galleries.1","{}"),
+("64","1","117","118","1","#__rsgallery2_galleries.4","#__rsgallery2_galleries.4","{}"),
+("65","1","119","120","1","#__rsgallery2_files.1","#__rsgallery2_files.1","{}"),
+("66","1","121","122","1","#__rsgallery2_files.2","#__rsgallery2_files.2","{}"),
+("67","1","123","124","1","#__rsgallery2_files.3","#__rsgallery2_files.3","{}"),
+("68","1","125","126","1","#__rsgallery2_files.4","#__rsgallery2_files.4","{}"),
+("69","1","127","128","1","#__rsgallery2_files.5","#__rsgallery2_files.5","{}"),
+("70","1","129","130","1","#__rsgallery2_files.6","#__rsgallery2_files.6","{}"),
+("71","1","131","132","1","#__rsgallery2_files.7","#__rsgallery2_files.7","{}"),
+("72","1","133","134","1","#__rsgallery2_files.8","#__rsgallery2_files.8","{}"),
+("73","1","135","136","1","#__rsgallery2_files.9","#__rsgallery2_files.9","{}"),
+("74","1","137","138","1","#__rsgallery2_files.10","#__rsgallery2_files.10","{}"),
+("75","1","139","140","1","#__rsgallery2_files.11","#__rsgallery2_files.11","{}"),
+("76","1","141","142","1","#__rsgallery2_files.12","#__rsgallery2_files.12","{}"),
+("77","1","143","144","1","#__rsgallery2_files.13","#__rsgallery2_files.13","{}"),
+("78","1","145","146","1","#__rsgallery2_files.14","#__rsgallery2_files.14","{}"),
+("79","1","147","148","1","#__rsgallery2_files.15","#__rsgallery2_files.15","{}"),
+("80","1","149","150","1","#__rsgallery2_files.16","#__rsgallery2_files.16","{}"),
+("81","1","151","152","1","#__rsgallery2_files.17","#__rsgallery2_files.17","{}"),
+("82","1","153","154","1","#__rsgallery2_files.18","#__rsgallery2_files.18","{}"),
+("83","1","155","156","1","#__rsgallery2_files.19","#__rsgallery2_files.19","{}"),
+("84","1","157","158","1","#__rsgallery2_files.20","#__rsgallery2_files.20","{}"),
+("85","1","159","160","1","#__rsgallery2_files.21","#__rsgallery2_files.21","{}"),
+("86","1","161","162","1","#__rsgallery2_files.22","#__rsgallery2_files.22","{}"),
+("87","1","163","164","1","#__rsgallery2_files.23","#__rsgallery2_files.23","{}"),
+("88","1","165","166","1","#__rsgallery2_files.24","#__rsgallery2_files.24","{}"),
+("89","1","167","168","1","#__rsgallery2_files.25","#__rsgallery2_files.25","{}"),
+("90","1","169","170","1","#__rsgallery2_files.26","#__rsgallery2_files.26","{}"),
+("91","1","171","172","1","#__rsgallery2_files.27","#__rsgallery2_files.27","{}"),
+("92","1","173","174","1","#__rsgallery2_files.28","#__rsgallery2_files.28","{}"),
+("93","1","175","176","1","#__rsgallery2_files.29","#__rsgallery2_files.29","{}"),
+("94","1","177","178","1","#__rsgallery2_files.30","#__rsgallery2_files.30","{}"),
+("95","1","179","180","1","#__rsgallery2_files.31","#__rsgallery2_files.31","{}"),
+("96","1","181","182","1","#__rsgallery2_files.32","#__rsgallery2_files.32","{}"),
+("97","1","183","184","1","#__rsgallery2_files.33","#__rsgallery2_files.33","{}"),
+("98","1","185","186","1","#__rsgallery2_files.34","#__rsgallery2_files.34","{}"),
+("99","1","187","188","1","#__rsgallery2_files.35","#__rsgallery2_files.35","{}"),
+("100","1","189","190","1","#__rsgallery2_files.36","#__rsgallery2_files.36","{}"),
+("101","1","191","192","1","#__rsgallery2_files.37","#__rsgallery2_files.37","{}"),
+("102","1","193","194","1","#__rsgallery2_files.38","#__rsgallery2_files.38","{}"),
+("103","1","195","196","1","#__rsgallery2_files.39","#__rsgallery2_files.39","{}"),
+("104","1","197","198","1","#__rsgallery2_files.40","#__rsgallery2_files.40","{}");
 INSERT INTO j4x_assets VALUES
-("103","1","207","208","1","#__rsgallery2_files.39","#__rsgallery2_files.39","{}"),
-("104","1","209","210","1","#__rsgallery2_files.40","#__rsgallery2_files.40","{}"),
-("105","1","211","212","1","#__rsgallery2_files.41","#__rsgallery2_files.41","{}"),
-("106","1","213","214","1","#__rsgallery2_files.42","#__rsgallery2_files.42","{}"),
-("107","1","215","216","1","#__rsgallery2_files.43","#__rsgallery2_files.43","{}"),
-("108","1","217","218","1","#__rsgallery2_files.44","#__rsgallery2_files.44","{}"),
-("109","1","219","220","1","#__rsgallery2_files.45","#__rsgallery2_files.45","{}"),
-("110","1","221","222","1","#__rsgallery2_files.46","#__rsgallery2_files.46","{}"),
-("111","18","78","79","2","com_modules.module.109","Rsgallery2 Dashboard","{}"),
-("112","18","80","81","2","com_modules.module.110","Rsgallery2 Dashboard","{}"),
-("113","18","82","83","2","com_modules.module.111","Rsgallery2 Dashboard","{}"),
-("114","18","84","85","2","com_modules.module.112","Rsgallery2 Dashboard","{}");
+("105","1","199","200","1","#__rsgallery2_files.41","#__rsgallery2_files.41","{}"),
+("106","1","201","202","1","#__rsgallery2_files.42","#__rsgallery2_files.42","{}"),
+("107","1","203","204","1","#__rsgallery2_files.43","#__rsgallery2_files.43","{}"),
+("108","1","205","206","1","#__rsgallery2_files.44","#__rsgallery2_files.44","{}"),
+("109","1","207","208","1","#__rsgallery2_files.45","#__rsgallery2_files.45","{}"),
+("110","1","209","210","1","#__rsgallery2_files.46","#__rsgallery2_files.46","{}"),
+("111","1","211","212","1","#__rsgallery2_files.47","#__rsgallery2_files.47","{}"),
+("112","1","213","214","1","#__rsgallery2_files.48","#__rsgallery2_files.48","{}"),
+("113","1","215","216","1","#__rsgallery2_files.49","#__rsgallery2_files.49","{}"),
+("114","1","217","218","1","#__rsgallery2_files.50","#__rsgallery2_files.50","{}"),
+("115","1","219","220","1","#__rsgallery2_files.51","#__rsgallery2_files.51","{}"),
+("116","1","221","222","1","#__rsgallery2_files.52","#__rsgallery2_files.52","{}"),
+("117","1","223","224","1","#__rsgallery2_files.53","#__rsgallery2_files.53","{}"),
+("118","1","225","226","1","#__rsgallery2_files.54","#__rsgallery2_files.54","{}"),
+("119","1","227","228","1","#__rsgallery2_files.55","#__rsgallery2_files.55","{}"),
+("120","1","229","230","1","#__rsgallery2_files.56","#__rsgallery2_files.56","{}"),
+("121","1","231","232","1","#__rsgallery2_files.57","#__rsgallery2_files.57","{}"),
+("122","1","233","234","1","#__rsgallery2_files.58","#__rsgallery2_files.58","{}"),
+("123","1","235","236","1","#__rsgallery2_files.59","#__rsgallery2_files.59","{}"),
+("124","1","237","238","1","#__rsgallery2_files.60","#__rsgallery2_files.60","{}"),
+("125","1","239","240","1","#__rsgallery2_files.61","#__rsgallery2_files.61","{}"),
+("126","1","241","242","1","#__rsgallery2_files.62","#__rsgallery2_files.62","{}"),
+("127","1","243","244","1","#__rsgallery2_files.63","#__rsgallery2_files.63","{}"),
+("128","1","245","246","1","#__rsgallery2_files.64","#__rsgallery2_files.64","{}"),
+("129","1","247","248","1","#__rsgallery2_files.65","#__rsgallery2_files.65","{}"),
+("130","1","249","250","1","#__rsgallery2_files.66","#__rsgallery2_files.66","{}"),
+("131","1","251","252","1","#__rsgallery2_files.67","#__rsgallery2_files.67","{}"),
+("132","1","253","254","1","#__rsgallery2_galleries.5","#__rsgallery2_galleries.5","{}"),
+("133","1","255","256","1","#__rsgallery2_files.68","#__rsgallery2_files.68","{}"),
+("134","1","257","258","1","#__rsgallery2_files.69","#__rsgallery2_files.69","{}"),
+("135","1","259","260","1","#__rsgallery2_files.70","#__rsgallery2_files.70","{}"),
+("136","1","261","262","1","#__rsgallery2_files.71","#__rsgallery2_files.71","{}"),
+("137","1","263","264","1","#__rsgallery2_files.72","#__rsgallery2_files.72","{}"),
+("138","1","265","266","1","#__rsgallery2_files.73","#__rsgallery2_files.73","{}"),
+("139","1","267","268","1","#__rsgallery2_files.74","#__rsgallery2_files.74","{}"),
+("140","1","269","270","1","#__rsgallery2_files.75","#__rsgallery2_files.75","{}"),
+("141","1","271","272","1","#__rsgallery2_files.76","#__rsgallery2_files.76","{}"),
+("142","1","273","274","1","#__rsgallery2_files.77","#__rsgallery2_files.77","{}"),
+("143","1","275","276","1","#__rsgallery2_files.78","#__rsgallery2_files.78","{}"),
+("144","1","277","278","1","#__rsgallery2_files.79","#__rsgallery2_files.79","{}"),
+("145","1","279","280","1","#__rsgallery2_files.80","#__rsgallery2_files.80","{}"),
+("146","1","281","282","1","#__rsgallery2_files.81","#__rsgallery2_files.81","{}"),
+("147","1","283","284","1","#__rsgallery2_files.82","#__rsgallery2_files.82","{}"),
+("148","1","285","286","1","#__rsgallery2_files.83","#__rsgallery2_files.83","{}"),
+("149","1","287","288","1","#__rsgallery2_files.84","#__rsgallery2_files.84","{}"),
+("150","1","289","290","1","#__rsgallery2_files.85","#__rsgallery2_files.85","{}"),
+("151","1","291","292","1","#__rsgallery2_files.86","#__rsgallery2_files.86","{}"),
+("152","1","293","294","1","#__rsgallery2_files.87","#__rsgallery2_files.87","{}"),
+("153","1","295","296","1","#__rsgallery2_files.88","#__rsgallery2_files.88","{}"),
+("154","1","297","298","1","#__rsgallery2_files.89","#__rsgallery2_files.89","{}"),
+("155","1","299","300","1","#__rsgallery2_files.90","#__rsgallery2_files.90","{}"),
+("156","1","301","302","1","#__rsgallery2_files.91","#__rsgallery2_files.91","{}"),
+("157","1","303","304","1","#__rsgallery2_files.92","#__rsgallery2_files.92","{}");
 
 
 
@@ -671,7 +710,7 @@ INSERT INTO j4x_extensions VALUES
 ("34","0","com_associations","component","com_associations","","","1","1","1","0","{\"name\":\"com_associations\",\"type\":\"component\",\"creationDate\":\"2017-01\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2017 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"4.0.0\",\"description\":\"COM_ASSOCIATIONS_XML_DESCRIPTION\",\"group\":\"\"}","","","","","0","0","","1"),
 ("35","0","com_privacy","component","com_privacy","","","1","1","1","0","{\"name\":\"com_privacy\",\"type\":\"component\",\"creationDate\":\"2018-05\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2018 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.9.0\",\"description\":\"COM_PRIVACY_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"privacy\"}","","","","","0","0","","1"),
 ("36","0","com_actionlogs","component","com_actionlogs","","","1","1","1","0","{\"name\":\"com_actionlogs\",\"type\":\"component\",\"creationDate\":\"2018-05\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2018 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.9.0\",\"description\":\"COM_ACTIONLOGS_XML_DESCRIPTION\",\"group\":\"\"}","{\"ip_logging\":0,\"csv_delimiter\":\",\",\"loggable_extensions\":[\"com_banners\",\"com_cache\",\"com_categories\",\"com_checkin\",\"com_config\",\"com_contact\",\"com_content\",\"com_installer\",\"com_media\",\"com_menus\",\"com_messages\",\"com_modules\",\"com_newsfeeds\",\"com_plugins\",\"com_redirect\",\"com_tags\",\"com_templates\",\"com_users\"]}","","","","0","0","","1"),
-("103","0","lib_joomla","library","joomla","","","0","1","1","1","{\"name\":\"lib_joomla\",\"type\":\"library\",\"creationDate\":\"2008-01\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2008 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"https:\\/\\/www.joomla.org\",\"version\":\"13.1\",\"description\":\"LIB_JOOMLA_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"joomla\"}","{\"mediaversion\":\"6dfe441cf99fc1ab9ce4e5c378ea9fb2\"}","","","","0","0","","1"),
+("103","0","lib_joomla","library","joomla","","","0","1","1","1","{\"name\":\"lib_joomla\",\"type\":\"library\",\"creationDate\":\"2008-01\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2008 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"https:\\/\\/www.joomla.org\",\"version\":\"13.1\",\"description\":\"LIB_JOOMLA_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"joomla\"}","{\"mediaversion\":\"264c3bda801bb5131f6b8318b8bca0b4\"}","","","","0","0","","1"),
 ("105","0","FOF","library","fof","","","0","1","1","0","{\"name\":\"FOF\",\"type\":\"library\",\"creationDate\":\"2015-04-22 13:15:32\",\"author\":\"Nicholas K. Dionysopoulos \\/ Akeeba Ltd\",\"copyright\":\"(C)2011-2015 Nicholas K. Dionysopoulos\",\"authorEmail\":\"nicholas@akeebabackup.com\",\"authorUrl\":\"https:\\/\\/www.akeebabackup.com\",\"version\":\"2.4.3\",\"description\":\"LIB_FOF_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"fof\"}","","","","","0","0","","0"),
 ("106","0","lib_phpass","library","phpass","","","0","1","1","1","{\"name\":\"lib_phpass\",\"type\":\"library\",\"creationDate\":\"2004-01\",\"author\":\"Solar Designer\",\"copyright\":\"\",\"authorEmail\":\"solar@openwall.com\",\"authorUrl\":\"https:\\/\\/www.openwall.com\\/phpass\\/\",\"version\":\"0.3\",\"description\":\"LIB_PHPASS_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"phpass\"}","","","","","0","0","","1"),
 ("200","0","mod_articles_archive","module","mod_articles_archive","","","0","1","1","0","{\"name\":\"mod_articles_archive\",\"type\":\"module\",\"creationDate\":\"2006-07\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2006 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_ARTICLES_ARCHIVE_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"mod_articles_archive\"}","","","","","0","0","","1"),
@@ -761,7 +800,7 @@ INSERT INTO j4x_extensions VALUES
 ("447","0","plg_finder_tags","plugin","tags","","finder","0","1","1","0","{\"name\":\"plg_finder_tags\",\"type\":\"plugin\",\"creationDate\":\"2013-02\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2013 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_FINDER_TAGS_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"tags\"}","","","","","0","0","","1"),
 ("449","0","plg_authentication_cookie","plugin","cookie","","authentication","0","1","1","0","{\"name\":\"plg_authentication_cookie\",\"type\":\"plugin\",\"creationDate\":\"2013-07\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2013 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_AUTHENTICATION_COOKIE_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"cookie\"}","","","","","0","0","","1"),
 ("451","10053","plg_search_tags","plugin","tags","","search","0","1","1","0","{\"name\":\"plg_search_tags\",\"type\":\"plugin\",\"creationDate\":\"March 2014\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2014 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_SEARCH_TAGS_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"tags\"}","{\"search_limit\":\"50\",\"show_tagged_items\":\"1\"}","","","","0","0","","0"),
-("452","0","plg_system_updatenotification","plugin","updatenotification","","system","0","1","1","0","{\"name\":\"plg_system_updatenotification\",\"type\":\"plugin\",\"creationDate\":\"2015-05\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2015 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.5.0\",\"description\":\"PLG_SYSTEM_UPDATENOTIFICATION_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"updatenotification\"}","{\"lastrun\":1675525849}","","","","0","0","","1"),
+("452","0","plg_system_updatenotification","plugin","updatenotification","","system","0","1","1","0","{\"name\":\"plg_system_updatenotification\",\"type\":\"plugin\",\"creationDate\":\"2015-05\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2015 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.5.0\",\"description\":\"PLG_SYSTEM_UPDATENOTIFICATION_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"updatenotification\"}","{\"lastrun\":1676217546}","","","","0","0","","1"),
 ("453","0","plg_editors-xtd_module","plugin","module","","editors-xtd","0","1","1","0","{\"name\":\"plg_editors-xtd_module\",\"type\":\"plugin\",\"creationDate\":\"2015-10\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2015 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.5.0\",\"description\":\"PLG_MODULE_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"module\"}","","","","","0","0","","1"),
 ("454","0","plg_system_stats","plugin","stats","","system","0","1","1","0","{\"name\":\"plg_system_stats\",\"type\":\"plugin\",\"creationDate\":\"2013-11\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2013 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.5.0\",\"description\":\"PLG_SYSTEM_STATS_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"stats\"}","{\"mode\":3,\"lastrun\":\"\",\"unique_id\":\"fa92c9ab886cbfc22e3e4b3b132f52f926153a5e\",\"interval\":12}","","","","0","0","","1"),
 ("455","0","plg_installer_packageinstaller","plugin","packageinstaller","","installer","0","1","1","0","{\"name\":\"plg_installer_packageinstaller\",\"type\":\"plugin\",\"creationDate\":\"2016-05\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2016 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.6.0\",\"description\":\"PLG_INSTALLER_PACKAGEINSTALLER_PLUGIN_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"packageinstaller\"}","","","","","1","0","","1"),
@@ -808,7 +847,7 @@ INSERT INTO j4x_extensions VALUES
 ("601","802","English (en-GB)","language","en-GB","","","1","1","1","1","{\"name\":\"English (en-GB)\",\"type\":\"language\",\"creationDate\":\"2023-01\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"4.2.7\",\"description\":\"en-GB administrator language\",\"group\":\"\"}","","","","","0","0","","1"),
 ("700","0","files_joomla","file","joomla","","","0","1","1","1","{\"name\":\"files_joomla\",\"type\":\"file\",\"creationDate\":\"2023-01\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2019 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"4.2.7\",\"description\":\"FILES_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}","","","","","0","0","","1"),
 ("802","0","English (en-GB) Language Pack","package","pkg_en-GB","","","0","1","1","1","{\"name\":\"English (en-GB) Language Pack\",\"type\":\"package\",\"creationDate\":\"2023-01\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2019 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"4.2.7.1\",\"description\":\"en-GB language pack\",\"group\":\"\",\"filename\":\"pkg_en-GB\"}","","","","","0","0","","1"),
-("10000","0","COM_RSGALLERY2","component","com_rsgallery2","https://raw.githubusercontent.com/RSGallery2/RSGallery2_J4/master/administrator/components/com_rsgallery2/changelog.xml","","1","1","0","0","{\"name\":\"COM_RSGALLERY2\",\"type\":\"component\",\"creationDate\":\"16. Jan. 2022\",\"author\":\"RSGallery2 Team\",\"copyright\":\"(c) 2005-2022 RSGallery2 Team\",\"authorEmail\":\"team2@rsgallery2.org\",\"authorUrl\":\"https:\\/\\/www.rsgallery2.org\",\"version\":\"5.0.0.36\",\"description\":\"COM_RSGALLERY2_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"rsgallery2\"}","{\"ToDo_list_general\":\"0\",\"sef_ids\":\"0\",\"ToDo_list_upload\":\"0\",\"image_size\":\"800,600,400\",\"thumb_size\":\"120\",\"thumb_style\":\"0\",\"jpegQuality\":\"80\",\"allowedFileTypes\":\"jpg,jpeg,gif,png\",\"keepOriginalImage\":\"1\",\"isPreSelectLatestGallery\":\"1\",\"ftp_path\":\"\",\"imgPath_root\":\"\\/images\\/rsgallery2\",\"useJ3xOldPaths\":\"0\",\"imgPath_original\":\"\\/images\\/rsgallery\\/original\",\"imgPath_display\":\"\\/images\\/rsgallery\\/display\",\"imgPath_thumb\":\"\\/images\\/rsgallery\\/thumb\",\"image_width\":\"400\",\"ToDo_list_galleries_view\":\"0\",\"galleries_column_arrangement\":\"1\",\"max_columns_in_galleries_view\":\"4\",\"galleries_row_arrangement\":\"1\",\"max_rows_in_galleries_view\":\"5\",\"max_thumbs_in_galleries_view\":\"20\",\"layout_galleries_thumbs\":\"layout02\",\"galleries_show_title\":\"0\",\"galleries_show_description\":\"layout01\",\"ToDo_list_images_view\":\"0\",\"images_column_arrangement\":\"1\",\"max_columns_in_images_view\":\"4\",\"images_row_arrangement\":\"2\",\"max_rows_in_images_view\":\"5\",\"max_images_in_images_view\":\"20\",\"layout_images_thumbs\":\"Layout of images thumbs\",\"images_show_title\":\"0\",\"images_show_description\":\"layout01\",\"j3x_db_galleries_copied\":true,\"j3x_db_images_copied\":\"0\",\"isDebugBackend\":\"0\",\"isDebugSite\":\"0\",\"isDevelop\":\"0\",\"galcountNrs\":\"5\",\"rules\":\"\"}","","","","0","0","","0"),
+("10000","0","com_rsgallery2","component","com_rsgallery2","","","1","1","0","0","{\"name\":\"com_rsgallery2\",\"type\":\"component\",\"creationDate\":\"28. Aug. 2021\",\"author\":\"RSGallery2 Team\",\"copyright\":\"(c) 2005-2021 RSGallery2 Team\",\"authorEmail\":\"team2@rsgallery2.org\",\"authorUrl\":\"https:\\/\\/www.rsgallery2.org\",\"version\":\"4.5.2.0\",\"description\":\"COM_RSGALLERY2_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"RSGallery2\"}","{}","","","","0","0","","0"),
 ("10001","0","plg_behaviour_taggable","plugin","taggable","","behaviour","0","1","1","0","{\"name\":\"plg_behaviour_taggable\",\"type\":\"plugin\",\"creationDate\":\"2015-08\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2016 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"4.0.0\",\"description\":\"PLG_BEHAVIOUR_TAGGABLE_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"taggable\"}","{}","","","","0","0","","1"),
 ("10002","0","plg_behaviour_versionable","plugin","versionable","","behaviour","0","1","1","0","{\"name\":\"plg_behaviour_versionable\",\"type\":\"plugin\",\"creationDate\":\"2015-08\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2016 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"4.0.0\",\"description\":\"PLG_BEHAVIOUR_VERSIONABLE_XML_DESCRIPTION\",\"group\":\"\",\"filename\":\"versionable\"}","{}","","","","0","0","","1"),
 ("10003","0","atum","template","atum","","","1","1","1","0","{\"name\":\"atum\",\"type\":\"template\",\"creationDate\":\"2016-09\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2016 Open Source Matters, Inc.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"\",\"version\":\"1.0\",\"description\":\"TPL_ATUM_XML_DESCRIPTION\",\"group\":\"\",\"inheritable\":true,\"filename\":\"templateDetails\"}","{}","","","","0","0","","1"),
@@ -1505,11 +1544,11 @@ CREATE TABLE `j4x_menu` (
   KEY `idx_alias` (`alias`(100)),
   KEY `idx_path` (`path`(100)),
   KEY `idx_language` (`language`)
-) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 INSERT INTO j4x_menu VALUES
-("1","","Menu_Item_Root","root","","","","","1","0","0","0","","","0","0","","0","","0","71","0","*","0","",""),
+("1","","Menu_Item_Root","root","","","","","1","0","0","0","","","0","0","","0","","0","81","0","*","0","",""),
 ("2","main","com_banners","Banners","","Banners","index.php?option=com_banners","component","1","1","1","4","","","0","0","class:bookmark","0","","1","10","0","*","1","",""),
 ("3","main","com_banners","Banners","","Banners/Banners","index.php?option=com_banners&view=banners","component","1","2","2","4","","","0","0","class:banners","0","","2","3","0","*","1","",""),
 ("4","main","com_banners_categories","Categories","","Banners/Categories","index.php?option=com_categories&view=categories&extension=com_banners","component","1","2","2","6","","","0","0","class:banners-cat","0","","4","5","0","*","1","",""),
@@ -1518,33 +1557,33 @@ INSERT INTO j4x_menu VALUES
 ("7","main","com_contact","Contacts","","Contacts","index.php?option=com_contact","component","1","1","1","8","","","0","0","class:address-book","0","","11","22","0","*","1","",""),
 ("8","main","com_contact_contacts","Contacts","","Contacts/Contacts","index.php?option=com_contact&view=contacts","component","1","7","2","8","","","0","0","class:contact","0","","12","13","0","*","1","",""),
 ("9","main","com_contact_categories","Categories","","Contacts/Categories","index.php?option=com_categories&view=categories&extension=com_contact","component","1","7","2","6","","","0","0","class:contact-cat","0","","14","15","0","*","1","",""),
-("13","main","com_newsfeeds","News Feeds","","News Feeds","index.php?option=com_newsfeeds","component","1","1","1","17","","","0","0","class:rss","0","","23","28","0","*","1","",""),
-("14","main","com_newsfeeds_feeds","Feeds","","News Feeds/Feeds","index.php?option=com_newsfeeds&view=newsfeeds","component","1","13","2","17","","","0","0","class:newsfeeds","0","","24","25","0","*","1","",""),
-("15","main","com_newsfeeds_categories","Categories","","News Feeds/Categories","index.php?option=com_categories&view=categories&extension=com_newsfeeds","component","1","13","2","6","","","0","0","class:newsfeeds-cat","0","","26","27","0","*","1","",""),
-("17","main","com_search","Basic Search","","Basic Search","index.php?option=com_search&view=searches","component","1","1","1","19","","","0","0","class:search","0","","29","30","0","*","1","",""),
-("18","main","com_finder","Smart Search","","Smart Search","index.php?option=com_finder","component","1","1","1","27","","","0","0","class:search-plus","0","","31","42","0","*","1","",""),
-("20","main","com_tags","Tags","","Tags","index.php?option=com_tags&view=tags","component","1","1","1","29","","","0","1","class:tags","0","","43","44","0","","1","",""),
-("22","main","com_associations","Multilingual Associations","","Multilingual Associations","index.php?option=com_associations&view=associations","component","1","1","1","34","","","0","0","class:language","0","","45","46","0","*","1","",""),
-("101","mainmenu","Home","home","","home","index.php?option=com_content&view=featured","component","1","1","1","22","","","0","1","","0","{\"featured_categories\":[\"\"],\"layout_type\":\"blog\",\"num_leading_articles\":\"1\",\"num_intro_articles\":\"3\",\"num_columns\":\"3\",\"num_links\":\"0\",\"multi_column_order\":\"1\",\"orderby_pri\":\"\",\"orderby_sec\":\"front\",\"order_date\":\"\",\"show_pagination\":\"2\",\"show_pagination_results\":\"1\",\"show_title\":\"\",\"link_titles\":\"\",\"show_intro\":\"\",\"info_block_position\":\"\",\"show_category\":\"\",\"link_category\":\"\",\"show_parent_category\":\"\",\"link_parent_category\":\"\",\"show_author\":\"\",\"link_author\":\"\",\"show_create_date\":\"\",\"show_modify_date\":\"\",\"show_publish_date\":\"\",\"show_item_navigation\":\"\",\"show_vote\":\"\",\"show_readmore\":\"\",\"show_readmore_title\":\"\",\"show_icons\":\"\",\"show_print_icon\":\"\",\"show_email_icon\":\"\",\"show_hits\":\"\",\"show_noauth\":\"\",\"show_feed_link\":\"1\",\"feed_summary\":\"\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":1,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}","47","48","1","*","0","",""),
-("123","mainmenu","RSG2","rsg2","","rsg2","","heading","1","1","1","0","","","0","1"," ","0","{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_image_css\":\"\",\"menu_text\":1,\"menu_show\":1}","49","56","0","*","0","",""),
-("124","mainmenu","RSG2 Root gallery","rsg2-root-gallery","","rsg2/rsg2-root-gallery","index.php?option=com_rsgallery2&view=gallery&gid=0","component","1","123","2","10000","","","0","1"," ","0","{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_image_css\":\"\",\"menu_text\":1,\"menu_show\":1,\"page_title\":\"\",\"show_page_heading\":\"\",\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}","52","53","0","*","0","",""),
-("125","mainmenu","RSG2 one gallery","rsg2-one-gallery","","rsg2/rsg2-one-gallery","index.php?option=com_rsgallery2&view=gallery&gid=1","component","1","123","2","10000","","","0","1"," ","0","{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_image_css\":\"\",\"menu_text\":1,\"menu_show\":1,\"page_title\":\"\",\"show_page_heading\":\"\",\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}","54","55","0","*","0","",""),
-("126","mainmenu","RSG2 slideshow","rsg2-slideshow","","rsg2/rsg2-slideshow","index.php?option=com_rsgallery2&view=slideshow&gid=1&page=slideshow","component","1","123","2","10000","","","0","1"," ","0","{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_image_css\":\"\",\"menu_text\":1,\"menu_show\":1,\"page_title\":\"\",\"show_page_heading\":\"\",\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}","50","51","0","*","0","",""),
-("128","main","-","1675458004-2342","","Contacts/1675458004-2342","#","separator","1","7","2","33","","","0","0"," ","0","{}","16","17","0","*","1","",""),
+("13","main","com_newsfeeds","News Feeds","","News Feeds","index.php?option=com_newsfeeds","component","1","1","1","17","","","0","0","class:rss","0","","27","32","0","*","1","",""),
+("14","main","com_newsfeeds_feeds","Feeds","","News Feeds/Feeds","index.php?option=com_newsfeeds&view=newsfeeds","component","1","13","2","17","","","0","0","class:newsfeeds","0","","28","29","0","*","1","",""),
+("15","main","com_newsfeeds_categories","Categories","","News Feeds/Categories","index.php?option=com_categories&view=categories&extension=com_newsfeeds","component","1","13","2","6","","","0","0","class:newsfeeds-cat","0","","30","31","0","*","1","",""),
+("17","main","com_search","Basic Search","","Basic Search","index.php?option=com_search&view=searches","component","1","1","1","19","","","0","0","class:search","0","","35","36","0","*","1","",""),
+("18","main","com_finder","Smart Search","","Smart Search","index.php?option=com_finder","component","1","1","1","27","","","0","0","class:search-plus","0","","37","48","0","*","1","",""),
+("20","main","com_tags","Tags","","Tags","index.php?option=com_tags&view=tags","component","1","1","1","29","","","0","1","class:tags","0","","51","52","0","","1","",""),
+("22","main","com_associations","Multilingual Associations","","Multilingual Associations","index.php?option=com_associations&view=associations","component","1","1","1","34","","","0","0","class:language","0","","55","56","0","*","1","",""),
+("101","mainmenu","Home","home","","home","index.php?option=com_content&view=featured","component","1","1","1","22","","","0","1","","0","{\"featured_categories\":[\"\"],\"layout_type\":\"blog\",\"num_leading_articles\":\"1\",\"num_intro_articles\":\"3\",\"num_columns\":\"3\",\"num_links\":\"0\",\"multi_column_order\":\"1\",\"orderby_pri\":\"\",\"orderby_sec\":\"front\",\"order_date\":\"\",\"show_pagination\":\"2\",\"show_pagination_results\":\"1\",\"show_title\":\"\",\"link_titles\":\"\",\"show_intro\":\"\",\"info_block_position\":\"\",\"show_category\":\"\",\"link_category\":\"\",\"show_parent_category\":\"\",\"link_parent_category\":\"\",\"show_author\":\"\",\"link_author\":\"\",\"show_create_date\":\"\",\"show_modify_date\":\"\",\"show_publish_date\":\"\",\"show_item_navigation\":\"\",\"show_vote\":\"\",\"show_readmore\":\"\",\"show_readmore_title\":\"\",\"show_icons\":\"\",\"show_print_icon\":\"\",\"show_email_icon\":\"\",\"show_hits\":\"\",\"show_noauth\":\"\",\"show_feed_link\":\"1\",\"feed_summary\":\"\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":1,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}","57","58","1","*","0","",""),
+("116","main","COM_RSGALLERY2_MENU","com-rsgallery2-menu","","com-rsgallery2-menu","index.php?option=com_rsgallery2","component","1","1","1","10000","","","0","1","administrator/components/com_rsgallery2/images/rsg2_menu.png","0","{}","59","72","0","","1","",""),
+("117","main","COM_RSGALLERY2_MENU_CONTROL_PANEL","com-rsgallery2-menu-control-panel","","com-rsgallery2-menu/com-rsgallery2-menu-control-panel","index.php?option=com_rsgallery2","component","1","116","2","10000","","","0","1","class:config","0","{}","60","61","0","","1","",""),
+("118","main","COM_RSGALLERY2_MENU_GALLERIES","com-rsgallery2-menu-galleries","","com-rsgallery2-menu/com-rsgallery2-menu-galleries","index.php?option=com_rsgallery2&view=galleries","component","1","116","2","10000","","","0","1","class:component","0","{}","62","63","0","","1","",""),
+("119","main","COM_RSGALLERY2_MENU_UPLOAD","com-rsgallery2-menu-upload","","com-rsgallery2-menu/com-rsgallery2-menu-upload","index.php?option=com_rsgallery2&view=upload","component","1","116","2","10000","","","0","1","class:component","0","{}","64","65","0","","1","",""),
+("120","main","COM_RSGALLERY2_MENU_ITEMS","com-rsgallery2-menu-items","","com-rsgallery2-menu/com-rsgallery2-menu-items","index.php?option=com_rsgallery2&view=images","component","1","116","2","10000","","","0","1","class:component","0","{}","66","67","0","","1","",""),
+("121","main","COM_RSGALLERY2_MENU_CONFIG","com-rsgallery2-menu-config","","com-rsgallery2-menu/com-rsgallery2-menu-config","index.php?option=com_rsgallery2&view=config&task=config.edit","component","1","116","2","10000","","","0","1","class:component","0","{}","68","69","0","","1","",""),
+("122","main","COM_RSGALLERY2_MENU_MAINTENANCE","com-rsgallery2-menu-maintenance","","com-rsgallery2-menu/com-rsgallery2-menu-maintenance","index.php?option=com_rsgallery2&view=maintenance","component","1","116","2","10000","","","0","1","class:component","0","{}","70","71","0","","1","",""),
+("123","mainmenu","RSG2","rsg2","","rsg2","","heading","1","1","1","0","","","0","1"," ","0","{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_image_css\":\"\",\"menu_text\":1,\"menu_show\":1}","73","80","0","*","0","",""),
+("124","mainmenu","RSG2 Root gallery","rsg2-root-gallery","","rsg2/rsg2-root-gallery","index.php?option=com_rsgallery2&view=gallery&gid=0","component","1","123","2","10000","","","0","1"," ","0","{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_image_css\":\"\",\"menu_text\":1,\"menu_show\":1,\"page_title\":\"\",\"show_page_heading\":\"\",\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}","76","77","0","*","0","",""),
+("125","mainmenu","RSG2 one gallery","rsg2-one-gallery","","rsg2/rsg2-one-gallery","index.php?option=com_rsgallery2&view=gallery&gid=1","component","1","123","2","10000","","","0","1"," ","0","{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_image_css\":\"\",\"menu_text\":1,\"menu_show\":1,\"page_title\":\"\",\"show_page_heading\":\"\",\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}","78","79","0","*","0","",""),
+("126","mainmenu","RSG2 slideshow","rsg2-slideshow","","rsg2/rsg2-slideshow","index.php?option=com_rsgallery2&view=slideshow&gid=1&page=slideshow","component","1","123","2","10000","","","0","1"," ","0","{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_image_css\":\"\",\"menu_text\":1,\"menu_show\":1,\"page_title\":\"\",\"show_page_heading\":\"\",\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}","74","75","0","*","0","",""),
+("128","main","-","1676229397-4638","","Contacts/1676229397-4638","#","separator","1","7","2","33","","","0","0"," ","0","{}","16","17","0","*","1","",""),
 ("129","main","mod_menu_fields","contact-custom-fields","","Contacts/contact-custom-fields","index.php?option=com_fields&context=com_contact.contact","component","1","7","2","33","","","0","0"," ","0","{}","18","19","0","*","1","",""),
 ("130","main","mod_menu_fields_group","contact-custom-fields-group","","Contacts/contact-custom-fields-group","index.php?option=com_fields&view=groups&context=com_contact.contact","component","1","7","2","33","","","0","0"," ","0","{}","20","21","0","*","1","",""),
-("131","main","-","1675458004-2363","","Smart Search/1675458004-2363","#","separator","1","18","2","27","","","0","0"," ","0","{}","32","33","0","*","1","",""),
-("132","main","com_finder_index","smart-search-index","","Smart Search/smart-search-index","index.php?option=com_finder&view=index","component","1","18","2","27","","","0","0"," ","0","{}","34","35","0","*","1","",""),
-("133","main","com_finder_maps","smart-search-maps","","Smart Search/smart-search-maps","index.php?option=com_finder&view=maps","component","1","18","2","27","","","0","0"," ","0","{}","36","37","0","*","1","",""),
-("134","main","com_finder_filters","smart-search-filters","","Smart Search/smart-search-filters","index.php?option=com_finder&view=filters","component","1","18","2","27","","","0","0"," ","0","{}","38","39","0","*","1","",""),
-("135","main","com_finder_searches","smart-search-searches","","Smart Search/smart-search-searches","index.php?option=com_finder&view=searches","component","1","18","2","27","","","0","0"," ","0","{}","40","41","0","*","1","",""),
-("157","main","COM_RSGALLERY2_MENU","com-rsgallery2-menu","","com-rsgallery2-menu","index.php?option=com_rsgallery2&view=rsgallery2","component","1","1","1","10000","","","0","1","class:component","0","{\"dashboard\":\"rsgallery2\"}","57","70","0","","1","",""),
-("158","main","COM_RSGALLERY2_MENU_CONTROL_PANEL","com-rsgallery2-menu-control-panel","","com-rsgallery2-menu/com-rsgallery2-menu-control-panel","index.php?option=com_rsgallery2","component","1","157","2","10000","","","0","1","class:home","0","{}","58","59","0","","1","",""),
-("159","main","COM_RSGALLERY2_MENU_GALLERIES","com-rsgallery2-menu-galleries","","com-rsgallery2-menu/com-rsgallery2-menu-galleries","index.php?option=com_rsgallery2&view=galleries","component","1","157","2","10000","","","0","1","class:images","0","{\"menu-quicktask-title\":\"COM_RSGALLERY2_DASHBOARD_ADD_GALLERY\",\"menu-quicktask\":\"index.php?option=com_rsgallery2&task=gallery.add\"}","60","61","0","","1","",""),
-("160","main","COM_RSGALLERY2_MENU_UPLOAD","com-rsgallery2-menu-upload","","com-rsgallery2-menu/com-rsgallery2-menu-upload","index.php?option=com_rsgallery2&view=upload","component","1","157","2","10000","","","0","1","class:upload","0","{}","62","63","0","","1","",""),
-("161","main","COM_RSGALLERY2_MENU_IMAGES","com-rsgallery2-menu-images","","com-rsgallery2-menu/com-rsgallery2-menu-images","index.php?option=com_rsgallery2&view=images","component","1","157","2","10000","","","0","1","class:image","0","{}","64","65","0","","1","",""),
-("162","main","COM_RSGALLERY2_MENU_CONFIG","com-rsgallery2-menu-config","","com-rsgallery2-menu/com-rsgallery2-menu-config","index.php?option=com_config&view=component&component=com_rsgallery2","component","1","157","2","10000","","","0","1","class:config","0","{}","66","67","0","","1","",""),
-("163","main","COM_RSGALLERY2_MENU_MAINTENANCE","com-rsgallery2-menu-maintenance","","com-rsgallery2-menu/com-rsgallery2-menu-maintenance","index.php?option=com_rsgallery2&view=maintenance","component","1","157","2","10000","","","0","1","class:equalizer","0","{}","68","69","0","","1","","");
+("131","main","-","1676229397-4661","","Smart Search/1676229397-4661","#","separator","1","18","2","27","","","0","0"," ","0","{}","38","39","0","*","1","",""),
+("132","main","com_finder_index","smart-search-index","","Smart Search/smart-search-index","index.php?option=com_finder&view=index","component","1","18","2","27","","","0","0"," ","0","{}","40","41","0","*","1","",""),
+("133","main","com_finder_maps","smart-search-maps","","Smart Search/smart-search-maps","index.php?option=com_finder&view=maps","component","1","18","2","27","","","0","0"," ","0","{}","42","43","0","*","1","",""),
+("134","main","com_finder_filters","smart-search-filters","","Smart Search/smart-search-filters","index.php?option=com_finder&view=filters","component","1","18","2","27","","","0","0"," ","0","{}","44","45","0","*","1","",""),
+("135","main","com_finder_searches","smart-search-searches","","Smart Search/smart-search-searches","index.php?option=com_finder&view=searches","component","1","18","2","27","","","0","0"," ","0","{}","46","47","0","*","1","","");
 
 
 
@@ -1621,7 +1660,7 @@ CREATE TABLE `j4x_modules` (
   KEY `published` (`published`,`access`),
   KEY `newsfeeds` (`module`,`published`),
   KEY `idx_language` (`language`)
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 INSERT INTO j4x_modules VALUES
@@ -1661,11 +1700,7 @@ INSERT INTO j4x_modules VALUES
 ("105","0","3rd Party","","","4","icon","","","","","1","mod_quickicon","1","1","{\"context\":\"mod_quickicon\",\"header_icon\":\"fas fa-boxes\",\"load_plugins\":\"1\",\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":1,\"cache_time\":900,\"style\":\"0\",\"module_tag\":\"div\",\"bootstrap_size\":\"12\",\"header_tag\":\"h2\",\"header_class\":\"\"}","1","*"),
 ("106","0","Help Dashboard","","","1","cpanel-help","","","","","1","mod_submenu","1","0","{\"menutype\":\"*\",\"preset\":\"help\",\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"style\":\"System-none\",\"module_tag\":\"div\",\"bootstrap_size\":\"0\",\"header_tag\":\"h2\",\"header_class\":\"\"}","1","*"),
 ("107","0","Privacy Requests","","","1","cpanel-privacy","","","","","1","mod_privacy_dashboard","1","1","{\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":1,\"cache_time\":900,\"cachemode\":\"static\",\"style\":\"0\",\"module_tag\":\"div\",\"bootstrap_size\":\"0\",\"header_tag\":\"h2\",\"header_class\":\"\"}","1","*"),
-("108","0","Privacy Status","","","1","cpanel-privacy","","","","","1","mod_privacy_status","1","1","{\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":1,\"cache_time\":900,\"cachemode\":\"static\",\"style\":\"0\",\"module_tag\":\"div\",\"bootstrap_size\":\"0\",\"header_tag\":\"h2\",\"header_class\":\"\"}","1","*"),
-("109","111","Rsgallery2 Dashboard","","","1","cpanel-rsgallery2","","","","","1","mod_submenu","1","0","{\"menutype\":\"*\",\"preset\":\"rsgallery2\",\"style\":\"System-none\"}","1","*"),
-("110","112","Rsgallery2 Dashboard","","","2","cpanel-rsgallery2","","","","","1","mod_submenu","1","0","{\"menutype\":\"*\",\"preset\":\"rsgallery2\",\"style\":\"System-none\"}","1","*"),
-("111","113","Rsgallery2 Dashboard","","","3","cpanel-rsgallery2","","","","","1","mod_submenu","1","0","{\"menutype\":\"*\",\"preset\":\"rsgallery2\",\"style\":\"System-none\"}","1","*"),
-("112","114","Rsgallery2 Dashboard","","","4","cpanel-rsgallery2","","","","","1","mod_submenu","1","0","{\"menutype\":\"*\",\"preset\":\"rsgallery2\",\"style\":\"System-none\"}","1","*");
+("108","0","Privacy Status","","","1","cpanel-privacy","","","","","1","mod_privacy_status","1","1","{\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":1,\"cache_time\":900,\"cachemode\":\"static\",\"style\":\"0\",\"module_tag\":\"div\",\"bootstrap_size\":\"0\",\"header_tag\":\"h2\",\"header_class\":\"\"}","1","*");
 
 
 
@@ -1716,11 +1751,7 @@ INSERT INTO j4x_modules_menu VALUES
 ("105","0"),
 ("106","0"),
 ("107","0"),
-("108","0"),
-("109","0"),
-("110","0"),
-("111","0"),
-("112","0");
+("108","0");
 
 
 
@@ -1868,108 +1899,6 @@ CREATE TABLE `j4x_redirect_links` (
 
 
 
-CREATE TABLE `j4x_rsg2_galleries` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `thumb_id` int unsigned NOT NULL DEFAULT '0',
-  `base_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `note` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `params` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `published` tinyint NOT NULL DEFAULT '1',
-  `publish_up` datetime DEFAULT NULL,
-  `publish_down` datetime DEFAULT NULL,
-  `hits` int unsigned NOT NULL DEFAULT '0',
-  `checked_out` int unsigned NOT NULL DEFAULT '0',
-  `checked_out_time` datetime DEFAULT NULL,
-  `created` datetime NOT NULL,
-  `created_by` int unsigned NOT NULL DEFAULT '0',
-  `created_by_alias` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `modified` datetime NOT NULL,
-  `modified_by` int unsigned NOT NULL DEFAULT '0',
-  `parent_id` int NOT NULL DEFAULT '0',
-  `level` int NOT NULL DEFAULT '0',
-  `path` varchar(400) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `lft` int NOT NULL DEFAULT '0',
-  `rgt` int NOT NULL DEFAULT '0',
-  `approved` tinyint unsigned NOT NULL DEFAULT '1',
-  `asset_id` int NOT NULL DEFAULT '0',
-  `access` int unsigned NOT NULL DEFAULT '0',
-  `version` int unsigned NOT NULL DEFAULT '1',
-  `sizes` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_access` (`access`),
-  KEY `idx_checkout` (`checked_out`),
-  KEY `idx_state` (`published`),
-  KEY `idx_left_right` (`lft`,`rgt`),
-  KEY `idx_createdby` (`created_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-INSERT INTO j4x_rsg2_galleries VALUES
-("1","galleries root","groot","root element of nested gallery list","0","","","","1","","","0","0","","2023-02-04 16:18:20","424","","2023-02-04 16:18:20","424","0","0","","0","9","1","0","0","1",""),
-("2","Coffee","coffee","","0","","","","1","","","0","0","0000-00-00 00:00:00","2022-12-11 15:46:35","424","0","2022-12-11 15:46:35","0","1","1","","7","8","1","61","0","1",""),
-("3","Coffee (2)","coffee-2","","0","","","","1","","","0","0","0000-00-00 00:00:00","2022-12-11 15:46:46","424","0","2022-12-11 15:46:46","0","1","1","","5","6","1","62","0","1",""),
-("4","Lovelocks","","","0","","","","1","","","0","0","0000-00-00 00:00:00","2022-12-11 15:47:00","424","0","2022-12-11 15:47:00","0","1","1","","3","4","1","63","0","1",""),
-("5","Lovelocks","","","0","","","","1","","","0","0","0000-00-00 00:00:00","2022-12-11 15:47:07","424","0","2022-12-11 15:47:07","0","1","1","","1","2","1","64","0","1","");
-
-
-
-
-CREATE TABLE `j4x_rsg2_images` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `original_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `gallery_id` int unsigned NOT NULL DEFAULT '0',
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `note` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `params` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `published` tinyint NOT NULL DEFAULT '1',
-  `hits` int unsigned NOT NULL DEFAULT '0',
-  `rating` int unsigned NOT NULL DEFAULT '0',
-  `votes` int unsigned NOT NULL DEFAULT '0',
-  `comments` int unsigned NOT NULL DEFAULT '0',
-  `publish_up` datetime DEFAULT NULL,
-  `publish_down` datetime DEFAULT NULL,
-  `checked_out` int unsigned NOT NULL DEFAULT '0',
-  `checked_out_time` datetime DEFAULT NULL,
-  `created` datetime NOT NULL,
-  `created_by` int unsigned NOT NULL DEFAULT '0',
-  `created_by_alias` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `modified` datetime NOT NULL,
-  `modified_by` int unsigned NOT NULL DEFAULT '0',
-  `ordering` int unsigned NOT NULL DEFAULT '0',
-  `approved` tinyint unsigned NOT NULL DEFAULT '1',
-  `asset_id` int unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
-  `access` int NOT NULL DEFAULT '0',
-  `use_j3x_location` tinyint NOT NULL DEFAULT '0',
-  `sizes` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `version` int unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  KEY `idx_access` (`access`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-
-
-
-
-CREATE TABLE `j4x_rsg2_state` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-
-
-
-
 CREATE TABLE `j4x_rsgallery2_acl` (
   `id` int NOT NULL AUTO_INCREMENT,
   `gallery_id` int NOT NULL,
@@ -2026,7 +1955,7 @@ CREATE TABLE `j4x_rsgallery2_config` (
   `name` text NOT NULL,
   `value` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb3;
 
 
 INSERT INTO j4x_rsgallery2_config VALUES
@@ -2037,7 +1966,32 @@ INSERT INTO j4x_rsgallery2_config VALUES
 ("5","last_update_type","upload_drag_and_drop"),
 ("6","last_update_type","upload_drag_and_drop"),
 ("7","last_update_type","upload_drag_and_drop"),
-("8","last_update_type","upload_drag_and_drop");
+("8","last_update_type","upload_drag_and_drop"),
+("9","last_update_type","upload_drag_and_drop"),
+("10","last_update_type","upload_drag_and_drop"),
+("11","last_update_type","upload_drag_and_drop"),
+("12","last_update_type","upload_drag_and_drop"),
+("13","last_update_type","upload_drag_and_drop"),
+("14","last_update_type","upload_drag_and_drop"),
+("15","last_update_type","upload_drag_and_drop"),
+("16","last_update_type","upload_drag_and_drop"),
+("17","last_update_type","upload_drag_and_drop"),
+("18","last_update_type","upload_drag_and_drop"),
+("19","last_update_type","upload_drag_and_drop"),
+("20","last_update_type","upload_drag_and_drop"),
+("21","last_update_type","upload_drag_and_drop"),
+("22","last_update_type","upload_drag_and_drop"),
+("23","last_update_type","upload_drag_and_drop"),
+("24","last_update_type","upload_drag_and_drop"),
+("25","last_update_type","upload_drag_and_drop"),
+("26","last_update_type","upload_drag_and_drop"),
+("27","last_update_type","upload_drag_and_drop"),
+("28","last_update_type","upload_drag_and_drop"),
+("29","last_update_type","upload_drag_and_drop"),
+("30","last_update_type","upload_drag_and_drop"),
+("31","last_update_type","upload_drag_and_drop"),
+("32","last_update_type","upload_drag_and_drop"),
+("33","last_update_type","upload_drag_and_drop");
 
 
 
@@ -2065,7 +2019,7 @@ CREATE TABLE `j4x_rsgallery2_files` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_name` (`name`),
   KEY `id` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb3;
 
 
 INSERT INTO j4x_rsgallery2_files VALUES
@@ -2087,34 +2041,52 @@ INSERT INTO j4x_rsgallery2_files VALUES
 ("16","IMG_4846.jpg","img-4846","","1","IMG_4846","0","2022-12-11 15:47:49","0","0","0","1","0","0000-00-00 00:00:00","16","0","424","","80"),
 ("17","IMG_4857.jpg","img-4857","","1","IMG_4857","0","2022-12-11 15:47:49","0","0","0","1","0","0000-00-00 00:00:00","17","0","424","","81"),
 ("18","IMG_5254.jpg","img-5254","","1","IMG_5254","0","2022-12-11 15:47:49","0","0","0","1","0","0000-00-00 00:00:00","18","0","424","","82"),
-("19","DSC_1282-2.jpg","dsc-1283","","1","DSC_1282 (2)","0","2022-12-11 15:50:52","0","0","0","1","0","0000-00-00 00:00:00","19","0","424","","83"),
-("20","DSC_1284-2.jpg","dsc-1285","","1","DSC_1284 (2)","0","2022-12-11 15:50:52","0","0","0","1","0","0000-00-00 00:00:00","20","0","424","","84"),
-("21","DSC_1694-2.jpg","dsc-1695","","1","DSC_1694 (2)","0","2022-12-11 15:50:52","0","0","0","1","0","0000-00-00 00:00:00","21","0","424","","85"),
-("22","DSC_8994-2.jpg","dsc-8996","","1","DSC_8994 (3)","0","2022-12-11 15:50:52","0","0","0","1","0","0000-00-00 00:00:00","22","0","424","","86"),
-("23","DSC_8995-2.jpg","dsc-8998","","1","DSC_8995 (4)","0","2022-12-11 15:50:52","0","0","0","1","0","0000-00-00 00:00:00","23","0","424","","87"),
-("24","DSC_8997-2.jpg","dsc-9000","","1","DSC_8997 (4)","0","2022-12-11 15:50:52","0","0","0","1","0","0000-00-00 00:00:00","24","0","424","","88"),
-("25","DSC_8999-2.jpg","dsc-9001","","1","DSC_8999 (3)","0","2022-12-11 15:50:53","0","0","0","1","0","0000-00-00 00:00:00","25","0","424","","89"),
-("26","DSC_9236-2.jpg","dsc-9237","","1","DSC_9236 (2)","0","2022-12-11 15:50:53","0","0","0","1","0","0000-00-00 00:00:00","26","0","424","","90"),
-("27","DSC_9307-2.jpg","dsc-9308","","1","DSC_9307 (2)","0","2022-12-11 15:50:53","0","0","0","1","0","0000-00-00 00:00:00","27","0","424","","91"),
-("28","DSC_9309-2.jpg","dsc-9310","","1","DSC_9309 (2)","0","2022-12-11 15:50:53","0","0","0","1","0","0000-00-00 00:00:00","28","0","424","","92"),
-("29","IMG_4838-2.jpg","img-4839","","1","IMG_4838 (2)","0","2022-12-11 15:50:53","0","0","0","1","0","0000-00-00 00:00:00","29","0","424","","93"),
-("30","IMG_4846-2.jpg","img-4847","","1","IMG_4846 (2)","0","2022-12-11 15:50:53","0","0","0","1","0","0000-00-00 00:00:00","30","0","424","","94"),
-("31","IMG_4857-2.jpg","img-4858","","1","IMG_4857 (2)","0","2022-12-11 15:50:53","0","0","0","1","0","0000-00-00 00:00:00","31","0","424","","95"),
-("32","IMG_5254-2.jpg","img-5255","","1","IMG_5254 (2)","0","2022-12-11 15:50:54","0","0","0","1","0","0000-00-00 00:00:00","32","0","424","","96"),
-("33","DSC_1282-3.jpg","dsc-1286","","1","DSC_1282 (5)","0","2022-12-11 15:51:11","0","0","0","1","0","0000-00-00 00:00:00","33","0","424","","97"),
-("34","DSC_1284-3.jpg","dsc-1287","","1","DSC_1284 (4)","0","2022-12-11 15:51:11","0","0","0","1","0","0000-00-00 00:00:00","34","0","424","","98"),
-("35","DSC_1694-3.jpg","dsc-1696","","1","DSC_1694 (3)","0","2022-12-11 15:51:11","0","0","0","1","0","0000-00-00 00:00:00","35","0","424","","99"),
-("36","DSC_8994-3.jpg","dsc-9002","","1","DSC_8994 (9)","0","2022-12-11 15:51:34","0","0","0","1","0","0000-00-00 00:00:00","36","0","424","","100"),
-("37","DSC_8995-3.jpg","dsc-9003","","1","DSC_8995 (9)","0","2022-12-11 15:51:48","0","0","0","1","0","0000-00-00 00:00:00","37","0","424","","101"),
-("38","DSC_8997-3.jpg","dsc-9004","","1","DSC_8997 (8)","0","2022-12-11 15:51:49","0","0","0","1","0","0000-00-00 00:00:00","38","0","424","","102"),
-("39","DSC_8999-3.jpg","dsc-9005","","1","DSC_8999 (7)","0","2022-12-11 15:51:51","0","0","0","1","0","0000-00-00 00:00:00","39","0","424","","103"),
-("40","DSC_9236-3.jpg","dsc-9238","","1","DSC_9236 (3)","0","2022-12-11 15:51:51","0","0","0","1","0","0000-00-00 00:00:00","40","0","424","","104"),
-("41","DSC_9307-3.jpg","dsc-9311","","1","DSC_9307 (5)","0","2022-12-11 15:51:51","0","0","0","1","0","0000-00-00 00:00:00","41","0","424","","105"),
-("42","DSC_9309-3.jpg","dsc-9312","","1","DSC_9309 (4)","0","2022-12-11 15:51:51","0","0","0","1","0","0000-00-00 00:00:00","42","0","424","","106"),
-("43","IMG_4838-3.jpg","img-4840","","1","IMG_4838 (3)","0","2022-12-11 15:51:51","0","0","0","1","0","0000-00-00 00:00:00","43","0","424","","107"),
-("44","IMG_4846-3.jpg","img-4848","","1","IMG_4846 (3)","0","2022-12-11 15:51:51","0","0","0","1","0","0000-00-00 00:00:00","44","0","424","","108"),
-("45","IMG_4857-3.jpg","img-4859","","1","IMG_4857 (3)","0","2022-12-11 15:51:51","0","0","0","1","0","0000-00-00 00:00:00","45","0","424","","109"),
-("46","IMG_5254-3.jpg","img-5256","","1","IMG_5254 (3)","0","2022-12-11 15:51:52","0","0","0","1","0","0000-00-00 00:00:00","46","0","424","","110");
+("73","2015-12-25_00059.jpg","2015-12-25-00059","","5","2015-12-25_00059","0","2023-02-12 17:00:57","0","0","0","1","0","0000-00-00 00:00:00","6","0","424","","138"),
+("72","2015-12-25_00058.jpg","2015-12-25-00058","","5","2015-12-25_00058","1","2023-02-12 17:00:57","0","0","0","1","0","0000-00-00 00:00:00","5","0","424","","137"),
+("71","2015-12-25_00057.jpg","2015-12-25-00057","","5","2015-12-25_00057","0","2023-02-12 17:00:57","0","0","0","1","0","0000-00-00 00:00:00","4","0","424","","136"),
+("68","2015-12-25_00054.jpg","2015-12-25-00054","","5","2015-12-25_00054","0","2023-02-12 17:00:56","0","0","0","1","0","0000-00-00 00:00:00","1","0","424","","133"),
+("66","dsc_5527.jpg","dsc_5527","","4","dsc_5527","0","2023-02-12 16:48:48","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","130"),
+("64","dsc_5525.jpg","dsc_5525","","4","dsc_5525","0","2023-02-12 16:48:48","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","128"),
+("62","dsc_5523.jpg","dsc_5523","","4","dsc_5523","0","2023-02-12 16:48:48","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","126"),
+("60","dsc_5520.jpg","dsc_5520","","4","dsc_5520","0","2023-02-12 16:48:31","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","124"),
+("58","dsc_5518.jpg","dsc_5518","","4","dsc_5518","0","2023-02-12 16:48:31","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","122"),
+("56","dsc_5516.jpg","dsc_5516","","4","dsc_5516","0","2023-02-12 16:48:14","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","120"),
+("54","dsc_5515.jpg","dsc_5515","","4","dsc_5515","0","2023-02-12 16:48:00","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","118"),
+("52","dsc_5513.jpg","dsc_5513","","4","dsc_5513","0","2023-02-12 16:47:54","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","116"),
+("50","dsc_5504.jpg","dsc_5504","","4","dsc_5504","0","2023-02-12 16:47:51","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","114"),
+("49","dsc_5503.jpg","dsc_5503","","4","dsc_5503","0","2023-02-12 16:47:50","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","113"),
+("70","2015-12-25_00056.jpg","2015-12-25-00056","","5","2015-12-25_00056","0","2023-02-12 17:00:57","0","0","0","1","0","0000-00-00 00:00:00","3","0","424","","135"),
+("69","2015-12-25_00055.jpg","2015-12-25-00055","","5","2015-12-25_00055","0","2023-02-12 17:00:56","0","0","0","1","0","0000-00-00 00:00:00","2","0","424","","134"),
+("67","dsc_5528.jpg","dsc_5528","","4","dsc_5528","0","2023-02-12 16:48:48","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","131"),
+("65","dsc_5526.jpg","dsc_5526","","4","dsc_5526","0","2023-02-12 16:48:48","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","129"),
+("63","dsc_5524.jpg","dsc_5524","","4","dsc_5524","0","2023-02-12 16:48:48","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","127"),
+("61","dsc_5521.jpg","dsc_5521","","4","dsc_5521","0","2023-02-12 16:48:48","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","125"),
+("59","dsc_5519.jpg","dsc_5519","","4","dsc_5519","0","2023-02-12 16:48:31","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","123"),
+("57","dsc_5517.jpg","dsc_5517","","4","dsc_5517","0","2023-02-12 16:48:31","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","121"),
+("55","dsc_5529.jpg","dsc_5529","","4","dsc_5529","0","2023-02-12 16:48:07","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","119"),
+("53","dsc_5514.jpg","dsc_5514","","4","dsc_5514","0","2023-02-12 16:47:55","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","117"),
+("51","dsc_5505.jpg","dsc_5505","","4","dsc_5505","0","2023-02-12 16:47:53","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","115"),
+("48","dsc_5502.jpg","dsc_5502","","4","dsc_5502","0","2023-02-12 16:47:48","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","112"),
+("47","dsc_5501.jpg","dsc_5501","","4","dsc_5501","0","2023-02-12 16:47:43","0","0","0","1","0","0000-00-00 00:00:00","0","0","424","","111"),
+("74","2015-12-25_00060.jpg","2015-12-25-00060","","5","2015-12-25_00060","0","2023-02-12 17:00:57","0","0","0","1","0","0000-00-00 00:00:00","7","0","424","","139"),
+("75","2015-12-25_00061.jpg","2015-12-25-00061","","5","2015-12-25_00061","0","2023-02-12 17:00:57","0","0","0","1","0","0000-00-00 00:00:00","8","0","424","","140"),
+("76","2015-12-25_00062.jpg","2015-12-25-00062","","5","2015-12-25_00062","0","2023-02-12 17:00:58","0","0","0","1","0","0000-00-00 00:00:00","9","0","424","","141"),
+("77","2015-12-25_00063.jpg","2015-12-25-00063","","5","2015-12-25_00063","0","2023-02-12 17:00:58","0","0","0","1","0","0000-00-00 00:00:00","10","0","424","","142"),
+("78","2015-12-25_00064.jpg","2015-12-25-00064","","5","2015-12-25_00064","0","2023-02-12 17:00:58","0","0","0","1","0","0000-00-00 00:00:00","11","0","424","","143"),
+("79","2015-12-25_00065.jpg","2015-12-25-00065","","5","2015-12-25_00065","0","2023-02-12 17:00:58","0","0","0","1","0","0000-00-00 00:00:00","12","0","424","","144"),
+("80","2015-12-25_00066.jpg","2015-12-25-00066","","5","2015-12-25_00066","0","2023-02-12 17:00:58","0","0","0","1","0","0000-00-00 00:00:00","13","0","424","","145"),
+("81","2015-12-25_00067.jpg","2015-12-25-00067","","5","2015-12-25_00067","0","2023-02-12 17:00:58","0","0","0","1","0","0000-00-00 00:00:00","14","0","424","","146"),
+("82","2015-12-25_00068.jpg","2015-12-25-00068","","5","2015-12-25_00068","0","2023-02-12 17:00:58","0","0","0","1","0","0000-00-00 00:00:00","15","0","424","","147"),
+("83","2015-12-25_00069.jpg","2015-12-25-00069","","5","2015-12-25_00069","0","2023-02-12 17:00:59","0","0","0","1","0","0000-00-00 00:00:00","16","0","424","","148"),
+("84","2015-12-25_00070.jpg","2015-12-25-00070","","5","2015-12-25_00070","0","2023-02-12 17:00:59","0","0","0","1","0","0000-00-00 00:00:00","17","0","424","","149"),
+("85","2015-12-25_00071.jpg","2015-12-25-00071","","5","2015-12-25_00071","0","2023-02-12 17:00:59","0","0","0","1","0","0000-00-00 00:00:00","18","0","424","","150"),
+("86","2015-12-25_00072.jpg","2015-12-25-00072","","5","2015-12-25_00072","0","2023-02-12 17:00:59","0","0","0","1","0","0000-00-00 00:00:00","19","0","424","","151"),
+("87","2015-12-25_00073.jpg","2015-12-25-00073","","5","2015-12-25_00073","0","2023-02-12 17:00:59","0","0","0","1","0","0000-00-00 00:00:00","20","0","424","","152"),
+("88","2015-12-25_00074.jpg","2015-12-25-00074","","5","2015-12-25_00074","0","2023-02-12 17:00:59","0","0","0","1","0","0000-00-00 00:00:00","21","0","424","","153"),
+("89","2015-12-25_00075.jpg","2015-12-25-00075","","5","2015-12-25_00075","0","2023-02-12 17:00:59","0","0","0","1","0","0000-00-00 00:00:00","22","0","424","","154"),
+("90","2015-12-25_00076.jpg","2015-12-25-00076","","5","2015-12-25_00076","0","2023-02-12 17:00:59","0","0","0","1","0","0000-00-00 00:00:00","23","0","424","","155"),
+("91","2015-12-25_00077.jpg","2015-12-25-00077","","5","2015-12-25_00077","0","2023-02-12 17:01:00","0","0","0","1","0","0000-00-00 00:00:00","24","0","424","","156"),
+("92","2015-12-25_00078.jpg","2015-12-25-00078","","5","2015-12-25_00078","0","2023-02-12 17:01:00","0","0","0","1","0","0000-00-00 00:00:00","25","0","424","","157");
 
 
 
@@ -2139,14 +2111,13 @@ CREATE TABLE `j4x_rsgallery2_galleries` (
   `asset_id` int unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
   `access` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 
 
 INSERT INTO j4x_rsgallery2_galleries VALUES
-("1","0","Coffee","coffee","","1","0","0000-00-00 00:00:00","4","2022-12-11 15:46:35","0","","0","424","0","0","61","1"),
-("2","0","Coffee (2)","coffee-2","","1","0","0000-00-00 00:00:00","3","2022-12-11 15:46:46","0","","0","424","0","0","62","1"),
-("3","0","Lovelocks","","","1","0","0000-00-00 00:00:00","2","2022-12-11 15:47:00","0","","0","424","0","0","63","1"),
-("4","0","Lovelocks","","","1","0","0000-00-00 00:00:00","1","2022-12-11 15:47:07","0","","0","424","0","0","64","1");
+("1","0","Coffee","coffee","","1","0","0000-00-00 00:00:00","3","2022-12-11 15:46:35","3","","0","424","0","0","61","1"),
+("5","0","Vollmond","vollmond","","1","0","0000-00-00 00:00:00","1","2023-02-12 17:01:25","2","","0","424","0","0","132","1"),
+("4","0","Lovelocks","lovelocks","","1","0","0000-00-00 00:00:00","2","2023-02-12 16:53:32","11","","0","424","0","0","64","1");
 
 
 
@@ -2199,7 +2170,7 @@ CREATE TABLE `j4x_schemas` (
 
 INSERT INTO j4x_schemas VALUES
 ("700","4.2.7-2022-12-29"),
-("10000","5.0.0");
+("10000","4.3.0");
 
 
 
@@ -2220,8 +2191,15 @@ CREATE TABLE `j4x_session` (
 
 
 INSERT INTO j4x_session VALUES
-("adbq1khtuf258aaab1m57ku55t","0","1","1675525850","joomla|s:956:\"TzoyNDoiSm9vbWxhXFJlZ2lzdHJ5XFJlZ2lzdHJ5IjozOntzOjc6IgAqAGRhdGEiO086ODoic3RkQ2xhc3MiOjM6e3M6OToiX19kZWZhdWx0IjtPOjg6InN0ZENsYXNzIjozOntzOjc6InNlc3Npb24iO086ODoic3RkQ2xhc3MiOjM6e3M6NzoiY291bnRlciI7aToxO3M6NToidGltZXIiO086ODoic3RkQ2xhc3MiOjM6e3M6NToic3RhcnQiO2k6MTY3NTQ1NzY2MztzOjQ6Imxhc3QiO2k6MTY3NTQ1NzY2MztzOjM6Im5vdyI7aToxNjc1NDU3NjYzO31zOjU6InRva2VuIjtzOjMyOiJRcElBV2VEVDVCQzU1T3Z3MGxPOERYT2w1eFdkNFB2WSI7fXM6ODoicmVnaXN0cnkiO086MjQ6Ikpvb21sYVxSZWdpc3RyeVxSZWdpc3RyeSI6Mzp7czo3OiIAKgBkYXRhIjtPOjg6InN0ZENsYXNzIjowOnt9czoxNDoiACoAaW5pdGlhbGl6ZWQiO2I6MDtzOjk6InNlcGFyYXRvciI7czoxOiIuIjt9czo0OiJ1c2VyIjtPOjIwOiJKb29tbGFcQ01TXFVzZXJcVXNlciI6MTp7czoyOiJpZCI7aTowO319czo3OiJzZXNzaW9uIjtPOjg6InN0ZENsYXNzIjoyOntzOjc6ImNvdW50ZXIiO2k6MztzOjU6InRpbWVyIjtPOjg6InN0ZENsYXNzIjoyOntzOjQ6Imxhc3QiO2k6MTY3NTQ2MDE2MDtzOjM6Im5vdyI7aToxNjc1NTI1ODQ5O319czoyMjoiUEhQREVCVUdCQVJfU1RBQ0tfREFUQSI7YTowOnt9fXM6MTQ6IgAqAGluaXRpYWxpemVkIjtiOjA7czo5OiJzZXBhcmF0b3IiO3M6MToiLiI7fQ==\";","0",""),
-("psbnhl5mvcmspvolnj5cohd4bn","1","0","1675527552","joomla|s:2072:\"TzoyNDoiSm9vbWxhXFJlZ2lzdHJ5XFJlZ2lzdHJ5IjozOntzOjc6IgAqAGRhdGEiO086ODoic3RkQ2xhc3MiOjY6e3M6OToiX19kZWZhdWx0IjtPOjg6InN0ZENsYXNzIjo0OntzOjc6InNlc3Npb24iO086ODoic3RkQ2xhc3MiOjM6e3M6NzoiY291bnRlciI7aToxNjtzOjU6InRpbWVyIjtPOjg6InN0ZENsYXNzIjozOntzOjU6InN0YXJ0IjtpOjE2NzU0NTU1Nzc7czo0OiJsYXN0IjtpOjE2NzU0NTc5MzI7czozOiJub3ciO2k6MTY3NTQ1Nzk0NDt9czo1OiJ0b2tlbiI7czozMjoibXFmMVFNeElqYzJFSVNSOXBVU04wODRnYnl3eTllNkoiO31zOjg6InJlZ2lzdHJ5IjtPOjI0OiJKb29tbGFcUmVnaXN0cnlcUmVnaXN0cnkiOjM6e3M6NzoiACoAZGF0YSI7Tzo4OiJzdGRDbGFzcyI6NDp7czo5OiJjb21fbWVudXMiO086ODoic3RkQ2xhc3MiOjE6e3M6NToiaXRlbXMiO086ODoic3RkQ2xhc3MiOjQ6e3M6ODoibWVudXR5cGUiO3M6ODoibWFpbm1lbnUiO3M6OToiY2xpZW50X2lkIjtpOjA7czoxMDoibGltaXRzdGFydCI7aTowO3M6NDoibGlzdCI7YTo0OntzOjk6ImRpcmVjdGlvbiI7czozOiJhc2MiO3M6NToibGltaXQiO3M6MjoiMjAiO3M6ODoib3JkZXJpbmciO3M6NToiYS5sZnQiO3M6NToic3RhcnQiO2Q6MDt9fX1zOjEzOiJjb21faW5zdGFsbGVyIjtPOjg6InN0ZENsYXNzIjozOntzOjc6Im1lc3NhZ2UiO3M6MDoiIjtzOjE3OiJleHRlbnNpb25fbWVzc2FnZSI7czowOiIiO3M6MTI6InJlZGlyZWN0X3VybCI7Tjt9czoxMDoiY29tX2NvbmZpZyI7Tzo4OiJzdGRDbGFzcyI6MTp7czo2OiJjb25maWciO086ODoic3RkQ2xhc3MiOjE6e3M6NjoiZ2xvYmFsIjtPOjg6InN0ZENsYXNzIjoxOntzOjQ6ImRhdGEiO047fX19czoxNjoiY29tX2pvb21sYXVwZGF0ZSI7Tzo4OiJzdGRDbGFzcyI6NDp7czo0OiJmaWxlIjtOO3M6MTA6Im9sZHZlcnNpb24iO047czo4OiJwYXNzd29yZCI7czozMjoidzFSU0diQ25KS3VKUkUxUkh4aG9ZRHZEaUhmNk5zMkIiO3M6ODoiZmlsZXNpemUiO2k6MjgwNjAzNjA7fX1zOjE0OiIAKgBpbml0aWFsaXplZCI7YjowO3M6OToic2VwYXJhdG9yIjtzOjE6Ii4iO31zOjQ6InVzZXIiO086MjA6Ikpvb21sYVxDTVNcVXNlclxVc2VyIjoxOntzOjI6ImlkIjtpOjQyNDt9czoxMToiYXBwbGljYXRpb24iO086ODoic3RkQ2xhc3MiOjE6e3M6NToicXVldWUiO2E6MDp7fX19czo3OiJzZXNzaW9uIjtPOjg6InN0ZENsYXNzIjoyOntzOjc6ImNvdW50ZXIiO2k6NzY7czo1OiJ0aW1lciI7Tzo4OiJzdGRDbGFzcyI6Mjp7czo0OiJsYXN0IjtpOjE2NzU1Mjc0OTI7czozOiJub3ciO2k6MTY3NTUyNzU1Mjt9fXM6ODoib3ZlcnJpZGUiO086ODoic3RkQ2xhc3MiOjA6e31zOjk6ImNvbV91c2VycyI7Tzo4OiJzdGRDbGFzcyI6MTp7czoxMToibWZhX2NoZWNrZWQiO2k6MTt9czoxMToiYXBwbGljYXRpb24iO086ODoic3RkQ2xhc3MiOjE6e3M6NToicXVldWUiO2E6MDp7fX1zOjIyOiJQSFBERUJVR0JBUl9TVEFDS19EQVRBIjthOjA6e319czoxNDoiACoAaW5pdGlhbGl6ZWQiO2I6MDtzOjk6InNlcGFyYXRvciI7czoxOiIuIjt9\";","424","finnern");
+("1d6pa6mkcrd7o629pmu5uk0mab","1","0","1670752755","joomla|s:1096:\"TzoyNDoiSm9vbWxhXFJlZ2lzdHJ5XFJlZ2lzdHJ5IjozOntzOjc6IgAqAGRhdGEiO086ODoic3RkQ2xhc3MiOjE6e3M6OToiX19kZWZhdWx0IjtPOjg6InN0ZENsYXNzIjo0OntzOjc6InNlc3Npb24iO086ODoic3RkQ2xhc3MiOjM6e3M6NzoiY291bnRlciI7aToyMDtzOjU6InRpbWVyIjtPOjg6InN0ZENsYXNzIjozOntzOjU6InN0YXJ0IjtpOjE2NzA3NTE2MjE7czo0OiJsYXN0IjtpOjE2NzA3NTI3NTE7czozOiJub3ciO2k6MTY3MDc1Mjc1NDt9czo1OiJ0b2tlbiI7czozMjoiWThTczlPMHZZZTdjZmk0SDVQV1J5Q0Q5aVI0bzJqa2IiO31zOjg6InJlZ2lzdHJ5IjtPOjI0OiJKb29tbGFcUmVnaXN0cnlcUmVnaXN0cnkiOjM6e3M6NzoiACoAZGF0YSI7Tzo4OiJzdGRDbGFzcyI6Mjp7czoxMzoiY29tX2luc3RhbGxlciI7Tzo4OiJzdGRDbGFzcyI6Mjp7czo3OiJtZXNzYWdlIjtzOjA6IiI7czoxNzoiZXh0ZW5zaW9uX21lc3NhZ2UiO3M6MDoiIjt9czoxMDoiY29tX2NvbmZpZyI7Tzo4OiJzdGRDbGFzcyI6MTp7czo2OiJjb25maWciO086ODoic3RkQ2xhc3MiOjE6e3M6NjoiZ2xvYmFsIjtPOjg6InN0ZENsYXNzIjoxOntzOjQ6ImRhdGEiO047fX19fXM6MTQ6IgAqAGluaXRpYWxpemVkIjtiOjA7czo5OiJzZXBhcmF0b3IiO3M6MToiLiI7fXM6NDoidXNlciI7TzoyMDoiSm9vbWxhXENNU1xVc2VyXFVzZXIiOjE6e3M6MjoiaWQiO3M6MzoiNDI0Ijt9czoxMToiYXBwbGljYXRpb24iO086ODoic3RkQ2xhc3MiOjE6e3M6NToicXVldWUiO2E6MDp7fX19fXM6MTQ6IgAqAGluaXRpYWxpemVkIjtiOjA7czo5OiJzZXBhcmF0b3IiO3M6MToiLiI7fQ==\";","424","finnern"),
+("4l1mftve788fpje988en88r4he","0","1","1676221315","joomla|s:736:\"TzoyNDoiSm9vbWxhXFJlZ2lzdHJ5XFJlZ2lzdHJ5IjozOntzOjc6IgAqAGRhdGEiO086ODoic3RkQ2xhc3MiOjE6e3M6OToiX19kZWZhdWx0IjtPOjg6InN0ZENsYXNzIjozOntzOjc6InNlc3Npb24iO086ODoic3RkQ2xhc3MiOjM6e3M6NzoiY291bnRlciI7aToyNztzOjU6InRpbWVyIjtPOjg6InN0ZENsYXNzIjozOntzOjU6InN0YXJ0IjtpOjE2NzYyMjAwMjM7czo0OiJsYXN0IjtpOjE2NzYyMjEzMTM7czozOiJub3ciO2k6MTY3NjIyMTMxNTt9czo1OiJ0b2tlbiI7czozMjoiMVBUdVhLRXVNOWx5cUlHR2t4Tzg4MFd3eWdjYmVRUTQiO31zOjg6InJlZ2lzdHJ5IjtPOjI0OiJKb29tbGFcUmVnaXN0cnlcUmVnaXN0cnkiOjM6e3M6NzoiACoAZGF0YSI7Tzo4OiJzdGRDbGFzcyI6MDp7fXM6MTQ6IgAqAGluaXRpYWxpemVkIjtiOjA7czo5OiJzZXBhcmF0b3IiO3M6MToiLiI7fXM6NDoidXNlciI7TzoyMDoiSm9vbWxhXENNU1xVc2VyXFVzZXIiOjE6e3M6MjoiaWQiO2k6MDt9fX1zOjE0OiIAKgBpbml0aWFsaXplZCI7YjowO3M6OToic2VwYXJhdG9yIjtzOjE6Ii4iO30=\";","0",""),
+("7ol1s767ushj8fq420au71rq2o","1","0","1676221285","joomla|s:1120:\"TzoyNDoiSm9vbWxhXFJlZ2lzdHJ5XFJlZ2lzdHJ5IjozOntzOjc6IgAqAGRhdGEiO086ODoic3RkQ2xhc3MiOjE6e3M6OToiX19kZWZhdWx0IjtPOjg6InN0ZENsYXNzIjo0OntzOjc6InNlc3Npb24iO086ODoic3RkQ2xhc3MiOjM6e3M6NzoiY291bnRlciI7aTo5MTtzOjU6InRpbWVyIjtPOjg6InN0ZENsYXNzIjozOntzOjU6InN0YXJ0IjtpOjE2NzYyMTc1NDY7czo0OiJsYXN0IjtpOjE2NzYyMjEyODQ7czozOiJub3ciO2k6MTY3NjIyMTI4NTt9czo1OiJ0b2tlbiI7czozMjoiWGl1eXg5WEZJMlVTOW9jWmJGSTFDUUpEZnJNOUV1MkciO31zOjg6InJlZ2lzdHJ5IjtPOjI0OiJKb29tbGFcUmVnaXN0cnlcUmVnaXN0cnkiOjM6e3M6NzoiACoAZGF0YSI7Tzo4OiJzdGRDbGFzcyI6Mjp7czoxMzoiY29tX2luc3RhbGxlciI7Tzo4OiJzdGRDbGFzcyI6Mjp7czo3OiJtZXNzYWdlIjtzOjA6IiI7czoxNzoiZXh0ZW5zaW9uX21lc3NhZ2UiO3M6MDoiIjt9czoxNDoiY29tX3JzZ2FsbGVyeTIiO086ODoic3RkQ2xhc3MiOjE6e3M6NDoiZWRpdCI7Tzo4OiJzdGRDbGFzcyI6MTp7czo3OiJnYWxsZXJ5IjtPOjg6InN0ZENsYXNzIjoyOntzOjI6ImlkIjthOjA6e31zOjQ6ImRhdGEiO047fX19fXM6MTQ6IgAqAGluaXRpYWxpemVkIjtiOjA7czo5OiJzZXBhcmF0b3IiO3M6MToiLiI7fXM6NDoidXNlciI7TzoyMDoiSm9vbWxhXENNU1xVc2VyXFVzZXIiOjE6e3M6MjoiaWQiO3M6MzoiNDI0Ijt9czoxMToiYXBwbGljYXRpb24iO086ODoic3RkQ2xhc3MiOjE6e3M6NToicXVldWUiO2E6MDp7fX19fXM6MTQ6IgAqAGluaXRpYWxpemVkIjtiOjA7czo5OiJzZXBhcmF0b3IiO3M6MToiLiI7fQ==\";","424","finnern"),
+("f3q2ja5mtd2fnchi1nl3v55d0l","0","1","1670781379","joomla|s:736:\"TzoyNDoiSm9vbWxhXFJlZ2lzdHJ5XFJlZ2lzdHJ5IjozOntzOjc6IgAqAGRhdGEiO086ODoic3RkQ2xhc3MiOjE6e3M6OToiX19kZWZhdWx0IjtPOjg6InN0ZENsYXNzIjozOntzOjc6InNlc3Npb24iO086ODoic3RkQ2xhc3MiOjM6e3M6NzoiY291bnRlciI7aTo0O3M6NToidGltZXIiO086ODoic3RkQ2xhc3MiOjM6e3M6NToic3RhcnQiO2k6MTY3MDc3NDE3MDtzOjQ6Imxhc3QiO2k6MTY3MDc4MDQ5MTtzOjM6Im5vdyI7aToxNjcwNzgxMzc5O31zOjU6InRva2VuIjtzOjMyOiJNNmxObzdXMTVPVlluM3FCQ0Z3eE54OTMzZzdVeGdkMSI7fXM6ODoicmVnaXN0cnkiO086MjQ6Ikpvb21sYVxSZWdpc3RyeVxSZWdpc3RyeSI6Mzp7czo3OiIAKgBkYXRhIjtPOjg6InN0ZENsYXNzIjowOnt9czoxNDoiACoAaW5pdGlhbGl6ZWQiO2I6MDtzOjk6InNlcGFyYXRvciI7czoxOiIuIjt9czo0OiJ1c2VyIjtPOjIwOiJKb29tbGFcQ01TXFVzZXJcVXNlciI6MTp7czoyOiJpZCI7aTowO319fXM6MTQ6IgAqAGluaXRpYWxpemVkIjtiOjA7czo5OiJzZXBhcmF0b3IiO3M6MToiLiI7fQ==\";","0",""),
+("lif3bk92akounvdsqeoghghjso","1","0","1673030983","joomla|s:868:\"TzoyNDoiSm9vbWxhXFJlZ2lzdHJ5XFJlZ2lzdHJ5IjozOntzOjc6IgAqAGRhdGEiO086ODoic3RkQ2xhc3MiOjE6e3M6OToiX19kZWZhdWx0IjtPOjg6InN0ZENsYXNzIjozOntzOjc6InNlc3Npb24iO086ODoic3RkQ2xhc3MiOjM6e3M6NzoiY291bnRlciI7aTo1O3M6NToidGltZXIiO086ODoic3RkQ2xhc3MiOjM6e3M6NToic3RhcnQiO2k6MTY3MzAzMDk2NztzOjQ6Imxhc3QiO2k6MTY3MzAzMDk4MTtzOjM6Im5vdyI7aToxNjczMDMwOTgzO31zOjU6InRva2VuIjtzOjMyOiJBdml3U3o0bEUzUnJ6b2tZVUJCNjg1aG9pQzhyRFlsUyI7fXM6ODoicmVnaXN0cnkiO086MjQ6Ikpvb21sYVxSZWdpc3RyeVxSZWdpc3RyeSI6Mzp7czo3OiIAKgBkYXRhIjtPOjg6InN0ZENsYXNzIjoxOntzOjEzOiJjb21faW5zdGFsbGVyIjtPOjg6InN0ZENsYXNzIjoyOntzOjc6Im1lc3NhZ2UiO3M6MDoiIjtzOjE3OiJleHRlbnNpb25fbWVzc2FnZSI7czowOiIiO319czoxNDoiACoAaW5pdGlhbGl6ZWQiO2I6MDtzOjk6InNlcGFyYXRvciI7czoxOiIuIjt9czo0OiJ1c2VyIjtPOjIwOiJKb29tbGFcQ01TXFVzZXJcVXNlciI6MTp7czoyOiJpZCI7czozOiI0MjQiO319fXM6MTQ6IgAqAGluaXRpYWxpemVkIjtiOjA7czo5OiJzZXBhcmF0b3IiO3M6MToiLiI7fQ==\";","424","finnern"),
+("mleqgl12jt1p9poq9qsqnsigvt","1","0","1670780588","joomla|s:1608:\"TzoyNDoiSm9vbWxhXFJlZ2lzdHJ5XFJlZ2lzdHJ5IjozOntzOjc6IgAqAGRhdGEiO086ODoic3RkQ2xhc3MiOjE6e3M6OToiX19kZWZhdWx0IjtPOjg6InN0ZENsYXNzIjo0OntzOjc6InNlc3Npb24iO086ODoic3RkQ2xhc3MiOjM6e3M6NzoiY291bnRlciI7aToxMzc7czo1OiJ0aW1lciI7Tzo4OiJzdGRDbGFzcyI6Mzp7czo1OiJzdGFydCI7aToxNjcwNzUzMjQyO3M6NDoibGFzdCI7aToxNjcwNzc0Mjk1O3M6Mzoibm93IjtpOjE2NzA3ODA0NzA7fXM6NToidG9rZW4iO3M6MzI6IklLZU9rMkl0YXNIc29PVjEyUkVJVWhXU1dEUHpaZ2x4Ijt9czo4OiJyZWdpc3RyeSI7TzoyNDoiSm9vbWxhXFJlZ2lzdHJ5XFJlZ2lzdHJ5IjozOntzOjc6IgAqAGRhdGEiO086ODoic3RkQ2xhc3MiOjM6e3M6MTM6ImNvbV9pbnN0YWxsZXIiO086ODoic3RkQ2xhc3MiOjM6e3M6NzoibWVzc2FnZSI7czowOiIiO3M6MTc6ImV4dGVuc2lvbl9tZXNzYWdlIjtzOjA6IiI7czoxMjoicmVkaXJlY3RfdXJsIjtOO31zOjE0OiJjb21fcnNnYWxsZXJ5MiI7Tzo4OiJzdGRDbGFzcyI6MTp7czo0OiJlZGl0IjtPOjg6InN0ZENsYXNzIjoxOntzOjc6ImdhbGxlcnkiO086ODoic3RkQ2xhc3MiOjE6e3M6NDoiZGF0YSI7Tjt9fX1zOjk6ImNvbV9tZW51cyI7Tzo4OiJzdGRDbGFzcyI6Mjp7czo1OiJpdGVtcyI7Tzo4OiJzdGRDbGFzcyI6NDp7czo4OiJtZW51dHlwZSI7czo4OiJtYWlubWVudSI7czo5OiJjbGllbnRfaWQiO2k6MDtzOjEwOiJsaW1pdHN0YXJ0IjtpOjA7czo0OiJsaXN0IjthOjQ6e3M6OToiZGlyZWN0aW9uIjtzOjM6ImFzYyI7czo1OiJsaW1pdCI7czoyOiIyMCI7czo4OiJvcmRlcmluZyI7czo1OiJhLmxmdCI7czo1OiJzdGFydCI7ZDowO319czo0OiJlZGl0IjtPOjg6InN0ZENsYXNzIjoxOntzOjQ6Iml0ZW0iO086ODoic3RkQ2xhc3MiOjQ6e3M6MjoiaWQiO2E6MDp7fXM6NDoiZGF0YSI7TjtzOjQ6InR5cGUiO047czo0OiJsaW5rIjtOO319fX1zOjE0OiIAKgBpbml0aWFsaXplZCI7YjowO3M6OToic2VwYXJhdG9yIjtzOjE6Ii4iO31zOjQ6InVzZXIiO086MjA6Ikpvb21sYVxDTVNcVXNlclxVc2VyIjoxOntzOjI6ImlkIjtzOjM6IjQyNCI7fXM6MTE6ImFwcGxpY2F0aW9uIjtPOjg6InN0ZENsYXNzIjoxOntzOjU6InF1ZXVlIjthOjA6e319fX1zOjE0OiIAKgBpbml0aWFsaXplZCI7YjowO3M6OToic2VwYXJhdG9yIjtzOjE6Ii4iO30=\";","424","finnern"),
+("mrcbkvkh7qkj837k9v91d7ce64","1","0","1676229614","joomla|s:1492:\"TzoyNDoiSm9vbWxhXFJlZ2lzdHJ5XFJlZ2lzdHJ5IjozOntzOjc6IgAqAGRhdGEiO086ODoic3RkQ2xhc3MiOjU6e3M6OToiX19kZWZhdWx0IjtPOjg6InN0ZENsYXNzIjo0OntzOjc6InNlc3Npb24iO086ODoic3RkQ2xhc3MiOjM6e3M6NzoiY291bnRlciI7aToxNTtzOjU6InRpbWVyIjtPOjg6InN0ZENsYXNzIjozOntzOjU6InN0YXJ0IjtpOjE2NzYyMjkxMjI7czo0OiJsYXN0IjtpOjE2NzYyMjkzMjM7czozOiJub3ciO2k6MTY3NjIyOTMzMzt9czo1OiJ0b2tlbiI7czozMjoiRWZoZGhkVTBTc2NuVFhPMXpCcXdMNHVjZVNSOWViaUciO31zOjg6InJlZ2lzdHJ5IjtPOjI0OiJKb29tbGFcUmVnaXN0cnlcUmVnaXN0cnkiOjM6e3M6NzoiACoAZGF0YSI7Tzo4OiJzdGRDbGFzcyI6Mjp7czoxMzoiY29tX2luc3RhbGxlciI7Tzo4OiJzdGRDbGFzcyI6Mjp7czo3OiJtZXNzYWdlIjtzOjA6IiI7czoxNzoiZXh0ZW5zaW9uX21lc3NhZ2UiO3M6MDoiIjt9czoxNjoiY29tX2pvb21sYXVwZGF0ZSI7Tzo4OiJzdGRDbGFzcyI6NDp7czo0OiJmaWxlIjtOO3M6MTA6Im9sZHZlcnNpb24iO047czo4OiJwYXNzd29yZCI7czozMjoiTzVQeWVBYm1CcHhUczBzSG52enpVVjZ3dFhhOE1wcGMiO3M6ODoiZmlsZXNpemUiO2k6MjgwNjAzNjA7fX1zOjE0OiIAKgBpbml0aWFsaXplZCI7YjowO3M6OToic2VwYXJhdG9yIjtzOjE6Ii4iO31zOjQ6InVzZXIiO086MjA6Ikpvb21sYVxDTVNcVXNlclxVc2VyIjoxOntzOjI6ImlkIjtpOjQyNDt9czoxMToiYXBwbGljYXRpb24iO086ODoic3RkQ2xhc3MiOjE6e3M6NToicXVldWUiO2E6MDp7fX19czo3OiJzZXNzaW9uIjtPOjg6InN0ZENsYXNzIjoyOntzOjc6ImNvdW50ZXIiO2k6MjE7czo1OiJ0aW1lciI7Tzo4OiJzdGRDbGFzcyI6Mjp7czo0OiJsYXN0IjtpOjE2NzYyMjk2MDM7czozOiJub3ciO2k6MTY3NjIyOTYxNDt9fXM6MjI6IlBIUERFQlVHQkFSX1NUQUNLX0RBVEEiO2E6MDp7fXM6ODoib3ZlcnJpZGUiO086ODoic3RkQ2xhc3MiOjA6e31zOjk6ImNvbV91c2VycyI7Tzo4OiJzdGRDbGFzcyI6MTp7czoxMToibWZhX2NoZWNrZWQiO2k6MTt9fXM6MTQ6IgAqAGluaXRpYWxpemVkIjtiOjA7czo5OiJzZXBhcmF0b3IiO3M6MToiLiI7fQ==\";","424","finnern"),
+("psbnhl5mvcmspvolnj5cohd4bn","1","0","1675456518","joomla|s:1068:\"TzoyNDoiSm9vbWxhXFJlZ2lzdHJ5XFJlZ2lzdHJ5IjozOntzOjc6IgAqAGRhdGEiO086ODoic3RkQ2xhc3MiOjE6e3M6OToiX19kZWZhdWx0IjtPOjg6InN0ZENsYXNzIjozOntzOjc6InNlc3Npb24iO086ODoic3RkQ2xhc3MiOjM6e3M6NzoiY291bnRlciI7aTo0O3M6NToidGltZXIiO086ODoic3RkQ2xhc3MiOjM6e3M6NToic3RhcnQiO2k6MTY3NTQ1NTU3NztzOjQ6Imxhc3QiO2k6MTY3NTQ1NTU4MDtzOjM6Im5vdyI7aToxNjc1NDU2NTE4O31zOjU6InRva2VuIjtzOjMyOiJtcWYxUU14SWpjMkVJU1I5cFVTTjA4NGdieXd5OWU2SiI7fXM6ODoicmVnaXN0cnkiO086MjQ6Ikpvb21sYVxSZWdpc3RyeVxSZWdpc3RyeSI6Mzp7czo3OiIAKgBkYXRhIjtPOjg6InN0ZENsYXNzIjoxOntzOjk6ImNvbV9tZW51cyI7Tzo4OiJzdGRDbGFzcyI6MTp7czo1OiJpdGVtcyI7Tzo4OiJzdGRDbGFzcyI6NDp7czo4OiJtZW51dHlwZSI7czo4OiJtYWlubWVudSI7czo5OiJjbGllbnRfaWQiO2k6MDtzOjEwOiJsaW1pdHN0YXJ0IjtpOjA7czo0OiJsaXN0IjthOjQ6e3M6OToiZGlyZWN0aW9uIjtzOjM6ImFzYyI7czo1OiJsaW1pdCI7czoyOiIyMCI7czo4OiJvcmRlcmluZyI7czo1OiJhLmxmdCI7czo1OiJzdGFydCI7ZDowO319fX1zOjE0OiIAKgBpbml0aWFsaXplZCI7YjowO3M6OToic2VwYXJhdG9yIjtzOjE6Ii4iO31zOjQ6InVzZXIiO086MjA6Ikpvb21sYVxDTVNcVXNlclxVc2VyIjoxOntzOjI6ImlkIjtzOjM6IjQyNCI7fX19czoxNDoiACoAaW5pdGlhbGl6ZWQiO2I6MDtzOjk6InNlcGFyYXRvciI7czoxOiIuIjt9\";","424","finnern"),
+("s04mu7on16n9hmcoqi82l5hpm0","0","1","1670752726","joomla|s:736:\"TzoyNDoiSm9vbWxhXFJlZ2lzdHJ5XFJlZ2lzdHJ5IjozOntzOjc6IgAqAGRhdGEiO086ODoic3RkQ2xhc3MiOjE6e3M6OToiX19kZWZhdWx0IjtPOjg6InN0ZENsYXNzIjozOntzOjc6InNlc3Npb24iO086ODoic3RkQ2xhc3MiOjM6e3M6NzoiY291bnRlciI7aToxO3M6NToidGltZXIiO086ODoic3RkQ2xhc3MiOjM6e3M6NToic3RhcnQiO2k6MTY3MDc1MjcyNjtzOjQ6Imxhc3QiO2k6MTY3MDc1MjcyNjtzOjM6Im5vdyI7aToxNjcwNzUyNzI2O31zOjU6InRva2VuIjtzOjMyOiJFb0hMcm13eUlGZWh3ZDBjNW05ZXNyT3UxMUxaZnBCViI7fXM6ODoicmVnaXN0cnkiO086MjQ6Ikpvb21sYVxSZWdpc3RyeVxSZWdpc3RyeSI6Mzp7czo3OiIAKgBkYXRhIjtPOjg6InN0ZENsYXNzIjowOnt9czoxNDoiACoAaW5pdGlhbGl6ZWQiO2I6MDtzOjk6InNlcGFyYXRvciI7czoxOiIuIjt9czo0OiJ1c2VyIjtPOjIwOiJKb29tbGFcQ01TXFVzZXJcVXNlciI6MTp7czoyOiJpZCI7aTowO319fXM6MTQ6IgAqAGluaXRpYWxpemVkIjtiOjA7czo5OiJzZXBhcmF0b3IiO3M6MToiLiI7fQ==\";","0","");
 
 
 
@@ -2401,12 +2379,12 @@ CREATE TABLE `j4x_update_sites` (
 
 
 INSERT INTO j4x_update_sites VALUES
-("1","Joomla! Core","collection","https://update.joomla.org/core/sts/list_sts.xml","1","1675525850","","",""),
-("2","Accredited Joomla! Translations","collection","https://update.joomla.org/language/translationlist_4.xml","1","1675457768","","",""),
-("3","Joomla! Update Component","extension","https://update.joomla.org/core/extensions/com_joomlaupdate.xml","1","1675458579","","",""),
-("4","Github RSGallery2 component updates","extension","http://releases.rsgallery2.org/RSG2_component_update.xml","1","1675457768","","",""),
-("5","Github RSGallery2 component updates","extension","https://raw.githubusercontent.com/RSGallery2/RSGallery2_Project/master/UpdateServer/RSG2_component_update.xml","1","1675457768","","",""),
-("6","Search Update Site","extension","https://raw.githubusercontent.com/joomla-extensions/search/main/manifest.xml","1","1675458680","","","");
+("1","Joomla! Core","collection","https://update.joomla.org/core/sts/list_sts.xml","1","1676229308","","",""),
+("2","Accredited Joomla! Translations","collection","https://update.joomla.org/language/translationlist_4.xml","1","0","","",""),
+("3","Joomla! Update Component","extension","https://update.joomla.org/core/extensions/com_joomlaupdate.xml","1","1676229398","","",""),
+("4","Github RSGallery2 component updates","extension","http://releases.rsgallery2.org/RSG2_component_update.xml","1","0","","",""),
+("5","Github RSGallery2 component updates","extension","https://raw.githubusercontent.com/RSGallery2/RSGallery2_Project/master/UpdateServer/RSG2_component_update.xml","1","0","","",""),
+("6","Search Update Site","extension","https://raw.githubusercontent.com/joomla-extensions/search/main/manifest.xml","1","0","","","");
 
 
 
@@ -2446,7 +2424,7 @@ CREATE TABLE `j4x_updates` (
   `changelogurl` text COLLATE utf8mb4_unicode_ci,
   `extra_query` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '',
   PRIMARY KEY (`update_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Available Updates';
+) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Available Updates';
 
 
 INSERT INTO j4x_updates VALUES
@@ -2527,7 +2505,7 @@ INSERT INTO j4x_updates VALUES
 ("230","2","0","Uyghur","","pkg_ug-CN","package","","0","3.7.5.2","","https://update.joomla.org/language/details3/ug-CN_details.xml","","",""),
 ("231","2","0","Vietnamese","","pkg_vi-VN","package","","0","3.2.1.2","","https://update.joomla.org/language/details3/vi-VN_details.xml","","",""),
 ("232","2","0","Welsh","","pkg_cy-GB","package","","0","3.10.11.1","","https://update.joomla.org/language/details3/cy-GB_details.xml","","",""),
-("235","6","10053","Search Extension Package","Joomla! CMS Search Package","pkg_search","package","","0","4.0.1-dev","","https://raw.githubusercontent.com/joomla-extensions/search/main/manifest.xml","https://github.com/joomla-extensions/search/releases/tag/4.0.1-dev","","");
+("236","1","700","Joomla","","joomla","file","","0","3.10.11","","https://update.joomla.org/core/extension.xml","","","");
 
 
 
@@ -2674,7 +2652,7 @@ CREATE TABLE `j4x_users` (
 
 
 INSERT INTO j4x_users VALUES
-("424","Super User","finnern","j3xwampp@tomfinnern.de","$2y$10$l0YzrdTiv3UpjZ.rrcJixuWbvrNrab/YPQ.LucRJF1os7NQCthyOu","0","1","2022-12-11 09:40:03","2023-02-03 20:19:40","0","","","0","","","0","");
+("424","Super User","finnern","j3xwampp@tomfinnern.de","$2y$10$l0YzrdTiv3UpjZ.rrcJixuWbvrNrab/YPQ.LucRJF1os7NQCthyOu","0","1","2022-12-11 09:40:03","2023-02-12 19:12:06","0","","","0","","","0","");
 
 
 
@@ -2819,6 +2797,6 @@ CREATE TABLE `j4x_workflows` (
 
 
 INSERT INTO j4x_workflows VALUES
-("1","0","1","COM_WORKFLOW_BASIC_WORKFLOW","","com_content.article","1","1","2023-02-03 21:59:43","0","2023-02-03 21:59:43","0","","");
+("1","0","1","COM_WORKFLOW_BASIC_WORKFLOW","","com_content.article","1","1","2023-02-12 20:16:16","0","2023-02-12 20:16:16","0","","");
 
 

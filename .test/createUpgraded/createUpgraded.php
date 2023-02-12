@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Containing folder must be copied parallel to folders to be copied
+ *
+ *
+ * @copyright   (C) 2023 - 2023 RSGallery2 Team
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+
 require_once('exportDB.php');
 require_once('copyFiles.php');
 require_once('renameInConfig.php');
