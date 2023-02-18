@@ -65,6 +65,12 @@ class db_access
 
 // Export_Database($mysqlHostName, $mysqlUserName, $mysqlPassword, $DbName, $tables = false, $backup_name = false);
 
+
+
+// d:\wamp64\bin\mysql\mysql8.0.32\bin\mysqldump.exe
+// exec('d:\wamp64\bin\mysql\mysql8.0.32\bin\mysqldump.exe -u root --no-create-info joomla4x_rsg2_releasebase > joomla4x_rsg2_releasebase2.sql')
+// exec('mysqldump -u [user] -p[pass] --no-create-info mydb > mydb.sql');
+
 	function exportDb($mysqlUserName='', $mysqlPassword='', $mysqlHostName='', $DbName='', $tables = false, $backup_name = false)
 	{
 
@@ -98,85 +104,127 @@ class db_access
 		try
 		{
 
-			$mysqli = new mysqli($mysqlHostName, $mysqlUserName, $mysqlPassword, $DbName);
-			$mysqli->select_db($DbName);
-			$mysqli->query("SET NAMES 'utf8'");
+//			$mysqli = new mysqli($mysqlHostName, $mysqlUserName, $mysqlPassword, $DbName);
+//			$mysqli->select_db($DbName);
+//			$mysqli->query("SET NAMES 'utf8'");
+//
+//			$queryTables = $mysqli->query('SHOW TABLES');
+//			while ($row = $queryTables->fetch_row())
+//			{
+//				$target_tables[] = $row[0];
+//			}
+//			if ($tables !== false)
+//			{
+//				$target_tables = array_intersect($target_tables, $tables);
+//			}
+//			foreach ($target_tables as $table)
+//			{
+//				$result        = $mysqli->query('SELECT * FROM ' . $table);
+//				$fields_amount = $result->field_count;
+//				$rows_num      = $mysqli->affected_rows;
+//				$res           = $mysqli->query('SHOW CREATE TABLE ' . $table);
+//				$TableMLine    = $res->fetch_row();
+//				$content       = (!isset($content) ? '' : $content) . "\n\n" . $TableMLine[1] . ";\n\n";
+//
+//				for ($i = 0, $st_counter = 0; $i < $fields_amount; $i++, $st_counter = 0)
+//				{
+//					while ($row = $result->fetch_row())
+//					{ //when started (and every after 100 command cycle):
+//						if ($st_counter % 100 == 0 || $st_counter == 0)
+//						{
+//							$content .= "\nINSERT INTO " . $table . " VALUES";
+//						}
+//						$content .= "\n(";
+//						for ($j = 0; $j < $fields_amount; $j++)
+//						{
+//							$row[$j] = str_replace("\n", "\\n", addslashes($row[$j]));
+//							if (isset($row[$j]))
+//							{
+//								$content .= '"' . $row[$j] . '"';
+//							}
+//							else
+//							{
+//								$content .= '""';
+//							}
+//							if ($j < ($fields_amount - 1))
+//							{
+//								$content .= ',';
+//							}
+//						}
+//						$content .= ")";
+//						//every after 100 command cycle [or at last line] ....p.s. but should be inserted 1 cycle eariler
+//						if ((($st_counter + 1) % 100 == 0 && $st_counter != 0) || $st_counter + 1 == $rows_num)
+//						{
+//							$content .= ";";
+//						}
+//						else
+//						{
+//							$content .= ",";
+//						}
+//						$st_counter = $st_counter + 1;
+//					}
+//				}
+//
+//				$content .= "\n\n\n";
+//			}
+//
+//			//--- write to backup file -----------------------------------------
+//
+//			//$backup_name = $backup_name ? $backup_name : $backup_name."___(".date('H-i-s')."_".date('d-m-Y').")__rand".rand(1,11111111).".sql";
+//			$backup_name = $backup_name ? $backup_name : $backup_name . ".sql";
+//			//$backup_name = $backup_name . ".sql";
+//
+//			if (file_exists ($backup_name)) {
+//				unlink ($backup_name);
+//			}
+//
+//			$myfile = fopen($backup_name, "w") or die("Unable to open file!");
+//			fwrite($myfile, $content);
+//			fclose($myfile);
+//
+//			$isExported = true;
+//
+//
+////			header('Content-Type: application/octet-stream');
+////			header("Content-Transfer-Encoding: Binary");
+////			header("Content-disposition: attachment; filename=\"" . $backup_name . "\"");
+////			echo $content;
 
-			$queryTables = $mysqli->query('SHOW TABLES');
-			while ($row = $queryTables->fetch_row())
-			{
-				$target_tables[] = $row[0];
+
+// exec('d:\wamp64\bin\mysql\mysql8.0.32\bin\mysqldump.exe -u root --no-create-info joomla4x_rsg2_releasebase > joomla4x_rsg2_releasebase2.sql')
+
+			// $mysqlUserName='', $mysqlPassword='', $mysqlHostName='', $DbName='', $tables = false, $backup_name = false
+			// exec('mysqldump -u [user] -p[pass] --no-create-info mydb > mydb.sql');
+
+
+//
+//
+//To backup:
+//
+//mysqldump -u user -p database > backup.sql
+//To import:
+//
+//mysql -u user -p database < backup.sql
+//
+//
+			// https://github.com/tazotodua/useful-php-scripts/blob/master/my-sql-export%20(backup)%20database.php
+			// https://github.com/tazotodua/useful-php-scripts/blob/master/my-sql-import%20(restore)%20database.php
+
+
+			//--- mysqldump ----------------------------------------------------------------------
+
+			// $pass="''";
+			$pass='';
+			if (strlen($mysqlPassword) > 0) {
+				$pass='-p ' . $mysqlPassword; // . '-p ' . $pass . ' '
 			}
-			if ($tables !== false)
-			{
-				$target_tables = array_intersect($target_tables, $tables);
-			}
-			foreach ($target_tables as $table)
-			{
-				$result        = $mysqli->query('SELECT * FROM ' . $table);
-				$fields_amount = $result->field_count;
-				$rows_num      = $mysqli->affected_rows;
-				$res           = $mysqli->query('SHOW CREATE TABLE ' . $table);
-				$TableMLine    = $res->fetch_row();
-				$content       = (!isset($content) ? '' : $content) . "\n\n" . $TableMLine[1] . ";\n\n";
 
-				for ($i = 0, $st_counter = 0; $i < $fields_amount; $i++, $st_counter = 0)
-				{
-					while ($row = $result->fetch_row())
-					{ //when started (and every after 100 command cycle):
-						if ($st_counter % 100 == 0 || $st_counter == 0)
-						{
-							$content .= "\nINSERT INTO " . $table . " VALUES";
-						}
-						$content .= "\n(";
-						for ($j = 0; $j < $fields_amount; $j++)
-						{
-							$row[$j] = str_replace("\n", "\\n", addslashes($row[$j]));
-							if (isset($row[$j]))
-							{
-								$content .= '"' . $row[$j] . '"';
-							}
-							else
-							{
-								$content .= '""';
-							}
-							if ($j < ($fields_amount - 1))
-							{
-								$content .= ',';
-							}
-						}
-						$content .= ")";
-						//every after 100 command cycle [or at last line] ....p.s. but should be inserted 1 cycle eariler
-						if ((($st_counter + 1) % 100 == 0 && $st_counter != 0) || $st_counter + 1 == $rows_num)
-						{
-							$content .= ";";
-						}
-						else
-						{
-							$content .= ",";
-						}
-						$st_counter = $st_counter + 1;
-					}
-				}
-
-				$content .= "\n\n\n";
-			}
-
-			//$backup_name = $backup_name ? $backup_name : $backup_name."___(".date('H-i-s')."_".date('d-m-Y').")__rand".rand(1,11111111).".sql";
-			$backup_name = $backup_name ? $backup_name : $backup_name . ".sql";
-			//$backup_name = $backup_name . ".sql";
-
-			$myfile = fopen($backup_name, "w") or die("Unable to open file!");
-			fwrite($myfile, $content);
-			fclose($myfile);
-
-			$isExported = true;
-
-
-//			header('Content-Type: application/octet-stream');
-//			header("Content-Transfer-Encoding: Binary");
-//			header("Content-disposition: attachment; filename=\"" . $backup_name . "\"");
-//			echo $content;
+			$cmd = 'd:\wamp64\bin\mysql\mysql8.0.32\bin\mysqldump.exe '
+				. '-u ' . $mysqlUserName . ' '
+				. $pass . ' '
+				. $DbName . ' '
+				. '> ' . $DbName . '.sql';
+			exec ($cmd);
 
 		}
 		catch (exception $e) {
@@ -185,7 +233,6 @@ class db_access
 		finally {
 			//optional code that always runs
 		}
-
 
 		return $isExported;
 	}
@@ -213,17 +260,26 @@ class db_access
 		$isCreated = false;
 
 		try {
-
+			
+			//--- drop (delete) database ---------------------------------------------
+			
 			// $mysqli = new mysqli( "localhost", "user", 'password', "database");
 			$mysqli = new mysqli($mysqlHostName, $mysqlUserName, $mysqlPassword, $DbName);
 
 			//$mysqli->execute_query()
-			//$isDropped = $mysqli->query('DROP DATABASE ' . $DbName);
 			$isDropped = $mysqli->query('DROP DATABASE IF EXISTS ' . $DbName);
 
+
+//			//Set encoding
+//			mysql_query("SET CHARSET utf8");
+//			mysql_query("SET NAMES 'utf8' COLLATE 'utf8_general_ci'");
+
+			//--- create empty database ---------------------------------------------
+			
 			//if ($isDropped)
 			{
-				$isCreated = $mysqli->query('CREATE DATABASE ' . $DbName . '  CHARACTER SET utf8 COLLATE utf8_general_ci;');
+				// $isCreated = $mysqli->query('CREATE DATABASE ' . $DbName . '  CHARACTER SET utf8 COLLATE utf8_general_ci;');
+				$isCreated = $mysqli->query("CREATE DATABASE " . $DbName . " CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';");
 			}
 
 		}

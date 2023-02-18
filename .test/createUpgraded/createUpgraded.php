@@ -15,9 +15,9 @@ require_once('renameInConfig.php');
 
 //--- constants ---------------------------------------------------
 
-const doExport = 1;
-const doRecreate = 2;
-const doImport = 3;
+const doExport     = 1;
+const doRecreateDB = 2;
+const doImport     = 3;
 
 const doDeleteFiles = 4;
 const doCopyFiles   = 5;
@@ -33,6 +33,10 @@ select sources
 ------------------------------------------------------------------------*/
 
 //---  --------------------------------------------------------
+
+// ToDo: subfunction with switch case
+// ToDo: DB 'joomla4x_keepJ3xRsg3';
+// ToDo: Test github version for export / import again
 
 /* stufe 1 joomla 3x +  to 4 prepare *
 $srcDbName = 'joomla3x';
@@ -72,7 +76,7 @@ if ($startOn <= doExport)
 	$isExported        = $db_access->exportDb();
 }
 
-if ($startOn <= doRecreate)
+if ($startOn <= doRecreateDB)
 {
 	$db_access->DbName = $dstDbName;
 	$isRecreated       = $db_access->recreateDB();
