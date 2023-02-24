@@ -51,7 +51,7 @@ class db_access
 		$this->mysqlUserName = "root";
 		$this->mysqlPassword = "";
 		$this->mysqlHostName = "localhost";
-//		$this->DbName        = "joomla4x_upgraded";
+//		$this->DbName        = "joomla4x_rsg2_3x";
 //		$this->backup_name   = "joomla4x_upgraded.sql";  // ToDo: Date ?
 		$this->DbName        = "joomla4x_RSG2_ReleaseBase";
 		$this->backup_name   = "joomla4x_RSG2_ReleaseBase.sql";  // ToDo: Date ?

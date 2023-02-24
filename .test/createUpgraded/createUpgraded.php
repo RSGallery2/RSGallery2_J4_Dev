@@ -15,18 +15,27 @@ require_once('renameInConfig.php');
 
 //--- constants ---------------------------------------------------
 
+//--- start of task ---------------------------------
 const doExport     = 1;
 const doRecreateDB = 2;
 const doImport     = 3;
-
 const doDeleteFiles = 4;
 const doCopyFiles   = 5;
-
 const doRenameConfig = 6;
+
+//--- source/destination project ----------------------
+
+const prj_3x_to_4x = 1;
+const prj_j4_release_to_upgraded = 2;
+const prj_j4_release_to_rsg2_j3 = 3;
+const prj_joomla3x_rsg2_php8 = 4;
+const prj_j4_release_to_upgraded__yyyy = 5;
+
+//--- selections --------------------------------------
 
 // for debug
 $startOn = doExport;
-
+$project = prj_joomla3x_rsg2_php8;
 
 /*------------------------------------------------------------------------
 select sources
@@ -34,32 +43,84 @@ select sources
 
 //---  --------------------------------------------------------
 
-// ToDo: subfunction with switch case
-// ToDo: DB 'joomla4x_keepJ3xRsg3';
+// ToDo: more logs
 // ToDo: Test github version for export / import again
 
-/* stufe 1 joomla 3x +  to 4 prepare *
-$srcDbName = 'joomla3x';
-$dstDbName = 'joomla4x_RSG2_ReleaseBase';
+//--- init source and destination paths -----------------------------------
 
-$srcFolder = 'joomla3x';
-$dstFolder = 'joomla4x_RSG2_ReleaseBase';
-$cfgFile   = 'configuration.php';
-$srcString = 'joomla3x';
-$dstString = 'joomla4x_rsg2_releasebase';
-/**/
+function sourceAndDestinations(int $project)
+{
+	switch ($project) {
 
-/* stufe 2 (J3x RSG2) on joomla4x  to J4x upgrade */
-$srcDbName = 'joomla4x_RSG2_ReleaseBase';
-$dstDbName = 'joomla4x_upgraded';
+		case prj_3x_to_4x:
+			/* stufe 1 joomla 3x +  to 4 prepare */
+			$srcDbName = 'joomla3x';
+			$dstDbName = 'joomla4x_RSG2_ReleaseBase';
 
-$srcFolder = 'joomla4x_RSG2_ReleaseBase';
-$dstFolder = 'joomla4x_upgraded';
-$cfgFile   = 'configuration.php';
-$srcString = 'joomla4x_rsg2_releasebase';
-$dstString = 'joomla4x_upgraded';
-/**/
+			$srcFolder = 'joomla3x';
+			$dstFolder = 'joomla4x_RSG2_ReleaseBase';
+			$cfgFile   = 'configuration.php';
+			$srcString = 'joomla3x';
+			$dstString = 'joomla4x_rsg2_releasebase';
+			/**/
+		break;
 
+		case prj_j4_release_to_upgraded:
+			/* stufe 2 (J3x RSG2) on joomla4x  to J4x upgrade */
+			$srcDbName = 'joomla4x_RSG2_ReleaseBase';
+			$dstDbName = 'joomla4x_upgraded';
+
+			$srcFolder = 'joomla4x_RSG2_ReleaseBase';
+			$dstFolder = 'joomla4x_upgraded';
+			$cfgFile   = 'configuration.php';
+			$srcString = 'joomla4x_rsg2_releasebase';
+			$dstString = 'joomla4x_upgraded';
+			/**/
+			break;
+
+		case prj_j4_release_to_rsg2_j3:
+			/* stufe 2  on joomla4x  to rsg2 Of J3 on J4 */
+			$srcDbName = 'joomla4x_RSG2_ReleaseBase';
+			$dstDbName = 'joomla4x_rsg2_3x';
+
+			$srcFolder = 'joomla4x_RSG2_ReleaseBase';
+			$dstFolder = 'joomla4x_rsg2_3x';
+			$cfgFile   = 'configuration.php';
+			$srcString = 'joomla4x_rsg2_releasebase';
+			$dstString = 'joomla4x_rsg2_3x';
+			/**/
+			break;
+
+		case prj_joomla3x_rsg2_php8:
+			/* stufe 1  joomla3x  to rsg2 Of J3 with php8 tests */
+			$srcDbName = 'joomla3x';
+			$dstDbName = 'joomla3x_rsg2_php8';
+
+			$srcFolder = 'joomla3x';
+			$dstFolder = 'joomla3x_rsg2_php8';
+			$cfgFile   = 'configuration.php';
+			$srcString = 'joomla3x';
+			$dstString = 'joomla3x_rsg2_php8';
+			/**/
+			break;
+
+		case prj_j4_release_to_upgraded__yyyy:
+
+			break;
+
+	}
+
+	return [$srcDbName, $dstDbName,
+		$srcFolder, $dstFolder,
+		$cfgFile,
+		$srcString, $dstString];
+}
+
+[$srcDbName, $dstDbName,
+	$srcFolder, $dstFolder,
+	$cfgFile,
+	$srcString, $dstString] =
+	sourceAndDestinations ($project);
 
 //--- start move --------------------------------------------------------
 
