@@ -222,7 +222,7 @@
 		</phingcall>
 
 		<if>
-			<!-- on update maifest file -->
+			<!-- on update manifest file -->
 			<equals arg1="${isUpdateManifest}" arg2="1" />
 			<then>
 				<phingcall target="ManifestBuildNumber">
@@ -270,7 +270,7 @@
 
 		<!-- clean / tidy build artefacts -->
 		<phing phingfile="build.clean_up.xml">
-			<!-- sub task called by package -->
+			<!-- subtask called by package -->
 			<property name="buildDirTemp" value="${buildPackageDir}" />
 		</phing>
 
@@ -340,7 +340,7 @@
 	.........................................................................
 	buildComponent
 	.........................................................................
-	ToDo: Exchange things like date, copyrght and others (?
+	ToDo: Exchange things like date, copyright and others (?
 	-->
 
 	<target name="buildComponent">
@@ -405,6 +405,7 @@
 		</phing>
 
 		<echo msg="pck:buildPlugins call end" />
+		<echo msg="" />
 	</target>
 
 

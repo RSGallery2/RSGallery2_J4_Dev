@@ -346,7 +346,7 @@
 	.........................................................................
 	doPatchComponent
 	.........................................................................
-	ToDo: Exchange things like date, copyrght and others (?
+	ToDo: Exchange things like date, copyright and others (?
 	-->
 
 	<target name="doPatchComponent" >

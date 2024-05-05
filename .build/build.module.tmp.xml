@@ -318,7 +318,7 @@
 
 		<!--				&lt;!&ndash; clean / tidy build artefacts &ndash;&gt;-->
 		<!--				<phing phingfile="build.clean_up.xml">-->
-		<!--					&lt;!&ndash; sub task called by package &ndash;&gt;-->
+		<!--					&lt;!&ndash; subtask called by package &ndash;&gt;-->
 		<!--					<property name="buildDirTemp" value="${buildDirTemp}" />-->
 
 		<!--				</phing>-->
@@ -340,7 +340,7 @@
 	.........................................................................
 	incrementBuildNumber
 	.........................................................................
-	ToDo: Exchange things like date, copyrght and others (?
+	ToDo: Exchange things like date, copyright and others (?
 	-->
 
 <!--	<target name="incrementBuildNumber">-->
@@ -368,7 +368,7 @@
 	.........................................................................
 	versionWithBuildNumber
 	.........................................................................
-	ToDo: Exchange things like date, copyrght and others (?
+	ToDo: Exchange things like date, copyright and others (?
 	-->
 
 <!--	<target name="versionWithBuildNumber">-->
@@ -395,7 +395,7 @@
 	.........................................................................
 	copy2Temp
 	.........................................................................
-	ToDo: Exchange things like date, copyrght and others (?
+	ToDo: Exchange things like date, copyright and others (?
 	-->
 
 	<target name="copy2Temp">
@@ -413,7 +413,7 @@
 	.........................................................................
 	doPatchModule
 	.........................................................................
-	ToDo: Exchange things like date, copyrght and others (?
+	ToDo: Exchange things like date, copyright and others (?
 	-->
 
 	<target name="doPatchModule" >
