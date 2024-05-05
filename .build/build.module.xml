@@ -240,7 +240,7 @@
 
 		<phingcall target="zipFiles">
 			<property name="main_name" value="${module_name}" override="true" />
-			<property name="dstPath" value="${dstModulesCmp}" override="true" />
+			<property name="srcPath" value="${dstModulesCmp}" override="true" />
 		</phingcall>
 
 <!--		<echo msg="   ??? isCalledByPackage='${isCalledByPackage}' ???" />-->

@@ -264,7 +264,7 @@
 
 		<phingcall target="zipFiles">
 			<property name="main_name" value="${package_name}" override="true" />
-			<property name="dstPath" value="${dstPackageCmp}" override="true" />
+			<property name="srcPath" value="${dstPackageCmp}" override="true" />
 		</phingcall>
 
 
@@ -351,7 +351,7 @@
 		<!-- call external file "" -->
 		<!--		<phing phingfile="build.comp.xml" target="sometarget">-->
 		<phing phingfile="build.comp.xml">
-			<!-- sub task called by package -->
+			<!-- subtask called by package -->
 			<property name="isCalledByPackage" value="1" />
 			<property name="buildDir" value="${buildPackageDir}"/>
 			<property name="buildPackageDir" value="${buildPackageDir}"/>
@@ -375,7 +375,7 @@
 		<!-- call external file "" -->
 		<!-- <phing phingfile="build.comp.xml" target="sometarget"> -->
 		<phing phingfile="build.modules.xml">
-			<!-- sub task called by package -->
+			<!-- subtask called by package -->
 			<property name="isCalledByPackage" value="1" />
 			<property name="buildDir" value="${buildPackageDir}"/>
 			<property name="buildPackageDir" value="${buildPackageDir}"/>
@@ -397,7 +397,7 @@
 		<!-- call external file "" -->
 <!--		<phing phingfile="build.comp.xml" target="sometarget">-->
 		<phing phingfile="build.plugins.xml">
-			<!-- sub task called by package -->
+			<!-- subtask called by package -->
 			<property name="isCalledByPackage" value="1" />
 			<property name="buildDir" value="${buildPackageDir}"/>
 			<property name="buildPackageDir" value="${buildPackageDir}"/>

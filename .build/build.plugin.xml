@@ -13,6 +13,9 @@
 		"phing -f updateProject.xml" before to
 		standardize all files of the project
 		
+		As plugins have a type the type flder must be inside the zip
+
+		
 		Changes in files
 		* Version and date for copyright in *.php files
 		* Build ID (file) will be increased and used in version string
@@ -49,7 +52,6 @@
 
 	<import file="build.libMath.xml"/>
 	<import file="build.libBuildNumber.xml"/>
-
 	<import file="build.libGeneral.xml" />
 
 	<!--
@@ -78,6 +80,7 @@
     <property name="type" value="Plugin" />
     <property name="plugin_name" value="plg_xxx" />
 	<property name="extension" value="RSGallery2" />
+	<property name="plugin_type" value="content_X" />
 
 	<!--
 	.........................................................................
@@ -132,9 +135,10 @@
     <property name="buildDir" value="./../.packages/" />
     <property name="buildDirTemp" value="${buildDir}tmp/" override="true" />
 	
-	<property name="pluginsComponent" value="/plugins/${plugin_name}" override="true" />
+	<property name="pluginsComponent" value="/plugins/${plugin_type}/${plugin_name}" override="true" />
 	<property name="srcPluginsCmp" value="${srcRoot}${pluginsComponent}" override="true" />
 	<property name="dstPluginsCmp" value="${buildDirTemp}${pluginsComponent}" override="true" />
+	<property name="path2PlgType" value="${buildDirTemp}/plugins/${plugin_type}" override="true" />
 
 	<property name="srcBuildNumberFile" value="${srcPluginsCmp}/buildNumber.txt" override="true" />
 
@@ -184,6 +188,7 @@
 		<echo msg="   pluginsComponent='${pluginsComponent}'" />
 		<echo msg="   srcPluginsCmp='${srcPluginsCmp}'" />
 		<echo msg="   dstPluginsCmp='${dstPluginsCmp}'" />
+		<echo msg="   path2PlgType='${path2PlgType}'" />
 
 		<echo msg="   isCalledByPackage='${isCalledByPackage}'" />
 
@@ -201,7 +206,7 @@
 		</if>
 
 		<if>
-			<!-- on update maifest file -->
+			<!-- on update manifest file -->
 			<equals arg1="${isUpdateManifest}" arg2="1" />
 			<then>
 				<phingcall target="ManifestBuildNumber">
@@ -221,7 +226,8 @@
 
 		<phingcall target="zipFiles">
 			<property name="main_name" value="${plugin_name}" override="true" />
-			<property name="dstPath" value="${dstPluginsCmp}" override="true" />
+<!--			<property name="srcPath" value="${path2PlgType}" override="true" />-->
+			<property name="srcPath" value="${dstPluginsCmp}" override="true" />
 		</phingcall>
 
 <!--		<echo msg="   ??? isCalledByPackage='${isCalledByPackage}' ???" />-->
@@ -288,7 +294,7 @@
 	.........................................................................
 	doPatchPlugin
 	.........................................................................
-	ToDo: Exchange things like date, copyrght and others in *.php *.TS ...
+	ToDo: Exchange things like date, copyright and others in *.php *.TS ...
 	-->
 
 	<target name="doPatchPlugin" >

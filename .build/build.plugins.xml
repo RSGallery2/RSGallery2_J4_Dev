@@ -187,13 +187,35 @@
 			</else>
 		</if>
 
+		<foreach param="plugin_type" absparam="absname" target="callSelectPlugins">
+			<fileset dir="${srcPluginsCmp}">
+				<type type="dir" />
+				<depth max="0" min="0" />
+				<include name="*" />
+			</fileset>
+		</foreach>
+
+		<echo msg="plgs:buildPlugins done" />
+	</target>
+
+
+	<target name="callSelectPlugins" >
+		<echo msg="plgs:callSelectPlugins start" />
+
+		<echo msg="dirname='${plugin_type}" />
+
+		<property name="srcPluginsCmpType" value="${srcPluginsCmp}${plugin_type}/"  override="true" />
+		<echo msg="srcPluginsCmpType='${srcPluginsCmpType}'" />
+
 
 		<foreach param="dirname" absparam="absname" target="callBuildPlugin">
-			<fileset dir="${srcPluginsCmp}">
+			<fileset dir="${srcPluginsCmpType}">
 				<type type="dir" />
 				<depth max="0" min="0" />
 				<include name="rsg2*" />
 			</fileset>
+
+			<property name="plugin_type" value="${plugin_type}" />
 		</foreach>
 
 		<!-- write reminder for "Update changelog file" before release -->
@@ -216,7 +238,7 @@
 			</then>
 		</if>
 
-		<echo msg="plgs:buildPlugins done" />
+		<echo msg="plgs:callSelectPlugins done" />
 	</target>
 
 	<target name="callBuildPlugin" >
@@ -224,14 +246,16 @@
 
 		<echo msg="dirname='${dirname}'" />
 		<echo msg="absname='${absname}'" />
+		<echo msg="plugin_type='${plugin_type}" />
 
 		<phing phingfile="build.plugin.xml">
-			<!-- sub task called by package -->
+			<!-- subtask called by package -->
 			<property name="plugin_name" value="${dirname}" />
 			<property name="isCalledByPackage" value="1" />
 
 			<property name="dirname" value="${dirname}'" />
 			<property name="absname" value="${absname}'" />
+			<property name="plugin_type" value="${plugin_type}" />
 
 		</phing>
 
