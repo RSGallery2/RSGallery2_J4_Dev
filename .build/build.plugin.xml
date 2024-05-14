@@ -225,8 +225,8 @@
 		</phingcall>
 
 		<phingcall target="zipFiles">
-			<property name="main_name" value="${plugin_name}" override="true" />
-<!--			<property name="srcPath" value="${path2PlgType}" override="true" />-->
+			<!-- add 'plg_' to name -->
+			<property name="main_name" value="plg_${plugin_name}" override="true" />
 			<property name="srcPath" value="${dstPluginsCmp}" override="true" />
 		</phingcall>
 

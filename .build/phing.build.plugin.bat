@@ -10,7 +10,7 @@ REM
 REM   echo/%_args%
 REM endlocal
 
-SET PluginName=plg_rsg2_images
+SET PluginName=rsg2_images
 if NOT %1A==A (
 	SET PluginName=%1
 )
