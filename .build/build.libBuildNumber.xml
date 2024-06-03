@@ -43,7 +43,6 @@
     .........................................................................
     -->
 
-    <!--	<target name="incrementBuildNumber">-->
     <target name="ManifestBuildNumber">
         <echo msg="ManifestBuildNumber start" />
 
@@ -91,7 +90,7 @@
 
         <echo msg="      versionWithBuildNumber end" />
 
-        <echo msg="manifestFile end" />
+        <echo msg="ManifestBuildNumber end" />
     </target>
 
     <!--

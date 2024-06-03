@@ -66,7 +66,7 @@
 	-->
 	
     <!-- Version number of build -->
-    <property name="build.version" value="5.0.0.4"  />
+    <property name="build.version" value="5.0.12.4" override="true" />
 	    <!-- additional naming postfix -->
     <!--property name="build.postfix" value="prepare." override="true" /-->
     <property name="build.postfix" value="" />
@@ -95,8 +95,9 @@
 	<property name="buildPackageDir" value="??? PackageDir" override="true" />
 	<!-- Not add date in zip name -->
 	<property name="isNoDateInZipName" value="0" override="true" />
-	<!-- Do update maifest file (date/ version -->
+	<!-- Do update manifest file (date/ version -->
 	<property name="isUpdateManifest" value="0" override="true" />
+	<property name="isDoRelease" value="0" override="true" />
 	<property name="isShowReminder" value="0" override="true" />
 
 	<!--
@@ -186,7 +187,7 @@
 -->
 
 <!--	<target name="build" depends="prepareSrcFolder, copy2Temp, -->
-<!--	                              manifestFile, zipFiles,-->
+<!--	                              manifestFileDate, zipFiles,-->
 <!--								  deleteTemp">-->
 	<target name="buildComponent">
 
@@ -196,7 +197,7 @@
 		* copy2Temp
 		* versionWithBuildNumber
 		* doPatchComponent
-		* manifestFile
+		* manifestFileDate
 		* zipFiles
 		* .
 		-->
@@ -224,9 +225,14 @@
 			<equals arg1="${isUpdateManifest}" arg2="1" />
 			<then>
 				<phingcall target="ManifestBuildNumber">
+					<property name="main_name" value="${comp_name}" override="true" />
+					<property name="srcPath" value="${buildDirTemp}" override="true" />
 				</phingcall>
 
-				<phingcall target="manifestFile">
+				<phingcall target="manifestFileDate">
+				</phingcall>
+
+				<phingcall target="createSqlUpdateFile">
 				</phingcall>
 
 			</then>
@@ -252,7 +258,7 @@
 
 				<!-- clean / tidy build artefacts -->
 				<phing phingfile="build.clean_up.xml">
-					<!-- sub task called by package -->
+					<!-- subtask called by package -->
 					<property name="buildDirTemp" value="${buildDirTemp}" />
 				</phing>
 

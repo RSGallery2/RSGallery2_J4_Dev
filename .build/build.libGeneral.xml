@@ -40,13 +40,13 @@
 
 	<!--
 	.........................................................................
-	update manifestFile
+	update manifestFile for actual date in creation and copyright
 	.........................................................................
 	Updates version, creationDate, and copyright date
 	-->
 
-	<target name="manifestFile">
-		<echo msg="manifestFile start" />
+	<target name="manifestFileDate">
+		<echo msg="manifestFileDate start" />
 		<echo msg="   date.day.month.year: ${date.day.month.year}" />
 
 		<echo msg="   manifest file='${srcManifestFile}'" />
@@ -64,7 +64,36 @@
 			</filterchain>
 		</reflexive>
 
-		<echo msg="manifestFile end" />
+		<echo msg="manifestFileDate end" />
+	</target>
+
+	<!--
+	.........................................................................
+	update createSqlUpdateFile
+	.........................................................................
+	Updates version, creationDate, and copyright date
+	-->
+
+	<target name="createSqlUpdateFile">
+		<echo msg="createSqlUpdateFile start" />
+		<echo msg="   date.day.month.year: ${date.day.month.year}" />
+
+		<echo msg="   manifest file='${srcManifestFile}'" />
+
+		<reflexive file="${srcManifestFile}">
+			<filterchain>
+				<replaceregexp>
+					<regexp pattern="(?&lt;=&lt;creationDate&gt;).*(?=&lt;)" replace="${date.day.month.year}"/>
+
+					<!-- <copyright>(c) 2003-2020 RSGallery2 Team</copyright> -->
+					<regexp pattern="(?&lt;=&lt;copyright&gt;\([cC]\) 20..\-).*(?= RSGallery2 Team)" replace="${date.year}"/>
+					<!-- <copyright>anything which does not start with (C) </copyright> -->
+					<regexp pattern="&lt;copyright&gt;(?!\(c\))(.*)(?=&lt;)" replace="&lt;copyright&gt;(c) ${date.year}-${date.year} RSGallery2 Team"/>
+				</replaceregexp>
+			</filterchain>
+		</reflexive>
+
+		<echo msg="createSqlUpdateFile end" />
 	</target>
 
 	<!--

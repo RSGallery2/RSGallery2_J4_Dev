@@ -203,7 +203,7 @@
 
 
 	<!-- Version number of build -->
-	<property name="build.version" value="5.0.0.4" override="true" />
+	<property name="build.version" value="5.0.12.4" override="true" />
 
 
 
@@ -251,7 +251,7 @@
 
 	<target name="buildModule" >
 <!--		depends="prepareDstFolder, copy2Temp,-->
-<!--	                              manifestFile, zipFiles,-->
+<!--	                              manifestFileDate, zipFiles,-->
 <!--								  deleteTemp">-->
 	
 		<!-- 
@@ -302,7 +302,7 @@
 <!--		<phingcall target="doPatchModule">-->
 <!--		</phingcall>-->
 
-<!--		<phingcall target="manifestFile">-->
+<!--		<phingcall target="manifestFileDate">-->
 <!--		</phingcall>-->
 
 
@@ -430,13 +430,13 @@
 
 	<!--
 	.........................................................................
-	manifestFile
+	manifestFileDate
 	.........................................................................
 	Updates version, creationDate, and copyright date
 	-->
 
-	<target name="manifestFile">
-		<echo msg="manifestFile start" />
+	<target name="manifestFileDate">
+		<echo msg="manifestFileDate start" />
 		<echo msg="   build.version: ${build.version}" />
 		<echo msg="   date.day.month.year: ${date.day.month.year}" />
 
@@ -458,7 +458,7 @@
 			</filterchain>
 		</reflexive>
 
-		<echo msg="manifestFile end" />
+		<echo msg="manifestFileDate end" />
 	</target>
 
 

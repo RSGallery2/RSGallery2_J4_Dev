@@ -50,7 +50,7 @@
 	-->
 	
     <!-- Version number of build -->
-    <property name="build.version" value="5.0.0.4" override="true" />
+    <property name="build.version" value="5.0.12.4" override="true" />
     <!-- additional naming postfix -->
     <property name="build.postfix" value="prepare." override="true" />
     <!--property name="build.postfix" value="" override="true" / -->
@@ -146,7 +146,7 @@
 =========================================================================
 -->
 	
-	<target name="build" depends="manifestFile, AddVersion2PhpSinceDoc,
+	<target name="build" depends="manifestFileDate, AddVersion2PhpSinceDoc,
 								  UpdateCopyrightYear,RemoveSite_ParamsIniFiles">	
 
 		<phingcall 
@@ -166,13 +166,13 @@
 	
 	<!-- 
 	.........................................................................
-	manifestFile
+	update manifestFile for actual date in creation and copyright
 	.........................................................................
 	Updates version, creationDate, and copyright date
 	-->
 	
-    <target name="manifestFile">
-		<echo msg="manifestFile start" />
+    <target name="manifestFileDate">
+		<echo msg="manifestFileDate start" />
 		<echo msg="build.version: ${build.version}" />
 		<echo msg="date.day.month.year: ${date.day.month.year}" />
 		
@@ -189,7 +189,7 @@
 			</filterchain>
 		</reflexive>
 		
-		<echo msg="manifestFile end" />
+		<echo msg="manifestFileDate end" />
     </target>
 
 
