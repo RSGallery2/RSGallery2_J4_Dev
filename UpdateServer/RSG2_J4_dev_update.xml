@@ -2,20 +2,38 @@
 <updates>
 	<update>
 		<name>RSGallery2 component update</name>
-		<description>Update for component rsgallery2 v4.0.8</description>
+		<description>Update for component rsgallery2 j4x v5.0.12</description>
 		<element>com_rsgallery2</element>
 		<type>component</type>
-		<version>4.0.9</version>
+		<version>5.0.12</version>
 		<downloads>
-			<downloadurl type="upgrade" format="zip">https://github.com/RSGallery2/RSGallery2_Component/releases/download/Version_4_0_9/RSGallery2_Component-Version_4_0_9.zip</downloadurl>
+			<downloadurl type="upgrade" format="zip">https://github.com/RSGallery2/RSGallery2_J4/releases/download/Version_5.0.12_Beta/rsgallery2.5.0.12.01_20240401.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>stable</tag>
 		</tags>
 		<maintainer>team@rsgallery2.org</maintainer>
 		<maintainerurl>rsgallery2.org</maintainerurl>
-		<targetplatform name="joomla" version="3.*"/>
+		<targetplatform name="joomla" version="4.*|5.*"/>
 		<client>1</client>
-		<infourl>https://github.com/RSGallery2/RSGallery2_J4/releases</infourl>
+		<infourl>https://github.com/RSGallery2/RSGallery2_J4/releases/tag/Version_5.0.12_Beta</infourl>
+	</update>
+	<update>
+		<name>RSGallery2 component update</name>
+		<description>Update for component rsgallery2 j4x v5.0.1</description>
+		<element>com_rsgallery2</element>
+		<type>component</type>
+		<version>5.0.1</version>
+		<downloads>
+			<downloadurl type="upgrade" format="zip">https://github.com/RSGallery2/RSGallery2_J4/releases/download/Version_5.0.12_Beta/rsgallery2.5.0.1.01_20230512.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>team@rsgallery2.org</maintainer>
+		<maintainerurl>rsgallery2.org</maintainerurl>
+		<targetplatform name="joomla" version="4.*|5.*"/>
+		<client>1</client>
+		<infourl>https://github.com/RSGallery2/RSGallery2_J4/releases/tag/v5.0.1</infourl>
 	</update>
 </updates>
