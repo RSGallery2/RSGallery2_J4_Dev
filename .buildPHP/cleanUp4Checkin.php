@@ -58,9 +58,6 @@ $options = getopt("fx:", []);
 
 //var_dump($options);
 
-//--- variables ---------------------------------
-
-
 $LeaveOut_01 = True;
 $LeaveOut_02 = True;
 $LeaveOut_03 = True;
@@ -68,8 +65,13 @@ $LeaveOut_04 = True;
 $LeaveOut_05 = True;
 
 $start = date("Y-m-d H:i:s");
-dump ($start);
 
+/*--------------------------------------------
+variables
+--------------------------------------------*/
+
+$srcFile = "";
+$dstFile = "";
 
 
 foreach ($options as $option)
@@ -77,14 +79,17 @@ foreach ($options as $option)
 
 	switch ($option)
 	{
-		case 'com_rsgallery2':
-			parent::cleanCache('com_rsgallery2');
-			parent::cleanCache('mod_articles_archive');
-			parent::cleanCache('mod_articles_categories');
-			parent::cleanCache('mod_articles_category');
-			parent::cleanCache('mod_articles_latest');
-			parent::cleanCache('mod_articles_news');
-			parent::cleanCache('mod_articles_popular');
+		case '-s':
+			$srcFile = $option;
+			break;
+
+		case '-d':
+			$dstFile = $option;
+			break;
+
+		case "-h":
+			$LeaveOut_01 = True;
+			print("LeaveOut_01");
 			break;
 
 		case "-1":
@@ -118,6 +123,8 @@ foreach ($options as $option)
 //--- call function ---------------------------------
 
 	print_header($start);
+
+
 
 	print_end($start);
 
