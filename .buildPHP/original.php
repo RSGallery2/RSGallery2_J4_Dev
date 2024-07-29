@@ -1,5 +1,8 @@
 <?php
 
+use \DateTime;
+
+
 $HELP_MSG = <<<EOT
 >>>
 original class ...
@@ -53,7 +56,7 @@ class clsXXX {
         $hasError = 0;
 
         try {
-            print('*********************************************************')
+            print('*********************************************************');
             print('funYYY');
             print ("zzz: " . $zzz);
             print('---------------------------------------------------------');
@@ -78,16 +81,22 @@ class clsXXX {
 print_header
 --------------------------------------------------------------------*/
 
-function print_header(DateTime $start, $options, $inArgs)
+function print_header($start, $options, $inArgs)
 {
-    print('------------------------------------------')
-    print('Command line:', end='');
-    for s in sys.argv:
-        print(s, end='');
+    global $argc, $argv;
 
-    print('')
-    print('Start time:   ' + $start.ctime())
-    print('------------------------------------------')
+    print('------------------------------------------');
+    echo ('Command line: ');
+
+    for($i = 1; $i < $argc; $i++) {
+        echo ($argv[$i]) . " ";
+    }
+
+    print('');
+    print('Start time:   ' . $start->format('Y-m-d H:i:s'));
+    print('------------------------------------------');
+
+    return $start;
 }
 
 /*--------------------------------------------------------------------
@@ -96,13 +105,12 @@ print_end
 
 function print_end(DateTime $start)
 {
-    $now = datetime();
+    $now = DateTime ();
     print('');
-    print('End time:               ' + $now.ctime());
-    difference = now - start;
-    print('Time of run:            ', difference);
+    print('End time:               ' . $now->format('Y-m-d H:i:s'));
+    $difference = $now - $start;
+    print('Time of run:            ' .  $difference);
 }
-
 
 /*================================================================================
 main (used from command line)
@@ -138,9 +146,6 @@ $LeaveOut_02 = true;
 $LeaveOut_03 = true;
 $LeaveOut_04 = true;
 $LeaveOut_05 = true;
-
-// for start / end diff
-$start = DateTime("Y-m-d H:i:s");
 
 /*--------------------------------------------
 variables
@@ -196,7 +201,9 @@ foreach ($options as $option)
 
 //--- call function ---------------------------------
 
-print_header($start);
+// for start / end diff
+$start = new DateTime();
+print_header($start, $options, $inArgs);
 
 $oXXX = new clsXXX($srcFile, $dstFile);
 $hasError = $oXXX->funYYY();
