@@ -1,6 +1,7 @@
 <?php
 
 use \DateTime;
+// use DateTime;
 
 
 $HELP_MSG = <<<EOT
@@ -28,10 +29,10 @@ class clsXXX {
 
         $hasError = 0;
         try {
-            print('*********************************************************');
-            print ("srcFile: " . $srcFile);
-            print ("dstFile: " . $dstFile);
-            print('---------------------------------------------------------');
+            print('*********************************************************' . "\r\n");
+            print ("srcFile: " . $srcFile . "\r\n");
+            print ("dstFile: " . $dstFile . "\r\n");
+            print('---------------------------------------------------------' . "\r\n");
 
             $this->srcFile = $srcFile;
             $this->dstFile = $dstFile;
@@ -40,12 +41,11 @@ class clsXXX {
         }
         /*--- exception ----------------------------------------------------*/
         catch(Exception $e) {
-            echo 'Message: ' .$e->getMessage();
+            echo 'Message: ' .$e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
-        print('exit __construct: ' . $hasError);
-
+        print('exit __construct: ' . $hasError . "\r\n");
     }
 
     /*--------------------------------------------------------------------
@@ -56,10 +56,10 @@ class clsXXX {
         $hasError = 0;
 
         try {
-            print('*********************************************************');
-            print('funYYY');
-            print ("zzz: " . $zzz);
-            print('---------------------------------------------------------');
+            print('*********************************************************' . "\r\n");
+            print('funYYY' . "\r\n");
+            print ("zzz: " . $zzz . "\r\n");
+            print('---------------------------------------------------------' . "\r\n");
 
 
 
@@ -68,11 +68,11 @@ class clsXXX {
         }
         /*--- exception ----------------------------------------------------*/
         catch(Exception $e) {
-            echo 'Message: ' .$e->getMessage();
+            echo 'Message: ' .$e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
-        print('exit funYYY: ' . $hasError);
+        print('exit funYYY: ' . $hasError . "\r\n");
         return $hasError;
     }
 }
@@ -85,16 +85,16 @@ function print_header($start, $options, $inArgs)
 {
     global $argc, $argv;
 
-    print('------------------------------------------');
+    print('------------------------------------------' . "\r\n");
     echo ('Command line: ');
 
     for($i = 1; $i < $argc; $i++) {
         echo ($argv[$i]) . " ";
     }
 
-    print('');
-    print('Start time:   ' . $start->format('Y-m-d H:i:s'));
-    print('------------------------------------------');
+    print(''  . "\r\n");
+    print('Start time:   ' . $start->format('Y-m-d H:i:s') . "\r\n");
+    print('------------------------------------------' . "\r\n");
 
     return $start;
 }
@@ -105,11 +105,11 @@ print_end
 
 function print_end(DateTime $start)
 {
-    $now = DateTime ();
-    print('');
-    print('End time:               ' . $now->format('Y-m-d H:i:s'));
-    $difference = $now - $start;
-    print('Time of run:            ' .  $difference);
+    $now = new DateTime ();
+    print('' . "\r\n");
+    print('End time:               ' . $now->format('Y-m-d H:i:s') . "\r\n");
+    $difference = $start->diff($now);
+    print('Time of run:            ' .  $difference->format("%H:%I:%S") . "\r\n");
 }
 
 /*================================================================================
@@ -138,7 +138,7 @@ print ( "--- getopt ---" . "\n");
 
 $long_options = "";
 
-$options = getopt("s:d:h", []);
+$options = getopt("s:d:h12345", []);
 var_dump($options);
 
 $LeaveOut_01 = true;
@@ -154,40 +154,41 @@ variables
 $srcFile = "";
 $dstFile = "";
 
-foreach ($options as $option)
+foreach ($options as $idx => $option)
 {
+	print ("idx: " . $idx . "\r\n");
 	print ("option: " . $option . "\r\n");
 
-	switch ($option)
+	switch ($idx)
 	{
-		case '-s':
+		case 's':
 			$srcFile = $option;
 			break;
 
-		case '-d':
+		case 'd':
 			$dstFile = $option;
 			break;
 
-		case "-h":
+		case "h":
 			exit($HELP_MSG);
 
-		case "-1":
+		case "1":
 			$LeaveOut_01 = true;
 			print("LeaveOut_01");
 			break;
-		case "-2":
+		case "2":
 			$LeaveOut_02 = true;
 			print("LeaveOut__02");
 			break;
-		case "-3":
+		case "3":
 			$LeaveOut_03 = true;
 			print("LeaveOut__03");
 			break;
-		case "-4":
+		case "4":
 			$LeaveOut_04 = true;
 			print("LeaveOut__04");
 			break;
-		case "-5":
+		case "5":
 			$LeaveOut_05 = true;
 			print("LeaveOut__05");
 			break;
