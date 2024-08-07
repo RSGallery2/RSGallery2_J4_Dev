@@ -1,5 +1,7 @@
 <?php
 
+namespace original;
+
 use \DateTime;
 // use DateTime;
 
@@ -75,7 +77,7 @@ class clsXXX {
         print('exit funYYY: ' . $hasError . "\r\n");
         return $hasError;
     }
-}
+} // clsXXX
 
 /*--------------------------------------------------------------------
 print_header
