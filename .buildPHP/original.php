@@ -42,7 +42,7 @@ class clsXXX {
 
         }
         /*--- exception ----------------------------------------------------*/
-        catch(Exception $e) {
+        catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
             $hasError = -101;
         }
@@ -69,7 +69,7 @@ class clsXXX {
 
         }
         /*--- exception ----------------------------------------------------*/
-        catch(Exception $e) {
+        catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
             $hasError = -101;
         }
@@ -77,6 +77,27 @@ class clsXXX {
         print('exit funYYY: ' . $hasError . "\r\n");
         return $hasError;
     }
+
+
+    public function text()
+    {
+        $OutTxt .= "------------------------------------------" . "\r\n");
+        $OutTxt .= "fithFileName:" . "\r\n");
+
+
+        $OutTxt .= "Not defined jet " . "\r\n";
+        /**
+        $OutTxt .= "fileName: " . $this->fileName . "\r\n";
+        $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
+        $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
+        $OutTxt .= "filePath: " . $this->filePath . "\r\n";
+        $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
+        /**/
+
+        return $OutTxt;
+    }
+
+
 } // clsXXX
 
 /*--------------------------------------------------------------------
@@ -213,9 +234,13 @@ $hasError = $oXXX->funYYY();
 
 if ($hasError) {
 
-    print ("Error on function fun:" . $hasError);
+    print ("Error on function funYYY:" . $hasError);
 
+} else {
+
+    print ($oXXX->text () . "\r\n");
 }
+
 
 print_end($start);
 

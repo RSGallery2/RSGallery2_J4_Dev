@@ -1,6 +1,6 @@
 <?php
 
-namespace fithFileName;
+namespace fithFolderName;
 
 use \DateTime;
 // use DateTime;
@@ -8,7 +8,7 @@ use \DateTime;
 
 $HELP_MSG = <<<EOT
 >>>
-fithFileName class ...
+fithFolderName class ...
 <<<
 EOT;
 
@@ -16,6 +16,8 @@ EOT;
 hasExtension
 nameMatchesRegEx
 pathMatches regex
+
+text ();
 /**/
 
 
@@ -23,36 +25,32 @@ pathMatches regex
 Class XXX
 ================================================================================*/
 
-class fithFileName {
+class fithFolderName {
 
     // given name
     public $srcSpecifiedName = "";
     // realpath
-    public $srcPathFileName = "";
+    public $srcPathFolderName = "";
 
 
+    // folder name part
+    public $folderName = "";
     // file name part
-    public $fileName = "";
-    // file name part
-    public $fileExtension = "";
-    // file name part
-    // file name part
-    public $fileBaseName = "";
-    public $filePath = "";
+    public $folderPath = "";
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-    function __construct($srcFile="") {
+    function __construct($srcFolder="") {
 
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
-            print ("srcFile: " . $srcFile . "\r\n");
+            print ("srcFolder: " . $srcFolder . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
-            $this->extractNameParts($srcFile);
+            $this->extractNameParts($srcFolder);
 
         }
         /*--- exception ----------------------------------------------------*/
@@ -68,30 +66,27 @@ class fithFileName {
     extractNameParts
     --------------------------------------------------------------------*/
 
-    function extractNameParts($srcFile="") {
+    function extractNameParts($srcFolder="") {
         $hasError = 0;
 
         try {
             print('*********************************************************' . "\r\n");
             print('extractNameParts' . "\r\n");
-            print("srcSpecifiedName: " . $srcFile . "\r\n");
+            print("srcSpecifiedName: " . $srcFolder . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
             $this->clear ();
 
-            $this->srcSpecifiedName = $srcFile;
+            $this->srcSpecifiedName = $srcFolder;
 
-            $this->srcPathFileName = realpath($srcFile);
+            $this->srcPathFolderName = realpath($srcFolder);
 
             // ToDo: Test '.\file against f:\...\RSGallery2_J4_Dev\.buildPHP\original.php
-            // $path_parts = pathinfo($srcFile);
-            $path_parts = pathinfo($this->srcPathFileName);
+            // $path_parts = pathinfo($srcFolder);
+            $path_parts = pathinfo($this->srcPathFolderName);
 
-            $this->fileName = $path_parts['filename'];
-            $this->fileExtension = $path_parts['extension'];
-            $this->fileBaseName = $path_parts['basename'];
-            $this->filePath = $path_parts['dirname'];
-
+            $this->folderName = $path_parts['folderName'];
+            $this->folderPath = $path_parts['dirname'];
         }
 
         /*--- exception ----------------------------------------------------*/
@@ -110,13 +105,11 @@ class fithFileName {
     function clear() {
 
         $this->srcSpecifiedName = "";
-        $this->srcPathFileName = "";
+        $this->srcPathFolderName = "";
 
         // file name part
-        $this->fileName = "";
-        $this->fileExtension = "";
-        $this->fileBaseName = "";
-        $this->filePath = "";
+        $this->folderName = "";
+        $this->folderPath = "";
 
         return;
     }
@@ -125,19 +118,16 @@ class fithFileName {
     {
         $OutTxt = "";
         $OutTxt .= "------------------------------------------" . "\r\n";
-        $OutTxt .= "fithFileName:" . "\r\n";
+        $OutTxt .= "fithFolderName:" . "\r\n";
 
         $OutTxt .= "srcSpecifiedName: " . $this->srcSpecifiedName . "\r\n";
-        $OutTxt .= "fileName: " . $this->fileName . "\r\n";
-        $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
-        $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
-        $OutTxt .= "filePath: " . $this->filePath . "\r\n";
-        $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
+        $OutTxt .= "folderName: " . $this->folderName . "\r\n";
+        $OutTxt .= "folderPath: " . $this->folderPath . "\r\n";
 
         return $OutTxt;
     }
 
-} // fithFileName
+} // fithFolderName
 
 /*--------------------------------------------------------------------
 print_header
@@ -213,7 +203,9 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$srcFile = ".\\original.php";
+// ToDo: Test it manually  
+// $srcFolder = ".\\";
+$srcFolder = "..\\.buildPHP\\";
 
 foreach ($options as $idx => $option)
 {
@@ -223,7 +215,7 @@ foreach ($options as $idx => $option)
 	switch ($idx)
 	{
 		case 's':
-			$srcFile = $option;
+			$srcFolder = $option;
 			break;
 
 		case "h":
@@ -263,8 +255,8 @@ foreach ($options as $idx => $option)
 $start = new DateTime();
 print_header($start, $options, $inArgs);
 
-$oFileName = new fithFileName($srcFile);
-$hasError = $oFileName->extractNameParts();
+$oFolderName = new fithFolderName($srcFolder);
+$hasError = $oFolderName->extractNameParts();
 
 if ($hasError) {
 
@@ -272,7 +264,7 @@ if ($hasError) {
     
 } else {
 
-    print ($oFileName->text () . "\r\n");
+    print ($oFolderName->text () . "\r\n");
 }
 
 
