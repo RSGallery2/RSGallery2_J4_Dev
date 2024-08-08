@@ -32,7 +32,6 @@ class fithFolderName {
     // realpath
     public $srcPathFolderName = "";
 
-
     // folder name part
     public $folderName = "";
     // file name part
@@ -81,11 +80,10 @@ class fithFolderName {
 
             $this->srcPathFolderName = realpath($srcFolder);
 
-            // ToDo: Test '.\file against f:\...\RSGallery2_J4_Dev\.buildPHP\original.php
-            // $path_parts = pathinfo($srcFolder);
+            //$path_parts = pathinfo($srcFolder);
             $path_parts = pathinfo($this->srcPathFolderName);
 
-            $this->folderName = $path_parts['folderName'];
+            $this->folderName = $path_parts['basename'];
             $this->folderPath = $path_parts['dirname'];
         }
 
@@ -98,6 +96,7 @@ class fithFolderName {
         print('exit extractNameParts: ' . $hasError . "\r\n");
         return $hasError;
     }
+
     /*--------------------------------------------------------------------
     clear: init to empty
     --------------------------------------------------------------------*/
@@ -118,11 +117,12 @@ class fithFolderName {
     {
         $OutTxt = "";
         $OutTxt .= "------------------------------------------" . "\r\n";
-        $OutTxt .= "fithFolderName:" . "\r\n";
+        $OutTxt .= "--- fithFolderName ---" . "\r\n";
 
         $OutTxt .= "srcSpecifiedName: " . $this->srcSpecifiedName . "\r\n";
         $OutTxt .= "folderName: " . $this->folderName . "\r\n";
         $OutTxt .= "folderPath: " . $this->folderPath . "\r\n";
+	    $OutTxt .= "srcPathFolderName: " . $this->srcPathFolderName . "\r\n";
 
         return $OutTxt;
     }
@@ -256,17 +256,8 @@ $start = new DateTime();
 print_header($start, $options, $inArgs);
 
 $oFolderName = new fithFolderName($srcFolder);
-$hasError = $oFolderName->extractNameParts();
-
-if ($hasError) {
-
-    print ("Error on function 'extractNameParts':" . $hasError);
-    
-} else {
-
-    print ($oFolderName->text () . "\r\n");
-}
-
+// $hasError = $oFolderName->extractNameParts();
+print ($oFolderName->text () . "\r\n");
 
 print_end($start);
 

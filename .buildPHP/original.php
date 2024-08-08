@@ -81,8 +81,8 @@ class clsXXX {
 
     public function text()
     {
-        $OutTxt .= "------------------------------------------" . "\r\n");
-        $OutTxt .= "fithFileName:" . "\r\n");
+        $OutTxt = "------------------------------------------" . "\r\n";
+        $OutTxt .= "--- fithFileName ---" . "\r\n";
 
 
         $OutTxt .= "Not defined jet " . "\r\n";

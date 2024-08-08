@@ -83,15 +83,12 @@ class fithFileName {
 
             $this->srcPathFileName = realpath($srcFile);
 
-            // ToDo: Test '.\file against f:\...\RSGallery2_J4_Dev\.buildPHP\original.php
-            // $path_parts = pathinfo($srcFile);
-            $path_parts = pathinfo($this->srcPathFileName);
+            $path_parts = pathinfo($srcFile);
 
             $this->fileName = $path_parts['filename'];
             $this->fileExtension = $path_parts['extension'];
             $this->fileBaseName = $path_parts['basename'];
             $this->filePath = $path_parts['dirname'];
-
         }
 
         /*--- exception ----------------------------------------------------*/
@@ -103,6 +100,7 @@ class fithFileName {
         print('exit extractNameParts: ' . $hasError . "\r\n");
         return $hasError;
     }
+
     /*--------------------------------------------------------------------
     clear: init to empty
     --------------------------------------------------------------------*/
@@ -124,8 +122,8 @@ class fithFileName {
     public function text()
     {
         $OutTxt = "";
-        $OutTxt .= "------------------------------------------" . "\r\n";
-        $OutTxt .= "fithFileName:" . "\r\n";
+        $OutTxt = "------------------------------------------" . "\r\n";
+        $OutTxt .= "--- fithFileName ---" . "\r\n";
 
         $OutTxt .= "srcSpecifiedName: " . $this->srcSpecifiedName . "\r\n";
         $OutTxt .= "fileName: " . $this->fileName . "\r\n";
@@ -264,17 +262,8 @@ $start = new DateTime();
 print_header($start, $options, $inArgs);
 
 $oFileName = new fithFileName($srcFile);
-$hasError = $oFileName->extractNameParts();
-
-if ($hasError) {
-
-    print ("Error on function 'extractNameParts':" . $hasError);
-    
-} else {
-
-    print ($oFileName->text () . "\r\n");
-}
-
+// $hasError = $oFileName->extractNameParts();
+print ($oFileName->text () . "\r\n");
 
 print_end($start);
 
