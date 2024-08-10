@@ -27,7 +27,7 @@ class clsXXX {
     construction
     --------------------------------------------------------------------*/
 
-    function __construct($srcFile="", $dstFile="") {
+	public function __construct($srcFile="", $dstFile="") {
 
         $hasError = 0;
         try {

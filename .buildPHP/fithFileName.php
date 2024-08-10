@@ -1,6 +1,6 @@
 <?php
 
-namespace fithFileName;
+namespace FileName;
 
 use \DateTime;
 // use DateTime;
@@ -13,7 +13,7 @@ fithFileName class ...
 EOT;
 
 /*================================================================================
-Class XXX
+Class fithFileName
 ================================================================================*/
 
 class fithFileName {
@@ -37,7 +37,7 @@ class fithFileName {
     construction
     --------------------------------------------------------------------*/
 
-    function __construct($srcFile="") {
+    public function __construct($srcFile="") {
 
         $hasError = 0;
         try {
@@ -113,14 +113,14 @@ class fithFileName {
 
 	function nameMatchesRegEx($regex = '') {
 
-		$isMmatchesRegex = false;
+		$isMatchesRegex = false;
 
 		if (preg_match($regex, $this->fileName)) {
 
-			$isMmatchesRegex = true;
+			$isMatchesRegex = true;
 		}
 
-		return $isMmatchesRegex;
+		return $isMatchesRegex;
 	}
 
 	/*--------------------------------------------------------------------
@@ -129,14 +129,14 @@ class fithFileName {
 
 	function basenameMatchesRegEx($regex = '') {
 
-		$isMmatchesRegex = false;
+		$isMatchesRegex = false;
 
 		if (preg_match($regex, $this->fileBaseName)) {
 
-			$isMmatchesRegex = true;
+			$isMatchesRegex = true;
 		}
 
-		return $isMmatchesRegex;
+		return $isMatchesRegex;
 	}
 
 	/*--------------------------------------------------------------------
@@ -145,14 +145,14 @@ class fithFileName {
 
 	function pathMatchesRegex($regex = '') {
 
-		$isMmatchesRegex = false;
+		$isMatchesRegex = false;
 
 		if (preg_match($regex, $this->filePath)) {
 
-			$isMmatchesRegex = true;
+			$isMatchesRegex = true;
 		}
 
-		return $isMmatchesRegex;
+		return $isMatchesRegex;
 	}
 
 	/*--------------------------------------------------------------------
@@ -192,7 +192,7 @@ class fithFileName {
     public function text_NamePathLine()
     {
         $OutTxt = "";
-        $OutTxt .= $this->fileName . " / " . $this->filePath;
+        $OutTxt .= "- " . $this->fileBaseName . " :: " . $this->filePath;
 
         return $OutTxt;
     }

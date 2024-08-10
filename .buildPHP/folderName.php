@@ -1,6 +1,6 @@
 <?php
 
-namespace fithFolderName;
+namespace FolderName;
 
 use \DateTime;
 // use DateTime;
@@ -22,7 +22,7 @@ text ();
 
 
 /*================================================================================
-Class XXX
+Class fithFolderName
 ================================================================================*/
 
 class fithFolderName {
@@ -41,7 +41,7 @@ class fithFolderName {
     construction
     --------------------------------------------------------------------*/
 
-    function __construct($srcFolder="") {
+	public function __construct($srcFolder="") {
 
         $hasError = 0;
         try {

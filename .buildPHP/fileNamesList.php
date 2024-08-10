@@ -1,12 +1,13 @@
 <?php
 
-namespace fithFileNameList;
+namespace FileNameList;
+
+require ".\\fithFileName.php";
+require ".\\folderName.php";
 
 use \DateTime;
-use fithFileName\fithFileName;
-
-
-
+use FileName\fithFileName;
+use FolderName\fithFolderName;
 
 /**
 ToDo:
@@ -16,7 +17,7 @@ ToDo:
 
 $HELP_MSG = <<<EOT
 >>>
-original class ...
+FileNameList class ...
 <<<
 EOT;
 
@@ -27,27 +28,33 @@ Class FileNamesList
 
 class FileNamesList {
 
+	/** @var string $path */
     public $path = "";
 
     /** @var fithFileName[] $fileNames */
     private array $fileNames;
 
+	/** @var bool */
     private $isIncludeExt = False;
     private array $includeExtList;
 
+	/** @var bool */
     private $isExcludeExt = False;
     private array $excludeExtList;
 
+	/** @var bool */
     private $isNoRecursion = False;
+	/** @var bool */
     private $isWriteListToFile = False;
 
+	/** @var string  */
     private $listFileName = "";
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-    function __construct($path='', $includeExt='', $excludeExt='',
+	public function __construct($path='', $includeExt='', $excludeExt='',
                          $isNoRecursion='', $writeListToFile='') {
 
         $hasError = 0;
@@ -108,7 +115,7 @@ class FileNamesList {
             $hasError = -101;
         }
 
-        print('exit funYYY: ' . $hasError . "\r\n");
+        print('exit scan4Filenames: ' . $hasError . "\r\n");
         return $hasError;
     }
 
@@ -116,7 +123,7 @@ class FileNamesList {
     {
         $OutTxt = "";
         $OutTxt .= "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- fithFileNames ---" . "\r\n";
+        $OutTxt .= "--- fithFileNameList ---" . "\r\n";
 
         $OutTxt = "Properies:" . "\r\n";
         $OutTxt .= $this->text_listFileNames();
@@ -346,11 +353,7 @@ class FileNamesList {
 
                 $fithFileName = new fithFileName($file);
 
-                $isExpected = $this->check4ValidName ($fithFileName);
-
-                // $isExpected = False;
-                $isExpected = True;
-
+                $isExpected = $this->check4ValidFileName ($fithFileName);
 
                 // ToDo: handle include / exclude
 
@@ -370,7 +373,20 @@ class FileNamesList {
 
                 foreach ($folders as $folder) {
 
-                    $this->scanPath4Filenames($folder);
+
+	                $isExpected = $this->check4ValidFolderName ($folder);
+
+	                // $isExpected = False;
+	                // $isExpected = True;
+
+
+	                // ToDo: handle include / exclude
+
+
+	                if ($isExpected)
+	                {
+		                $this->scanPath4Filenames($folder);
+	                }
                 }
             }
             else
@@ -387,7 +403,7 @@ class FileNamesList {
 
     }
 
-    private function check4ValidName(fithFileName $fithFileName)
+    private function check4ValidFileName(fithFileName $fithFileName)
     {
         $isValid = false;
 
@@ -398,8 +414,15 @@ class FileNamesList {
                 if ($this->isExcludeExt) {
                     $isValid = !$this->check4ExtExists($fithFileName, $this->excludeExtList);
                 }
+				else {
+					// $isExpected = False;
+					$isValid = True;
+				}
             }
 
+	        if ($fithFileName->fileBaseName == '.gitignore') {
+		        $isValid = false;
+	        }
 
         } catch (\Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
@@ -430,6 +453,27 @@ class FileNamesList {
 
         return $isFound;
     }
+
+	private function check4ValidFolderName(string $folder)
+	{
+		$isValid = true;
+
+		try {
+			$fithFolderName = new fithFolderName($folder);
+
+
+			if ($fithFolderName->folderName == '.git') {
+				$isValid = false;
+			}
+
+
+		} catch (\Exception $e) {
+			echo 'Message: ' . $e->getMessage() . "\r\n";
+			$hasError = -101;
+		}
+
+		return $isValid;
+	}
 
 
 } // FileNamesList
@@ -509,12 +553,22 @@ variables
 --------------------------------------------*/
 
 $path = "..\\..\\RSGallery2_J4";
-$includeExt = "*.php *.xmp *.ini";
-$excludeExt = "*.php *.xmp *.ini";
+
+//$includeExt = "php xmp ini";
+//$includeExt = "php";
+//$includeExt = "xmp";
+//$includeExt = "ini";
+$includeExt = "";
+
+//$excludeExt = "php xmp ini";
+//$excludeExt = "php";
+//$excludeExt = "xmp";
+//$excludeExt = "ini";
+$excludeExt = "";
 
 // no recursion, actual folder only
-//$isNoRecursion = False;
-$isNoRecursion = True;
+$isNoRecursion = False;
+//$isNoRecursion = True;
 
 //$writeListToFile = "";
 $writeListToFile = ".\\FileNamesList.txt";
@@ -590,15 +644,15 @@ $hasError = $oFileNamesList->scan4Filenames();
 
 if ($hasError) {
 
-    print ("Error on function funYYY:" . $hasError);
+    print ("Error on function scan4Filenames:" . $hasError);
 
 } else {
-
+	print ("--- result -------------------" . "\r\n");
     print ($oFileNamesList->text () . "\r\n");
 }
 
 
-\original\print_end($start);
+print_end($start);
 
 print ("--- end  ---" . "\n");
 
