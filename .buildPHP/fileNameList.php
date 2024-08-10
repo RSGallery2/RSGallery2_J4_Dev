@@ -1,6 +1,6 @@
 <?php
 
-namespace fithFileName;
+namespace fithFileNameList;
 
 use \DateTime;
 // use DateTime;
@@ -8,7 +8,7 @@ use \DateTime;
 
 $HELP_MSG = <<<EOT
 >>>
-fithFileName class ...
+fithFileNameList class ...
 <<<
 EOT;
 
@@ -16,12 +16,12 @@ EOT;
 Class XXX
 ================================================================================*/
 
-class fithFileName {
+class fithFileNameList {
 
     // given name
-    public $srcSpecifiedName = "";
+    public $basePath = "";
     // realpath
-    public $srcPathFileName = "";
+    public $extension = "";
 
 
     // file name part
@@ -37,15 +37,15 @@ class fithFileName {
     construction
     --------------------------------------------------------------------*/
 
-    function __construct($srcFile="") {
+    function __construct($basePath="") {
 
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
-            print ("srcFile: " . $srcFile . "\r\n");
+            print ("srcFile: " . $basePath . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
-            $this->extractNameParts($srcFile);
+            $this->extractNameParts($basePath);
 
         }
         /*--- exception ----------------------------------------------------*/
@@ -61,27 +61,27 @@ class fithFileName {
     extractNameParts
     --------------------------------------------------------------------*/
 
-    function extractNameParts($srcFile="") {
+    function extractNameParts($basePath="") {
         $hasError = 0;
 
         try {
             print('*********************************************************' . "\r\n");
             print('extractNameParts' . "\r\n");
-            print("srcSpecifiedName: " . $srcFile . "\r\n");
+            print("srcSpecifiedName: " . $basePath . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
             $this->clear ();
 
-            $this->srcSpecifiedName = $srcFile;
+            $this->srcSpecifiedName = $basePath;
 
-            $this->srcPathFileName = realpath($srcFile);
+            $this->srcPathFileName = realpath($basePath);
 
-            $path_parts = pathinfo($srcFile);
+            $basePath_parts = pathinfo($basePath);
 
-            $this->fileName = $path_parts['filename'];
-            $this->fileExtension = $path_parts['extension'];
-            $this->fileBaseName = $path_parts['basename'];
-            $this->filePath = $path_parts['dirname'];
+            $this->fileName = $basePath_parts['filename'];
+            $this->fileExtension = $basePath_parts['extension'];
+            $this->fileBaseName = $basePath_parts['basename'];
+            $this->filePath = $basePath_parts['dirname'];
         }
 
         /*--- exception ----------------------------------------------------*/
@@ -180,7 +180,7 @@ class fithFileName {
     {
         $OutTxt = "";
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- fithFileName ---" . "\r\n";
+        $OutTxt .= "--- fithFileNameList ---" . "\r\n";
 
         $OutTxt .= "srcSpecifiedName: " . $this->srcSpecifiedName . "\r\n";
         $OutTxt .= "fileName: " . $this->fileName . "\r\n";
@@ -192,7 +192,7 @@ class fithFileName {
         return $OutTxt;
     }
 
-} // fithFileName
+} // fithFileNameList
 
 /*--------------------------------------------------------------------
 print_header
@@ -255,7 +255,7 @@ print ( "--- getopt ---" . "\n");
 
 $long_options = "";
 
-$options = getopt("s:d:h12345", []);
+$options = getopt("p:e:h12345", []);
 var_dump($options);
 
 $LeaveOut_01 = true;
@@ -268,7 +268,12 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$srcFile = ".\\original.php";
+# $basePath = ".\\original.php";
+$basePath = ".\\original.php";
+
+# $extension = '.php';
+$extension = '';
+
 
 foreach ($options as $idx => $option)
 {
@@ -277,8 +282,8 @@ foreach ($options as $idx => $option)
 
 	switch ($idx)
 	{
-		case 's':
-			$srcFile = $option;
+		case 'p':
+			$basePath = $option;
 			break;
 
 		case "h":
@@ -318,17 +323,13 @@ foreach ($options as $idx => $option)
 $start = new DateTime();
 print_header($start, $options, $inArgs);
 
-$oFileName = new fithFileName($srcFile);
+$oFileNameList = new fithFileNameList($basePath, $extension);
 // $hasError = $oFileName->extractNameParts();
-print ($oFileName->text () . "\r\n");
+print ($oFileNameList->text () . "\r\n");
 
-if ($oFileName->hasExtension('php')) {
-	print("yes hasExtension('php')" . "\r\n");
-}
 
-if ($oFileName->nameMatchesRegEx("/i.*i/")) {
-	print("yes nameMatchesRegEx('/i.*i/')" . "\r\n");
-}
+
+
 
 print_end($start);
 
