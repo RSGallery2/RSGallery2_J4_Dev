@@ -14,7 +14,7 @@ EOT;
 
 
 /*================================================================================
-Class XXX
+Class clsXXX
 ================================================================================*/
 
 class clsXXX {
@@ -41,7 +41,6 @@ class clsXXX {
 
 
         }
-        /*--- exception ----------------------------------------------------*/
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
             $hasError = -101;
@@ -68,7 +67,6 @@ class clsXXX {
 
 
         }
-        /*--- exception ----------------------------------------------------*/
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
             $hasError = -101;
@@ -230,6 +228,7 @@ $start = new DateTime();
 print_header($start, $options, $inArgs);
 
 $oXXX = new clsXXX($srcFile, $dstFile);
+
 $hasError = $oXXX->funYYY();
 
 if ($hasError) {

@@ -48,7 +48,6 @@ class fithFileName {
             $this->extractNameParts($srcFile);
 
         }
-        /*--- exception ----------------------------------------------------*/
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
             $hasError = -101;
@@ -83,8 +82,6 @@ class fithFileName {
             $this->fileBaseName = $path_parts['basename'];
             $this->filePath = $path_parts['dirname'];
         }
-
-        /*--- exception ----------------------------------------------------*/
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
             $hasError = -101;
@@ -188,6 +185,14 @@ class fithFileName {
         $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
         $OutTxt .= "filePath: " . $this->filePath . "\r\n";
         $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
+
+        return $OutTxt;
+    }
+
+    public function text_NamePathLine()
+    {
+        $OutTxt = "";
+        $OutTxt .= $this->fileName . " / " . $this->filePath;
 
         return $OutTxt;
     }

@@ -1,29 +1,45 @@
 @ECHO OFF
-REM collectFileNames.bat.bat
+REM FileNamesList.bat
 REM 
 CLS
 
 Set CmdArgs=
 ECHO PHP original.php
 
-REM include file types
-Call :AddNextArg -i "*.php *.xmp *.ini"
-
-REM rekursiv
-Call :AddNextArg -r
-
 REM Source path
 Call :AddNextArg -p "..\..\RSGallery2_J4"
 
+REM include file types
+Call :AddNextArg -i "*.php *.xmp *.ini"
+
+REM exclude file types
+REM Call :AddNextArg -e "*.php *.xmp *.ini"
+
+REM actual folder only, not recursively
+Call :AddNextArg -a
+
+REM write resulting list to file
+Call :AddNextArg -w FileNamesList.txt
+
+REM return sub object with exluded/included files
+
 REM add command line
 REM Call :AddNextArg %*
+
+files with extension
+
+files matching regex
+
+
+
+
 
 ECHO.
 ECHO ------------------------------------------------------------------------------
 ECHO Start cmd:
 ECHO.
-ECHO php.exe -f "./collectFileNames.bat.php" --  %CmdArgs% %*
-php.exe -f "./collectFileNames.bat.php" --  %CmdArgs% %*
+ECHO php.exe -f "./FileNamesList.php" --  %CmdArgs% %*
+php.exe -f "./FileNamesList.php" --  %CmdArgs% %*
 
 GOTO :EOF
 

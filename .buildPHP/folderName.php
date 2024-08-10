@@ -52,7 +52,6 @@ class fithFolderName {
             $this->extractNameParts($srcFolder);
 
         }
-        /*--- exception ----------------------------------------------------*/
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
             $hasError = -101;
@@ -86,8 +85,6 @@ class fithFolderName {
             $this->folderName = $path_parts['basename'];
             $this->folderPath = $path_parts['dirname'];
         }
-
-        /*--- exception ----------------------------------------------------*/
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
             $hasError = -101;
