@@ -1,10 +1,12 @@
 <?php
 
-namespace original;
+namespace DoBuildTasks;
+
+require ".\\fileNamesList.php";
 
 use \DateTime;
 // use DateTime;
-
+use FileNamesList\fileNamesList;
 
 $HELP_MSG = <<<EOT
 >>>
@@ -14,32 +16,32 @@ EOT;
 
 
 /*================================================================================
-Class clsXXX
+Class doBuildTasks
 ================================================================================*/
 
-class clsXXX {
+class doBuildTasks {
 
-    public $srcFile = "";
-    public $dstFile = "";
+    public $tasks = "";
+    public $basePath = "";
 
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($srcFile="", $dstFile="") {
+	public function __construct($basePath="", $tasks="") {
 
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
-            print ("srcFile: " . $srcFile . "\r\n");
-            print ("dstFile: " . $dstFile . "\r\n");
+            print ("basePath: " . $basePath . "\r\n");
+            print ("tasks: " . $tasks . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
-            $this->srcFile = $srcFile;
-            $this->dstFile = $dstFile;
+            $this->basePath = $basePath;
+            $this->tasks = $this->extractTasksFromString($tasks);
 
-
+            print ($this->TasksText ());
         }
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
@@ -50,16 +52,16 @@ class clsXXX {
     }
 
     /*--------------------------------------------------------------------
-    funYYY
+    executeTask
     --------------------------------------------------------------------*/
 
-    function funYYY($zzz="") {
+    function executeTask($task="") {
         $hasError = 0;
 
         try {
             print('*********************************************************' . "\r\n");
-            print('funYYY' . "\r\n");
-            print ("zzz: " . $zzz . "\r\n");
+            print('executeTask' . "\r\n");
+            print ("task: " . $task . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
 
@@ -72,7 +74,7 @@ class clsXXX {
             $hasError = -101;
         }
 
-        print('exit funYYY: ' . $hasError . "\r\n");
+        print('exit executeTask: ' . $hasError . "\r\n");
         return $hasError;
     }
 
@@ -95,8 +97,119 @@ class clsXXX {
         return $OutTxt;
     }
 
+    // ToDO: create multiple tasks from string
+    private function extractTasksFromString($tasksString = "")
+    {
+        $isTaskFound = false;
+        $tasks = [];
 
-} // clsXXX
+        $tasksString = $tasksString.Trim();
+        if (! empty ($tasksString)) {
+
+            $parts = explode("task:", $tasksString);
+
+            foreach ($parts as $part) {
+
+                if ( ! empty($part)) {
+
+                    $tasks [] = extractTaskFromString ($part.Trim());
+                }
+
+            }
+
+//            // one or more extension defined
+//            if (count ($tasks) > 0) {
+//                $isTaskFound = True;
+//            }
+
+        }
+
+        return [$tasks];
+    }
+
+    // ToDO: A task may have more attributes like *.ext to
+    private function extractTaskFromString($tasksString = "")
+    {
+        $task = null;
+
+        $taskName = '';
+        $taskOptions = [];
+
+// ToDo:        try{ ...}
+//
+        $tasksString = $tasksString.Trim ();
+
+        // starts with task name
+        $idx = strpos ($tasksString, " ");
+
+        // name without options
+        if ($idx == false) {
+            $taskName = $tasksString;
+        } else {
+            // name with options
+            $taskName = substr($tasksString, 0, $idx);
+            $optionsString = substr($tasksString, $idx +1);
+            $taskOptions = $this->extractTaskOptionsString ($optionsString);
+        }
+
+        $task [$taskName] = $taskOptions;
+
+        return [$task];
+    }
+
+    private function extractTaskOptionsString($inOptionsString = "")
+    {
+        $task = null;
+        $options = [];
+
+// ToDo:        try{ ...}
+//
+        $optionsString = $inOptionsString.Trim ();
+
+        while (str_starts_with($optionsString)) {
+
+            $optionName = '';
+            $optionValue = '';
+
+            $idx = strpos ($optionsString, " ");
+
+            // name without options
+            if ($idx == false) {
+                $taskName = $tasksString;
+            } else {
+                // name with options
+                $taskName = substr($tasksString, 0, $idx);
+                $optionsString = substr($tasksString, $idx +1);
+                $taskOptions = $this->extractTaskOptionsString ($optionsString);
+            }
+
+
+
+
+        }
+
+
+
+        // starts with task name
+        $idx = strpos ($tasksString, " ");
+
+        // name without options
+        if ($idx == false) {
+            $taskName = $tasksString;
+        } else {
+            // name with options
+            $taskName = substr($tasksString, 0, $idx);
+            $optionsString = substr($tasksString, $idx +1);
+            $taskOptions = $this->extractTaskOptionsString ($optionsString);
+        }
+
+        $task = ;
+
+        return [$task];
+    }
+
+
+} // doBuildTasks
 
 /*--------------------------------------------------------------------
 print_header
@@ -159,7 +272,7 @@ print ( "--- getopt ---" . "\n");
 
 $long_options = "";
 
-$options = getopt("s:d:h12345", []);
+$options = getopt("t:p:h12345", []);
 var_dump($options);
 
 $LeaveOut_01 = true;
@@ -172,8 +285,8 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$srcFile = "";
-$dstFile = "";
+$tasks = "";
+$basePath = "";
 
 foreach ($options as $idx => $option)
 {
@@ -183,11 +296,11 @@ foreach ($options as $idx => $option)
 	switch ($idx)
 	{
 		case 's':
-			$srcFile = $option;
+			$tasks = $option;
 			break;
 
 		case 'd':
-			$dstFile = $option;
+			$basePath = $option;
 			break;
 
 		case "h":
@@ -227,17 +340,17 @@ foreach ($options as $idx => $option)
 $start = new DateTime();
 print_header($start, $options, $inArgs);
 
-$oXXX = new clsXXX($srcFile, $dstFile);
+$oDoBuildTasks = new doBuildTasks($tasks, $basePath);
 
-$hasError = $oXXX->funYYY();
+$hasError = $oDoBuildTasks->executeTask();
 
 if ($hasError) {
 
-    print ("Error on function funYYY:" . $hasError);
+    print ("Error on function executeTask:" . $hasError);
 
 } else {
 
-    print ($oXXX->text () . "\r\n");
+    print ($oDoBuildTasks->text () . "\r\n");
 }
 
 

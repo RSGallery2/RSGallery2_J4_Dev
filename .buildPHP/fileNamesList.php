@@ -26,7 +26,7 @@ EOT;
 Class FileNamesList
 ================================================================================*/
 
-class FileNamesList {
+class fileNamesList {
 
 	/** @var string $path */
     public $path = "";
@@ -638,7 +638,7 @@ foreach ($options as $idx => $option)
 $start = new DateTime();
 print_header($start, $options, $inArgs);
 
-$oFileNamesList = new FileNamesList($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
+$oFileNamesList = new fileNamesList($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
 
 $hasError = $oFileNamesList->scan4Filenames();
 
