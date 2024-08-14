@@ -55,7 +55,7 @@ class doBuildTasks {
     executeTask
     --------------------------------------------------------------------*/
 
-    function executeTask($task="") {
+    public function executeTasks($task="") {
         $hasError = 0;
 
         try {
@@ -79,6 +79,34 @@ class doBuildTasks {
     }
 
 
+    /*--------------------------------------------------------------------
+    executeTask
+    --------------------------------------------------------------------*/
+
+    public function collectFiles($path="") {
+        $hasError = 0;
+
+        try {
+            print('*********************************************************' . "\r\n");
+            print('collectFiles' . "\r\n");
+            print ("path: " . $path . "\r\n");
+            print('---------------------------------------------------------' . "\r\n");
+
+
+            new fileNamesList
+
+
+        }
+        catch(\Exception $e) {
+            echo 'Message: ' .$e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+
+        print('exit collectFiles: ' . $hasError . "\r\n");
+        return $hasError;
+    }
+
+
     public function text()
     {
         $OutTxt = "------------------------------------------" . "\r\n";
@@ -97,11 +125,15 @@ class doBuildTasks {
         return $OutTxt;
     }
 
-    // ToDO: create multiple tasks from string
-    private function extractTasksFromString($tasksString = "")
+    // extract multiple tasks from string
+    public function extractTasksFromString($tasksString = "")
     {
         $isTaskFound = false;
         $tasks = [];
+
+//        $tasks = "task:task00"
+//            . 'task:task01 /option1 /option2=xxx /option3="01teststring"'
+//            . 'task:task02 /optionX /option2=Y /optionZ="Zteststring"';
 
         $tasksString = Trim($tasksString);
         if (! empty ($tasksString)) {
@@ -139,7 +171,7 @@ class doBuildTasks {
 //
         $tasksString = $tasksString.Trim ();
 
-        // starts with task name
+        // 'task:task01 /option1 /option2=xxx /option3="01teststring"'
         $idx = strpos ($tasksString, " ");
 
         // name without options
@@ -167,6 +199,7 @@ class doBuildTasks {
 
         $optionsString = Trim ($inOptionsString);
 
+        // /option1 /option2=xxx /option3="01teststring"
         while (str_starts_with($optionsString, '-')) {
 
             $optionName = '';
@@ -203,6 +236,8 @@ class doBuildTasks {
 // ToDo:        try{ ...}
 
         $optionsString = Trim ($inOptionsString);
+
+        // /option1 or /option2=xxx or /option3="01teststring"'
 
         while (str_starts_with($optionsString)) {
 
@@ -308,8 +343,17 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$tasks = "";
-$basePath = "";
+//$tasksString = "task:task00" . "\r\n"
+//    . 'task:task01 /option1 /option2=xxx /option3="01teststring"' . "\r\n"
+//    . 'task:task02 /optionX /option2=Y /optionZ="Zteststring"' . "\r\n"
+//;
+
+$tasksString = "task:task00"
+    . 'task:task01 /option1 /option2=xxx /option3="01teststring"'
+    . 'task:task02 /optionX /option2=Y /optionZ="Zteststring"'
+;
+
+$basePath = "..\\..\\RSGallery2_J4";
 
 
 
@@ -324,8 +368,8 @@ foreach ($options as $idx => $option)
 			$tasks = $option;
 			break;
 
-		case 'd':
-			$basePath = $option;
+		case 't':
+            $tasksString = $option;
 			break;
 
 		case "h":
@@ -365,15 +409,27 @@ foreach ($options as $idx => $option)
 $start = new DateTime();
 print_header($start, $options, $inArgs);
 
-$oDoBuildTasks = new doBuildTasks($tasks, $basePath);
-
-$hasError = $oDoBuildTasks->executeTask();
-
-if ($hasError) {
-
-    print ("Error on function executeTask:" . $hasError);
-
+$oDoBuildTasks = new doBuildTasks(); // $basePath, $tasksString
+$hasError = $oDoBuildTasks->collectFiles($basePath);
+if (empty ($hasError) ) {
+    $hasError = $oDoBuildTasks->extractTasksFromString($tasksString);
 } else {
+    print ("Error on function collectFiles:" . $hasError
+        . ' path: ' . $basePath);
+}
+
+if (empty ($hasError) ) {
+
+    $hasError = $oDoBuildTasks->executeTasks();
+
+    if ($hasError) {
+
+        print ("Error on function collectFiles:" . $hasError
+            . ' path: ' . $basePath);
+    }
+}
+
+if (empty ($hasError)) {
 
     print ($oDoBuildTasks->text () . "\r\n");
 }
