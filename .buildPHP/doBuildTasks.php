@@ -103,7 +103,7 @@ class doBuildTasks {
         $isTaskFound = false;
         $tasks = [];
 
-        $tasksString = $tasksString.Trim();
+        $tasksString = Trim($tasksString);
         if (! empty ($tasksString)) {
 
             $parts = explode("task:", $tasksString);
@@ -132,7 +132,7 @@ class doBuildTasks {
     {
         $task = null;
 
-        $taskName = '';
+        // $taskName = '';
         $taskOptions = [];
 
 // ToDo:        try{ ...}
@@ -149,7 +149,7 @@ class doBuildTasks {
             // name with options
             $taskName = substr($tasksString, 0, $idx);
             $optionsString = substr($tasksString, $idx +1);
-            $taskOptions = $this->extractTaskOptionsString ($optionsString);
+            $taskOptions = $this->extractOptionsFromString ($optionsString);
         }
 
         $task [$taskName] = $taskOptions;
@@ -157,16 +157,17 @@ class doBuildTasks {
         return [$task];
     }
 
-    private function extractTaskOptionsString($inOptionsString = "")
+
+    private function extractOptionsFromString($inOptionsString = "")
     {
-        $task = null;
         $options = [];
 
-// ToDo:        try{ ...}
-//
-        $optionsString = $inOptionsString.Trim ();
 
-        while (str_starts_with($optionsString)) {
+// ToDo:        try{ ...}
+
+        $optionsString = Trim ($inOptionsString);
+
+        while (str_starts_with($optionsString, '-')) {
 
             $optionName = '';
             $optionValue = '';
@@ -175,12 +176,12 @@ class doBuildTasks {
 
             // name without options
             if ($idx == false) {
-                $taskName = $tasksString;
+	            $optionName = $optionsString;
             } else {
                 // name with options
-                $taskName = substr($tasksString, 0, $idx);
-                $optionsString = substr($tasksString, $idx +1);
-                $taskOptions = $this->extractTaskOptionsString ($optionsString);
+	            $optionName = substr($optionsString, 0, $idx);
+                $optionsString = substr($optionsString, $idx +1);
+                $pptionsList = $this->extractOptionFromString ($optionsString);
             }
 
 
@@ -190,22 +191,44 @@ class doBuildTasks {
 
 
 
-        // starts with task name
-        $idx = strpos ($tasksString, " ");
+        return $options;
+    }
 
-        // name without options
-        if ($idx == false) {
-            $taskName = $tasksString;
-        } else {
-            // name with options
-            $taskName = substr($tasksString, 0, $idx);
-            $optionsString = substr($tasksString, $idx +1);
-            $taskOptions = $this->extractTaskOptionsString ($optionsString);
+
+    private function extractOptionFromString($inOptionsString = "")
+    {
+        $options = [];
+
+
+// ToDo:        try{ ...}
+
+        $optionsString = Trim ($inOptionsString);
+
+        while (str_starts_with($optionsString)) {
+
+            $optionName = '';
+            $optionValue = '';
+
+            $idx = strpos ($optionsString, "=");
+
+            // name without options
+            if ($idx == false) {
+	            $optionName = $optionsString;
+            } else {
+                // name with options
+	            $optionName = substr($optionsString, 0, $idx);
+                $optionsString = substr($optionsString, $idx +1);
+                $pptionsList = $this->extractOptionsString ($optionsString);
+            }
+
+
+
+
         }
 
-        $task = ;
 
-        return [$task];
+
+        return $options;
     }
 
 
@@ -287,6 +310,8 @@ variables
 
 $tasks = "";
 $basePath = "";
+
+
 
 foreach ($options as $idx => $option)
 {
