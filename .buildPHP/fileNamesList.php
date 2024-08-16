@@ -1,6 +1,6 @@
 <?php
 
-namespace FileNameList;
+namespace FileNamesList;
 
 require ".\\fithFileName.php";
 require ".\\folderName.php";

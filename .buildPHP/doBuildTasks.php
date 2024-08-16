@@ -41,7 +41,7 @@ class doBuildTasks {
             $this->basePath = $basePath;
             $this->tasks = $this->extractTasksFromString($tasks);
 
-            print ($this->TasksText ());
+            // print ($this->tasksText ());
         }
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
@@ -110,7 +110,7 @@ class doBuildTasks {
     public function text()
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- fithFileName ---" . "\r\n";
+        $OutTxt .= "--- doBuildTasks: class  ---" . "\r\n";
 
 
         $OutTxt .= "Not defined jet " . "\r\n";
@@ -125,10 +125,77 @@ class doBuildTasks {
         return $OutTxt;
     }
 
+    public function tasksText()
+    {
+        $OutTxt = "------------------------------------------" . "\r\n";
+        $OutTxt .= "--- doBuildTasks: Tasks ---" . "\r\n";
+
+	    $OutTxt .= "Tasks count: " . count ($this->tasks) . "\r\n";
+
+		foreach ($this->tasks as $task)
+		{
+			// $OutTxt .= "Tasks: " . ($task) . "\r\n";
+			$OutTxt .= taskText($task) . "\r\n";
+		}
+
+        return $OutTxt;
+    }
+
+    public function taskText($task)
+    {
+        $OutTxt = "------------------------------------------" . "\r\n";
+        $OutTxt .= "--- doBuildTasks: Tasks ---" . "\r\n";
+
+	    $OutTxt .= "Tasks count: " . count ($this->tasks) . "\r\n";
+
+		foreach ($this->tasks as $task)
+		{
+
+
+
+		}
+
+        return $OutTxt;
+    }
+
+    public function optionsText()
+    {
+        $OutTxt = "------------------------------------------" . "\r\n";
+        $OutTxt .= "--- doBuildTasks: Tasks ---" . "\r\n";
+
+	    $OutTxt .= "Tasks count: " . count ($this->tasks) . "\r\n";
+
+		foreach ($this->tasks as $task)
+		{
+
+
+
+		}
+
+        return $OutTxt;
+    }
+
+    public function optionText()
+    {
+        $OutTxt = "------------------------------------------" . "\r\n";
+        $OutTxt .= "--- doBuildTasks: Tasks ---" . "\r\n";
+
+	    $OutTxt .= "Tasks count: " . count ($this->tasks) . "\r\n";
+
+		foreach ($this->tasks as $task)
+		{
+
+
+
+		}
+
+        return $OutTxt;
+    }
+
     // extract multiple tasks from string
     public function extractTasksFromString($tasksString = "")
     {
-        $isTaskFound = false;
+	    $hasError = false;
         $tasks = [];
 
         try {
@@ -145,15 +212,17 @@ class doBuildTasks {
 
                     if (!empty($part)) {
 
-                        $tasks [] = extractTaskFromString($part . Trim());
+						$task = $this->extractTaskFromString(Trim($part));
+
+                        $tasks [$task->name] = $task;
                     }
 
                 }
 
-//            // one or more extension defined
-//            if (count ($tasks) > 0) {
-//                $isTaskFound = True;
-//            }
+	            $this->tasks =  $tasks;
+
+	            // print ($this->tasksText ());
+
 
             }
         } catch (\Exception $e) {
@@ -161,13 +230,17 @@ class doBuildTasks {
             $hasError = -101;
         }
 
-        return $tasks;
+        return $hasError;
     }
 
     // ToDO: A task may have more attributes like *.ext to
     public function extractTasksFromFile(string $taskFile)
     {
-        $hasError = 0;
+	    print('*********************************************************' . "\r\n");
+	    print ("extractTasksFromFile: " . $taskFile . "\r\n");
+	    print('---------------------------------------------------------' . "\r\n");
+
+	    $hasError = 0;
 
         try {
             $content = file_get_contents('data.txt'); //Get the file
@@ -175,18 +248,19 @@ class doBuildTasks {
 
             foreach ($lines as $line) {
 
-                $line = $line . trim();
+                $line =  trim($line);
 
                 // ignore comments
                 // ToDo use before each ? "/*" comments like lang manager
-                if (!str_starts_with('//')) {
-                    $hasError = extractTaskFromString($line);
-                }
-
-                if ($hasError != 0) {
-                    break;
+                if (!str_starts_with($line, '//')) {
+	                $tasks [] = $this->extractTaskFromString($line);
                 }
             }
+
+	        $this->tasks =  $tasks;
+
+	        // print ($this->tasksText ());
+
         } catch (\Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
@@ -196,17 +270,19 @@ class doBuildTasks {
         return $hasError;
     }
 
-    private function extractTaskFromString($tasksString = "")
+    private function extractTaskFromString($tasksString = "") : array
     {
-        $task = "?"; // ToDo: empty ?
+	    // $taskName = "?"; // ToDo: empty ?
+	    $taskName = ""; // ToDo: empty ?
+	    $task [$taskName] = false;
 
         try {
             // $taskName = '';
             $taskOptions = [];
 
-            $tasksString = $tasksString . Trim();
+            $tasksString = Trim($tasksString);
 
-            // 'task:task01 /option1 /option2=xxx /option3="01teststring"'
+            // 'task01name /option1 /option2=xxx /option3="01teststring"'
             $idx = strpos($tasksString, " ");
 
             // name without options
@@ -215,19 +291,19 @@ class doBuildTasks {
             } else {
                 // name with options
                 $taskName = substr($tasksString, 0, $idx);
-                $taskOptions = $this->extractOptionsFromString($optionsString);
+	            $optionsString = substr($tasksString, $idx + 1);
 
-                $optionsString = substr($tasksString, $idx + 1);
+                $taskOptions = $this->extractOptionsFromString($optionsString);
             }
 
             $task [$taskName] = $taskOptions;
 
-            return $task;
         } catch (\Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
+		return $task;
     }
 
 
@@ -238,25 +314,25 @@ class doBuildTasks {
         try {
             $optionsString = Trim($inOptionsString);
 
-            // /option or /option=xxx or /option="01teststring"
+            // multiple: /optionName or /optionName=value or /optionName="optionValue"
             while ($this->hasOptionChar($optionsString)) {
 
                 $optionName = '';
                 $optionValue = '';
 
-                $idxNextOption = strpos($optionsString, " ");
+                $idx = strpos($optionsString, " ");
 
                 // name without options
-                if ($idxNextOption == false) {
+                if ($idx == false) {
                     $optionName = $optionsString;
                 } else {
                     // name with options
-                    $optionName = substr($optionsString, 0, $idx);
+                    $singleOption = substr($optionsString, 1, $idx);
 
                     $optionsString = substr($optionsString, $idx + 1);
                     $optionsString = Trim($optionsString);
 
-                    $optionsList = $this->extractOptionFromString($optionsString);
+	                $options [] = $this->extractOptionFromString($singleOption);
 
                 }
             }
@@ -271,32 +347,31 @@ class doBuildTasks {
 
     private function extractOptionFromString($inOptionsString = "")
     {
-        $option = '?'; // ToDo: empty
+        // $option = ['?']; // ToDo: empty
+        $option = ['']; // ToDo: empty
 
         try {
             $optionsString = Trim($inOptionsString);
 
-            // /option1 or /option2=xxx or /option3="01teststring"'
+            // single: /optionName or /optionName=value or /optionName="optionValue"
 
-            while (str_starts_with($optionsString)) {
+            //$optionName = '';
+            $optionValue = '';
 
-                $optionName = '';
-                $optionValue = '';
+            $idx = strpos($optionsString, "=");
 
-                $idx = strpos($optionsString, "=");
-
-                // name without options
-                if ($idx == false) {
-                    $optionName = $optionsString;
-                } else {
-                    // name with options
-                    $optionName = substr($optionsString, 0, $idx);
-                    $optionsString = substr($optionsString, $idx + 1);
-                    $pptionsList = $this->extractOptionsString($optionsString);
-                }
-
+            // name without options
+            if ($idx == false) {
+                $optionName = $optionsString;
+            } else {
+                // name with options
+                $optionName = substr($optionsString, 0, $idx);
+                $optionValue = substr($optionsString, $idx + 1);
 
             }
+
+	        $option [$optionName] = $optionValue;
+
         } catch (\Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
@@ -491,6 +566,8 @@ if (empty ($hasError) ) {
         }
     }
 }
+
+print ($oDoBuildTasks->tasksText());
 
 //--- collect files to execute tasks on  ---------------------------------
 
