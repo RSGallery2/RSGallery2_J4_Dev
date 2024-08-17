@@ -17,7 +17,7 @@ EOT;
 Class clsXXX
 ================================================================================*/
 
-class clsXXX {
+class task {
 
 	public $name = "";
 	public $options = "";

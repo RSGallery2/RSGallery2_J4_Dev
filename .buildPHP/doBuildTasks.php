@@ -21,12 +21,6 @@ Class doBuildTasks
 
 class doBuildTasks {
 
-class User {
-	public function __construct() {
-		$this->name = 'test';
-	}
-}
-
 	public $tasks = "";
     public $basePath = "";
 
