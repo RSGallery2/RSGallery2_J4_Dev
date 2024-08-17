@@ -21,7 +21,13 @@ Class doBuildTasks
 
 class doBuildTasks {
 
-    public $tasks = "";
+class User {
+	public function __construct() {
+		$this->name = 'test';
+	}
+}
+
+	public $tasks = "";
     public $basePath = "";
 
 
@@ -296,7 +302,9 @@ class doBuildTasks {
                 $taskOptions = $this->extractOptionsFromString($optionsString);
             }
 
-            $task [$taskName] = $taskOptions;
+            // $task [$taskName] = $taskOptions;
+            $task->name = $taskName;
+	        $task->options = $taskOptions;
 
         } catch (\Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
@@ -317,9 +325,6 @@ class doBuildTasks {
             // multiple: /optionName or /optionName=value or /optionName="optionValue"
             while ($this->hasOptionChar($optionsString)) {
 
-                $optionName = '';
-                $optionValue = '';
-
                 $idx = strpos($optionsString, " ");
 
                 // name without options
@@ -333,7 +338,6 @@ class doBuildTasks {
                     $optionsString = Trim($optionsString);
 
 	                $options [] = $this->extractOptionFromString($singleOption);
-
                 }
             }
         } catch (\Exception $e) {
@@ -370,7 +374,9 @@ class doBuildTasks {
 
             }
 
-	        $option [$optionName] = $optionValue;
+	        // $option [$optionName] = $optionValue;
+	        $option->name = $optionName;
+	        $option->value = $optionValue;
 
         } catch (\Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
