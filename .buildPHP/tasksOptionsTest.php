@@ -21,11 +21,14 @@ class option {
 
 namespace options;
 
-use option;
+use option\option;
 
 class options {
 
-    public $options = [];
+	/**
+	 * @var option[] $options
+	 */
+    public $options;
 
     public
     function __construct($options = [])
@@ -35,22 +38,25 @@ class options {
 
     }
 
-    public function addOption (option $option) {
+    public function addOption (option $option) : void {
 
-        $this->options [$option->name] = $option;
-
+	    if ( ! empty ($option->name))
+	    {
+		    $this->options [$option->name] = $option;
+	    }
     }
 }
 
 namespace task;
 
-use options;
+use option\option;
+use options\options;
 
 class task {
 
     public $name = "";
 
-    public options $options = []: array;
+    public options $options;
 
     public
     function __construct($name = "", $options = "")
@@ -61,9 +67,17 @@ class task {
 
     }
 
+	public function addOption (option $option) {
+
+		$this->options->add ($option);
+
+	}
 }
 
 namespace tasks;
+
+use option\option;
+use task\task;
 
 class tasks {
 
@@ -81,16 +95,13 @@ class tasks {
     }
 
 
-    public function addTask (tasks $task) {
+    public function addTask (task $task) : void {
 
-        $this->tasks [$task->name] = $task;
-
+	    if ( ! empty ($option->name))
+	    {
+		    $this->tasks [$task->name] = $task;
+	    }
     }
 
-    public function addOption (option $option) {
-
-        $this->options [$option->name] = $option;
-
-    }
 }
 

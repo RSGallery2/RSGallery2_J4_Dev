@@ -1,6 +1,6 @@
 <?php
 
-namespace task;
+namespace XXXtask; // not used see tasksOptionsTest.php: add tasks and options *.php also
 
 use \DateTime;
 // use DateTime;

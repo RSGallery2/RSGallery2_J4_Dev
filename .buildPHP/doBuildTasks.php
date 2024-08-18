@@ -3,14 +3,21 @@
 namespace DoBuildTasks;
 
 require ".\\fileNamesList.php";
+require ".\\tasksOptionsTest.php";
+
 
 use \DateTime;
 // use DateTime;
 use FileNamesList\fileNamesList;
 
+use option\option;
+use options\options;
+use task\task;
+use tasks\tasks;
+
 $HELP_MSG = <<<EOT
 >>>
-original class ...
+doBuildTasks class ...
 <<<
 EOT;
 
@@ -135,7 +142,7 @@ class doBuildTasks {
 		foreach ($this->tasks as $task)
 		{
 			// $OutTxt .= "Tasks: " . ($task) . "\r\n";
-			$OutTxt .= taskText($task) . "\r\n";
+			$OutTxt .= $this->taskText($task) . "\r\n";
 		}
 
         return $OutTxt;
@@ -311,7 +318,7 @@ class doBuildTasks {
 
     private function extractOptionsFromString($inOptionsString = "")
     {
-        $options = [];
+        $options = new options();
 
         try {
             $optionsString = Trim($inOptionsString);
@@ -331,7 +338,8 @@ class doBuildTasks {
                     $optionsString = substr($optionsString, $idx + 1);
                     $optionsString = Trim($optionsString);
 
-	                $options [] = $this->extractOptionFromString($singleOption);
+					$option = $this->extractOptionFromString($singleOption);
+					$options->addOption ($option);
                 }
             }
         } catch (\Exception $e) {
@@ -346,7 +354,7 @@ class doBuildTasks {
     private function extractOptionFromString($inOptionsString = "")
     {
         // $option = ['?']; // ToDo: empty
-        $option = ['']; // ToDo: empty
+        $option = new option (); // ToDo: empty
 
         try {
             $optionsString = Trim($inOptionsString);
@@ -368,9 +376,7 @@ class doBuildTasks {
 
             }
 
-	        // $option [$optionName] = $optionValue;
-	        $option->name = $optionName;
-	        $option->value = $optionValue;
+	        $option = new option ($optionName, $optionValue);
 
         } catch (\Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
