@@ -28,9 +28,6 @@ Class doBuildTasks
 
 class doBuildTasks {
 
-    /**
-     * @var tasks
-     */
 	public $tasks = "";
     public $basePath = "";
 
@@ -142,7 +139,11 @@ class doBuildTasks {
 
 	    $OutTxt .= "Tasks count: " . count ($this->tasks) . "\r\n";
 
-        $OutTxt .= $this->tasks->text() . "\r\n";
+		foreach ($this->tasks as $task)
+		{
+			// $OutTxt .= "Tasks: " . ($task) . "\r\n";
+			$OutTxt .= $this->taskText($task) . "\r\n";
+		}
 
         return $OutTxt;
     }
@@ -247,7 +248,6 @@ class doBuildTasks {
 	    print('---------------------------------------------------------' . "\r\n");
 
 	    $hasError = 0;
-        $this->tasks = new tasks();
 
         try {
             $content = file_get_contents('data.txt'); //Get the file
@@ -257,14 +257,14 @@ class doBuildTasks {
 
                 $line =  trim($line);
 
-                // ToDo use before each ? "/*" comments like lang manager
-
                 // ignore comments
+                // ToDo use before each ? "/*" comments like lang manager
                 if (!str_starts_with($line, '//')) {
-                    $task = $this->extractTaskFromString($line);
-		            $this->tasks->addTask ($task);
+	                $tasks [] = $this->extractTaskFromString($line);
                 }
             }
+
+	        $this->tasks =  $tasks;
 
 	        // print ($this->tasksText ());
 
@@ -279,13 +279,15 @@ class doBuildTasks {
 
     private function extractTaskFromString($tasksString = "") : array
     {
-        $task = new task();
+	    // $taskName = "?"; // ToDo: empty ?
+	    $taskName = ""; // ToDo: empty ?
+	    $task [$taskName] = false;
 
         try {
-            $tasksString = Trim($tasksString);
+            // $taskName = '';
+            $taskOptions = [];
 
-            $taskName = '';
-            $taskOptions = new options;
+            $tasksString = Trim($tasksString);
 
             // 'task01name /option1 /option2=xxx /option3="01teststring"'
             $idx = strpos($tasksString, " ");
@@ -301,7 +303,9 @@ class doBuildTasks {
                 $taskOptions = $this->extractOptionsFromString($optionsString);
             }
 
-            $task = new task($taskName, $taskOptions);
+            // $task [$taskName] = $taskOptions;
+            $task->name = $taskName;
+	        $task->options = $taskOptions;
 
         } catch (\Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
@@ -484,34 +488,9 @@ variables
 //;
 
 $tasksString = "task:task00"
-    . 'task:task01 /option1 /option2=xxx /option3="01_Xteststring"'
-    . 'task:task02 /optionX /option2=Y /optionZ="02_Zteststring"'
+    . 'task:task01 /option1 /option2=xxx /option3="01teststring"'
+    . 'task:task02 /optionX /option2=Y /optionZ="Zteststring"'
 ;
-$tasksString = "task:clean4git";
-$tasksString = "task:clean4release";
-$tasksString = "task:updateCopyrightYear";
-
-// build without properties: component path to rsgallery2_j4
-// build without changes, increase id, prepare for release
-// build type: component module plugin package
-// build folder:
-// build dev update version
-// Version ID  /increaseDevelop: x.x.x.n, release x.n.00, versionByConfig
-//
-$tasksString = "task:build /type=component";
-$tasksString = "task:build /increaseId";
-$tasksString = "task:build /increaseId /clean4release";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-
-
-
-
 
 $basePath = "..\\..\\RSGallery2_J4";
 

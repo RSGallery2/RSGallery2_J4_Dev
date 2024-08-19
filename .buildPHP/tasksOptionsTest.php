@@ -17,6 +17,18 @@ class option {
 
     }
 
+    public function text(): string
+    {
+        $OutTxt = " "; // . "\r\n";
+
+        $OutTxt .= $this->name; // . "\r\n";
+        if ($this->value != '') {
+            $OutTxt .= '=' . $this->value; // . "\r\n";
+        }
+
+        return $OutTxt;
+    }
+
 }
 
 namespace options;
@@ -45,6 +57,18 @@ class options {
 		    $this->options [$option->name] = $option;
 	    }
     }
+
+    public function text(): string
+    {
+        $OutTxt = " "; // . "\r\n";
+
+        foreach ($this->options as $option) {
+            $OutTxt .= $option->text() . " ";
+        }
+
+        return $OutTxt;
+    }
+
 }
 
 namespace task;
@@ -72,6 +96,17 @@ class task {
 		$this->options->add ($option);
 
 	}
+
+    public function text(): string
+    {
+        $OutTxt = "Task: "; // . "\r\n";
+
+        $OutTxt .= $this->name . ' '; // . "\r\n";
+        $OutTxt .= $this->options->text(); // . "\r\n";
+
+        return $OutTxt;
+    }
+
 }
 
 namespace tasks;
@@ -79,7 +114,8 @@ namespace tasks;
 use option\option;
 use task\task;
 
-class tasks {
+class tasks
+{
 
     /**
      * @var task[] $tasks
@@ -95,13 +131,25 @@ class tasks {
     }
 
 
-    public function addTask (task $task) : void {
+    public function addTask(task $task): void
+    {
 
-	    if ( ! empty ($option->name))
-	    {
-		    $this->tasks [$task->name] = $task;
-	    }
+        if (!empty ($option->name)) {
+            $this->tasks [$task->name] = $task;
+        }
+    }
+
+    public function text(): string
+    {
+        $OutTxt = "--- Tasks: ---" . "\r\n";
+
+        $OutTxt .= "Tasks count: " . count($this->tasks) . "\r\n";
+
+        foreach ($this->tasks as $task) {
+            $OutTxt .= $task->text() . "\r\n";
+        }
+
+        return $OutTxt;
     }
 
 }
-
