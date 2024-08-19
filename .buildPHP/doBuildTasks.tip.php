@@ -250,6 +250,7 @@ class doBuildTasks {
 	    $hasError = 0;
 
         try {
+			/**
             $content = file_get_contents('data.txt'); //Get the file
             $lines = explode("\n", $content); //Split the file by each line
 
@@ -263,7 +264,9 @@ class doBuildTasks {
 	                $tasks [] = $this->extractTaskFromString($line);
                 }
             }
+			/**/
 
+			$tasks = (new tasks())->extractTasksFromFile();
 	        $this->tasks =  $tasks;
 
 	        // print ($this->tasksText ());
@@ -284,6 +287,10 @@ class doBuildTasks {
 	    $task [$taskName] = false;
 
         try {
+			yyyy
+
+
+			yyy
             // $taskName = '';
             $taskOptions = [];
 
