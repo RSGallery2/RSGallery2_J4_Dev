@@ -17,7 +17,10 @@ use tasks\tasks;
 
 $HELP_MSG = <<<EOT
 >>>
-doBuildTasks class ...
+doBuildTasks class 
+
+ToDo: option commands , example
+
 <<<
 EOT;
 

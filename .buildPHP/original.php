@@ -1,6 +1,6 @@
 <?php
 
-namespace original;
+namespace XXX;
 
 use \DateTime;
 // use DateTime;
@@ -8,16 +8,19 @@ use \DateTime;
 
 $HELP_MSG = <<<EOT
 >>>
-original class ...
+class XXX
+
+ToDo: option commands , example
+
 <<<
 EOT;
 
 
 /*================================================================================
-Class clsXXX
+Class XXX
 ================================================================================*/
 
-class clsXXX {
+class XXX {
 
     public $srcFile = "";
     public $dstFile = "";
@@ -80,7 +83,7 @@ class clsXXX {
     public function text()
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- fithFileName ---" . "\r\n";
+        $OutTxt .= "--- XXX ---" . "\r\n";
 
 
         $OutTxt .= "Not defined jet " . "\r\n";
@@ -96,7 +99,7 @@ class clsXXX {
     }
 
 
-} // clsXXX
+} // XXX
 
 /*--------------------------------------------------------------------
 print_header
@@ -227,7 +230,7 @@ foreach ($options as $idx => $option)
 $start = new DateTime();
 print_header($start, $options, $inArgs);
 
-$oXXX = new clsXXX($srcFile, $dstFile);
+$oXXX = new XXX($srcFile, $dstFile);
 
 $hasError = $oXXX->funYYY();
 

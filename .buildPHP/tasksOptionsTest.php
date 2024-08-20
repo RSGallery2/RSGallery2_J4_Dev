@@ -1,78 +1,78 @@
 <?php
 //=========================================================================
 
-namespace option;
-
-class option {
-
-    public string $name = "";
-    public string $value = "";
-
-	public function __construct($name = "", $value = "")
-	{
-
-		$this->name = $name;
-		$this->value = $value;
-
-	}
-
-	public function clear() : void
-	{
-
-		$this->name = '';
-		$this->value = '';
-
-	}
-
-	public function extractOptionFromString($inOptionsString = "") : option
-	{
-		$this->clear();
-
-		try {
-			$optionsString = Trim($inOptionsString);
-
-			// single: /optionName or /optionName=value or /optionName="optionValue"
-
-			//$optionName = '';
-			$optionValue = '';
-
-			$idx = strpos($optionsString, "=");
-
-			// name without options
-			if ($idx == false) {
-				$optionName = $optionsString;
-			} else {
-				// name with options
-				$optionName = substr($optionsString, 0, $idx);
-				$optionValue = substr($optionsString, $idx + 1);
-
-			}
-
-			$this->name = $optionName;
-			$this->value = $optionValue;
-
-		} catch (\Exception $e) {
-			echo 'Message: ' . $e->getMessage() . "\r\n";
-			$hasError = -101;
-		}
-
-		return $this;
-	}
-
-	public function text(): string
-    {
-        $OutTxt = " "; // . "\r\n";
-
-        $OutTxt .= $this->name; // . "\r\n";
-        if ($this->value != '') {
-            $OutTxt .= '=' . $this->value; // . "\r\n";
-        }
-
-        return $OutTxt;
-    }
-
-}
-
+//namespace option;
+//
+//class option {
+//
+//    public string $name = "";
+//    public string $value = "";
+//
+//	public function __construct($name = "", $value = "")
+//	{
+//
+//		$this->name = $name;
+//		$this->value = $value;
+//
+//	}
+//
+//	public function clear() : void
+//	{
+//
+//		$this->name = '';
+//		$this->value = '';
+//
+//	}
+//
+//	public function extractOptionFromString($inOptionsString = "") : option
+//	{
+//		$this->clear();
+//
+//		try {
+//			$optionsString = Trim($inOptionsString);
+//
+//			// single: /optionName or /optionName=value or /optionName="optionValue"
+//
+//			//$optionName = '';
+//			$optionValue = '';
+//
+//			$idx = strpos($optionsString, "=");
+//
+//			// name without options
+//			if ($idx == false) {
+//				$optionName = $optionsString;
+//			} else {
+//				// name with options
+//				$optionName = substr($optionsString, 0, $idx);
+//				$optionValue = substr($optionsString, $idx + 1);
+//
+//			}
+//
+//			$this->name = $optionName;
+//			$this->value = $optionValue;
+//
+//		} catch (\Exception $e) {
+//			echo 'Message: ' . $e->getMessage() . "\r\n";
+//			$hasError = -101;
+//		}
+//
+//		return $this;
+//	}
+//
+//	public function text(): string
+//    {
+//        $OutTxt = " "; // . "\r\n";
+//
+//        $OutTxt .= $this->name; // . "\r\n";
+//        if ($this->value != '') {
+//            $OutTxt .= '=' . $this->value; // . "\r\n";
+//        }
+//
+//        return $OutTxt;
+//    }
+//
+//}
+//
 //=========================================================================
 
 namespace options;
