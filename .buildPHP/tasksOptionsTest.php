@@ -72,194 +72,193 @@
 //    }
 //
 //}
+
+
+////=========================================================================
 //
-//=========================================================================
+//namespace options;
+//
+//use option\option;
+//
+//class options {
+//
+//	/**
+//	 * @var option[] $options
+//	 */
+//    public $options;
+//
+//    public function __construct($options = [])
+//    {
+//
+//        $this->options = $options;
+//
+//    }
+//
+//	public function clear() : void
+//	{
+//
+//		$this->options = [];
+//
+//	}
+//
+//	public function addOption (option $option) : void {
+//
+//	    if ( ! empty ($option->name))
+//	    {
+//		    $this->options [$option->name] = $option;
+//	    }
+//    }
+//
+//	public function extractOptionsFromString($inOptionsString = "") : options
+//	{
+//		$this->clear ();
+//
+//		try {
+//			$optionsString = Trim($inOptionsString);
+//
+//			// multiple: /optionName or /optionName=value or /optionName="optionValue"
+//			while ($this->hasOptionChar($optionsString)) {
+//
+//				$idx = strpos($optionsString, " ");
+//
+//				// name without options
+//				if ($idx == false) {
+//					$optionName = $optionsString;
+//				} else {
+//					// name with options
+//					$singleOption = substr($optionsString, 1, $idx);
+//
+//					$optionsString = substr($optionsString, $idx + 1);
+//					$optionsString = Trim($optionsString);
+//
+//					$option = (new option())->extractOptionFromString($singleOption);
+//					$this->addOption ($option);
+//				}
+//			}
+//		} catch (\Exception $e) {
+//			echo 'Message: ' . $e->getMessage() . "\r\n";
+//			$hasError = -101;
+//		}
+//
+//		return $this;
+//	}
+//
+//	private function hasOptionChar(string $inOptionsString)
+//	{
+//		$isOption = false;
+//
+//		$optionsString = Trim($inOptionsString);
+//
+//		// /option1 /option2=xxx /option3="01teststring"
+//		if (str_starts_with($optionsString, '/')) {
+//			$isOption = true;
+//		}
+//
+//		// -option1 -option2=xxx -option3="01teststring"
+//		if (str_starts_with($optionsString, '-')) {
+//			$isOption = true;
+//		}
+//
+//		return $isOption;
+//	}
+//
+//
+//
+//	public function text(): string
+//    {
+//        $OutTxt = " "; // . "\r\n";
+//
+//        foreach ($this->options as $option) {
+//            $OutTxt .= $option->text() . " ";
+//        }
+//
+//        return $OutTxt;
+//    }
+//
+//}
 
-namespace options;
-
-use option\option;
-
-class options {
-
-	/**
-	 * @var option[] $options
-	 */
-    public $options;
-
-    public function __construct($options = [])
-    {
-
-        $this->options = $options;
-
-    }
-
-	public function clear() : void
-	{
-
-		$this->options = [];
-
-	}
-
-	public function addOption (option $option) : void {
-
-	    if ( ! empty ($option->name))
-	    {
-		    $this->options [$option->name] = $option;
-	    }
-    }
-
-	public function extractOptionsFromString($inOptionsString = "") : options
-	{
-		$this->clear ();
-
-		try {
-			$optionsString = Trim($inOptionsString);
-
-			// multiple: /optionName or /optionName=value or /optionName="optionValue"
-			while ($this->hasOptionChar($optionsString)) {
-
-				$idx = strpos($optionsString, " ");
-
-				// name without options
-				if ($idx == false) {
-					$optionName = $optionsString;
-				} else {
-					// name with options
-					$singleOption = substr($optionsString, 1, $idx);
-
-					$optionsString = substr($optionsString, $idx + 1);
-					$optionsString = Trim($optionsString);
-
-					$option = (new option())->extractOptionFromString($singleOption);
-					$this->addOption ($option);
-				}
-			}
-		} catch (\Exception $e) {
-			echo 'Message: ' . $e->getMessage() . "\r\n";
-			$hasError = -101;
-		}
-
-		return $this;
-	}
-
-	private function hasOptionChar(string $inOptionsString)
-	{
-		$isOption = false;
-
-		$optionsString = Trim($inOptionsString);
-
-		// /option1 /option2=xxx /option3="01teststring"
-		if (str_starts_with($optionsString, '/')) {
-			$isOption = true;
-		}
-
-		// -option1 -option2=xxx -option3="01teststring"
-		if (str_starts_with($optionsString, '-')) {
-			$isOption = true;
-		}
-
-		return $isOption;
-	}
-
-
-
-	public function text(): string
-    {
-        $OutTxt = " "; // . "\r\n";
-
-        foreach ($this->options as $option) {
-            $OutTxt .= $option->text() . " ";
-        }
-
-        return $OutTxt;
-    }
-
-}
-
-//=========================================================================
-
-namespace task;
-
-use option\option;
-use options\options;
-
-class task {
-
-    public $name = "";
-
-    public options $options;
-
-    public
-    function __construct($name = "", $options = "")
-    {
-
-        $this->name = $name;
-        $this->options = $options;
-
-    }
-
-	public function clear() : void
-	{
-
-		$this->name = '';
-		$this->options = new options();
-
-	}
-
-
-	public function extractTaskFromString($tasksString = "") : task
-	{
-		$this->clear ();
-
-		try {
-			$tasksString = Trim($tasksString);
-
-			$taskName = '';
-			$taskOptions = new options;
-
-			// 'task01name /option1 /option2=xxx /option3="01teststring"'
-			$idx = strpos($tasksString, " ");
-
-			// name without options
-			if ($idx == false) {
-				$taskName = $tasksString;
-			} else {
-				// name with options
-				$taskName = substr($tasksString, 0, $idx);
-				$optionsString = substr($tasksString, $idx + 1);
-
-				$taskOptions = (new options())->extractOptionsFromString($optionsString);
-			}
-
-			$this->name = $taskName;
-			$this->options = $taskOptions;
-
-		} catch (\Exception $e) {
-			echo 'Message: ' . $e->getMessage() . "\r\n";
-			$hasError = -101;
-		}
-
-		return $this;
-	}
-
-
-	public function addOption (option $option) {
-
-		$this->options->add ($option);
-
-	}
-
-    public function text(): string
-    {
-        $OutTxt = "Task: "; // . "\r\n";
-
-        $OutTxt .= $this->name . ' '; // . "\r\n";
-        $OutTxt .= $this->options->text(); // . "\r\n";
-
-        return $OutTxt;
-    }
-
-}
+////=========================================================================
+//
+//namespace task;
+//
+//use option\option;
+//use options\options;
+//
+//class task {
+//
+//    public $name = "";
+//
+//    public options $options;
+//
+//    public function __construct($name = "", $options = "")
+//    {
+//
+//        $this->name = $name;
+//        $this->options = $options;
+//
+//    }
+//
+//	public function clear() : void
+//	{
+//
+//		$this->name = '';
+//		$this->options = new options();
+//
+//	}
+//
+//	public function extractTaskFromString($tasksString = "") : task
+//	{
+//		$this->clear ();
+//
+//		try {
+//			$tasksString = Trim($tasksString);
+//
+//			$taskName = '';
+//			$taskOptions = new options;
+//
+//			// 'task01name /option1 /option2=xxx /option3="01teststring"'
+//			$idx = strpos($tasksString, " ");
+//
+//			// name without options
+//			if ($idx == false) {
+//				$taskName = $tasksString;
+//			} else {
+//				// name with options
+//				$taskName = substr($tasksString, 0, $idx);
+//				$optionsString = substr($tasksString, $idx + 1);
+//
+//				$taskOptions = (new options())->extractOptionsFromString($optionsString);
+//			}
+//
+//			$this->name = $taskName;
+//			$this->options = $taskOptions;
+//
+//		} catch (\Exception $e) {
+//			echo 'Message: ' . $e->getMessage() . "\r\n";
+//			$hasError = -101;
+//		}
+//
+//		return $this;
+//	}
+//
+//
+//	public function addOption (option $option) {
+//
+//		$this->options->add ($option);
+//
+//	}
+//
+//    public function text(): string
+//    {
+//        $OutTxt = "Task: "; // . "\r\n";
+//
+//        $OutTxt .= $this->name . ' '; // . "\r\n";
+//        $OutTxt .= $this->options->text(); // . "\r\n";
+//
+//        return $OutTxt;
+//    }
+//
+//}
 
 //=========================================================================
 

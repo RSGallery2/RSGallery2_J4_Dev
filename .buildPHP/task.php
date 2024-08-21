@@ -1,102 +1,126 @@
 <?php
 
-namespace XXXtask; // not used see tasksOptionsTest.php: add tasks and options *.php also
+namespace task; // not used see tasksOptionsTest.php: add tasks and options *.php also
+
+require "./option.php";
+require "./options.php";
+
 
 use \DateTime;
 // use DateTime;
 
+use option\option;
+use options\options;
 
 $HELP_MSG = <<<EOT
 >>>
-original class ...
+task class 
+
+ToDo: option commands , example
+
 <<<
 EOT;
 
 
 /*================================================================================
-Class clsXXX
+Class task
 ================================================================================*/
 
 class task {
 
 	public $name = "";
-	public $options = "";
+
+    public options $options;
 
 
 	/*--------------------------------------------------------------------
 	construction
 	--------------------------------------------------------------------*/
 
-	public function __construct($name="", $options="") {
 
-        $hasError = 0;
+    public function __construct($name = "", $options = "")
+    {
+
+        $this->name = $name;
+        $this->options = $options;
+
+    }
+
+    public function clear() : void
+    {
+
+        $this->name = '';
+        $this->options = new options();
+
+    }
+
+    public function extractTaskFromString($tasksString = "") : task
+    {
+        $this->clear ();
+
         try {
-//            print('*********************************************************' . "\r\n");
-//            print ("name: " . $name . "\r\n");
-//            print ("options: " . $options . "\r\n");
-//            print('---------------------------------------------------------' . "\r\n");
+            $tasksString = Trim($tasksString);
 
-	        $this->name = $name;
-            $this->options = $options;
+            $taskName = '';
+            $taskOptions = new options;
 
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+            // 'task01name /option1 /option2=xxx /option3="01teststring"'
+            $idx = strpos($tasksString, " ");
+
+            // name without options
+            if ($idx == false) {
+                $taskName = $tasksString;
+            } else {
+                // name with options
+                $taskName = substr($tasksString, 0, $idx);
+                $optionsString = substr($tasksString, $idx + 1);
+
+                $taskOptions = (new options())->extractOptionsFromString($optionsString);
+            }
+
+            $this->name = $taskName;
+            $this->options = $taskOptions;
+
+        } catch (\Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
-//        print('exit __construct: ' . $hasError . "\r\n");
+        return $this;
     }
 
-    /*--------------------------------------------------------------------
-    funYYY
-    --------------------------------------------------------------------*/
 
-    function funYYY($zzz="") {
-        $hasError = 0;
+    public function addOption (option $option) {
 
-        try {
-            print('*********************************************************' . "\r\n");
-            print('funYYY' . "\r\n");
-            print ("zzz: " . $zzz . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+        $this->options->add ($option);
 
-
-
-
-
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
-            $hasError = -101;
-        }
-
-        print('exit funYYY: ' . $hasError . "\r\n");
-        return $hasError;
     }
 
+    public function textLine(): string
+    {
+        $OutTxt = " "; // . "\r\n";
+        
+        $OutTxt .= $this->name . ' '; // . "\r\n";
+        if (empty ($options->value != '')) {
+            $OutTxt .= $this->options->text(); // . "\r\n";
+        }
+
+        return $OutTxt;
+    }
 
     public function text()
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- task ---" . "\r\n";
 
-	    $OutTxt .= "name: " . $this->name . "\r\n";
-
-        $OutTxt .= "Not defined jet " . "\r\n";
-        /**
-        $OutTxt .= "fileName: " . $this->fileName . "\r\n";
-        $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
-        $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
-        $OutTxt .= "filePath: " . $this->filePath . "\r\n";
-        $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
-        /**/
+        $OutTxt .= "name: " . $this->name . "\r\n";
+        $OutTxt .= "options: " . $OutTxt .= $this->options->text(); // . "\r\n";
 
         return $OutTxt;
     }
 
 
-} // clsXXX
+} // task
 
 /*--------------------------------------------------------------------
 print_header
@@ -159,7 +183,7 @@ print ( "--- getopt ---" . "\n");
 
 $long_options = "";
 
-$options = getopt("s:d:h12345", []);
+$options = getopt("t:h12345", []);
 var_dump($options);
 
 $LeaveOut_01 = true;
@@ -172,8 +196,11 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$srcFile = "";
-$dstFile = "";
+$taskLine = 'Task::task1';
+//$taskLine = 'Task::task1 /option1 ';
+//$taskLine = 'Task::task1 /option2=Option';
+//$taskLine = 'Task::task1 /option3="01_Xteststring"';
+//$taskLine = 'Task::task1 /option1 /option2=Option /option3="01_Xteststring"';
 
 foreach ($options as $idx => $option)
 {
@@ -182,12 +209,8 @@ foreach ($options as $idx => $option)
 
 	switch ($idx)
 	{
-		case 's':
-			$srcFile = $option;
-			break;
-
-		case 'd':
-			$dstFile = $option;
+		case 't':
+            $taskLine = $option;
 			break;
 
 		case "h":
@@ -227,19 +250,12 @@ foreach ($options as $idx => $option)
 $start = new DateTime();
 print_header($start, $options, $inArgs);
 
-$oXXX = new clsXXX($srcFile, $dstFile);
+$oTask = new task();
 
-$hasError = $oXXX->funYYY();
+$oTaskResult = $oTask->extractTaskFromString($taskLine);
 
-if ($hasError) {
-
-    print ("Error on function funYYY:" . $hasError);
-
-} else {
-
-    print ($oXXX->text () . "\r\n");
-}
-
+print ($oTask->text () . "\r\n");
+print ('Line: "' . $oTaskResult->textLine () . "'" . "\r\n");
 
 print_end($start);
 

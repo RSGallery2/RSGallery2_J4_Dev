@@ -1,18 +1,14 @@
 <?php
 
-namespace options;
-
-require "./option.php";
+namespace task;
 
 use \DateTime;
 // use DateTime;
 
-use option\option;
-
 
 $HELP_MSG = <<<EOT
 >>>
-option class 
+class task
 
 ToDo: option commands , example
 
@@ -21,30 +17,32 @@ EOT;
 
 
 /*================================================================================
-Class options
+Class task
 ================================================================================*/
 
-class options {
+class task {
 
-	/**
-	 * @var option[] $options
-	 */
-    public $options;
+    public $srcFile = "";
+    public $dstFile = "";
+
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($options = []) {
+	public function __construct($srcFile="", $dstFile="") {
 
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
-            print ("count $options: " . count ($options) . "\r\n");
+            print ("srcFile: " . $srcFile . "\r\n");
+            print ("dstFile: " . $dstFile . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
-            $this->options = $options;
-            
+            $this->srcFile = $srcFile;
+            $this->dstFile = $dstFile;
+
+
         }
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
@@ -54,104 +52,54 @@ class options {
         print('exit __construct: ' . $hasError . "\r\n");
     }
 
-    public function clear() : void
-    {
-
-        $this->options = [];
-
-    }
-
-    public function addOption (option $option) : void {
-
-        if ( ! empty ($option->name))
-        {
-            $this->options [$option->name] = $option;
-        }
-    }
-
     /*--------------------------------------------------------------------
-    extractOptionsFromString
+    funYYY
     --------------------------------------------------------------------*/
 
-    public function extractOptionsFromString($inOptionsString = "") : options
-    {
-        $this->clear ();
+    function funYYY($zzz="") {
+        $hasError = 0;
 
         try {
-            $optionsString = Trim($inOptionsString);
+            print('*********************************************************' . "\r\n");
+            print('funYYY' . "\r\n");
+            print ("zzz: " . $zzz . "\r\n");
+            print('---------------------------------------------------------' . "\r\n");
 
-            // multiple: /optionName or /optionName=value or /optionName="optionValue"
-            while ($this->hasOptionChar($optionsString)) {
 
-                $idx = strpos($optionsString, " ");
 
-                // name without options
-                if ($idx == false) {
-                    $optionName = $optionsString;
-                } else {
-                    // name with options
-                    $singleOption = substr($optionsString, 1, $idx);
 
-                    $optionsString = substr($optionsString, $idx + 1);
-                    $optionsString = Trim($optionsString);
 
-                    $option = (new option())->extractOptionFromString($singleOption);
-                    $this->addOption ($option);
-                }
-            }
-        } catch (\Exception $e) {
-            echo 'Message: ' . $e->getMessage() . "\r\n";
+        }
+        catch(\Exception $e) {
+            echo 'Message: ' .$e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
-        return $this;
-    }
-
-    private function hasOptionChar(string $inOptionsString)
-    {
-        $isOption = false;
-
-        $optionsString = Trim($inOptionsString);
-
-        // /option1 /option2=xxx /option3="01teststring"
-        if (str_starts_with($optionsString, '/')) {
-            $isOption = true;
-        }
-
-        // -option1 -option2=xxx -option3="01teststring"
-        if (str_starts_with($optionsString, '-')) {
-            $isOption = true;
-        }
-
-        return $isOption;
-    }
-
-    public function textLine(): string
-    {
-        $OutTxt = " "; // . "\r\n";
-
-        foreach ($this->options as $option) {
-            $OutTxt .= $option->textLine() . " ";
-        }
-
-        return $OutTxt;
+        print('exit funYYY: ' . $hasError . "\r\n");
+        return $hasError;
     }
 
 
     public function text()
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- options ---" . "\r\n";
+        $OutTxt .= "--- task ---" . "\r\n";
 
-        foreach ($this->options as $option) {
-            $OutTxt .= $option->text() . " ";
-        }
+
+        $OutTxt .= "Not defined jet " . "\r\n";
+        /**
+        $OutTxt .= "fileName: " . $this->fileName . "\r\n";
+        $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
+        $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
+        $OutTxt .= "filePath: " . $this->filePath . "\r\n";
+        $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
+        /**/
 
         return $OutTxt;
     }
 
 
-} // options
+} // task
 
 /*--------------------------------------------------------------------
 print_header
@@ -214,7 +162,7 @@ print ( "--- getopt ---" . "\n");
 
 $long_options = "";
 
-$options = getopt("o:h12345", []);
+$options = getopt("s:d:h12345", []);
 var_dump($options);
 
 $LeaveOut_01 = true;
@@ -227,7 +175,8 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$optionsLine = '/option1 $optionLine = /option2=Option /option3="01_Xteststring"';
+$srcFile = "";
+$dstFile = "";
 
 foreach ($options as $idx => $option)
 {
@@ -236,9 +185,13 @@ foreach ($options as $idx => $option)
 
 	switch ($idx)
 	{
-        case 'o':
-            $optionsLine = $option;
-            break;
+		case 's':
+			$srcFile = $option;
+			break;
+
+		case 'd':
+			$dstFile = $option;
+			break;
 
 		case "h":
 			exit($HELP_MSG);
@@ -277,12 +230,19 @@ foreach ($options as $idx => $option)
 $start = new DateTime();
 print_header($start, $options, $inArgs);
 
-$oOptions = new options();
+$oTasks = new task($srcFile, $dstFile);
 
-$oOptionsResult = $oOptions->extractOptionsFromString($optionsLine);
+$hasError = $oTasks->funYYY();
 
-print ($oOptions->text () . "\r\n");
-print ('Line: "' . $oOptionsResult->textLine () . "'" . "\r\n");
+if ($hasError) {
+
+    print ("Error on function funYYY:" . $hasError);
+
+} else {
+
+    print ($oTasks->text () . "\r\n");
+}
+
 
 print_end($start);
 
