@@ -2,10 +2,14 @@
 
 namespace options;
 
-require "./option.php";
+require_once "./commandLine.php";
+require_once "./option.php";
 
-use \DateTime;
 // use DateTime;
+
+use function commandLine\argsAndOptions;
+use function commandLine\print_header;
+use function commandLine\print_end;
 
 use option\option;
 
@@ -39,9 +43,9 @@ class options {
 
         $hasError = 0;
         try {
-            print('*********************************************************' . "\r\n");
-            print ("count $options: " . count ($options) . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+//            print('*********************************************************' . "\r\n");
+//            print ("count options: " . count ($options) . "\r\n");
+//            print('---------------------------------------------------------' . "\r\n");
 
             $this->options = $options;
             
@@ -51,7 +55,7 @@ class options {
             $hasError = -101;
         }
 
-        print('exit __construct: ' . $hasError . "\r\n");
+//        print('exit __construct: ' . $hasError . "\r\n");
     }
 
     public function clear() : void
@@ -93,19 +97,22 @@ class options {
 
                 $idx = strpos($optionsString, " ");
 
-                // name without options
+                // last option
                 if ($idx == false) {
-                    $optionName = $optionsString;
+	                $singleOption = $optionsString;
+
+	                $optionsString = '';
                 } else {
-                    // name with options
-                    $singleOption = substr($optionsString, 1, $idx);
+                    // multiple options
+                    $singleOption = substr($optionsString, 0, $idx);
 
                     $optionsString = substr($optionsString, $idx + 1);
                     $optionsString = Trim($optionsString);
-
-                    $option = (new option())->extractOptionFromString($singleOption);
-                    $this->addOption ($option);
                 }
+
+	            $option = (new option())->extractOptionFromString($singleOption);
+	            $this->addOption ($option);
+
             }
         } catch (\Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
@@ -134,12 +141,12 @@ class options {
         return $isOption;
     }
 
-    public function textLine(): string
+    public function text4Line(): string
     {
-        $OutTxt = " "; // . "\r\n";
+        $OutTxt = ""; // . "\r\n";
 
         foreach ($this->options as $option) {
-            $OutTxt .= $option->textLine() . " ";
+            $OutTxt .= " " . $option->text4Line();
         }
 
         return $OutTxt;
@@ -161,69 +168,14 @@ class options {
 
 } // options
 
-/*--------------------------------------------------------------------
-print_header
---------------------------------------------------------------------*/
-
-function print_header($start, $options, $inArgs)
-{
-    global $argc, $argv;
-
-    print('------------------------------------------' . "\r\n");
-    echo ('Command line: ');
-
-    for($i = 1; $i < $argc; $i++) {
-        echo ($argv[$i]) . " ";
-    }
-
-    print(''  . "\r\n");
-    print('Start time:   ' . $start->format('Y-m-d H:i:s') . "\r\n");
-    print('------------------------------------------' . "\r\n");
-
-    return $start;
-}
-
-/*--------------------------------------------------------------------
-print_end
---------------------------------------------------------------------*/
-
-function print_end(DateTime $start)
-{
-    $now = new DateTime ();
-    print('' . "\r\n");
-    print('End time:               ' . $now->format('Y-m-d H:i:s') . "\r\n");
-    $difference = $start->diff($now);
-    print('Time of run:            ' .  $difference->format("%H:%I:%S") . "\r\n");
-}
-
 /*================================================================================
 main (used from command line)
 ================================================================================*/
 
-//--- argv ---------------------------------
+$optDefinition = "o:h12345";
+$isPrintArguments = false;
 
-print ("--- argv ---" . "\r\n");
-var_dump($argv);
-
-print ("--- inArgs ---" . "\r\n");
-$inArgs = [];
-foreach ($argv as $inArg)
-{
-    if (!str_starts_with($inArg, '-'))
-    {
-        $inArgs[] = $inArg;
-    }
-}
-var_dump($inArgs);
-
-//--- options ---------------------------------
-
-print ( "--- getopt ---" . "\n");
-
-$long_options = "";
-
-$options = getopt("o:h12345", []);
-var_dump($options);
+list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 $LeaveOut_01 = true;
 $LeaveOut_02 = true;
@@ -235,7 +187,7 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$optionsLine = '/option1 $optionLine = /option2=Option /option3="01_Xteststring"';
+$optionsLine = '/option1 /option2=01_Option /option3="02_Xteststring"';
 
 foreach ($options as $idx => $option)
 {
@@ -282,15 +234,14 @@ foreach ($options as $idx => $option)
 //--- call function ---------------------------------
 
 // for start / end diff
-$start = new DateTime();
-print_header($start, $options, $inArgs);
+$start = print_header($options, $inArgs);
 
 $oOptions = new options();
 
 $oOptionsResult = $oOptions->extractOptionsFromString($optionsLine);
 
 print ($oOptions->text () . "\r\n");
-print ('Line: "' . $oOptionsResult->textLine () . "'" . "\r\n");
+print ('Line: "' . $oOptionsResult->text4Line () . "'" . "\r\n");
 
 print_end($start);
 

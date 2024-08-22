@@ -22,8 +22,8 @@ Class XXX
 
 class XXX {
 
-    public $srcFile = "";
-    public $dstFile = "";
+    public string $srcFile = "";
+    public string $dstFile = "";
 
 
     /*--------------------------------------------------------------------
@@ -136,34 +136,64 @@ function print_end(DateTime $start)
     print('Time of run:            ' .  $difference->format("%H:%I:%S") . "\r\n");
 }
 
+/**
+ * @return array
+ */
+function argsAndOptions ($argv, string $optDefinition, bool $isPrintArguments): array
+{
+	$options = [];
+	$inArgs = [];
+
+	//--- argv ---------------------------------
+
+	if ($isPrintArguments)
+	{
+		print ("--- argv ---" . "\r\n");
+		var_dump($argv);
+
+	}
+
+	$inArgs = [];
+	foreach ($argv as $inArg)
+	{
+		if (!str_starts_with($inArg, '-'))
+		{
+			$inArgs[] = $inArg;
+		}
+	}
+	if ($isPrintArguments)
+	{
+		if ( ! empty ($inArgs))
+		{
+			print ("--- inArgs ---" . "\r\n");
+			var_dump($inArgs);
+		}
+	}
+
+	//--- extract options ---------------------------------
+
+	if ($isPrintArguments) {
+
+		$options = getopt($optDefinition, []);
+
+		if ( ! empty ($inArgs))
+		{
+			print ("--- in options ---" . "\r\n");
+			var_dump($options);
+		}
+	}
+
+	return array($inArgs, $options);
+}
+
 /*================================================================================
 main (used from command line)
 ================================================================================*/
 
-//--- argv ---------------------------------
+$optDefinition = "s:d:h12345";
+$isPrintArguments = false;
 
-print ("--- argv ---" . "\r\n");
-var_dump($argv);
-
-print ("--- inArgs ---" . "\r\n");
-$inArgs = [];
-foreach ($argv as $inArg)
-{
-    if (!str_starts_with($inArg, '-'))
-    {
-        $inArgs[] = $inArg;
-    }
-}
-var_dump($inArgs);
-
-//--- options ---------------------------------
-
-print ( "--- getopt ---" . "\n");
-
-$long_options = "";
-
-$options = getopt("s:d:h12345", []);
-var_dump($options);
+list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 $LeaveOut_01 = true;
 $LeaveOut_02 = true;

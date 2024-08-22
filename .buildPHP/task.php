@@ -2,12 +2,15 @@
 
 namespace task; // not used see tasksOptionsTest.php: add tasks and options *.php also
 
-require "./option.php";
-require "./options.php";
+require_once "./commandLine.php";
+require_once "./option.php";
+require_once "./options.php";
 
-
-use \DateTime;
 // use DateTime;
+
+use function commandLine\argsAndOptions;
+use function commandLine\print_header;
+use function commandLine\print_end;
 
 use option\option;
 use options\options;
@@ -38,7 +41,12 @@ class task {
 	--------------------------------------------------------------------*/
 
 
-    public function __construct($name = "", $options = "")
+    public function __construct()
+    {
+        $this->clear ();
+    }
+
+    public function __construct1(string $name, options $options)
     {
 
         $this->name = $name;
@@ -92,18 +100,19 @@ class task {
 
     public function addOption (option $option) {
 
-        $this->options->add ($option);
+        $this->options->addOption ($option);
 
     }
 
-    public function textLine(): string
+    public function text4Line(): string
     {
-        $OutTxt = " "; // . "\r\n";
+        $OutTxt = "task:"; // . "\r\n";
         
-        $OutTxt .= $this->name . ' '; // . "\r\n";
-        if (empty ($options->value != '')) {
-            $OutTxt .= $this->options->text(); // . "\r\n";
+        $OutTxt .= $this->name; // . "\r\n";
+        if ($this->options->count() > 0) {
+            $OutTxt .= $this->options->text4Line(); // . "\r\n";
         }
+	    // -> tasks: $OutTxt .= " "; // . "\r\n";
 
         return $OutTxt;
     }
@@ -114,7 +123,10 @@ class task {
         $OutTxt .= "--- task ---" . "\r\n";
 
         $OutTxt .= "name: " . $this->name . "\r\n";
-        $OutTxt .= "options: " . $OutTxt .= $this->options->text(); // . "\r\n";
+	    if ($this->options->count() > 0)
+	    {
+		    $OutTxt .= "options: " . $OutTxt .= $this->options->text(); // . "\r\n";
+	    }
 
         return $OutTxt;
     }
@@ -122,69 +134,14 @@ class task {
 
 } // task
 
-/*--------------------------------------------------------------------
-print_header
---------------------------------------------------------------------*/
-
-function print_header($start, $options, $inArgs)
-{
-    global $argc, $argv;
-
-    print('------------------------------------------' . "\r\n");
-    echo ('Command line: ');
-
-    for($i = 1; $i < $argc; $i++) {
-        echo ($argv[$i]) . " ";
-    }
-
-    print(''  . "\r\n");
-    print('Start time:   ' . $start->format('Y-m-d H:i:s') . "\r\n");
-    print('------------------------------------------' . "\r\n");
-
-    return $start;
-}
-
-/*--------------------------------------------------------------------
-print_end
---------------------------------------------------------------------*/
-
-function print_end(DateTime $start)
-{
-    $now = new DateTime ();
-    print('' . "\r\n");
-    print('End time:               ' . $now->format('Y-m-d H:i:s') . "\r\n");
-    $difference = $start->diff($now);
-    print('Time of run:            ' .  $difference->format("%H:%I:%S") . "\r\n");
-}
-
 /*================================================================================
 main (used from command line)
 ================================================================================*/
 
-//--- argv ---------------------------------
+$optDefinition = "t:h12345";
+$isPrintArguments = false;
 
-print ("--- argv ---" . "\r\n");
-var_dump($argv);
-
-print ("--- inArgs ---" . "\r\n");
-$inArgs = [];
-foreach ($argv as $inArg)
-{
-    if (!str_starts_with($inArg, '-'))
-    {
-        $inArgs[] = $inArg;
-    }
-}
-var_dump($inArgs);
-
-//--- options ---------------------------------
-
-print ( "--- getopt ---" . "\n");
-
-$long_options = "";
-
-$options = getopt("t:h12345", []);
-var_dump($options);
+list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 $LeaveOut_01 = true;
 $LeaveOut_02 = true;
@@ -197,10 +154,10 @@ variables
 --------------------------------------------*/
 
 $taskLine = 'Task::task1';
-//$taskLine = 'Task::task1 /option1 ';
+$taskLine = 'Task::task1 /option1 ';
 //$taskLine = 'Task::task1 /option2=Option';
 //$taskLine = 'Task::task1 /option3="01_Xteststring"';
-//$taskLine = 'Task::task1 /option1 /option2=Option /option3="01_Xteststring"';
+$taskLine = 'Task::task1 /option1 /option2=Option /option3="01_Xteststring"';
 
 foreach ($options as $idx => $option)
 {
@@ -247,15 +204,14 @@ foreach ($options as $idx => $option)
 //--- call function ---------------------------------
 
 // for start / end diff
-$start = new DateTime();
-print_header($start, $options, $inArgs);
+$start = print_header($options, $inArgs);
 
 $oTask = new task();
 
 $oTaskResult = $oTask->extractTaskFromString($taskLine);
 
 print ($oTask->text () . "\r\n");
-print ('Line: "' . $oTaskResult->textLine () . "'" . "\r\n");
+print ('Line: "' . $oTaskResult->text4Line () . "'" . "\r\n");
 
 print_end($start);
 

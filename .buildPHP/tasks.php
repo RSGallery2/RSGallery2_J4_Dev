@@ -2,12 +2,16 @@
 
 namespace tasks;
 
-// require "./option.php";
-// require "./options.php";
-require "./task.php";
+require_once "./commandLine.php";
+//require_once "./option.php";
+//require_once "./options.php";
+require_once "./task.php";
 
-use \DateTime;
 // use DateTime;
+
+use function commandLine\argsAndOptions;
+use function commandLine\print_header;
+use function commandLine\print_end;
 
 use task\task;
 
@@ -49,7 +53,7 @@ class tasks {
     public function addTask(task $task): void
     {
 
-        if (!empty ($option->name)) {
+        if (!empty ($task->name)) {
             $this->tasks [$task->name] = $task;
         }
     }
@@ -70,7 +74,7 @@ class tasks {
     }
 
     // extract multiple tasks from string
-    public function extractTasksFromString($tasksString = "")
+    public function extractTasksFromString($tasksLine = "") : tasks
     {
         $this->clear ();
 
@@ -78,24 +82,34 @@ class tasks {
             //        $tasks = "task:task00"
             //            . 'task:task01 /option1 /option2=xxx /option3="01teststring"'
             //            . 'task:task02 /optionX /option2=Y /optionZ="Zteststring"';
+	        $tasksLine = Trim($tasksLine);
 
-            $tasksString = Trim($tasksString);
-            if (!empty ($tasksString)) {
+	        while ($this->isTaskStart($tasksLine))
+	        {
+		        $idxStart = strpos($tasksLine, ":");
+		        $idxNext = strpos($tasksLine, "task:", $idxStart+1);
 
-                $parts = explode("task:", $tasksString);
+		        // last task
+		        if ($idxNext == false) {
 
-                foreach ($parts as $part) {
+			        $singleTask = substr($tasksLine, $idxStart+1);
 
-                    if (!empty($part)) {
+			        $tasksLine = '';
+		        } else {
 
-                        $task = (new task())->extractTaskFromString(Trim($part));
-                        $this->addTask ($task);
-                    }
+			        // multiple options
+			        $singleTask = substr($tasksLine, $idxStart+1, $idxNext - $idxStart -1-1);;
 
-                }
+			        $tasksLine = substr($tasksLine, $idxNext);
+			        $tasksLine = Trim($tasksLine);
 
-                // print ($this->tasksText ());
-            }
+		        }
+
+		        $task = (new task())->extractTaskFromString($singleTask);
+		        $this->addTask ($task);
+
+	        }
+
 
         } catch (\Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
@@ -105,7 +119,7 @@ class tasks {
         return $this;
     }
 
-    // ToDO: A task may have more attributes like *.ext to
+    // ToDo: A task may have more attributes like *.ext to
     public function extractTasksFromFile(string $taskFile) : tasks
     {
         print('*********************************************************' . "\r\n");
@@ -144,12 +158,12 @@ class tasks {
     }
 
 
-    public function textLine(): string
+    public function text4Line(): string
     {
         $OutTxt = "";
 
         foreach ($this->tasks as $task) {
-            $OutTxt .= $task->textLine () . ' ';
+            $OutTxt .= $task->text4Line () . ' ';
         }
 
         $OutTxt .= "\r\n";
@@ -158,7 +172,7 @@ class tasks {
     }
 
 
-    public function text()
+    public function text() : string
     {
         $OutTxt = "--- Tasks: ---" . "\r\n";
 
@@ -171,72 +185,32 @@ class tasks {
         return $OutTxt;
     }
 
+	private function isTaskStart(string $tasksLine)
+	{
+		$isTask = false;
+
+		$tasksLine = Trim($tasksLine);
+		$checkPart = strtolower(substr ($tasksLine, 0,5));
+
+		// /option1 /option2=xxx /option3="01teststring"
+		if ($checkPart == 'task:') {
+			$isTask = true;
+		}
+
+		return $isTask;
+	}
+
 
 } // task
-
-/*--------------------------------------------------------------------
-print_header
---------------------------------------------------------------------*/
-
-function print_header($start, $options, $inArgs)
-{
-    global $argc, $argv;
-
-    print('------------------------------------------' . "\r\n");
-    echo ('Command line: ');
-
-    for($i = 1; $i < $argc; $i++) {
-        echo ($argv[$i]) . " ";
-    }
-
-    print(''  . "\r\n");
-    print('Start time:   ' . $start->format('Y-m-d H:i:s') . "\r\n");
-    print('------------------------------------------' . "\r\n");
-
-    return $start;
-}
-
-/*--------------------------------------------------------------------
-print_end
---------------------------------------------------------------------*/
-
-function print_end(DateTime $start)
-{
-    $now = new DateTime ();
-    print('' . "\r\n");
-    print('End time:               ' . $now->format('Y-m-d H:i:s') . "\r\n");
-    $difference = $start->diff($now);
-    print('Time of run:            ' .  $difference->format("%H:%I:%S") . "\r\n");
-}
 
 /*================================================================================
 main (used from command line)
 ================================================================================*/
 
-//--- argv ---------------------------------
+$optDefinition = "t:h12345";
+$isPrintArguments = false;
 
-print ("--- argv ---" . "\r\n");
-var_dump($argv);
-
-print ("--- inArgs ---" . "\r\n");
-$inArgs = [];
-foreach ($argv as $inArg)
-{
-    if (!str_starts_with($inArg, '-'))
-    {
-        $inArgs[] = $inArg;
-    }
-}
-var_dump($inArgs);
-
-//--- options ---------------------------------
-
-print ( "--- getopt ---" . "\n");
-
-$long_options = "";
-
-$options = getopt("s:d:h12345", []);
-var_dump($options);
+list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 $LeaveOut_01 = true;
 $LeaveOut_02 = true;
@@ -248,14 +222,14 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$tasksLine = '/option1 $optionLine = /option2=Option /option3="01_Xteststring"';
-$tasksString = "task:task00"
-    . 'task:task01 /option1 /option2=xxx /option3="01_Xteststring"'
-    . 'task:task02 /optionX /option2=Y /optionZ="02_Zteststring"'
-;
-$tasksString = "task:clean4git";
-$tasksString = "task:clean4release";
-$tasksString = "task:updateCopyrightYear";
+//$tasksLine = '/option1 $optionLine = /option2=Option /option3="01_Xteststring"';
+$tasksLine = "task:task00 "
+    . 'task:task01 /option1 /option2=xxx /option3="01_Xteststring" '
+    . 'task:task02 /optionX /option2=Y /optionZ="02_Zteststring" '
+    ;
+//$tasksLine = "task:clean4git";
+//$tasksLine = "task:clean4release";
+//$tasksLine = "task:updateCopyrightYear";
 
 // build without properties: component path to rsgallery2_j4
 // build without changes, increase id, prepare for release
@@ -264,20 +238,20 @@ $tasksString = "task:updateCopyrightYear";
 // build dev update version
 // Version ID  /increaseDevelop: x.x.x.n, release x.n.00, versionByConfig
 //
-$tasksString = "task:build /type=component";
-$tasksString = "task:build /increaseId";
-$tasksString = "task:build /increaseId /clean4release";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
+//$tasksLine = "task:build /type=component";
+//$tasksLine = "task:build /increaseId";
+//$tasksLine = "task:build /increaseId /clean4release";
+//$tasksLine = "task: ";
+//$tasksLine = "task: ";
+//$tasksLine = "task: ";
+//$tasksLine = "task: ";
+//$tasksLine = "task: ";
+//$tasksLine = "task: ";
+//$tasksLine = "task: ";
 
 
-// $taskFile="";
-$taskFile=".\\taskFile.cmd";
+$taskFile="";
+// $taskFile=".\\taskFile.cmd";
 
 foreach ($options as $idx => $option)
 {
@@ -324,21 +298,25 @@ foreach ($options as $idx => $option)
 //--- call function ---------------------------------
 
 // for start / end diff
-$start = new DateTime();
-print_header($start, $options, $inArgs);
+$start = print_header($options, $inArgs);
 
 $oTasks = new tasks();
 
-$oTasksResult = $oTasks->extractTasksFromString($tasksLine);
+if ($tasksLine != '')
+{
+	$oTasksResult = $oTasks->extractTasksFromString($tasksLine);
 
-print ($oTasks->text () . "\r\n");
-print ('Line: "' . $oTasksResult->textLine () . "'" . "\r\n");
+	print ($oTasks->text () . "\r\n");
+	print ('Line: "' . $oTasksResult->text4Line () . "'" . "\r\n");
+}
 
-$oTasksResult = $oTasks->extractTasksFromFile($taskFile);
+if ($taskFile != '')
+{
+	$oTasksResult = $oTasks->extractTasksFromFile($taskFile);
 
-print ($oTasks->text () . "\r\n");
-print ('Line: "' . $oTasksResult->textLine () . "'" . "\r\n");
-
+	print ($oTasks->text() . "\r\n");
+	print ('Line: "' . $oTasksResult->text4Line() . "'" . "\r\n");
+}
 
 print_end($start);
 

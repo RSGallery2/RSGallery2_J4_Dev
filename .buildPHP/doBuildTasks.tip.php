@@ -474,7 +474,6 @@ var_dump($inArgs);
 
 print ( "--- getopt ---" . "\n");
 
-$long_options = "";
 
 $options = getopt("t:p:h12345", []);
 var_dump($options);
