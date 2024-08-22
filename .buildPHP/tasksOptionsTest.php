@@ -260,132 +260,132 @@
 //
 //}
 
-//=========================================================================
-
-namespace tasks;
-
-use option\option;
-use task\task;
-
-class tasks
-{
-
-    /**
-     * @var task[] $tasks
-     */
-    public $tasks = [];
-
-    public
-    function __construct($tasks = [])
-    {
-
-        $this->tasks = $tasks;
-
-    }
-
-
-    public function addTask(task $task): void
-    {
-
-        if (!empty ($option->name)) {
-            $this->tasks [$task->name] = $task;
-        }
-    }
-
-
-	public function clear() : void
-	{
-
-		$this->tasks = [];
-
-	}
-
-	// extract multiple tasks from string
-	public function extractTasksFromString($tasksString = "")
-	{
-		$this->clear ();
-
-		try {
-			//        $tasks = "task:task00"
-			//            . 'task:task01 /option1 /option2=xxx /option3="01teststring"'
-			//            . 'task:task02 /optionX /option2=Y /optionZ="Zteststring"';
-
-			$tasksString = Trim($tasksString);
-			if (!empty ($tasksString)) {
-
-				$parts = explode("task:", $tasksString);
-
-				foreach ($parts as $part) {
-
-					if (!empty($part)) {
-
-						$task = (new task())->extractTaskFromString(Trim($part));
-						$this->addTask ($task);
-					}
-
-				}
-
-				// print ($this->tasksText ());
-			}
-
-		} catch (\Exception $e) {
-			echo 'Message: ' . $e->getMessage() . "\r\n";
-			$hasError = -101;
-		}
-
-		return $this;
-	}
-
-	// ToDO: A task may have more attributes like *.ext to
-	public function extractTasksFromFile(string $taskFile) : tasks
-	{
-		print('*********************************************************' . "\r\n");
-		print ("extractTasksFromFile: " . $taskFile . "\r\n");
-		print('---------------------------------------------------------' . "\r\n");
-
-		$this->clear ();
-
-		try {
-			$content = file_get_contents('data.txt'); //Get the file
-			$lines = explode("\n", $content); //Split the file by each line
-
-			foreach ($lines as $line) {
-
-				$line =  trim($line);
-
-				// ToDo use before each ? "/*" comments like lang manager
-
-				// ignore comments
-				if (!str_starts_with($line, '//')) {
-
-					$task = (new task())->extractTaskFromString(Trim($line));
-					$this->addTask ($task);
-				}
-			}
-
-			// print ($this->tasksText ());
-
-		} catch (\Exception $e) {
-			echo 'Message: ' . $e->getMessage() . "\r\n";
-			$hasError = -101;
-		}
-
-
-		return $this;
-	}
-
-
-	public function text(): string
-    {
-        $OutTxt = "--- Tasks: ---" . "\r\n";
-
-        $OutTxt .= "Tasks count: " . count($this->tasks) . "\r\n";
-
-        foreach ($this->tasks as $task) {
-            $OutTxt .= $task->text() . "\r\n";
-        }
-
-        return $OutTxt;
-    }
-
-}
+////=========================================================================
+//
+//namespace tasks;
+//
+//// use option\option;
+//use task\task;
+//
+//class tasks
+//{
+//
+//    /**
+//     * @var task[] $tasks
+//     */
+//    public $tasks = [];
+//
+//    public
+//    function __construct($tasks = [])
+//    {
+//
+//        $this->tasks = $tasks;
+//
+//    }
+//
+//
+//    public function addTask(task $task): void
+//    {
+//
+//        if (!empty ($option->name)) {
+//            $this->tasks [$task->name] = $task;
+//        }
+//    }
+//
+//
+//	public function clear() : void
+//	{
+//
+//		$this->tasks = [];
+//
+//	}
+//
+//	// extract multiple tasks from string
+//	public function extractTasksFromString($tasksString = "")
+//	{
+//		$this->clear ();
+//
+//		try {
+//			//        $tasks = "task:task00"
+//			//            . 'task:task01 /option1 /option2=xxx /option3="01teststring"'
+//			//            . 'task:task02 /optionX /option2=Y /optionZ="Zteststring"';
+//
+//			$tasksString = Trim($tasksString);
+//			if (!empty ($tasksString)) {
+//
+//				$parts = explode("task:", $tasksString);
+//
+//				foreach ($parts as $part) {
+//
+//					if (!empty($part)) {
+//
+//						$task = (new task())->extractTaskFromString(Trim($part));
+//						$this->addTask ($task);
+//					}
+//
+//				}
+//
+//				// print ($this->tasksText ());
+//			}
+//
+//		} catch (\Exception $e) {
+//			echo 'Message: ' . $e->getMessage() . "\r\n";
+//			$hasError = -101;
+//		}
+//
+//		return $this;
+//	}
+//
+//	// ToDO: A task may have more attributes like *.ext to
+//	public function extractTasksFromFile(string $taskFile) : tasks
+//	{
+//		print('*********************************************************' . "\r\n");
+//		print ("extractTasksFromFile: " . $taskFile . "\r\n");
+//		print('---------------------------------------------------------' . "\r\n");
+//
+//		$this->clear ();
+//
+//		try {
+//			$content = file_get_contents('data.txt'); //Get the file
+//			$lines = explode("\n", $content); //Split the file by each line
+//
+//			foreach ($lines as $line) {
+//
+//				$line =  trim($line);
+//
+//				// ToDo use before each ? "/*" comments like lang manager
+//
+//				// ignore comments
+//				if (!str_starts_with($line, '//')) {
+//
+//					$task = (new task())->extractTaskFromString(Trim($line));
+//					$this->addTask ($task);
+//				}
+//			}
+//
+//			// print ($this->tasksText ());
+//
+//		} catch (\Exception $e) {
+//			echo 'Message: ' . $e->getMessage() . "\r\n";
+//			$hasError = -101;
+//		}
+//
+//
+//		return $this;
+//	}
+//
+//
+//	public function text(): string
+//    {
+//        $OutTxt = "--- Tasks: ---" . "\r\n";
+//
+//        $OutTxt .= "Tasks count: " . count($this->tasks) . "\r\n";
+//
+//        foreach ($this->tasks as $task) {
+//            $OutTxt .= $task->text() . "\r\n";
+//        }
+//
+//        return $OutTxt;
+//    }
+//
+//}

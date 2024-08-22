@@ -61,6 +61,14 @@ class options {
 
     }
 
+    public function count() : int
+    {
+
+        return (count ($this->options));
+
+    }
+
+
     public function addOption (option $option) : void {
 
         if ( ! empty ($option->name))

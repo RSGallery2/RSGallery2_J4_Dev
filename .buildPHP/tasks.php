@@ -1,14 +1,20 @@
 <?php
 
-namespace task;
+namespace tasks;
+
+// require "./option.php";
+// require "./options.php";
+require "./task.php";
 
 use \DateTime;
 // use DateTime;
 
+use task\task;
+
 
 $HELP_MSG = <<<EOT
 >>>
-class task
+class tasks
 
 ToDo: option commands , example
 
@@ -20,80 +26,147 @@ EOT;
 Class task
 ================================================================================*/
 
-class task {
+class tasks {
 
-    public $srcFile = "";
-    public $dstFile = "";
-
+    /**
+     * @var task[] $tasks
+     */
+    public $tasks;
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($srcFile="", $dstFile="") {
+    public
+    function __construct($tasks = [])
+    {
 
-        $hasError = 0;
-        try {
-            print('*********************************************************' . "\r\n");
-            print ("srcFile: " . $srcFile . "\r\n");
-            print ("dstFile: " . $dstFile . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+        $this->tasks = $tasks;
 
-            $this->srcFile = $srcFile;
-            $this->dstFile = $dstFile;
-
-
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
-            $hasError = -101;
-        }
-
-        print('exit __construct: ' . $hasError . "\r\n");
     }
 
-    /*--------------------------------------------------------------------
-    funYYY
-    --------------------------------------------------------------------*/
 
-    function funYYY($zzz="") {
-        $hasError = 0;
+    public function addTask(task $task): void
+    {
+
+        if (!empty ($option->name)) {
+            $this->tasks [$task->name] = $task;
+        }
+    }
+
+
+    public function clear() : void
+    {
+
+        $this->tasks = [];
+
+    }
+
+    public function count() : int
+    {
+
+        return (count ($this->tasks));
+
+    }
+
+    // extract multiple tasks from string
+    public function extractTasksFromString($tasksString = "")
+    {
+        $this->clear ();
 
         try {
-            print('*********************************************************' . "\r\n");
-            print('funYYY' . "\r\n");
-            print ("zzz: " . $zzz . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+            //        $tasks = "task:task00"
+            //            . 'task:task01 /option1 /option2=xxx /option3="01teststring"'
+            //            . 'task:task02 /optionX /option2=Y /optionZ="Zteststring"';
 
+            $tasksString = Trim($tasksString);
+            if (!empty ($tasksString)) {
 
+                $parts = explode("task:", $tasksString);
 
+                foreach ($parts as $part) {
 
+                    if (!empty($part)) {
 
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+                        $task = (new task())->extractTaskFromString(Trim($part));
+                        $this->addTask ($task);
+                    }
+
+                }
+
+                // print ($this->tasksText ());
+            }
+
+        } catch (\Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
-        print('exit funYYY: ' . $hasError . "\r\n");
-        return $hasError;
+        return $this;
+    }
+
+    // ToDO: A task may have more attributes like *.ext to
+    public function extractTasksFromFile(string $taskFile) : tasks
+    {
+        print('*********************************************************' . "\r\n");
+        print ("extractTasksFromFile: " . $taskFile . "\r\n");
+        print('---------------------------------------------------------' . "\r\n");
+
+        $this->clear ();
+
+        try {
+            $content = file_get_contents('data.txt'); //Get the file
+            $lines = explode("\n", $content); //Split the file by each line
+
+            foreach ($lines as $line) {
+
+                $line =  trim($line);
+
+                // ToDo use before each ? "/*" comments like lang manager
+
+                // ignore comments
+                if (!str_starts_with($line, '//')) {
+
+                    $task = (new task())->extractTaskFromString(Trim($line));
+                    $this->addTask ($task);
+                }
+            }
+
+            // print ($this->tasksText ());
+
+        } catch (\Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+
+
+        return $this;
+    }
+
+
+    public function textLine(): string
+    {
+        $OutTxt = "";
+
+        foreach ($this->tasks as $task) {
+            $OutTxt .= $task->textLine () . ' ';
+        }
+
+        $OutTxt .= "\r\n";
+
+        return $OutTxt;
     }
 
 
     public function text()
     {
-        $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- task ---" . "\r\n";
+        $OutTxt = "--- Tasks: ---" . "\r\n";
 
+        $OutTxt .= "Tasks count: " . count($this->tasks) . "\r\n";
 
-        $OutTxt .= "Not defined jet " . "\r\n";
-        /**
-        $OutTxt .= "fileName: " . $this->fileName . "\r\n";
-        $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
-        $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
-        $OutTxt .= "filePath: " . $this->filePath . "\r\n";
-        $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
-        /**/
+        foreach ($this->tasks as $task) {
+            $OutTxt .= $task->text() . "\r\n";
+        }
 
         return $OutTxt;
     }
@@ -175,8 +248,36 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$srcFile = "";
-$dstFile = "";
+$tasksLine = '/option1 $optionLine = /option2=Option /option3="01_Xteststring"';
+$tasksString = "task:task00"
+    . 'task:task01 /option1 /option2=xxx /option3="01_Xteststring"'
+    . 'task:task02 /optionX /option2=Y /optionZ="02_Zteststring"'
+;
+$tasksString = "task:clean4git";
+$tasksString = "task:clean4release";
+$tasksString = "task:updateCopyrightYear";
+
+// build without properties: component path to rsgallery2_j4
+// build without changes, increase id, prepare for release
+// build type: component module plugin package
+// build folder:
+// build dev update version
+// Version ID  /increaseDevelop: x.x.x.n, release x.n.00, versionByConfig
+//
+$tasksString = "task:build /type=component";
+$tasksString = "task:build /increaseId";
+$tasksString = "task:build /increaseId /clean4release";
+//$tasksString = "task: ";
+//$tasksString = "task: ";
+//$tasksString = "task: ";
+//$tasksString = "task: ";
+//$tasksString = "task: ";
+//$tasksString = "task: ";
+//$tasksString = "task: ";
+
+
+// $taskFile="";
+$taskFile=".\\taskFile.cmd";
 
 foreach ($options as $idx => $option)
 {
@@ -185,12 +286,8 @@ foreach ($options as $idx => $option)
 
 	switch ($idx)
 	{
-		case 's':
+		case 't':
 			$srcFile = $option;
-			break;
-
-		case 'd':
-			$dstFile = $option;
 			break;
 
 		case "h":
@@ -230,18 +327,17 @@ foreach ($options as $idx => $option)
 $start = new DateTime();
 print_header($start, $options, $inArgs);
 
-$oTasks = new task($srcFile, $dstFile);
+$oTasks = new tasks();
 
-$hasError = $oTasks->funYYY();
+$oTasksResult = $oTasks->extractTasksFromString($tasksLine);
 
-if ($hasError) {
+print ($oTasks->text () . "\r\n");
+print ('Line: "' . $oTasksResult->textLine () . "'" . "\r\n");
 
-    print ("Error on function funYYY:" . $hasError);
+$oTasksResult = $oTasks->extractTasksFromFile($taskFile);
 
-} else {
-
-    print ($oTasks->text () . "\r\n");
-}
+print ($oTasks->text () . "\r\n");
+print ('Line: "' . $oTasksResult->textLine () . "'" . "\r\n");
 
 
 print_end($start);

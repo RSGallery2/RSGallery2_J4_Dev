@@ -3,16 +3,19 @@
 namespace DoBuildTasks;
 
 require ".\\fileNamesList.php";
-require ".\\tasksOptionsTest.php";
 
+// require "./option.php";
+// require "./options.php";
+// require "./task.php";
+require "./tasks.php";
 
 use \DateTime;
 // use DateTime;
 use FileNamesList\fileNamesList;
 
-use option\option;
-use options\options;
-use task\task;
+//use option\option;
+//use options\options;
+//use task\task;
 use tasks\tasks;
 
 $HELP_MSG = <<<EOT
@@ -34,7 +37,7 @@ class doBuildTasks {
     /**
      * @var tasks
      */
-	public $tasks = "";
+	public $tasks;
     public $basePath = "";
 
 
@@ -42,17 +45,18 @@ class doBuildTasks {
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($basePath="", $tasks="") {
+	public function __construct($basePath="", $tasksLine="") {
 
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
-            print ("basePath: " . $basePath . "\r\n");
-            print ("tasks: " . $tasks . "\r\n");
+            print("basePath: " . $basePath . "\r\n");
+            print("tasks: " . $tasksLine . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
             $this->basePath = $basePath;
-            $this->tasks = $this->extractTasksFromString($tasks);
+            $tasks = new tasks();
+            $this->tasks = $tasks->extractTasksFromString($tasksLine);
 
             // print ($this->tasksText ());
         }
@@ -143,60 +147,9 @@ class doBuildTasks {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- doBuildTasks: Tasks ---" . "\r\n";
 
-	    $OutTxt .= "Tasks count: " . count ($this->tasks) . "\r\n";
+	    $OutTxt .= "Tasks count: " . $this->tasks->count() . "\r\n";
 
         $OutTxt .= $this->tasks->text() . "\r\n";
-
-        return $OutTxt;
-    }
-
-    public function taskText($task)
-    {
-        $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- doBuildTasks: Tasks ---" . "\r\n";
-
-	    $OutTxt .= "Tasks count: " . count ($this->tasks) . "\r\n";
-
-		foreach ($this->tasks as $task)
-		{
-
-
-
-		}
-
-        return $OutTxt;
-    }
-
-    public function optionsText()
-    {
-        $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- doBuildTasks: Tasks ---" . "\r\n";
-
-	    $OutTxt .= "Tasks count: " . count ($this->tasks) . "\r\n";
-
-		foreach ($this->tasks as $task)
-		{
-
-
-
-		}
-
-        return $OutTxt;
-    }
-
-    public function optionText()
-    {
-        $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- doBuildTasks: Tasks ---" . "\r\n";
-
-	    $OutTxt .= "Tasks count: " . count ($this->tasks) . "\r\n";
-
-		foreach ($this->tasks as $task)
-		{
-
-
-
-		}
 
         return $OutTxt;
     }
@@ -283,13 +236,13 @@ variables
 //    . 'task:task02 /optionX /option2=Y /optionZ="Zteststring"' . "\r\n"
 //;
 
-$tasksString = "task:task00"
+$tasksLine = "task:task00"
     . 'task:task01 /option1 /option2=xxx /option3="01_Xteststring"'
     . 'task:task02 /optionX /option2=Y /optionZ="02_Zteststring"'
 ;
-$tasksString = "task:clean4git";
-$tasksString = "task:clean4release";
-$tasksString = "task:updateCopyrightYear";
+$tasksLine = "task:clean4git";
+$tasksLine = "task:clean4release";
+$tasksLine = "task:updateCopyrightYear";
 
 // build without properties: component path to rsgallery2_j4
 // build without changes, increase id, prepare for release
@@ -298,9 +251,9 @@ $tasksString = "task:updateCopyrightYear";
 // build dev update version
 // Version ID  /increaseDevelop: x.x.x.n, release x.n.00, versionByConfig
 //
-$tasksString = "task:build /type=component";
-$tasksString = "task:build /increaseId";
-$tasksString = "task:build /increaseId /clean4release";
+$tasksLine = "task:build /type=component";
+$tasksLine = "task:build /increaseId";
+$tasksLine = "task:build /increaseId /clean4release";
 //$tasksString = "task: ";
 //$tasksString = "task: ";
 //$tasksString = "task: ";
@@ -308,9 +261,6 @@ $tasksString = "task:build /increaseId /clean4release";
 //$tasksString = "task: ";
 //$tasksString = "task: ";
 //$tasksString = "task: ";
-
-
-
 
 
 $basePath = "..\\..\\RSGallery2_J4";
@@ -330,7 +280,7 @@ foreach ($options as $idx => $option)
 			break;
 
 		case 't':
-            $tasksString = $option;
+            $tasksLine = $option;
 			break;
 
 		case 'f':
@@ -386,7 +336,7 @@ if (empty ($hasError) ) {
                 . ' path: ' . $basePath);
         }
     } else {
-        $hasError = $oDoBuildTasks->extractTasksFromString($tasksString);
+        $hasError = $oDoBuildTasks->extractTasksFromString($tasksLine);
         if (!empty ($hasError) ) {
             print ("Error on function extractTasksFromString:" . $hasError
                 . ' path: ' . $basePath);
