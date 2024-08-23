@@ -38,7 +38,13 @@ class doBuildTasks {
      * @var tasks
      */
 	public $tasks;
-    public $basePath = "";
+
+    /**
+     * @var fileNamesList
+     */
+	public $fileNamesList;
+
+    //    public string $basePath = "";
 
 
     /*--------------------------------------------------------------------
@@ -81,9 +87,60 @@ class doBuildTasks {
             print ("task: " . $task . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
+            foreach ($this->tasks as $task) {
 
+                $execTasks = [];
 
+                switch (strtolower($task->name)) {
 
+                    case 'buildrelease':
+                        print ('Execute task: ' . $task);
+
+                        $execTask = new buildRelease ();
+                        $execTask->assignFilesNames ($this->fileNamesList);
+                        $execTask->assignTask ($task);
+
+                        // ToDo: execute later and feed single files to execute
+                        $execTasks [] = $execTask;
+
+                        $hasError = $execTask->execute ();
+
+                        break;
+
+                    case 'forceversionid':
+                        print ('Execute task: ' . $task);
+                        break;
+
+                    case 'increaseversionid':
+                        print ('Execute task: ' . $task);
+                        break;
+
+                    case 'clean4git':
+                        print ('Execute task: ' . $task);
+                        break;
+
+                    case 'updatecopyrightyear':
+                        print ('Execute task: ' . $task);
+                        break;
+
+                    case 'X':
+                        print ('Execute task: ' . $task);
+                        break;
+
+                    case 'Y':
+                        print ('Execute task: ' . $task);
+                        break;
+
+                    case 'Z':
+                        print ('Execute task: ' . $task);
+                        break;
+
+                    default:
+                        print ('Execute Default task: ' . $task);
+                } // switch
+
+                $OutTxt .= $task->text() . "\r\n";
+            }
 
         }
         catch(\Exception $e) {
@@ -110,7 +167,9 @@ class doBuildTasks {
             print('---------------------------------------------------------' . "\r\n");
 
             // ($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
-            new fileNamesList($path);
+            $this->fileNamesList = new fileNamesList($path);
+
+            ...;
 
 
         }
@@ -236,13 +295,13 @@ variables
 //    . 'task:task02 /optionX /option2=Y /optionZ="Zteststring"' . "\r\n"
 //;
 
-$tasksLine = "task:task00"
-    . 'task:task01 /option1 /option2=xxx /option3="01_Xteststring"'
-    . 'task:task02 /optionX /option2=Y /optionZ="02_Zteststring"'
-;
-$tasksLine = "task:clean4git";
-$tasksLine = "task:clean4release";
-$tasksLine = "task:updateCopyrightYear";
+//$tasksLine = "task:task00"
+//    . 'task:task01 /option1 /option2=xxx /option3="01_Xteststring"'
+//    . 'task:task02 /optionX /option2=Y /optionZ="02_Zteststring"'
+//;
+//$tasksLine = "task:clean4git";
+//$tasksLine = "task:clean4release";
+//$tasksLine = "task:updateCopyrightYear";
 
 // build without properties: component path to rsgallery2_j4
 // build without changes, increase id, prepare for release
@@ -251,9 +310,63 @@ $tasksLine = "task:updateCopyrightYear";
 // build dev update version
 // Version ID  /increaseDevelop: x.x.x.n, release x.n.00, versionByConfig
 //
-$tasksLine = "task:build /type=component";
-$tasksLine = "task:build /increaseId";
-$tasksLine = "task:build /increaseId /clean4release";
+//$tasksLine = "task:build /type=component";
+//$tasksLine = "task:build /increaseId";
+//$tasksLine = "task:build /increaseId /clean4release";
+
+$tasksLine = '';
+
+$tasksLine .= ' task:forceVersionId'
+    . ' /id="9.9.9"'
+    . ' /type=component'
+    . ' /srcRoot="./../../RSGallery2_J4/=component'
+    . ' /name=rsgallery2'
+;
+
+$tasksLine .= ' task:forceVersionId'
+    . ' /idFile="./VersionId.txt"'
+    . ' /type=component'
+    . ' /srcRoot="./../../RSGallery2_J4/=component'
+    . ' /name=rsgallery2'
+;
+
+$tasksLine .= ' task:increaseVersionId'
+    . ' /type=component'
+    . ' /srcRoot="./../../RSGallery2_J4/=component'
+    . ' /name=rsgallery2'
+    . ' /version=major|minor|patch|dev'
+;
+
+//$tasksLine .= ' task:clean4release'
+//    . ' /type=component'
+//    . ' /name=rsgallery2'
+//;
+
+$tasksLine .= ' task:clean4git'
+    . ' /type=component'
+    . ' /name=rsgallery2'
+;
+
+$tasksLine .= ' task:updateCopyrightYear'
+    . ' /type=component'
+    . ' /name=rsgallery2'
+;
+
+$tasksLine .= ' task:buildRelease'
+    . ' /type=component'
+    . ' /srcRoot="./../../RSGallery2_J4/=component'
+    . ' /buildDir="./../.packages/"'
+//    . ' /adminPath='
+//    . ' /sitePath='
+//    . ' /mediaPath='
+    . ' /name=rsgallery2'
+    . ' /extension=RSGallery2'
+// name.xml ?    . '/manifestFile='
+//    . '/s='
+//    . '/s='
+//    . '/s='
+;
+
 //$tasksString = "task: ";
 //$tasksString = "task: ";
 //$tasksString = "task: ";
