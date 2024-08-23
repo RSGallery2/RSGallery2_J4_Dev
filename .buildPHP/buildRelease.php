@@ -2,13 +2,19 @@
 
 namespace ExecuteTasks;
 
+require_once "./commandLine.php";
+
 require_once "./iExecTask.php";
 
 require_once "./fileNamesList.php";
 require_once "./task.php";
 
-use \DateTime;
+// use \DateTime;
 // use DateTime;
+
+use function commandLine\argsAndOptions;
+use function commandLine\print_header;
+use function commandLine\print_end;
 
 use FileNamesList\fileNamesList;
 use task\task;
@@ -31,8 +37,14 @@ class buildRelease
   implements executeTasksInterface
 {
 
-    public string $srcFile = "";
-    public string $dstFile = "";
+	/**
+	 * @var fileNamesList
+	 */
+	public $fileNamesList;
+
+
+
+
 
 
     /*--------------------------------------------------------------------
@@ -44,12 +56,12 @@ class buildRelease
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
-            print ("srcFile: " . $srcFile . "\r\n");
-            print ("dstFile: " . $dstFile . "\r\n");
+//            print ("srcFile: " . $srcFile . "\r\n");
+//            print ("dstFile: " . $dstFile . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
-            $this->srcFile = $srcFile;
-            $this->dstFile = $dstFile;
+//            $this->srcFile = $srcFile;
+//            $this->dstFile = $dstFile;
 
 
         }
@@ -92,14 +104,65 @@ class buildRelease
     public function assignFilesNames (fileNamesList $fileNamesList)
     {
 
+	    // ($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
+	    $this->fileNamesList = $fileNamesList;
 
     }
 
     // Task name with options
-    public function assignTask (task $task)
+    public function assignTask (task $task) : int
     {
+		$options = $task->options;
+
+		foreach ($options as $option) {
+
+			switch (strtolower($option->name)) {
+
+				case 'buildrelease':
+					print ('Execute task: ' . $option->name);
 
 
+					break;
+
+				case 'forceversionid':
+					print ('Execute task: ' . $option->name);
+					break;
+
+				case 'increaseversionid':
+					print ('Execute task: ' . $option->name);
+					break;
+
+				case 'clean4git':
+					print ('Execute task: ' . $option->name);
+					break;
+
+				case 'X':
+					print ('Execute task: ' . $option->name);
+					break;
+
+				case 'Y':
+					print ('Execute task: ' . $option->name);
+					break;
+
+				case 'Z':
+					print ('Execute task: ' . $option->name);
+					break;
+
+				default:
+					print ('Execute Default task: ' . $option->name);
+			} // switch
+
+			// $OutTxt .= $task->text() . "\r\n";
+		}
+
+
+
+
+
+
+
+
+		return 0;
     }
 
     public function execute (): int // $hasError
@@ -141,91 +204,6 @@ class buildRelease
 } // buildRelease
 
 
-/*--------------------------------------------------------------------
-print_header
---------------------------------------------------------------------*/
-
-function print_header($start, $options, $inArgs)
-{
-    global $argc, $argv;
-
-    print('------------------------------------------' . "\r\n");
-    echo ('Command line: ');
-
-    for($i = 1; $i < $argc; $i++) {
-        echo ($argv[$i]) . " ";
-    }
-
-    print(''  . "\r\n");
-    print('Start time:   ' . $start->format('Y-m-d H:i:s') . "\r\n");
-    print('------------------------------------------' . "\r\n");
-
-    return $start;
-}
-
-/*--------------------------------------------------------------------
-print_end
---------------------------------------------------------------------*/
-
-function print_end(DateTime $start)
-{
-    $now = new DateTime ();
-    print('' . "\r\n");
-    print('End time:               ' . $now->format('Y-m-d H:i:s') . "\r\n");
-    $difference = $start->diff($now);
-    print('Time of run:            ' .  $difference->format("%H:%I:%S") . "\r\n");
-}
-
-/**
- * @return array
- */
-function argsAndOptions ($argv, string $optDefinition, bool $isPrintArguments): array
-{
-	$options = [];
-	$inArgs = [];
-
-	//--- argv ---------------------------------
-
-	if ($isPrintArguments)
-	{
-		print ("--- argv ---" . "\r\n");
-		var_dump($argv);
-
-	}
-
-	$inArgs = [];
-	foreach ($argv as $inArg)
-	{
-		if (!str_starts_with($inArg, '-'))
-		{
-			$inArgs[] = $inArg;
-		}
-	}
-	if ($isPrintArguments)
-	{
-		if ( ! empty ($inArgs))
-		{
-			print ("--- inArgs ---" . "\r\n");
-			var_dump($inArgs);
-		}
-	}
-
-	//--- extract options ---------------------------------
-
-	if ($isPrintArguments) {
-
-		$options = getopt($optDefinition, []);
-
-		if ( ! empty ($inArgs))
-		{
-			print ("--- in options ---" . "\r\n");
-			var_dump($options);
-		}
-	}
-
-	return array($inArgs, $options);
-}
-
 /*================================================================================
 main (used from command line)
 ================================================================================*/
@@ -244,6 +222,24 @@ $LeaveOut_05 = true;
 /*--------------------------------------------
 variables
 --------------------------------------------*/
+
+$tasksLine = ' task:buildRelease'
+	. ' /type=component'
+	. ' /srcRoot="./../../RSGallery2_J4/=component'
+	. ' /buildDir="./../.packages/"'
+//    . ' /adminPath='
+//    . ' /sitePath='
+//    . ' /mediaPath='
+	. ' /name=rsgallery2'
+	. ' /extension=RSGallery2'
+// name.xml ?    . '/manifestFile='
+//    . '/s='
+//    . '/s='
+//    . '/s='
+;
+
+$basePath = "..\\..\\RSGallery2_J4";
+
 
 $srcFile = "";
 $dstFile = "";
@@ -297,22 +293,27 @@ foreach ($options as $idx => $option)
 //--- call function ---------------------------------
 
 // for start / end diff
-$start = new DateTime();
-print_header($start, $options, $inArgs);
+$start = print_header($options, $inArgs);
 
-$oBuildRelease = new buildRelease($srcFile, $dstFile);
+$fileNamesList = new fileNamesList($basePath);
+$task = new task();
+$task->extractTaskFromString($tasksLine);
 
-$hasError = $oBuildRelease->funYYY();
+$oBuildRelease = new buildRelease();
+
+$oBuildRelease->assignFilesNames($fileNamesList);
+
+$hasError = $oBuildRelease->assignTask($task);
 
 if ($hasError) {
 
     print ("Error on function funYYY:" . $hasError);
-
-} else {
-
-    print ($oBuildRelease->text () . "\r\n");
 }
 
+$hasError = $oBuildRelease->execute();
+
+
+print ($oBuildRelease->text () . "\r\n");
 
 print_end($start);
 
