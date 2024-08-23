@@ -273,7 +273,7 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$srcFile = ".\\original.php";
+$srcFile = "./original.php";
 
 foreach ($options as $idx => $option)
 {

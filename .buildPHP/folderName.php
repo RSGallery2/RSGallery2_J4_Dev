@@ -201,7 +201,7 @@ variables
 --------------------------------------------*/
 
 // ToDo: Test it manually  
-// $srcFolder = ".\\";
+// $srcFolder = "./";
 $srcFolder = "..\\.buildPHP\\";
 
 foreach ($options as $idx => $option)

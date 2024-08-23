@@ -1,10 +1,17 @@
 <?php
 
-namespace BuildRelease;
+namespace ExecuteTasks;
+
+require_once "./iExecTask.php";
+
+require_once "./fileNamesList.php";
+require_once "./task.php";
 
 use \DateTime;
 // use DateTime;
 
+use FileNamesList\fileNamesList;
+use task\task;
 
 $HELP_MSG = <<<EOT
 >>>
@@ -99,12 +106,14 @@ class buildRelease
     {
 
 
+		return (0);
     }
 
     public function executeFile (string $filePathName) : bool // $isChanged
     {
 
 
+	    return (0);
     }
 
 

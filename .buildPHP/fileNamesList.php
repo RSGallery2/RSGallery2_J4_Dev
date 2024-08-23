@@ -2,8 +2,8 @@
 
 namespace FileNamesList;
 
-require ".\\fithFileName.php";
-require ".\\folderName.php";
+require_once "./fithFileName.php";
+require_once "./folderName.php";
 
 use \DateTime;
 use FileName\fithFileName;
@@ -571,7 +571,7 @@ $isNoRecursion = False;
 //$isNoRecursion = True;
 
 //$writeListToFile = "";
-$writeListToFile = ".\\FileNamesList.txt";
+$writeListToFile = "./FileNamesList.txt";
 
 foreach ($options as $idx => $option)
 {

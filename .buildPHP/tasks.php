@@ -251,7 +251,7 @@ $tasksLine = "task:task00 "
 
 
 $taskFile="";
-// $taskFile=".\\taskFile.cmd";
+// $taskFile="./taskFile.cmd";
 
 foreach ($options as $idx => $option)
 {

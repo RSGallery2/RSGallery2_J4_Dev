@@ -2,16 +2,24 @@
 
 namespace DoBuildTasks;
 
-require ".\\fileNamesList.php";
+require_once "./commandLine.php";
+require_once "./fileNamesList.php";
+require_once "./buildRelease.php";
 
-// require "./option.php";
-// require "./options.php";
-// require "./task.php";
-require "./tasks.php";
+// require_once "./option.php";
+// require_once "./options.php";
+// require_once "./task.php";
+require_once "./tasks.php";
 
-use \DateTime;
+// use \DateTime;
 // use DateTime;
+
+use function commandLine\argsAndOptions;
+use function commandLine\print_header;
+use function commandLine\print_end;
+
 use FileNamesList\fileNamesList;
+use ExecuteTasks\buildRelease;
 
 //use option\option;
 //use options\options;
@@ -37,14 +45,15 @@ class doBuildTasks {
     /**
      * @var tasks
      */
-	public $tasks;
+	public tasks $tasks;
 
     /**
      * @var fileNamesList
      */
 	public $fileNamesList;
 
-    //    public string $basePath = "";
+    //
+	public string $basePath = "";
 
 
     /*--------------------------------------------------------------------
@@ -87,14 +96,14 @@ class doBuildTasks {
             print ("task: " . $task . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
-            foreach ($this->tasks as $task) {
+            foreach ($this->tasks->tasks as $task) {
 
                 $execTasks = [];
 
                 switch (strtolower($task->name)) {
 
                     case 'buildrelease':
-                        print ('Execute task: ' . $task);
+                        print ('Execute task: ' . $task->name);
 
                         $execTask = new buildRelease ();
                         $execTask->assignFilesNames ($this->fileNamesList);
@@ -108,38 +117,38 @@ class doBuildTasks {
                         break;
 
                     case 'forceversionid':
-                        print ('Execute task: ' . $task);
+                        print ('Execute task: ' . $task->name);
                         break;
 
                     case 'increaseversionid':
-                        print ('Execute task: ' . $task);
+                        print ('Execute task: ' . $task->name);
                         break;
 
                     case 'clean4git':
-                        print ('Execute task: ' . $task);
+                        print ('Execute task: ' . $task->name);
                         break;
 
                     case 'updatecopyrightyear':
-                        print ('Execute task: ' . $task);
+                        print ('Execute task: ' . $task->name);
                         break;
 
                     case 'X':
-                        print ('Execute task: ' . $task);
+                        print ('Execute task: ' . $task->name);
                         break;
 
                     case 'Y':
-                        print ('Execute task: ' . $task);
+                        print ('Execute task: ' . $task->name);
                         break;
 
                     case 'Z':
-                        print ('Execute task: ' . $task);
+                        print ('Execute task: ' . $task->name);
                         break;
 
                     default:
-                        print ('Execute Default task: ' . $task);
+                        print ('Execute Default task: ' . $task->name);
                 } // switch
 
-                $OutTxt .= $task->text() . "\r\n";
+                // $OutTxt .= $task->text() . "\r\n";
             }
 
         }
@@ -168,9 +177,6 @@ class doBuildTasks {
 
             // ($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
             $this->fileNamesList = new fileNamesList($path);
-
-            ...;
-
 
         }
         catch(\Exception $e) {
@@ -213,72 +219,29 @@ class doBuildTasks {
         return $OutTxt;
     }
 
+	public function extractTasksFromString(mixed $tasksLine)
+	{
+		$task = new tasks();
+		$this->tasks = $task->extractTasksFromString($tasksLine);
+	}
+
+	public function extractTasksFromFile(mixed $taskFile)
+	{
+		$task = new tasks();
+		$this->tasks = $task->extractTasksFromFile($taskFile);
+	}
+
 
 } // doBuildTasks
-
-/*--------------------------------------------------------------------
-print_header
---------------------------------------------------------------------*/
-
-function print_header($start, $options, $inArgs)
-{
-    global $argc, $argv;
-
-    print('------------------------------------------' . "\r\n");
-    echo ('Command line: ');
-
-    for($i = 1; $i < $argc; $i++) {
-        echo ($argv[$i]) . " ";
-    }
-
-    print(''  . "\r\n");
-    print('Start time:   ' . $start->format('Y-m-d H:i:s') . "\r\n");
-    print('------------------------------------------' . "\r\n");
-
-    return $start;
-}
-
-/*--------------------------------------------------------------------
-print_end
---------------------------------------------------------------------*/
-
-function print_end(DateTime $start)
-{
-    $now = new DateTime ();
-    print('' . "\r\n");
-    print('End time:               ' . $now->format('Y-m-d H:i:s') . "\r\n");
-    $difference = $start->diff($now);
-    print('Time of run:            ' .  $difference->format("%H:%I:%S") . "\r\n");
-}
 
 /*================================================================================
 main (used from command line)
 ================================================================================*/
 
-//--- argv ---------------------------------
+$optDefinition = "t:p:h12345";
+$isPrintArguments = false;
 
-print ("--- argv ---" . "\r\n");
-var_dump($argv);
-
-print ("--- inArgs ---" . "\r\n");
-$inArgs = [];
-foreach ($argv as $inArg)
-{
-    if (!str_starts_with($inArg, '-'))
-    {
-        $inArgs[] = $inArg;
-    }
-}
-var_dump($inArgs);
-
-//--- options ---------------------------------
-
-print ( "--- getopt ---" . "\n");
-
-$long_options = "";
-
-$options = getopt("t:p:h12345", []);
-var_dump($options);
+list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 $LeaveOut_01 = true;
 $LeaveOut_02 = true;
@@ -379,7 +342,7 @@ $tasksLine .= ' task:buildRelease'
 $basePath = "..\\..\\RSGallery2_J4";
 
 $taskFile="";
-// $taskFile=".\\taskFile.cmd";
+// $taskFile="./taskFile.cmd";
 
 foreach ($options as $idx => $option)
 {
@@ -434,8 +397,7 @@ foreach ($options as $idx => $option)
 //--- create class object ---------------------------------
 
 // for start / end diff
-$start = new DateTime();
-print_header($start, $options, $inArgs);
+$start = print_header($options, $inArgs);
 
 $oDoBuildTasks = new doBuildTasks(); // $basePath, $tasksString
 
