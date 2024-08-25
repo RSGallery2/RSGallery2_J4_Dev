@@ -61,7 +61,8 @@ class buildRelease implements executeTasksInterface
 
 	private string $componentType = '';
 
-    private
+    private string $dateToday;
+    private string $dateReleaseZip;
 
     /*--------------------------------------------------------------------
     construction
@@ -109,50 +110,50 @@ class buildRelease implements executeTasksInterface
 			switch (strtolower($option->name)) {
 
 				case 'srcroot':
-					print ('Task option: ' . $option->name);
+					print ('Task option: ' . $option->name . "\r\n");
 					$this->srcRoot = $option->value;
 
 					break;
 
 				case 'builddir':
-					print ('Task option: ' . $option->name . ' ' . $option->value);
+					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
 					$this->buildDir = $option->value;
 					break;
 
 				case 'name':
-					print ('Task option: ' . $option->name . ' ' . $option->value);
+					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
 					$this->name = $option->value;
 					break;
 
 				case 'extension':
-					print ('Task option: ' . $option->name . ' ' . $option->value);
+					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
 					$this->extension = $option->value;
 					break;
 
 				case 'type':
-					print ('Task option: ' . $option->name . ' ' . $option->value);
+					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
 					$this->componentType = $option->value;
 					break;
 
 				case 'version':
-					print ('Task option: ' . $option->name . ' ' . $option->value);
+					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
 					$this->componentVersion = $option->value;
 					break;
 
 //				case 'X':
-//					print ('Task option: ' . $option->name . ' ' . $option->value);
+//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 //
 //				case 'Y':
-//					print ('Task option: ' . $option->name . ' ' . $option->value);
+//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 //
 //				case 'Z':
-//					print ('Task option: ' . $option->name);
+//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 
 				default:
-					print ('Execute Default task: ' . $option->name);
+					print ('Execute Default task: ' . $option->name. "\r\n");
 			} // switch
 
 			// $OutTxt .= $task->text() . "\r\n";
@@ -169,7 +170,7 @@ class buildRelease implements executeTasksInterface
 
 	    $componentType =  $this->componentType ();
 
-	    $componentVersion =  $this->componentVersion ();
+	    // $componentVersion =  $this->componentVersion ();
 
 	    switch (strtolower($componentType)) {
 
@@ -378,8 +379,10 @@ class buildRelease implements executeTasksInterface
 		// ToDo: option for version
 		// ToDo: retrieve version from manifest
 
-		// $datetime ....
-		$date = "20240824";
+		// $date = "20240824";
+		$date_format = 'Ymd';
+		$date = date ($date_format);
+
 		$ZipName = $this->name . '.' . $this->componentVersion . '_' .$date . '.zip';
 
 		return $ZipName;
@@ -390,10 +393,17 @@ class buildRelease implements executeTasksInterface
 		$hasError = 0;
 		try {
 
-				$srcPath = $srcRoot . '/' . $name ;
-				$dstPath = $dstRoot . '/' . $name ;
+			$srcPath = $srcRoot . '/' . $name ;
+			$dstPath = $dstRoot . '/' . $name ;
 
+			if (is_dir ($srcPath))
+			{
+				mkdir ($dstPath);
 				xcopy ($srcPath, $dstPath);
+			} else {
+				copy($srcPath, $dstPath);
+			}
+
 		}
 		catch(\Exception $e)
 		{
@@ -403,7 +413,7 @@ class buildRelease implements executeTasksInterface
 
 	}
 
-    private function exchangeDateInManifestFile(string $manifestFileName, sting $strDate)
+    private function exchangeDateInManifestFile(string $manifestFileName, string $strDate)
     {
         $isSaved = false;
 
@@ -435,7 +445,8 @@ class buildRelease implements executeTasksInterface
             $fileLines = implode("\n", $outLines);
 
             // write to file
-            $isSaved = File::write($manifestFileName, $fileLines);
+            //$isSaved = File::write($manifestFileName, $fileLines);
+	        $isSaved = file_put_contents($manifestFileName, $fileLines);
 
         } catch (RuntimeException $e) {
             $OutTxt = 'Error executing writeToFile: "' . '<br>';
@@ -458,9 +469,16 @@ class buildRelease implements executeTasksInterface
 // ToDo: folder lib
 
 function xcopy($src, $dest) {
-	foreach (scandir($src) as $file) {
-		if (!is_readable($src . '/' . $file)) continue;
-		if (is_dir($src .'/' . $file) && ($file != '.') && ($file != '..') ) {
+	foreach (scandir($src) as $file)
+	{
+		if ($file == '.' || $file == '..') {
+			continue;
+		}
+		if (!is_readable($src . '/' . $file)) {
+			continue;
+		}
+		if (is_dir($src .'/' . $file) && ($file != '.') && ($file != '..') )
+		{
 			mkdir($dest . '/' . $file);
 			xcopy($src . '/' . $file, $dest . '/' . $file);
 		} else {
@@ -566,7 +584,7 @@ $tasksLine = ' task:buildRelease'
 //    . '/s='
 ;
 
-// ToDo: option date
+// ToDo: option release date option releasefiledate
 
 $basePath = "..\\..\\RSGallery2_J4";
 
