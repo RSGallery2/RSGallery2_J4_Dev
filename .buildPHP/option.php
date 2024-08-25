@@ -26,9 +26,9 @@ Class option
 
 class option {
 
-    public $name = "";
-    public $value = "";
-
+    public string $name = "";
+    public string $value = "";
+    public string $quotation = "";
 
     /*--------------------------------------------------------------------
     construction
@@ -44,8 +44,9 @@ class option {
 //            print('---------------------------------------------------------' . "\r\n");
 
             $this->name = $name;
-            $this->value = $value;
-			
+            //ToDo: $this->value = $this->assignValue (value); // remove '"' at start and end
+            $this->value = $this->removeQuotation ($value);
+
         }
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
@@ -70,7 +71,7 @@ class option {
         try {
             $optionsString = Trim($inOptionsString);
 
-            // single: /optionName or /optionName=value or /optionName="optionValue"
+            // single: /optionName or /optionName=value or /optionName="option value with spaces"
 
             //$optionName = '';
             $optionValue = '';
@@ -86,7 +87,10 @@ class option {
 
                 // name with options
                 $optionName = substr($optionsString, 1, $idx - 1);
-                $optionValue = substr($optionsString, $idx + 1);
+
+
+                $optionValuePart = substr($optionsString, $idx + 1);
+	            $optionValue = $this->removeQuotation ($optionValuePart);
             }
 
             $this->name = $optionName;
@@ -106,7 +110,12 @@ class option {
 
         $OutTxt .= $this->name; // . "\r\n";
         if ($this->value != '') {
-            $OutTxt .= "=" . $this->value; // . "\r\n";
+
+	        if ($this->quotation == '') {
+		        $OutTxt.= "=" . $this->value;
+	        } else {
+		        $OutTxt.= "=" . $this->quotation . $this->value . $this->quotation;
+	        }
         }
 
         return $OutTxt;
@@ -119,7 +128,12 @@ class option {
         $OutTxt .= "--- option ---" . "\r\n";
 
         $OutTxt .= "name: " . $this->name . "\r\n";
-        $OutTxt .= "value: " . "'" . $this->value . "'" . "\r\n";
+		if ($this->quotation == '') {
+			$OutTxt .= "value: " . "'" . $this->value . "'" . "\r\n";
+		} else {
+			$OutTxt .= "value: " . "'" . $this->quotation . $this->value . $this->quotation . "'" . "\r\n";
+		}
+
 	    /**
         $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
         $OutTxt .= "filePath: " . $this->filePath . "\r\n";
@@ -128,6 +142,25 @@ class option {
 
         return $OutTxt;
     }
+
+	private function removeQuotation(string $optionValuePart)
+	{
+		$optionValue = $optionValuePart;
+
+		if ($optionValue != '')
+		{
+			$firstChar = $optionValuePart[0];
+			if ($firstChar == '"' or $firstChar == "'")
+			{
+
+				$this->quotation = $firstChar;
+				$optionValue     = substr($optionValuePart, 1, -1);
+
+			}
+		}
+
+		return $optionValue;
+	}
 
 
 } // option

@@ -12,6 +12,10 @@ require_once "./task.php";
 // use \DateTime;
 // use DateTime;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use SplFileInfo;
+use ZipArchive;
 use function commandLine\argsAndOptions;
 use function commandLine\print_header;
 use function commandLine\print_end;
@@ -33,18 +37,29 @@ EOT;
 Class buildRelease
 ================================================================================*/
 
-class buildRelease
-  implements executeTasksInterface
+class buildRelease implements executeTasksInterface
 {
 
 	/**
 	 * @var fileNamesList
 	 */
-	public $fileNamesList;
+	public fileNamesList $fileNamesList;
+
+	// Options 
+	private string $srcRoot='';
+	private string $buildDir='';
+	private string $name='';
+	private string $extension='';
+
+	private string $componentVersion = '5.0.12.4';
 
 
 
 
+	// internal 
+	private string $manifestPathFileName = '';
+
+	private string $componentType = '';
 
 
     /*--------------------------------------------------------------------
@@ -56,9 +71,9 @@ class buildRelease
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
-//            print ("srcFile: " . $srcFile . "\r\n");
-//            print ("dstFile: " . $dstFile . "\r\n");
+            print ("Construct build release : " . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
+
 
 //            $this->srcFile = $srcFile;
 //            $this->dstFile = $dstFile;
@@ -71,33 +86,6 @@ class buildRelease
         }
 
         print('exit __construct: ' . $hasError . "\r\n");
-    }
-
-    /*--------------------------------------------------------------------
-    funYYY
-    --------------------------------------------------------------------*/
-
-    function funYYY($zzz="") {
-        $hasError = 0;
-
-        try {
-            print('*********************************************************' . "\r\n");
-            print('funYYY' . "\r\n");
-            print ("zzz: " . $zzz . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
-
-
-
-
-
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
-            $hasError = -101;
-        }
-
-        print('exit funYYY: ' . $hasError . "\r\n");
-        return $hasError;
     }
 
     // List of filenames to use
@@ -114,39 +102,53 @@ class buildRelease
     {
 		$options = $task->options;
 
-		foreach ($options as $option) {
+		foreach ($options->options as $option) {
+			
 
 			switch (strtolower($option->name)) {
 
-				case 'buildrelease':
-					print ('Execute task: ' . $option->name);
-
+				case 'srcroot':
+					print ('Task option: ' . $option->name);
+					$this->srcRoot = $option->value;
 
 					break;
 
-				case 'forceversionid':
-					print ('Execute task: ' . $option->name);
+				case 'builddir':
+					print ('Task option: ' . $option->name . ' ' . $option->value);
+					$this->buildDir = $option->value;
 					break;
 
-				case 'increaseversionid':
-					print ('Execute task: ' . $option->name);
+				case 'name':
+					print ('Task option: ' . $option->name . ' ' . $option->value);
+					$this->name = $option->value;
 					break;
 
-				case 'clean4git':
-					print ('Execute task: ' . $option->name);
+				case 'extension':
+					print ('Task option: ' . $option->name . ' ' . $option->value);
+					$this->extension = $option->value;
 					break;
 
-				case 'X':
-					print ('Execute task: ' . $option->name);
+				case 'type':
+					print ('Task option: ' . $option->name . ' ' . $option->value);
+					$this->componentType = $option->value;
 					break;
 
-				case 'Y':
-					print ('Execute task: ' . $option->name);
+				case 'version':
+					print ('Task option: ' . $option->name . ' ' . $option->value);
+					$this->componentVersion = $option->value;
 					break;
 
-				case 'Z':
-					print ('Execute task: ' . $option->name);
-					break;
+//				case 'X':
+//					print ('Task option: ' . $option->name . ' ' . $option->value);
+//					break;
+//
+//				case 'Y':
+//					print ('Task option: ' . $option->name . ' ' . $option->value);
+//					break;
+//
+//				case 'Z':
+//					print ('Task option: ' . $option->name);
+//					break;
 
 				default:
 					print ('Execute Default task: ' . $option->name);
@@ -155,27 +157,52 @@ class buildRelease
 			// $OutTxt .= $task->text() . "\r\n";
 		}
 
-
-
-
-
-
-
-
 		return 0;
     }
 
     public function execute (): int // $hasError
     {
+	    print('*********************************************************' . "\r\n");
+	    print ("Execute build release : " . "\r\n");
+	    print('---------------------------------------------------------' . "\r\n");
 
+	    $manifestPathFileName = $this->manifestPathFileName ();
+	    print ("manifestPathFileName: " . $manifestPathFileName . "\r\n");
 
-		return (0);
+	    $componentType =  $this->componentType ();
+
+	    $componentVersion =  $this->componentVersion ();
+
+	    switch (strtolower($componentType)) {
+
+		    case 'component':
+			    $this->buildComponent();
+
+			    break;
+
+		    case 'module':
+			    $this->buildModule();
+			    break;
+
+		    case 'plugin':
+			    $this->buildPlugin();
+			    break;
+
+		    case 'package':
+			    $this->buildPackage();
+			    break;
+
+		    default:
+			    print ('Default componentType: ' . $componentType);
+	    } // switch
+
+	    return (0);
     }
 
     public function executeFile (string $filePathName) : bool // $isChanged
     {
 
-
+		// not supported
 	    return (0);
     }
 
@@ -184,25 +211,268 @@ class buildRelease
     public function text()
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- buildRelease
- ---" . "\r\n";
-
-
+        $OutTxt .= "--- buildRelease --------" . "\r\n";
+		
         $OutTxt .= "Not defined jet " . "\r\n";
         /**
         $OutTxt .= "fileName: " . $this->fileName . "\r\n";
         $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
         $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
         $OutTxt .= "filePath: " . $this->filePath . "\r\n";
-        $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
+        $OutTxt .= "srcRootFileName: " . $this->srcRootFileName . "\r\n";
         /**/
 
         return $OutTxt;
     }
 
+	private function manifestPathFileName() : string
+	{
+
+		if ($this->manifestPathFileName == '') {
+			$this->manifestPathFileName = $this->srcRoot . '/' . $this->name . '.xml';
+		}
+
+		return $this->manifestPathFileName;
+	}
+
+	private function componentType()
+	{
+
+		if ($this->componentType == '') {
+			$this->componentType = $this->detectCompTypeFromFile ($this->manifestPathFileName);
+		}
+
+		return $this->componentType;
+	}
+
+	private function detectCompTypeFromFile(string $manifestPathFileName)
+	{
+		$componentType = 'component';
+
+		// ToDo: read file for version
+
+
+		return $componentType;
+	}
+
+	private function componentVersion()
+	{
+		// ToDo: option for version
+		// ToDo: retrieve version from manifest
+
+		if ($this->componentVersion == '') {
+			$this->componentVersion = $this->detectCompVersionFromFile ($this->manifestPathFileName);
+		}
+
+		return $this->componentVersion;
+
+	}
+
+	private function detectCompVersionFromFile(string $manifestPathFileName)
+	{
+		$componentVersion = '';
+
+		// ToDo: read file for
+
+
+		return $componentVersion;
+	}
+
+	private function buildComponent()
+	{
+
+		//--------------------------------------------------------------------
+		// destination temp folder
+		//--------------------------------------------------------------------
+
+		$dstRoot = $this->buildDir;
+		$tmpFolder = $dstRoot . '/tmp';
+
+
+		// remove tmp folder
+		if (is_dir($tmpFolder)) {
+
+			delDir($tmpFolder);
+
+		}
+
+		// ToDo: Clean Temp, create temp
+
+		mkdir($tmpFolder, 0777, true);
+
+
+		//--------------------------------------------------------------------
+		// copy to temp
+		//--------------------------------------------------------------------
+
+		$srcRoot =$this->srcRoot;
+
+		$this->xcopyElement ('administrator',  $srcRoot, $tmpFolder);
+		$this->xcopyElement ('components',  $srcRoot, $tmpFolder);
+		$this->xcopyElement ('media',  $srcRoot, $tmpFolder);
+
+		$this->xcopyElement ('rsgallery2.xml',  $srcRoot, $tmpFolder);
+		$this->xcopyElement ('install_rsg2.php',  $srcRoot, $tmpFolder);
+		$this->xcopyElement ('LICENSE.txt',  $srcRoot, $tmpFolder);
+		$this->xcopyElement ('index.html',  $srcRoot, $tmpFolder);
+
+		//--------------------------------------------------------------------
+		// zip to destination
+		//--------------------------------------------------------------------
+
+		$zipFileName = $dstRoot . '/' . $this->createComponentZipName ();
+		zipIt ($tmpFolder, $zipFileName);
+		
+		//--------------------------------------------------------------------
+		// remove temp
+		//--------------------------------------------------------------------
+
+		// remove tmp folder
+		if (is_dir($tmpFolder)) {
+
+			delDir($tmpFolder);
+
+		}
+
+	}
+
+	private function buildModule()
+	{
+
+	}
+
+	private function buildPlugin()
+	{
+	}
+
+	private function buildPackage()
+	{
+
+		// build component
+
+		// on all module folder build module
+
+
+		// on all plugins folder build plugins
+
+		// ? Specialities
+
+		// remove temp
+
+	}
+
+	private function createComponentZipName()
+	{
+		// rsgallery2.5.0.12.4_20240818.zip
+
+		// ToDo: option for version
+		// ToDo: retrieve version from manifest
+
+		// $datetime ....
+		$date = "20240824";
+		$ZipName = $this->name . '.' . $this->componentVersion . '_' .$date . '.zip';
+
+		return $ZipName;
+	}
+
+	private function xcopyElement(string $name, string $srcRoot, string $dstRoot)
+	{
+		$hasError = 0;
+		try {
+
+				$srcPath = $srcRoot . '/' . $name ;
+				$dstPath = $dstRoot . '/' . $name ;
+
+				xcopy ($srcPath, $dstPath);
+		}
+		catch(\Exception $e)
+		{
+			echo 'Message: ' . $e->getMessage() . "\r\n";
+			$hasError = -101;
+		}
+
+	}
+
 
 } // buildRelease
 
+
+//========================================================
+// ToDo: folder lib
+
+function xcopy($src, $dest) {
+	foreach (scandir($src) as $file) {
+		if (!is_readable($src . '/' . $file)) continue;
+		if (is_dir($src .'/' . $file) && ($file != '.') && ($file != '..') ) {
+			mkdir($dest . '/' . $file);
+			xcopy($src . '/' . $file, $dest . '/' . $file);
+		} else {
+			copy($src . '/' . $file, $dest . '/' . $file);
+		}
+	}
+}
+
+function delDir($dir) {
+
+	// do not deleted from root accidentally
+	if ($dir == '' ) return;
+	if (strlen ($dir) < 10) return;
+
+	if (is_dir($dir)) {
+		$objects = scandir($dir);
+		foreach ($objects as $object) {
+			if ($object != "." && $object != "..") {
+				if (is_dir($dir. DIRECTORY_SEPARATOR .$object) && !is_link($dir."/".$object))
+					delDir($dir. DIRECTORY_SEPARATOR .$object);
+				else
+					unlink($dir. DIRECTORY_SEPARATOR .$object);
+			}
+		}
+		rmdir($dir);
+	}
+}
+
+function zipIt ($rootPath, $zipFilename)
+{
+	// Initialize archive object
+	$zip = new ZipArchive();
+	$zip->open($zipFilename, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+	// Create recursive directory iterator
+	/** @var SplFileInfo[] $files */
+	$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rootPath), RecursiveIteratorIterator::LEAVES_ONLY);
+
+	foreach ($files as $name => $file)
+	{
+		// Get real and relative path for current file
+		$filePath     = $file->getRealPath();
+		$relativePath = substr($filePath, strlen($rootPath) + 1);
+
+		if (!$file->isDir())
+		{
+			// Add current file to archive
+			$zip->addFile($filePath, $relativePath);
+		}
+		else
+		{
+			if ($relativePath !== false)
+				$zip->addEmptyDir($relativePath);
+		}
+	}
+
+	// Zip archive will be created only after closing object
+	$zip->close();
+}
+
+function join_paths() {
+	$paths = array();
+
+	foreach (func_get_args() as $arg) {
+		if ($arg !== '') { $paths[] = $arg; }
+	}
+
+	return preg_replace('#/+#','/',join('/', $paths));
+}
 
 /*================================================================================
 main (used from command line)
@@ -225,13 +495,14 @@ variables
 
 $tasksLine = ' task:buildRelease'
 	. ' /type=component'
-	. ' /srcRoot="./../../RSGallery2_J4/=component'
-	. ' /buildDir="./../.packages/"'
+	. ' /srcRoot="./../../RSGallery2_J4"'
+	. ' /buildDir="./../.packages"'
 //    . ' /adminPath='
 //    . ' /sitePath='
 //    . ' /mediaPath='
 	. ' /name=rsgallery2'
 	. ' /extension=RSGallery2'
+	. ' /version=5.0.12.4'
 // name.xml ?    . '/manifestFile='
 //    . '/s='
 //    . '/s='

@@ -77,7 +77,8 @@ class options {
 
         if ( ! empty ($option->name))
         {
-            $this->options [$option->name] = $option;
+            // $this->options [$option->name] = $option;
+            $this->options [] = $option;
         }
     }
 
@@ -94,6 +95,12 @@ class options {
 
             // multiple: /optionName or /optionName=value or /optionName="optionValue"
             while ($this->hasOptionChar($optionsString)) {
+
+				// ToDo: first find '=' then check for '"' .
+	            // If found find second one
+	            // otherwise first space
+
+
 
                 $idx = strpos($optionsString, " ");
 
