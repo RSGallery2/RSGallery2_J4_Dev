@@ -9,7 +9,7 @@ require_once "./iExecTask.php";
 require_once "./fileNamesList.php";
 require_once "./task.php";
 
-// use \DateTime;
+use \DateTime;
 // use DateTime;
 
 use RecursiveDirectoryIterator;
@@ -61,6 +61,7 @@ class buildRelease implements executeTasksInterface
 
 	private string $componentType = '';
 
+    private
 
     /*--------------------------------------------------------------------
     construction
@@ -165,9 +166,6 @@ class buildRelease implements executeTasksInterface
 	    print('*********************************************************' . "\r\n");
 	    print ("Execute build release : " . "\r\n");
 	    print('---------------------------------------------------------' . "\r\n");
-
-	    $manifestPathFileName = $this->manifestPathFileName ();
-	    print ("manifestPathFileName: " . $manifestPathFileName . "\r\n");
 
 	    $componentType =  $this->componentType ();
 
@@ -280,8 +278,20 @@ class buildRelease implements executeTasksInterface
 
 	private function buildComponent()
 	{
+        //--------------------------------------------------------------------
+        // date in manifest file
+        //--------------------------------------------------------------------
 
-		//--------------------------------------------------------------------
+        $manifestPathFileName = $this->manifestPathFileName ();
+        print ("manifestPathFileName: " . $manifestPathFileName . "\r\n");
+
+        // ToDo: ;
+        $date_format = 'Ymd_His';
+        $dateText = date ($date_format);
+
+        $this->exchangeDateInManifestFile ($manifestPathFileName, $dateText);
+
+        //--------------------------------------------------------------------
 		// destination temp folder
 		//--------------------------------------------------------------------
 
@@ -392,6 +402,53 @@ class buildRelease implements executeTasksInterface
 		}
 
 	}
+
+    private function exchangeDateInManifestFile(string $manifestFileName, sting $strDate)
+    {
+        $isSaved = false;
+
+        try {
+
+            $lines = file($manifestFileName);
+            $outLines = [];
+            $isExchanged = false;
+
+            foreach ($lines as $line) {
+
+                if ($isExchanged) {
+
+                    $outLines [] = $line;
+                } else {
+                    // <creationDate>31. May. 2024</creationDate>
+                    if (str_contains($line, '<creationDate>'))  {
+                        $outLine = preg_replace('/(.*>)(.*)(<.*)/', '$1' . $strDate . '$3', $line);
+
+                        $outLines [] = $outLine;
+
+                        $isExchanged = true;
+                    }
+                }
+
+            }
+
+            // prepare one string
+            $fileLines = implode("\n", $outLines);
+
+            // write to file
+            $isSaved = File::write($manifestFileName, $fileLines);
+
+        } catch (RuntimeException $e) {
+            $OutTxt = 'Error executing writeToFile: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = Factory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $isSaved;
+    }
+
+
 
 
 } // buildRelease
@@ -508,6 +565,8 @@ $tasksLine = ' task:buildRelease'
 //    . '/s='
 //    . '/s='
 ;
+
+// ToDo: option date
 
 $basePath = "..\\..\\RSGallery2_J4";
 
