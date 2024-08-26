@@ -43,7 +43,7 @@ class buildRelease implements executeTasksInterface
 	/**
 	 * @var fileNamesList
 	 */
-	public fileNamesList $fileNamesList;
+	// public fileNamesList $fileNamesList;
 
 	// Options 
 	private string $srcRoot='';
@@ -68,14 +68,14 @@ class buildRelease implements executeTasksInterface
     construction
     --------------------------------------------------------------------*/
 
+    // ToDo: a lot of parameters ....
 	public function __construct($srcFile="", $dstFile="") {
 
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
-            print ("Construct build release : " . "\r\n");
+            print ("Construct buildRelease: " . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
-
 
 //            $this->srcFile = $srcFile;
 //            $this->dstFile = $dstFile;
@@ -95,7 +95,7 @@ class buildRelease implements executeTasksInterface
     {
 
 	    // ($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
-	    $this->fileNamesList = $fileNamesList;
+	    // $this->fileNamesList = $fileNamesList;
 
     }
 
@@ -165,7 +165,7 @@ class buildRelease implements executeTasksInterface
     public function execute (): int // $hasError
     {
 	    print('*********************************************************' . "\r\n");
-	    print ("Execute build release : " . "\r\n");
+	    print ("Execute buildRelease: " . "\r\n");
 	    print('---------------------------------------------------------' . "\r\n");
 
 	    $componentType =  $this->componentType ();
@@ -430,7 +430,7 @@ class buildRelease implements executeTasksInterface
                     $outLines [] = $line;
                 } else {
                     // <creationDate>31. May. 2024</creationDate>
-                    if (str_contains($line, '<creationDate>'))  {
+                    if (str_contains($line, '<creationDate>')) {
                         $outLine = preg_replace('/(.*>)(.*)(<.*)/', '$1' . $strDate . '$3', $line);
 
                         $outLines [] = $outLine;
@@ -441,19 +441,28 @@ class buildRelease implements executeTasksInterface
 
             }
 
-            // prepare one string
-            $fileLines = implode("\n", $outLines);
+//            // prepare one string
+//            $fileLines = implode("\n", $outLines);
+//
+//            // write to file
+//            //$isSaved = File::write($manifestFileName, $fileLines);
+//	        $isSaved = file_put_contents($manifestFileName, $fileLines);
+
+//            // prepare one string
+//            $fileLines = implode("", $outLines);
+//
+//            // write to file
+//            //$isSaved = File::write($manifestFileName, $fileLines);
+//	        $isSaved = file_put_contents($manifestFileName, $fileLines);
 
             // write to file
             //$isSaved = File::write($manifestFileName, $fileLines);
-	        $isSaved = file_put_contents($manifestFileName, $fileLines);
-
-        } catch (RuntimeException $e) {
-            $OutTxt = 'Error executing writeToFile: "' . '<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-            $app = Factory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
+            $isSaved = file_put_contents($manifestFileName, $outLines);
+        }
+        catch(\Exception $e)
+		{
+            echo 'Message: ' . $e->getMessage() . "\r\n";
+            $hasError = -101;
         }
 
         return $isSaved;

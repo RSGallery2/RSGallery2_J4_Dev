@@ -96,27 +96,48 @@ class options {
             // multiple: /optionName or /optionName=value or /optionName="optionValue"
             while ($this->hasOptionChar($optionsString)) {
 
-				// ToDo: first find '=' then check for '"' .
-	            // If found find second one
-	            // otherwise first space
+                //--- extract next option -------------------------------
 
+				// first find '=' then check for '"' .
+                $idxEqual = strpos($optionsString, "=");
+                $idxEnd = strpos($optionsString, " ");
 
+                // last option in string
+                if ($idxEnd == false) {
+                    $singleOption = $optionsString;
 
-                $idx = strpos($optionsString, " ");
-
-                // last option
-                if ($idx == false) {
-	                $singleOption = $optionsString;
-
-	                $optionsString = '';
+                    // No more option parts
+                    $optionsString = '';
                 } else {
-                    // multiple options
-                    $singleOption = substr($optionsString, 0, $idx);
 
-                    $optionsString = substr($optionsString, $idx + 1);
+                    //--- separate next option in string ----------------------
+
+                    // Equal char found before end
+                    // -> has value part
+                    // -> check for end  '"'
+                    if ($idxEqual && $idxEqual < $idxEnd) {
+
+                        // check for '"' to adjust end index
+                        //$idxBracket = strpos($optionsString, '"');
+                        $idxBracket = $idxEqual + 1;
+
+                        // option value enclosed in brackets ?
+                        if ($optionsString[$idxBracket] == '"') {
+
+                            // If found, find second one
+                            $idxEnd = strpos($optionsString, '"', $idxBracket);
+                        }
+                    }
+
+                    // this option string part
+                    $singleOption = substr($optionsString, 0, $idxEnd);
+
+                    // further options string part
+                    $optionsString = substr($optionsString, $idxEnd + 1);
                     $optionsString = Trim($optionsString);
                 }
 
+                // extract actual option
 	            $option = (new option())->extractOptionFromString($singleOption);
 	            $this->addOption ($option);
 
@@ -194,7 +215,9 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$optionsLine = '/option1 /option2=01_Option /option3="02_Xteststring"';
+$optionsLine = '/option1 /option2=01_Option /option3="02_X test string"';
+//$optionsLine = '/option4="" /option5="05 OP " /option6="06_Xteststring"';
+//$optionsLine = '/option4="" /option5="05 OP " /option6="06_Xteststring" ';
 
 foreach ($options as $idx => $option)
 {
