@@ -326,6 +326,8 @@ class buildRelease implements executeTasksInterface
 		$this->xcopyElement ('install_rsg2.php',  $srcRoot, $tmpFolder);
 		$this->xcopyElement ('LICENSE.txt',  $srcRoot, $tmpFolder);
 		$this->xcopyElement ('index.html',  $srcRoot, $tmpFolder);
+		$this->xcopyElement ('changelog.xml',  $srcRoot, $tmpFolder);
+		$this->xcopyElement ('config.xml',  $srcRoot, $tmpFolder);
 
 		//--------------------------------------------------------------------
 		// zip to destination
@@ -475,7 +477,7 @@ class buildRelease implements executeTasksInterface
 
 
 //========================================================
-// ToDo: folder lib
+// ToDo: into folder lib
 
 function xcopy($src, $dest) {
 	foreach (scandir($src) as $file)
@@ -495,6 +497,9 @@ function xcopy($src, $dest) {
 		}
 	}
 }
+
+//========================================================
+// ToDo: into folder lib
 
 function delDir($dir) {
 
@@ -516,7 +521,10 @@ function delDir($dir) {
 	}
 }
 
-function zipIt ($rootPath, $zipFilename)
+//========================================================
+// ToDo: into folder lib
+
+function zipItRelative ($rootPath, $zipFilename)
 {
 	// Initialize archive object
 	$zip = new ZipArchive();
