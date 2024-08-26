@@ -125,12 +125,12 @@ class options {
                         if ($optionsString[$idxBracket] == '"') {
 
                             // If found, find second one
-                            $idxEnd = strpos($optionsString, '"', $idxBracket);
+                            $idxEnd = strpos($optionsString, '"', $idxBracket+1);
                         }
                     }
 
                     // this option string part
-                    $singleOption = substr($optionsString, 0, $idxEnd);
+                    $singleOption = substr($optionsString, 0, $idxEnd+1);
 
                     // further options string part
                     $optionsString = substr($optionsString, $idxEnd + 1);
@@ -215,9 +215,11 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$optionsLine = '/option1 /option2=01_Option /option3="02_X test string"';
-//$optionsLine = '/option4="" /option5="05 OP " /option6="06_Xteststring"';
+//$optionsLine = '/option1 /option2=01_Option /option3="02_X test string"';
+//$optionsLine = '/option3B="02_X test string"';
+//$optionsLine = ' /option3="02_X test string" /option4="" /option5="05 OP " /option6="06_Xteststring"';
 //$optionsLine = '/option4="" /option5="05 OP " /option6="06_Xteststring" ';
+$optionsLine = '/option1 ';
 
 foreach ($options as $idx => $option)
 {

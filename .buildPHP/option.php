@@ -109,12 +109,21 @@ class option {
         $OutTxt = "/"; // . "\r\n";
 
         $OutTxt .= $this->name; // . "\r\n";
-        if ($this->value != '') {
-
-	        if ($this->quotation == '') {
-		        $OutTxt.= "=" . $this->value;
-	        } else {
-		        $OutTxt.= "=" . $this->quotation . $this->value . $this->quotation;
+        if ($this->value == '' && $this->quotation != '')
+        {
+	        $OutTxt .= "=" . $this->quotation . $this->value . $this->quotation;
+        } else
+        {
+	        if ($this->value != '')
+	        {
+		        if ($this->quotation == '')
+		        {
+			        $OutTxt .= "=" . $this->value;
+		        }
+		        else
+		        {
+			        $OutTxt .= "=" . $this->quotation . $this->value . $this->quotation;
+		        }
 	        }
         }
 
