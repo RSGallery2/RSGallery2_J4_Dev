@@ -296,8 +296,8 @@ class buildRelease implements executeTasksInterface
 		// destination temp folder
 		//--------------------------------------------------------------------
 
-		$dstRoot = $this->buildDir;
-		$tmpFolder = $dstRoot . '/tmp';
+		$dstRoot = realpath($this->buildDir);
+		$tmpFolder = realpath($dstRoot . '/tmp');
 
 
 		// remove tmp folder
@@ -316,7 +316,7 @@ class buildRelease implements executeTasksInterface
 		// copy to temp
 		//--------------------------------------------------------------------
 
-		$srcRoot =$this->srcRoot;
+		$srcRoot = realpath ($this->srcRoot);
 
 		$this->xcopyElement ('administrator',  $srcRoot, $tmpFolder);
 		$this->xcopyElement ('components',  $srcRoot, $tmpFolder);
@@ -326,15 +326,13 @@ class buildRelease implements executeTasksInterface
 		$this->xcopyElement ('install_rsg2.php',  $srcRoot, $tmpFolder);
 		$this->xcopyElement ('LICENSE.txt',  $srcRoot, $tmpFolder);
 		$this->xcopyElement ('index.html',  $srcRoot, $tmpFolder);
-		$this->xcopyElement ('changelog.xml',  $srcRoot, $tmpFolder);
-		$this->xcopyElement ('config.xml',  $srcRoot, $tmpFolder);
 
 		//--------------------------------------------------------------------
 		// zip to destination
 		//--------------------------------------------------------------------
 
 		$zipFileName = $dstRoot . '/' . $this->createComponentZipName ();
-		zipIt ($tmpFolder, $zipFileName);
+		zipItRelative ($tmpFolder, $zipFileName);
 		
 		//--------------------------------------------------------------------
 		// remove temp
