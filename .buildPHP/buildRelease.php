@@ -287,7 +287,8 @@ class buildRelease implements executeTasksInterface
         print ("manifestPathFileName: " . $manifestPathFileName . "\r\n");
 
         // ToDo: ;
-        $date_format = 'Ymd_His';
+		$date_format = 'Ymd';
+		//$date_format = 'Ymd_His';
         $dateText = date ($date_format);
 
         $this->exchangeDateInManifestFile ($manifestPathFileName, $dateText);
@@ -436,6 +437,8 @@ class buildRelease implements executeTasksInterface
                         $outLines [] = $outLine;
 
                         $isExchanged = true;
+                    } else {
+	                    $outLines [] = $line;
                     }
                 }
 
