@@ -105,14 +105,12 @@ class buildRelease implements executeTasksInterface
 		$options = $task->options;
 
 		foreach ($options->options as $option) {
-			
 
 			switch (strtolower($option->name)) {
 
 				case 'srcroot':
-					print ('Task option: ' . $option->name . "\r\n");
+					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
 					$this->srcRoot = $option->value;
-
 					break;
 
 				case 'builddir':
@@ -432,7 +430,8 @@ class buildRelease implements executeTasksInterface
                 } else {
                     // <creationDate>31. May. 2024</creationDate>
                     if (str_contains($line, '<creationDate>')) {
-                        $outLine = preg_replace('/(.*>)(.*)(<.*)/', '$1' . $strDate . '$3', $line);
+                        $outLine = preg_replace('/(.*>)(.*)(<.*)/',
+                            '$1' . $strDate . '$3', $line);
 
                         $outLines [] = $outLine;
 
@@ -441,7 +440,6 @@ class buildRelease implements executeTasksInterface
 	                    $outLines [] = $line;
                     }
                 }
-
             }
 
 //            // prepare one string
@@ -661,23 +659,25 @@ foreach ($options as $idx => $option)
 // for start / end diff
 $start = print_header($options, $inArgs);
 
-$fileNamesList = new fileNamesList($basePath);
 $task = new task();
 $task->extractTaskFromString($tasksLine);
 
 $oBuildRelease = new buildRelease();
 
-$oBuildRelease->assignFilesNames($fileNamesList);
+//$fileNamesList = new fileNamesList($basePath);
+//$oBuildRelease->assignFilesNames($fileNamesList);
 
 $hasError = $oBuildRelease->assignTask($task);
-
 if ($hasError) {
-
-    print ("Error on function funYYY:" . $hasError);
+    print ("Error on function assignTask:" . $hasError);
 }
+if ( ! $hasError) {
 
-$hasError = $oBuildRelease->execute();
-
+    $hasError = $oBuildRelease->execute();
+    if ($hasError) {
+        print ("Error on function execute:" . $hasError);
+    }
+}
 
 print ($oBuildRelease->text () . "\r\n");
 

@@ -4,8 +4,13 @@ namespace forceVersionId;
 
 require_once "./commandLine.php";
 
+require_once "./iExecTask.php";
+
 // use \DateTime;
 
+use ExecuteTasks\executeTasksInterface;
+
+use FileNamesList\fileNamesList;
 use task\task;
 use function commandLine\argsAndOptions;
 use function commandLine\print_header;
@@ -26,7 +31,8 @@ EOT;
 Class forceVersionId
 ================================================================================*/
 
-class forceVersionId {
+class forceVersionId  implements executeTasksInterface
+{
 
     private string $srcRoot='';
     private string $name='';
@@ -72,13 +78,11 @@ class forceVersionId {
 
         foreach ($options->options as $option) {
 
-
             switch (strtolower($option->name)) {
 
                 case 'srcroot':
-                    print ('Task option: ' . $option->name . "\r\n");
+                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->srcRoot = $option->value;
-
                     break;
 
                 case 'name':
@@ -107,14 +111,16 @@ class forceVersionId {
         print ("Execute forceVersionId : " . "\r\n");
         print('---------------------------------------------------------' . "\r\n");
 
-        return (0);
+        $hasError = $this->exchangeVersionId();
+
+        return $hasError;
     }
 
     public function executeFile (string $filePathName) : bool // $isChanged
     {
         $hasError = 0;
 
-        $hasError = $this->exchangeVersionId ();
+        // $hasError = $this->exchangeVersionId ();
 
         return ($hasError);
     }
@@ -123,7 +129,8 @@ class forceVersionId {
     funYYY
     --------------------------------------------------------------------*/
 
-    function exchangeVersionId($zzz="") {
+    function exchangeVersionId() {
+
         $hasError = 0;
 
         try {
@@ -144,7 +151,7 @@ class forceVersionId {
             $hasError = -101;
         }
 
-        print('exit funYYY: ' . $hasError . "\r\n");
+        print('exit exchangeVersionId: ' . $hasError . "\r\n");
         return $hasError;
     }
 
@@ -167,14 +174,15 @@ class forceVersionId {
                     // 	<version>5.0.12.4</version>
                     if (str_contains($line, '<version>')) {
                         $outLine = preg_replace('/(.*>)(.*)(<.*)/',
-                            '$1' . $strVersion . '$3', $line);
+                            '$1/' . $strVersion . '$3', $line);
 
                         $outLines [] = $outLine;
 
                         $isExchanged = true;
+                    } else {
+                        $outLines [] = $line;
                     }
                 }
-
             }
 
 //            // prepare one string
@@ -234,6 +242,10 @@ class forceVersionId {
     }
 
 
+    public function assignFilesNames(fileNamesList $fileNamesList)
+    {
+        // TODO: Implement assignFilesNames() method.
+    }
 } // forceVersionId
 
 /*================================================================================
@@ -255,8 +267,12 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$srcFile = "";
-$dstFile = "";
+$tasksLine = ' task:forceVersionId'
+    . ' /srcRoot="./../../RSGallery2_J4"'
+    . ' /name=rsgallery2'
+//    . ' /extension=RSGallery2'
+    . ' /version=5.0.12.4'
+;
 
 foreach ($options as $idx => $option)
 {
@@ -309,19 +325,22 @@ foreach ($options as $idx => $option)
 // for start / end diff
 $start = print_header($options, $inArgs);
 
-$oForceVersionId = new forceVersionId($srcFile, $dstFile);
+$task = new task();
+$task->extractTaskFromString($tasksLine);
 
-$hasError = $oForceVersionId->exchangeVersionId();
+$oForceVersionId = new forceVersionId();
 
+$hasError = $oForceVersionId->assignTask($task);
 if ($hasError) {
-
-    print ("Error on function exchangeVersionId:" . $hasError);
-
-} else {
-
-    print ($oForceVersionId->text () . "\r\n");
+    print ("Error on function assignTask:" . $hasError);
 }
+if ( ! $hasError) {
 
+    $hasError = $oForceVersionId->execute();
+    if ($hasError) {
+        print ("Error on function execute:" . $hasError);
+    }
+}
 
 print_end($start);
 
