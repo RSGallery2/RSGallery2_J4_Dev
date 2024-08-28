@@ -284,9 +284,8 @@ class buildRelease implements executeTasksInterface
         $manifestPathFileName = $this->manifestPathFileName ();
         print ("manifestPathFileName: " . $manifestPathFileName . "\r\n");
 
-        // ToDo: ;
+        // ToDo: external parameter;
 		$date_format = 'Ymd';
-		//$date_format = 'Ymd_His';
         $dateText = date ($date_format);
 
         $this->exchangeDateInManifestFile ($manifestPathFileName, $dateText);
@@ -431,7 +430,7 @@ class buildRelease implements executeTasksInterface
                     // <creationDate>31. May. 2024</creationDate>
                     if (str_contains($line, '<creationDate>')) {
                         $outLine = preg_replace('/(.*>)(.*)(<.*)/',
-                            '$1' . $strDate . '$3', $line);
+                            '{$1}' . $strDate . '{$3}', $line);
 
                         $outLines [] = $outLine;
 

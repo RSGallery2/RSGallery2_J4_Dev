@@ -1,6 +1,6 @@
 <?php
 
-namespace forceVersionId;
+namespace increaseVersionId;
 
 require_once "./commandLine.php";
 
@@ -19,7 +19,7 @@ use function commandLine\print_end;
 
 $HELP_MSG = <<<EOT
 >>>
-class forceVersionId
+class increaseVersionId
 
 ToDo: option commands , example
 
@@ -28,10 +28,10 @@ EOT;
 
 
 /*================================================================================
-Class forceVersionId
+Class increaseVersionId
 ================================================================================*/
 
-class forceVersionId implements executeTasksInterface
+class increaseVersionId implements executeTasksInterface
 {
 
     private string $srcRoot='';
@@ -48,12 +48,17 @@ class forceVersionId implements executeTasksInterface
     --------------------------------------------------------------------*/
 
     // ToDo: a lot of parameters ....
+	private $isIncreaseMajor;
+	private $isIncreasePatch;
+	private $isIncreaseMinor;
+	private $isIncreaseDev;
+
 	public function __construct($srcFile="", $dstFile="") {
 
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
-            print ("Construct forceVersionId: " . "\r\n");
+            print ("Construct increaseVersionId: " . "\r\n");
 //            print ("srcFile: " . $srcFile . "\r\n");
 //            print ("dstFile: " . $dstFile . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
@@ -95,6 +100,26 @@ class forceVersionId implements executeTasksInterface
                     $this->componentVersion = $option->value;
                     break;
 
+                case 'isincreasemajor':
+                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->isIncreaseMajor = True;
+                    break;
+
+                case 'isincreaseminor':
+                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->isIncreaseMinor = True;
+                    break;
+
+                case 'isincreasepatch':
+                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->isIncreasePatch = True;
+                    break;
+
+                case 'isincreasedev':
+                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->isIncreaseDev = True;
+                    break;
+
                 default:
                     print ('Execute Default task: ' . $option->name. "\r\n");
             } // switch
@@ -108,7 +133,7 @@ class forceVersionId implements executeTasksInterface
     public function execute (): int // $hasError
     {
         print('*********************************************************' . "\r\n");
-        print ("Execute forceVersionId : " . "\r\n");
+        print ("Execute increaseVersionId : " . "\r\n");
         print('---------------------------------------------------------' . "\r\n");
 
         $hasError = $this->exchangeVersionId();
@@ -173,8 +198,13 @@ class forceVersionId implements executeTasksInterface
                 } else {
                     // 	<version>5.0.12.4</version>
                     if (str_contains($line, '<version>')) {
+
+						$actVersion = preg_replace('/.*<version>(.*)<\/version>.*/',
+							'${1}', trim($line));
+	                    $newVersion = $this->increaseVersion ($actVersion);
+						// exchange for new version
                         $outLine = preg_replace('/(.*>)(.*)(<.*)/',
-                            '${1}' . $strVersion . '${3}', $line);
+                            '${1}' . $newVersion . '${3}', $line);
 
                         $outLines [] = $outLine;
 
@@ -212,6 +242,41 @@ class forceVersionId implements executeTasksInterface
         return $isSaved;
     }
 
+	private function increaseVersion(string $actVersion)
+	{
+		$newVersion = $actVersion;
+
+		$parts = explode('.', $actVersion);
+
+		// standard is 3 parts. optional 4th dev part
+		if (count($parts) > 2)
+		{
+			if ($this->isIncreaseMajor)
+			{
+				$major = intval($parts[0]);
+				$parts[0] = strval($major + 1);
+			}
+			if ($this->isIncreaseMinor)
+			{
+				$minor = intval($parts[1]);
+				$parts[1] = strval($minor + 1);
+			}
+			if ($this->isIncreasePatch)
+			{
+				$patch = intval($parts[2]);
+				$parts[2] = strval($patch + 1);
+			}
+			if ($this->isIncreaseDev)
+			{
+				$dev = intval($parts[3]);
+				$parts[3] = strval($dev + 1);
+			}
+
+			$newVersion = implode('.', $parts);
+		}
+
+		return $newVersion;
+	}
     private function manifestPathFileName() : string
     {
 
@@ -226,7 +291,7 @@ class forceVersionId implements executeTasksInterface
     public function text()
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- forceVersionId ---" . "\r\n";
+        $OutTxt .= "--- increaseVersionId ---" . "\r\n";
 
 
         $OutTxt .= "Not defined jet " . "\r\n";
@@ -246,7 +311,8 @@ class forceVersionId implements executeTasksInterface
     {
         // TODO: Implement assignFilesNames() method.
     }
-} // forceVersionId
+
+} // increaseVersionId
 
 /*================================================================================
 main (used from command line)
@@ -267,11 +333,14 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$tasksLine = ' task:forceVersionId'
+$tasksLine = ' task:increaseVersionId'
     . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /name=rsgallery2'
 //    . ' /extension=RSGallery2'
-    . ' /version="5.0.12.4"'
+    . ' /isIncreaseMajor'
+//    . ' /isIncreaseMinor'
+//    . ' /isIncreasePatch'
+    . ' /isIncreaseDev'
 ;
 
 foreach ($options as $idx => $option)
@@ -328,15 +397,15 @@ $start = print_header($options, $inArgs);
 $task = new task();
 $task->extractTaskFromString($tasksLine);
 
-$oForceVersionId = new forceVersionId();
+$oIncreaseVersionId = new increaseVersionId();
 
-$hasError = $oForceVersionId->assignTask($task);
+$hasError = $oIncreaseVersionId->assignTask($task);
 if ($hasError) {
     print ("Error on function assignTask:" . $hasError);
 }
 if ( ! $hasError) {
 
-    $hasError = $oForceVersionId->execute();
+    $hasError = $oIncreaseVersionId->execute();
     if ($hasError) {
         print ("Error on function execute:" . $hasError);
     }

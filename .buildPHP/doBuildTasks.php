@@ -56,6 +56,11 @@ class doBuildTasks {
 	public string $basePath = "";
 
 
+	public bool $isIncreaseMajor = False;
+	public bool $isIncreaseMinor = False;
+	public bool $isIncreasePatch = False;
+	public bool $isIncreaseDev = False;
+
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
@@ -106,23 +111,45 @@ class doBuildTasks {
                         print ('Execute task: ' . $task->name);
 
                         $execTask = new buildRelease ();
-                        $execTask->assignFilesNames ($this->fileNamesList);
+                        // $execTask->assignFilesNames ($this->fileNamesList);
                         $execTask->assignTask ($task);
-
-                        // ToDo: execute later and feed single files to execute
-                        $execTasks [] = $execTask;
 
                         $hasError = $execTask->execute ();
 
+//                        // ToDo: execute later and feed single files to execute
+//                        $execTasks [] = $execTask;
+
                         break;
 
-                    case 'forceversionid':
-                        print ('Execute task: ' . $task->name);
-                        break;
+	                case 'forceversionid':
+		                print ('Execute task: ' . $task->name);
+		                $execTask = new forceVersionId ();
+		                // $execTask->assignFilesNames ($this->fileNamesList);
+		                $execTask->assignTask ($task);
 
-                    case 'increaseversionid':
+		                $hasError = $execTask->execute ();
+
+		                break;
+
+	                case 'forcecrreationdate':
+		                print ('Execute task: ' . $task->name);
+		                $execTask = new forceVersionId ();
+		                // $execTask->assignFilesNames ($this->fileNamesList);
+		                $execTask->assignTask ($task);
+
+		                $hasError = $execTask->execute ();
+
+		                break;
+
+	                case 'increaseversionid':
                         print ('Execute task: ' . $task->name);
-                        break;
+		                $execTask = new increaseVersionId ();
+		                // $execTask->assignFilesNames ($this->fileNamesList);
+		                $execTask->assignTask ($task);
+
+		                $hasError = $execTask->execute ();
+
+		                break;
 
                     case 'clean4git':
                         print ('Execute task: ' . $task->name);

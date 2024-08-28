@@ -1,6 +1,6 @@
 <?php
 
-namespace forceVersionId;
+namespace forceCreationDate;
 
 require_once "./commandLine.php";
 
@@ -19,7 +19,7 @@ use function commandLine\print_end;
 
 $HELP_MSG = <<<EOT
 >>>
-class forceVersionId
+class forceCreationDate
 
 ToDo: option commands , example
 
@@ -28,16 +28,16 @@ EOT;
 
 
 /*================================================================================
-Class forceVersionId
+Class forceCreationDate
 ================================================================================*/
 
-class forceVersionId implements executeTasksInterface
+class forceCreationDate implements executeTasksInterface
 {
 
     private string $srcRoot='';
     private string $name='';
 
-    private string $componentVersion='';
+	private string $creationDate;
 
     // internal
     private string $manifestPathFileName = '';
@@ -53,7 +53,7 @@ class forceVersionId implements executeTasksInterface
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
-            print ("Construct forceVersionId: " . "\r\n");
+            print ("Construct forceCreationDate: " . "\r\n");
 //            print ("srcFile: " . $srcFile . "\r\n");
 //            print ("dstFile: " . $dstFile . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
@@ -61,6 +61,8 @@ class forceVersionId implements executeTasksInterface
 //            $this->srcFile = $srcFile;
 //            $this->dstFile = $dstFile;
 
+	        $date_format        = 'Ymd';
+	        $this->creationDate = date ($date_format);
 
         }
         catch(\Exception $e) {
@@ -90,9 +92,9 @@ class forceVersionId implements executeTasksInterface
                     $this->name = $option->value;
                     break;
 
-                case 'version':
+                case 'date':
                     print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->componentVersion = $option->value;
+                    $this->creationDate = $option->value;
                     break;
 
                 default:
@@ -108,10 +110,10 @@ class forceVersionId implements executeTasksInterface
     public function execute (): int // $hasError
     {
         print('*********************************************************' . "\r\n");
-        print ("Execute forceVersionId : " . "\r\n");
+        print ("Execute forceCreationDate : " . "\r\n");
         print('---------------------------------------------------------' . "\r\n");
 
-        $hasError = $this->exchangeVersionId();
+        $hasError = $this->exchangeCreationDate();
 
         return $hasError;
     }
@@ -120,7 +122,7 @@ class forceVersionId implements executeTasksInterface
     {
         $hasError = 0;
 
-        // $hasError = $this->exchangeVersionId ();
+        // $hasError = $this->exchangeCreationDate ();
 
         return ($hasError);
     }
@@ -129,33 +131,33 @@ class forceVersionId implements executeTasksInterface
     funYYY
     --------------------------------------------------------------------*/
 
-    function exchangeVersionId() {
+    function exchangeCreationDate() : int {
 
         $hasError = 0;
 
         try {
             print('*********************************************************' . "\r\n");
-            print('exchangeVersionId' . "\r\n");
+            print('exchangeCreationDate' . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
             $manifestPathFileName = $this->manifestPathFileName ();
             print ("manifestPathFileName: " . $manifestPathFileName . "\r\n");
 
-            $componentVersion = $this->componentVersion;
-            print ("version: " . $componentVersion . "\r\n");
+            $creationDate = $this->creationDate;
+            print ("CreationDate: " . $creationDate . "\r\n");
 
-            $hasError = $this->exchangeVersionInManifestFile ($manifestPathFileName, $componentVersion);
+            $hasError = $this->exchangeCreationDateInManifestFile ($manifestPathFileName, $creationDate);
         }
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
-        print('exit exchangeVersionId: ' . $hasError . "\r\n");
+        print('exit exchangeCreationDate: ' . $hasError . "\r\n");
         return $hasError;
     }
 
-    private function exchangeVersionInManifestFile(string $manifestFileName, string $strVersion)
+    private function exchangeCreationDateInManifestFile(string $manifestFileName, string $strDate)
     {
         $isSaved = false;
 
@@ -171,10 +173,10 @@ class forceVersionId implements executeTasksInterface
 
                     $outLines [] = $line;
                 } else {
-                    // 	<version>5.0.12.4</version>
-                    if (str_contains($line, '<version>')) {
+                    // <creationDate>31. May. 2024</creationDate>
+                    if (str_contains($line, '<creationDate>')) {
                         $outLine = preg_replace('/(.*>)(.*)(<.*)/',
-                            '${1}' . $strVersion . '${3}', $line);
+                            '${1}' . $strDate . '${3}', $line);
 
                         $outLines [] = $outLine;
 
@@ -226,7 +228,7 @@ class forceVersionId implements executeTasksInterface
     public function text()
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- forceVersionId ---" . "\r\n";
+        $OutTxt .= "--- forceCreationDate ---" . "\r\n";
 
 
         $OutTxt .= "Not defined jet " . "\r\n";
@@ -246,7 +248,7 @@ class forceVersionId implements executeTasksInterface
     {
         // TODO: Implement assignFilesNames() method.
     }
-} // forceVersionId
+} // forceCreationDate
 
 /*================================================================================
 main (used from command line)
@@ -267,11 +269,11 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$tasksLine = ' task:forceVersionId'
+$tasksLine = ' task:forceCreationDate'
     . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /name=rsgallery2'
 //    . ' /extension=RSGallery2'
-    . ' /version="5.0.12.4"'
+    . ' /date="22. Feb. 2022"'
 ;
 
 foreach ($options as $idx => $option)
@@ -328,15 +330,15 @@ $start = print_header($options, $inArgs);
 $task = new task();
 $task->extractTaskFromString($tasksLine);
 
-$oForceVersionId = new forceVersionId();
+$oforceCreationDate = new forceCreationDate();
 
-$hasError = $oForceVersionId->assignTask($task);
+$hasError = $oforceCreationDate->assignTask($task);
 if ($hasError) {
     print ("Error on function assignTask:" . $hasError);
 }
 if ( ! $hasError) {
 
-    $hasError = $oForceVersionId->execute();
+    $hasError = $oforceCreationDate->execute();
     if ($hasError) {
         print ("Error on function execute:" . $hasError);
     }
