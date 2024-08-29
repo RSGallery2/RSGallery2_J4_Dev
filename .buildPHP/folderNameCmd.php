@@ -2,8 +2,15 @@
 
 namespace FolderName;
 
+require_once "./commandLine.php";
+require_once "./folderName.php";
+
 use \DateTime;
 // use DateTime;
+
+use function commandLine\argsAndOptions;
+use function commandLine\print_header;
+use function commandLine\print_end;
 
 
 $HELP_MSG = <<<EOT
@@ -22,173 +29,13 @@ text ();
 
 
 /*================================================================================
-Class fithFolderName
-================================================================================*/
-
-class fithFolderName {
-
-    // given name
-    public $srcSpecifiedName = "";
-    // realpath
-    public $srcPathFolderName = "";
-
-    // folder name part
-    public $folderName = "";
-    // file name part
-    public $folderPath = "";
-
-    /*--------------------------------------------------------------------
-    construction
-    --------------------------------------------------------------------*/
-
-	public function __construct($srcFolder="") {
-
-        $hasError = 0;
-        try {
-            print('*********************************************************' . "\r\n");
-            print ("srcFolder: " . $srcFolder . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
-
-            $this->extractNameParts($srcFolder);
-
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
-            $hasError = -101;
-        }
-
-        print('exit __construct: ' . $hasError . "\r\n");
-    }
-
-    /*--------------------------------------------------------------------
-    extractNameParts
-    --------------------------------------------------------------------*/
-
-    function extractNameParts($srcFolder="") {
-        $hasError = 0;
-
-        try {
-            print('*********************************************************' . "\r\n");
-            print('extractNameParts' . "\r\n");
-            print("srcSpecifiedName: " . $srcFolder . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
-
-            $this->clear ();
-
-            $this->srcSpecifiedName = $srcFolder;
-
-            $this->srcPathFolderName = realpath($srcFolder);
-
-            //$path_parts = pathinfo($srcFolder);
-            $path_parts = pathinfo($this->srcPathFolderName);
-
-            $this->folderName = $path_parts['basename'];
-            $this->folderPath = $path_parts['dirname'];
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
-            $hasError = -101;
-        }
-
-        print('exit extractNameParts: ' . $hasError . "\r\n");
-        return $hasError;
-    }
-
-    /*--------------------------------------------------------------------
-    clear: init to empty
-    --------------------------------------------------------------------*/
-
-    function clear() {
-
-        $this->srcSpecifiedName = "";
-        $this->srcPathFolderName = "";
-
-        // file name part
-        $this->folderName = "";
-        $this->folderPath = "";
-
-        return;
-    }
-
-    public function text()
-    {
-        $OutTxt = "";
-        $OutTxt .= "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- fithFolderName ---" . "\r\n";
-
-        $OutTxt .= "srcSpecifiedName: " . $this->srcSpecifiedName . "\r\n";
-        $OutTxt .= "folderName: " . $this->folderName . "\r\n";
-        $OutTxt .= "folderPath: " . $this->folderPath . "\r\n";
-	    $OutTxt .= "srcPathFolderName: " . $this->srcPathFolderName . "\r\n";
-
-        return $OutTxt;
-    }
-
-} // fithFolderName
-
-/*--------------------------------------------------------------------
-print_header
---------------------------------------------------------------------*/
-
-function print_header($start, $options, $inArgs)
-{
-    global $argc, $argv;
-
-    print('------------------------------------------' . "\r\n");
-    echo ('Command line: ');
-
-    for($i = 1; $i < $argc; $i++) {
-        echo ($argv[$i]) . " ";
-    }
-
-    print(''  . "\r\n");
-    print('Start time:   ' . $start->format('Y-m-d H:i:s') . "\r\n");
-    print('------------------------------------------' . "\r\n");
-
-    return $start;
-}
-
-/*--------------------------------------------------------------------
-print_end
---------------------------------------------------------------------*/
-
-function print_end(DateTime $start)
-{
-    $now = new DateTime ();
-    print('' . "\r\n");
-    print('End time:               ' . $now->format('Y-m-d H:i:s') . "\r\n");
-    $difference = $start->diff($now);
-    print('Time of run:            ' .  $difference->format("%H:%I:%S") . "\r\n");
-}
-
-/*================================================================================
 main (used from command line)
 ================================================================================*/
 
-//--- argv ---------------------------------
+$optDefinition = "s:d:h12345";
+$isPrintArguments = false;
 
-print ("--- argv ---" . "\r\n");
-var_dump($argv);
-
-print ("--- inArgs ---" . "\r\n");
-$inArgs = [];
-foreach ($argv as $inArg)
-{
-    if (!str_starts_with($inArg, '-'))
-    {
-        $inArgs[] = $inArg;
-    }
-}
-var_dump($inArgs);
-
-//--- options ---------------------------------
-
-print ( "--- getopt ---" . "\n");
-
-$long_options = "";
-
-$options = getopt("s:d:h12345", []);
-var_dump($options);
+list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 $LeaveOut_01 = true;
 $LeaveOut_02 = true;
@@ -249,8 +96,7 @@ foreach ($options as $idx => $option)
 //--- call function ---------------------------------
 
 // for start / end diff
-$start = new DateTime();
-print_header($start, $options, $inArgs);
+$start = print_header($options, $inArgs);
 
 $oFolderName = new fithFolderName($srcFolder);
 // $hasError = $oFolderName->extractNameParts();

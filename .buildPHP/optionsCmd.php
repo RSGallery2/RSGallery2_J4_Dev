@@ -5,7 +5,7 @@ namespace options;
 require_once "./commandLine.php";
 require_once "./options.php";
 
-use DateTime;
+use \DateTime;
 
 use option\option;
 use options\options;
@@ -20,7 +20,6 @@ options class
 
 <<<
 EOT;
-
 
 /*================================================================================
 main (used from command line)
