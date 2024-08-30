@@ -102,7 +102,7 @@ $oTask = new task();
 $oTaskResult = $oTask->extractTaskFromString($taskLine);
 
 print ($oTask->text () . "\r\n");
-print ('Line: "' . $oTaskResult->text4Line () . "'" . "\r\n");
+print ("Line: '" . $oTaskResult->text4Line () . "'" . "\r\n");
 
 print_end($start);
 

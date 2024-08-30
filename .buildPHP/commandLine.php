@@ -15,7 +15,7 @@ function print_header($options, $inArgs) : \DateTime
 	$start = new DateTime();
 
     print('------------------------------------------' . "\r\n");
-    echo ('Command line: ');
+	print ('Command line: ');
 
     for($i = 1; $i < $argc; $i++) {
         echo ($argv[$i]) . " ";

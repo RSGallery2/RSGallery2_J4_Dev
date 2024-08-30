@@ -289,15 +289,17 @@ class buildRelease implements executeTasksInterface
 		$dstRoot = realpath($this->buildDir);
         print ('build dir: "' .  $this->buildDir . '"' . "\r\n");
         print ('dstRoot: "' .  $dstRoot . '"' . "\r\n");
-		$tmpFolder = realpath($dstRoot . '/tmp');
-        print ('temp folder: "' .  $tmpFolder . '"' . "\r\n");
+		$tmpFolder = $this->buildDir . '/tmp';
+		print ('temp folder(1): "' .  $tmpFolder . '"' . "\r\n");
+//		$tmpFolder = realpath($tmpFolder);
+//		print ('temp folder(2): "' .  $tmpFolder . '"' . "\r\n");
 
         // create .packages folder
         if ( ! is_dir($dstRoot)) {
             print ('Create dir: "' .  $dstRoot . '"' . "\r\n");
             mkdir($dstRoot, 0777, true);
 
-            exit();
+            exit(556);
         }
 
 		// remove tmp folder
@@ -315,12 +317,6 @@ class buildRelease implements executeTasksInterface
 		// create tmp folder
         print ('Create dir: "' .  $tmpFolder . '"' . "\r\n");
 		mkdir($tmpFolder, 0777, true);
-
-
-
-        exit();
-
-
 
 		//--------------------------------------------------------------------
 		// copy to temp
@@ -342,7 +338,7 @@ class buildRelease implements executeTasksInterface
 		//--------------------------------------------------------------------
 
 		$zipFileName = $dstRoot . '/' . $this->createComponentZipName ();
-		zipItRelative ($tmpFolder, $zipFileName);
+		zipItRelative (realpath($tmpFolder), $zipFileName);
 		
 		//--------------------------------------------------------------------
 		// remove temp
@@ -351,7 +347,7 @@ class buildRelease implements executeTasksInterface
 		// remove tmp folder
 		if (is_dir($tmpFolder)) {
 
-			delDir($tmpFolder);
+		//	delDir($tmpFolder);
 
 		}
 
@@ -536,13 +532,17 @@ function delDir($dir) {
 
 function zipItRelative ($rootPath, $zipFilename)
 {
+	print ('rootPath: "' .  $rootPath . '"' . "\r\n");
+	print ('zipFilename: "' .  $zipFilename . '"' . "\r\n");
+
 	// Initialize archive object
 	$zip = new ZipArchive();
 	$zip->open($zipFilename, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
 	// Create recursive directory iterator
 	/** @var SplFileInfo[] $files */
-	$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rootPath), RecursiveIteratorIterator::LEAVES_ONLY);
+	$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rootPath),
+		RecursiveIteratorIterator::LEAVES_ONLY);
 
 	foreach ($files as $name => $file)
 	{

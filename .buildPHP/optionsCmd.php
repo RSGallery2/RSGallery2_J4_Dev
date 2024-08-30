@@ -40,11 +40,11 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-//$optionsLine = '/option1 /option2=01_Option /option3="02_X test string"';
+$optionsLine = '/option1 /option2=01_Option /option3="02_X test string"';
 //$optionsLine = '/option3B="02_X test string"';
 //$optionsLine = ' /option3="02_X test string" /option4="" /option5="05 OP " /option6="06_Xteststring"';
 //$optionsLine = '/option4="" /option5="05 OP " /option6="06_Xteststring" ';
-$optionsLine = '/option1 ';
+//$optionsLine = '/option1 ';
 
 foreach ($options as $idx => $option)
 {
@@ -98,7 +98,7 @@ $oOptions = new options();
 $oOptionsResult = $oOptions->extractOptionsFromString($optionsLine);
 
 print ($oOptions->text () . "\r\n");
-print ('Line: "' . $oOptionsResult->text4Line () . "'" . "\r\n");
+print ("Line: '" . $oOptionsResult->text4Line () . "'" . "\r\n");
 
 print_end($start);
 

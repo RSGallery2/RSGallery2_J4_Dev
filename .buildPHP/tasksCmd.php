@@ -125,7 +125,7 @@ if ($tasksLine != '')
 	$oTasksResult = $oTasks->extractTasksFromString($tasksLine);
 
 	print ($oTasks->text () . "\r\n");
-	print ('Line: "' . $oTasksResult->text4Line () . "'" . "\r\n");
+	print ("Line: '" . $oTasksResult->text4Line () . "'" . "\r\n");
 }
 
 if ($taskFile != '')
@@ -133,7 +133,7 @@ if ($taskFile != '')
 	$oTasksResult = $oTasks->extractTasksFromFile($taskFile);
 
 	print ($oTasks->text() . "\r\n");
-	print ('Line: "' . $oTasksResult->text4Line() . "'" . "\r\n");
+	print ("Line: '" . $oTasksResult->text4Line() . "'" . "\r\n");
 }
 
 print_end($start);
