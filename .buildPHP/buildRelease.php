@@ -7,16 +7,10 @@ require_once "./iExecTask.php";
 require_once "./fileNamesList.php";
 require_once "./task.php";
 
-use \DateTime;
-// use DateTime;
-
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
 use ZipArchive;
-use function commandLine\argsAndOptions;
-use function commandLine\print_header;
-use function commandLine\print_end;
 
 use FileNamesList\fileNamesList;
 use task\task;
@@ -293,19 +287,39 @@ class buildRelease implements executeTasksInterface
 		//--------------------------------------------------------------------
 
 		$dstRoot = realpath($this->buildDir);
+        print ('build dir: "' .  $this->buildDir . '"' . "\r\n");
+        print ('dstRoot: "' .  $dstRoot . '"' . "\r\n");
 		$tmpFolder = realpath($dstRoot . '/tmp');
+        print ('temp folder: "' .  $tmpFolder . '"' . "\r\n");
 
+        // create .packages folder
+        if ( ! is_dir($dstRoot)) {
+            print ('Create dir: "' .  $dstRoot . '"' . "\r\n");
+            mkdir($dstRoot, 0777, true);
+
+            exit();
+        }
 
 		// remove tmp folder
 		if (is_dir($tmpFolder)) {
 
-			delDir($tmpFolder);
+            // length big enough to do no damage
+            if (strLen($tmpFolder) < 10) {
 
+                exit (555);
+            }
+            print ('Delete dir: "' .  $tmpFolder . '"' . "\r\n");
+			delDir($tmpFolder);
 		}
 
-		// ToDo: Clean Temp, create temp
-
+		// create tmp folder
+        print ('Create dir: "' .  $tmpFolder . '"' . "\r\n");
 		mkdir($tmpFolder, 0777, true);
+
+
+
+        exit();
+
 
 
 		//--------------------------------------------------------------------
@@ -499,7 +513,7 @@ function xcopy($src, $dest) {
 
 function delDir($dir) {
 
-	// do not deleted from root accidentally
+	// do not delete from root accidentally
 	if ($dir == '' ) return;
 	if (strlen ($dir) < 10) return;
 

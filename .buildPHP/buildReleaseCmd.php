@@ -3,7 +3,7 @@
 namespace ExecuteTasks;
 
 require_once "./commandLine.php";
-require_once "./buidRelease.php";
+require_once "./buildRelease.php";
 
 use \DateTime;
 // use DateTime;
