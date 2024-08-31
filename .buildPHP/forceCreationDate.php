@@ -45,7 +45,8 @@ class forceCreationDate implements executeTasksInterface
 //            $this->srcFile = $srcFile;
 //            $this->dstFile = $dstFile;
 
-	        $date_format        = 'Ymd';
+            // $date_format        = 'Ymd';
+	        $date_format        = 'd.m.Y';
 	        $this->creationDate = date ($date_format);
 
         }
@@ -215,7 +216,7 @@ class forceCreationDate implements executeTasksInterface
         $OutTxt .= "--- forceCreationDate ---" . "\r\n";
 
 
-        $OutTxt .= "Not defined jet " . "\r\n";
+        $OutTxt .= "Text(): Not defined yet " . "\r\n";
         /**
         $OutTxt .= "fileName: " . $this->fileName . "\r\n";
         $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";

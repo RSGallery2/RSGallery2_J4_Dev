@@ -75,7 +75,7 @@ class XXX {
         $OutTxt .= "--- XXX ---" . "\r\n";
 
 
-        $OutTxt .= "Not defined jet " . "\r\n";
+        $OutTxt .= "Not defined yet " . "\r\n";
         /**
         $OutTxt .= "fileName: " . $this->fileName . "\r\n";
         $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";

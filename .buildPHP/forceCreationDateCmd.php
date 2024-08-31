@@ -49,7 +49,7 @@ $tasksLine = ' task:forceCreationDate'
     . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /name=rsgallery2'
 //    . ' /extension=RSGallery2'
-    . ' /date="22. Feb. 2022"'
+//    . ' /date="22. Feb. 2022"'
 ;
 
 foreach ($options as $idx => $option)
