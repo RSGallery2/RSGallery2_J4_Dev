@@ -191,7 +191,7 @@ class increaseVersionId implements executeTasksInterface
 							'${1}', trim($line));
 	                    $newVersion = $this->increaseVersion ($actVersion);
 						// exchange for new version
-                        $outLine = preg_replace('/(.*>)(.*)(<.*)/',
+                        $outLine = preg_replace('/(.*>?)(.*)(<.*)/',
                             '${1}' . $newVersion . '${3}', $line);
 
                         $outLines [] = $outLine;

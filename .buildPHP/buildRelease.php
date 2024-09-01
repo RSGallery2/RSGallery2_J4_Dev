@@ -347,7 +347,7 @@ class buildRelease implements executeTasksInterface
 		// remove tmp folder
 		if (is_dir($tmpFolder)) {
 
-		//	delDir($tmpFolder);
+			delDir($tmpFolder);
 
 		}
 
@@ -437,8 +437,9 @@ class buildRelease implements executeTasksInterface
                 } else {
                     // <creationDate>31. May. 2024</creationDate>
                     if (str_contains($line, '<creationDate>')) {
-                        $outLine = preg_replace('/(.*>)(.*)(<.*)/',
-                            '{$1}' . $strDate . '{$3}', $line);
+                        // $outLine = preg_replace('/(.*>?)(.*)(<.*)/',
+                        $outLine = preg_replace('/(.*>?)(\d*.*\d*)(<.*)/',
+                            '${1}' . $strDate . '${3}', $line);
 
                         $outLines [] = $outLine;
 

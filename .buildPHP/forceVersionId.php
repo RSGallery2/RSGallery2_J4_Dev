@@ -160,7 +160,7 @@ class forceVersionId implements executeTasksInterface
                 } else {
                     // 	<version>5.0.12.4</version>
                     if (str_contains($line, '<version>')) {
-                        $outLine = preg_replace('/(.*>)(.*)(<.*)/',
+                        $outLine = preg_replace('/(.*>?)(.*)(<.*)/',
                             '${1}' . $strVersion . '${3}', $line);
 
                         $outLines [] = $outLine;

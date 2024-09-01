@@ -39,23 +39,45 @@ class fileHeader {
     //
     // public string $version = ""; see constManifest.php
 
-    // adjust behind
+    /**
+     * @var string array
+     */
+    public $additionalLines = [];
+
+    // adjust lengt of 'name' before value
     private int $padCount = 15; // By 'subpackage' name length
+
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-    public function __construct($srcFile="") {
+    public function __construct() {
 
-        // $date_format        = 'Ymd';
-        $date_format        = 'd.m.Y';
-        $copyrightDateFormat = date ($date_format);
-
-        $this->copyrightToday = "(C) " . '-' . $copyrightDateFormat . "-" . $copyrightDateFormat .  "RSGallery2 Team";
+        $this->init ();
 
     }
 
+    public function init () {
+
+        // $date_format        = 'Ymd';
+        $date_format        = 'd.m.Y';
+        $copyrightDate = date ($date_format);
+
+        $this->package =  "RSGallery2";
+        $this->subpackage =  "com_rsgallery2";
+        $this->copyright = "(C) 2016-2024 RSGallery2 Team";
+        $this->copyrightToday = "(C) " . '-' . $copyrightDate . "-" . $copyrightDate .  "RSGallery2 Team";
+        $this->license = "GNU General Public License version 2 or later; see LICENSE.txt";
+        //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
+        $this->author = "rsgallery2 team";
+        $this->link = "https://www.rsgallery2.org";
+
+        // $this->addition = "RSGallery is Free Software";
+        // $this->since = ""; see constManifest.php
+        // $this->$version = ""; see constManifest.php
+
+    }
 
     public function text()
     {
@@ -104,5 +126,5 @@ class fileHeader {
 
         return $headerLine;
     }
-} // fithFileName
+} // fileHeader
 

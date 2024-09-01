@@ -160,7 +160,7 @@ class forceCreationDate implements executeTasksInterface
                 } else {
                     // <creationDate>31. May. 2024</creationDate>
                     if (str_contains($line, '<creationDate>')) {
-                        $outLine = preg_replace('/(.*>)(.*)(<.*)/',
+                        $outLine = preg_replace('/(.*>?)(.*)(<.*)/',
                             '${1}' . $strDate . '${3}', $line);
 
                         $outLines [] = $outLine;

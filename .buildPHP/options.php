@@ -67,6 +67,28 @@ class options {
         }
     }
 
+    public function getOption (string $name, bool $isIgnoreCase= false) : string {
+        $value = '';
+
+        foreach ($this->options as $option) {
+
+            $isFound = false;
+
+            if ($isIgnoreCase) {
+                $isFound = strtolower($option->name) === strtolower($name);
+            } else {
+                $isFound = $option->name === $name;
+            }
+
+            if ($isFound)
+            {
+                $value = $option->value;
+            }
+        }
+
+        return ($value);
+    }
+
     /*--------------------------------------------------------------------
     extractOptionsFromString
     --------------------------------------------------------------------*/

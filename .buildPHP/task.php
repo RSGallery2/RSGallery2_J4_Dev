@@ -62,8 +62,8 @@ class task {
             if ($idx == false) {
                 $taskName = $tasksString;
             } else {
-                // name with options
-                $taskName = substr($tasksString, 0, $idx);
+                // name with options (task:extendCopyrightYear /fileName=".../src/Model/GalleryTreeModel.php" /copyrightDate=1999)
+                $taskName = substr($tasksString, 5, $idx-5);
                 $optionsString = substr($tasksString, $idx + 1);
 
                 $taskOptions = (new options())->extractOptionsFromString($optionsString);
