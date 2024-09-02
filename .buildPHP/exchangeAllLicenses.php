@@ -2,8 +2,11 @@
 
 namespace exchangeAllLicenses;
 
+require_once "./iExecTask.php";
 
 // use \DateTime;
+use FileNamesList\fileNamesList;
+use task\task;
 
 /*================================================================================
 Class exchangeAllLicenses
@@ -12,8 +15,6 @@ Class exchangeAllLicenses
 class exchangeAllLicenses {
 
     public string $srcFile = "";
-    public string $dstFile = "";
-
 
     /*--------------------------------------------------------------------
     construction

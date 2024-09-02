@@ -10,9 +10,9 @@ use ExecuteTasks\executeTasksInterface;
 
 use FileNamesList\fileNamesList;
 use task\task;
-use function commandLine\argsAndOptions;
-use function commandLine\print_header;
-use function commandLine\print_end;
+//use function commandLine\argsAndOptions;
+//use function commandLine\print_header;
+//use function commandLine\print_end;
 
 /*================================================================================
 Class forceVersionId
@@ -229,9 +229,11 @@ class forceVersionId implements executeTasksInterface
     }
 
 
+    // TODO: Exe for forceVersionIdAll ...  -> instead
     public function assignFilesNames(fileNamesList $fileNamesList)
     {
         // TODO: Implement assignFilesNames() method.
+        // $this->fileNamesList = $fileNamesList;
     }
-} // forceVersionId
 
+} // forceVersionId

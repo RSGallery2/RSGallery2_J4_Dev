@@ -7,6 +7,7 @@ require_once "./exchangeAllLicenses.php";
 
 // use \DateTime;
 
+use task\task;
 use function commandLine\argsAndOptions;
 use function commandLine\print_header;
 use function commandLine\print_end;
@@ -41,8 +42,11 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
+$tasksLine = ' task:exchangeAllLicenses'
+    . ' /srcRoot="./../../RSGallery2_J4"'
+//    . '/s='
+;
 $srcFile = "";
-$dstFile = "";
 
 foreach ($options as $idx => $option)
 {
@@ -53,10 +57,6 @@ foreach ($options as $idx => $option)
 	{
 		case 's':
 			$srcFile = $option;
-			break;
-
-		case 'd':
-			$dstFile = $option;
 			break;
 
 		case "h":
@@ -95,19 +95,24 @@ foreach ($options as $idx => $option)
 // for start / end diff
 $start = print_header($options, $inArgs);
 
-$oExchangeAllLicenses = new exchangeAllLicenses($srcFile, $dstFile);
+$task = new task();
+$task->extractTaskFromString($tasksLine);
 
-$hasError = $oExchangeAllLicenses->funYYY();
+$oExchangeAllLicenses = new exchangeAllLicenses($srcFile);
 
+$hasError = $oExchangeAllLicenses->assignTask($task);
 if ($hasError) {
+    print ("Error on function assignTask:" . $hasError);
+}
+if ( ! $hasError) {
 
-    print ("Error on function funYYY:" . $hasError);
-
-} else {
-
-    print ($oExchangeAllLicenses->text () . "\r\n");
+    $hasError = $oExchangeAllLicenses->execute();
+    if ($hasError) {
+        print ("Error on function execute:" . $hasError);
+    }
 }
 
+print ($oExchangeAllLicenses->text () . "\r\n");
 
 print_end($start);
 
