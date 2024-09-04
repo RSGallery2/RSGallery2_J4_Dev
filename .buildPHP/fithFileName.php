@@ -167,7 +167,7 @@ class fithFileName {
         return;
     }
 
-    public function text()
+    public function text() : string
     {
         $OutTxt = "";
         $OutTxt = "------------------------------------------" . "\r\n";
@@ -183,7 +183,7 @@ class fithFileName {
         return $OutTxt;
     }
 
-    public function text_NamePathLine()
+    public function text_NamePathLine() : string
     {
         $OutTxt = "";
         $OutTxt .= "- " . $this->fileBaseName . " :: " . $this->filePath;

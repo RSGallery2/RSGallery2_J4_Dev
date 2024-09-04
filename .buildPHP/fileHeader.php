@@ -21,7 +21,7 @@ class fileHeader {
     public string $copyrightToday = "(C) 2024-2024 RSGallery2 Team";
 
     //public string $license = "GNU General Public License version 3 or later";
-    public string $license = "GNU General Public License version 2 or later; see LICENSE.txt";
+    public string $license = "GNU General Public License version 2 or later";
     //public string $license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
 
     //
@@ -68,7 +68,7 @@ class fileHeader {
         $this->subpackage =  "com_rsgallery2";
         $this->copyright = "(C) 2016-2024 RSGallery2 Team";
         $this->copyrightToday = "(C) " . '-' . $copyrightDate . "-" . $copyrightDate .  "RSGallery2 Team";
-        $this->license = "GNU General Public License version 2 or later; see LICENSE.txt";
+        $this->license = "GNU General Public License version 2 or later";
         //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
         $this->author = "rsgallery2 team";
         $this->link = "https://www.rsgallery2.org";
@@ -79,7 +79,7 @@ class fileHeader {
 
     }
 
-    public function text()
+    public function text() : string
     {
         $OutTxt = "";
         $OutTxt = "------------------------------------------" . "\r\n";
@@ -122,7 +122,9 @@ class fileHeader {
     public function headerFormat($name, $value) // , int $padCount
     {
         $headerLine = str_pad(" * @" . $name, $this->padCount, " ", STR_PAD_RIGHT);
-        $headerLine .= $value . "\r\n";
+        $headerLine .= $value;
+
+        $headerLine = trim($headerLine) . "\r\n";
 
         return $headerLine;
     }

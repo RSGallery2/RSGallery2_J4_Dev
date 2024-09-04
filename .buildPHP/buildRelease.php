@@ -197,7 +197,7 @@ class buildRelease implements executeTasksInterface
 
 
 
-    public function text()
+    public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- buildRelease --------" . "\r\n";

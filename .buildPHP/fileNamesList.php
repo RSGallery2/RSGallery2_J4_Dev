@@ -25,7 +25,7 @@ class fileNamesList {
     public $path = "";
 
     /** @var fithFileName[] $fileNames */
-    private array $fileNames;
+    public array $fileNames;
 
 	/** @var bool */
     private $isIncludeExt = False;
@@ -112,7 +112,7 @@ class fileNamesList {
         return $hasError;
     }
 
-    public function text()
+    public function text() : string
     {
         $OutTxt = "";
         $OutTxt .= "------------------------------------------" . "\r\n";
@@ -131,7 +131,7 @@ class fileNamesList {
 
 
 
-    public function textProperties()
+    public function textProperties() : string
     {
         $OutTxt = "";
 
@@ -152,7 +152,7 @@ class fileNamesList {
         return $OutTxt;
     }
 
-    public function text_listFileNames()
+    public function text_listFileNames() : string
     {
         $OutTxt = "";
 
@@ -323,8 +323,8 @@ class fileNamesList {
     private function mergeParameter2Class(mixed $path, mixed $includeExt, mixed $excludeExt, mixed $isNoRecursion, mixed $writeListToFile)
     {
         if (empty ($path)) { $path = $this->path; }
-        if (empty ($includeExt)) { $includeExt = $this->includeExtList; }
-        if (empty ($excludeExt)) { $excludeExt = $this->excludeExtList; }
+        if (empty ($includeExt)) { $includeExt = implode(' ', $this->includeExtList); }
+        if (empty ($excludeExt)) { $excludeExt = implode(' ', $this->excludeExtList); }
         if (empty ($isNoRecursion)) { $isNoRecursion = $this->isNoRecursion; }
         if (empty ($writeListToFile)) { $writeListToFile = $this->listFileName; }
 

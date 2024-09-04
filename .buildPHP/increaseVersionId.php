@@ -276,7 +276,7 @@ class increaseVersionId implements executeTasksInterface
     }
 
 
-    public function text()
+    public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- increaseVersionId ---" . "\r\n";

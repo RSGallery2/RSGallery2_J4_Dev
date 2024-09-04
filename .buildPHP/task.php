@@ -100,7 +100,7 @@ class task {
         return $OutTxt;
     }
 
-    public function text()
+    public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- task ---" . "\r\n";

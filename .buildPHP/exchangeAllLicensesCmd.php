@@ -43,10 +43,19 @@ variables
 --------------------------------------------*/
 
 $tasksLine = ' task:exchangeAllLicenses'
-    . ' /srcRoot="./../../RSGallery2_J4"'
-//    . '/s='
+//    . ' /srcRoot="./../../RSGallery2_J4"'
+    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+    . ' /licenseText = "GNU General Public License version 2 or later"'
+//    . ' /s='
 ;
-$srcFile = "";
+
+//$srcRoot = './../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop';
+//$srcRoot = './../../RSGallery2_J4';
+$srcRoot = '';
+
+//$licenseText = "GNU General Public License version 2 or later;";
+//$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
+$licenseText = '';
 
 foreach ($options as $idx => $option)
 {
@@ -56,7 +65,7 @@ foreach ($options as $idx => $option)
 	switch ($idx)
 	{
 		case 's':
-			$srcFile = $option;
+			$srcRoot = $option;
 			break;
 
 		case "h":
@@ -98,7 +107,11 @@ $start = print_header($options, $inArgs);
 $task = new task();
 $task->extractTaskFromString($tasksLine);
 
-$oExchangeAllLicenses = new exchangeAllLicenses($srcFile);
+//$fileNamesList = new fileNamesList($basePath);
+//$oBuildRelease->assignFilesNames($fileNamesList);
+
+
+$oExchangeAllLicenses = new exchangeAllLicenses($srcRoot);
 
 $hasError = $oExchangeAllLicenses->assignTask($task);
 if ($hasError) {

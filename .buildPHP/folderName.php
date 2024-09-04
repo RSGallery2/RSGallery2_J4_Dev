@@ -104,7 +104,7 @@ class fithFolderName {
         return;
     }
 
-    public function text()
+    public function text() : string
     {
         $OutTxt = "";
         $OutTxt .= "------------------------------------------" . "\r\n";

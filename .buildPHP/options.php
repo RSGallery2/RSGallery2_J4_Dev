@@ -188,7 +188,7 @@ class options {
     }
 
 
-    public function text()
+    public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- options ---" . "\r\n";

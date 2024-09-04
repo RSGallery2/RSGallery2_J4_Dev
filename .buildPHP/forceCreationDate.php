@@ -210,7 +210,7 @@ class forceCreationDate implements executeTasksInterface
     }
 
 
-    public function text()
+    public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- forceCreationDate ---" . "\r\n";

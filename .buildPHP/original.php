@@ -69,7 +69,7 @@ class XXX {
     }
 
 
-    public function text()
+    public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- XXX ---" . "\r\n";

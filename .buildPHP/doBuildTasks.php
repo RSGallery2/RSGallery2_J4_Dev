@@ -211,7 +211,7 @@ class doBuildTasks {
     }
 
 
-    public function text()
+    public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- doBuildTasks: class  ---" . "\r\n";

@@ -113,7 +113,7 @@ class option {
     }
 
 
-    public function text()
+    public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- option ---" . "\r\n";

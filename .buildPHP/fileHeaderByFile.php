@@ -20,7 +20,7 @@ class fileHeaderByFile extends fileHeader {
     //
     public fileHeader $oByFile;
 
-    public string $pathFileName;
+    public string $fileName;
 
     /**
      * @var string array
@@ -45,7 +45,7 @@ class fileHeaderByFile extends fileHeader {
         // dummy
         $this->oByFile = new fileHeader();
 
-        $this->pathFileName = $srcFile;
+        $this->fileName = $srcFile;
     }
 
 
@@ -64,18 +64,18 @@ class fileHeaderByFile extends fileHeader {
 
             if ( ! empty ($fileName)) {
 
-                $this->pathFileName = $fileName;
+                $this->fileName = $fileName;
 
             }  else {
 
-                $fileName = $this->pathFileName;
+                $fileName = $this->fileName;
             }
             print ("FileName use: " . $fileName . "\r\n");
 
             $lines = file($fileName);
             $outLines = [];
             $isExchanged = false;
-            $licenseLine = $this->license;
+            $licenseLine = $this->headerFormat('license', $this->license);
 
             foreach ($lines as $line) {
 
@@ -86,9 +86,14 @@ class fileHeaderByFile extends fileHeader {
                     //  * @license     GNU General Public License version 2 or la ....
                     if (str_contains($line, '@license')) {
 
-                        $outLines [] = $licenseLine;
+                        if ($line != $licenseLine) {
+                            $outLines [] = $licenseLine;
+                            $isExchanged = true;
+                        } else {
+                            // line already fixed , no file write
+                            break;
+                        }
 
-                        $isExchanged = true;
                     } else {
                         $outLines [] = $line;
                     }
@@ -96,7 +101,9 @@ class fileHeaderByFile extends fileHeader {
             }
 
             // write to file
-            $isSaved = file_put_contents($fileName, $outLines);
+            if ($isExchanged == true) {
+                $isSaved = file_put_contents($fileName, $outLines);
+            }
         }
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
@@ -109,7 +116,7 @@ class fileHeaderByFile extends fileHeader {
 
 
     /*--------------------------------------------------------------------
-    exchangeLicense
+    extendCopyrightYear
     --------------------------------------------------------------------*/
 
     function extendCopyrightYear(string $fileName="", string $toYear='') {
@@ -124,11 +131,11 @@ class fileHeaderByFile extends fileHeader {
 
             if ( ! empty ($fileName)) {
 
-                $this->pathFileName = $fileName;
+                $this->fileName = $fileName;
 
             }  else {
 
-                $fileName = $this->pathFileName;
+                $fileName = $this->fileName;
             }
             print ("FileName use: " . $fileName . "\r\n");
 
@@ -155,10 +162,17 @@ class fileHeaderByFile extends fileHeader {
 
                         //  * @copyright (c)  2020-2022 Team
                         // $outLine = preg_replace('/(.*\d+\-)(.* ?)(.*)/',
-                        $outLine = preg_replace('/(.* \d+-)(\d+)(.*)/',
+                        $copyrightLine = preg_replace('/(.* \d+-)(\d+)(.*)/',
                             '${1}' . $toYear . '${3}', $line);
 
-                        $outLines [] = $outLine;
+                        if ($line != $copyrightLine) {
+                            $outLines [] = $copyrightLine;
+                            $isExchanged = true;
+                        } else {
+                            // line already fixed, no file write
+                            break;
+                        }
+
                     } else {
                         $outLines [] = $line;
                     }
@@ -166,14 +180,16 @@ class fileHeaderByFile extends fileHeader {
             }
 
             // write to file
-            $isSaved = file_put_contents($fileName, $outLines);
+            if ($isExchanged == true) {
+                $isSaved = file_put_contents($fileName, $outLines);
+            }
         }
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
-        print('exit exchangeLicense: ' . $hasError . "\r\n");
+        print('exit extendCopyrightYear: ' . $hasError . "\r\n");
         return $hasError;
     }
 
@@ -181,7 +197,8 @@ class fileHeaderByFile extends fileHeader {
     extractHeaderFromFile
     --------------------------------------------------------------------*/
 
-    function extractHeaderFromFile(string $fileName="") {
+    function extractHeaderFromFile(string $fileName="") : int
+    {
 
         $hasError = 0;
 
@@ -193,11 +210,11 @@ class fileHeaderByFile extends fileHeader {
 
             if ( ! empty ($fileName)) {
 
-                $this->pathFileName = $fileName;
+                $this->fileName = $fileName;
 
             }  else {
 
-                $fileName = $this->pathFileName;
+                $fileName = $this->fileName;
             }
             print ("FileName use: " . $fileName . "\r\n");
 
@@ -360,7 +377,7 @@ class fileHeaderByFile extends fileHeader {
 
 
 
-    public function assignTask(\task\task $task)
+    public function assignTask (\task\task $task)
     {
         $this->task = $task;
 
@@ -437,12 +454,12 @@ class fileHeaderByFile extends fileHeader {
 
         $OutTxt .= ">>> --- file data ----------------" . "\r\n";
 
-        $OutTxt .= "fileName: " . $this->pathFileName . "\r\n";
+        $OutTxt .= "fileName: " . $this->fileName . "\r\n";
         $OutTxt .= $this->oByFile->text();
 
         $OutTxt .= ">>> --- file lines ----------------" . "\r\n";
 
-        $OutTxt .= "fileName: " . $this->pathFileName . "\r\n";
+        $OutTxt .= "fileName: " . $this->fileName . "\r\n";
 
         return $OutTxt;
     }
