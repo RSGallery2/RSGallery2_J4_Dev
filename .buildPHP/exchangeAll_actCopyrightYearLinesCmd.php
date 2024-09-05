@@ -1,9 +1,9 @@
 <?php
 
-namespace exchangeAll_subPackageLines;
+namespace extendAllCopyrightYear;
 
 require_once "./commandLine.php";
-require_once "./exchangeAll_licenseLines.php";
+require_once "./exchangeAll_actCopyrightYear.php";
 
 // use \DateTime;
 
@@ -15,10 +15,10 @@ use function commandLine\print_end;
 
 $HELP_MSG = <<<EOT
 >>>
-class exchangeAll_subPackageLines
+class exchangeAll_actCopyrightYear
 
-ToDo: option commands , example
-
+Reads file, exchanges one 'copyright' line 
+Standard replace text is actual year
 <<<
 EOT;
 
@@ -27,7 +27,7 @@ EOT;
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:d:h12345";
+$optDefinition = "s:y:h12345";
 $isPrintArguments = false;
 
 list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -42,10 +42,10 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$tasksLine = ' task:exchangeAll_subPackageLines'
+$tasksLine = ' task:exchangeAll_copyrightYear'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
-    . ' /licenseText = "GNU General Public License version 2 or later"'
+    . ' /yearText = "1984"'
 //    . ' /s='
 ;
 
@@ -66,6 +66,10 @@ foreach ($options as $idx => $option)
 	{
 		case 's':
 			$srcRoot = $option;
+			break;
+
+		case 'y':
+            $yearText = $option;
 			break;
 
 		case "h":
@@ -111,21 +115,21 @@ $task->extractTaskFromString($tasksLine);
 //$oBuildRelease->assignFilesNames($fileNamesList);
 
 
-$oexchangeAll_subPackageLines = new exchangeAll_licenses($srcRoot);
+$oExchangeAllActCopyright = new exchangeAll_actCopyrightYearLines($srcRoot, $yearText);
 
-$hasError = $oexchangeAll_subPackageLines->assignTask($task);
+$hasError = $oExchangeAllActCopyright->assignTask($task);
 if ($hasError) {
     print ("Error on function assignTask:" . $hasError);
 }
 if ( ! $hasError) {
 
-    $hasError = $oexchangeAll_subPackageLines->execute();
+    $hasError = $oExchangeAllActCopyright->execute();
     if ($hasError) {
         print ("Error on function execute:" . $hasError);
     }
 }
 
-print ($oexchangeAll_subPackageLines->text () . "\r\n");
+print ($oExchangeAllActCopyright->text () . "\r\n");
 
 print_end($start);
 

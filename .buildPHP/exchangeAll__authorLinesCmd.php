@@ -3,7 +3,7 @@
 namespace exchangeAll_authorLines;
 
 require_once "./commandLine.php";
-require_once "./exchangeAll_licenseLines.php";
+require_once "./exchangeAll_authorLines.php";
 
 // use \DateTime;
 
@@ -111,21 +111,21 @@ $task->extractTaskFromString($tasksLine);
 //$oBuildRelease->assignFilesNames($fileNamesList);
 
 
-$oexchangeAll_authorLines = new exchangeAll_licenses($srcRoot);
+$oExchangeAll_authorLines = new exchangeAll_licenses($srcRoot);
 
-$hasError = $oexchangeAll_authorLines->assignTask($task);
+$hasError = $oExchangeAll_authorLines->assignTask($task);
 if ($hasError) {
     print ("Error on function assignTask:" . $hasError);
 }
 if ( ! $hasError) {
 
-    $hasError = $oexchangeAll_authorLines->execute();
+    $hasError = $oExchangeAll_authorLines->execute();
     if ($hasError) {
         print ("Error on function execute:" . $hasError);
     }
 }
 
-print ($oexchangeAll_authorLines->text () . "\r\n");
+print ($oExchangeAll_authorLines->text () . "\r\n");
 
 print_end($start);
 

@@ -116,15 +116,15 @@ class fileHeaderByFileData extends fileHeaderData {
 
 
     /*--------------------------------------------------------------------
-    extendCopyrightYear
+    exchangeActCopyrightYear
     --------------------------------------------------------------------*/
 
-    function extendCopyrightYear(string $fileName="", string $toYear='') {
+    function exchangeActCopyrightYear(string $fileName="", string $toYear='') {
         $hasError = 0;
 
         try {
             print('*********************************************************' . "\r\n");
-            print('extendCopyrightYear' . "\r\n");
+            print('exchangeActCopyrightYear' . "\r\n");
             print ("FileName in: " . $fileName . "\r\n");
             print ("Up to year in: " . $toYear . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
@@ -189,7 +189,7 @@ class fileHeaderByFileData extends fileHeaderData {
             $hasError = -101;
         }
 
-        print('exit extendCopyrightYear: ' . $hasError . "\r\n");
+        print('exit exchangeActCopyrightYear: ' . $hasError . "\r\n");
         return $hasError;
     }
 
@@ -432,14 +432,14 @@ class fileHeaderByFileData extends fileHeaderData {
                 $this->exchangeLicense($fileName);
                 break;
 
-            case 'extendcopyrightyear':
+            case 'exchangeActCopyrightYear':
                 print ('Execute task: ' . $task->name);
 
                 $options = $task->options;
                 $fileName = $options->getOption ('fileName');
                 $copyrightDate = $options->getOption ('copyrightDate');
 
-                $this->extendCopyrightYear($fileName, $copyrightDate);
+                $this->exchangeActCopyrightYear($fileName, $copyrightDate);
                 break;
 
             case 'exchangeauthor':

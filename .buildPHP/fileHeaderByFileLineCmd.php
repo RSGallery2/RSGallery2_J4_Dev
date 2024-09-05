@@ -46,7 +46,7 @@ $taskLine = '';
 $tasksLine = ' task:exchangeLicense'
     . ' /fileName="./../../RSGallery2_J4/administrator/components/com_rsgallery2/src/Model/GalleryTreeModel.php"'
 ;
-//$tasksLine = ' task:extendCopyrightYear'
+//$tasksLine = ' task:exchangeActCopyrightYear'
 //    . ' /fileName="./../../RSGallery2_J4/administrator/components/com_rsgallery2/src/Model/GalleryTreeModel.php"'
 //    . ' /copyrightDate=1999'
 //;

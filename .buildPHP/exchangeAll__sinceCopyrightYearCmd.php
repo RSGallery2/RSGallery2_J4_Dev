@@ -1,9 +1,9 @@
 <?php
 
-namespace exchangeAllLicenses;
+namespace extendAllCopyrightYear;
 
 require_once "./commandLine.php";
-require_once "./exchangeAll_licenseLines.php";
+require_once "./exchangeAll_sinceCopyrightYear.php";
 
 // use \DateTime;
 
@@ -15,10 +15,13 @@ use function commandLine\print_end;
 
 $HELP_MSG = <<<EOT
 >>>
-class exchangeAll_licenses
+class exchangeAll_sinceCopyrightYear
 
-Reads file, exchanges one 'license' line 
-Standard replace text is defined in class fileHeaderData
+Reads file, exchanges one 'copyright' line 
+Standard replace text is ??? year
+
+ToDo: extract year from git log each ..
+ToDo: create twin file with new name appended so it is easy to decide to use it .. ...
 <<<
 EOT;
 
@@ -27,7 +30,7 @@ EOT;
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:l:h12345";
+$optDefinition = "s:d:h12345";
 $isPrintArguments = false;
 
 list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -42,7 +45,7 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$tasksLine = ' task:exchangeAllLicenses'
+$tasksLine = ' task:exchangeAll_copyrightYear'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
     . ' /licenseText = "GNU General Public License version 2 or later"'
@@ -64,15 +67,11 @@ foreach ($options as $idx => $option)
 
 	switch ($idx)
 	{
-        case 's':
-            $srcRoot = $option;
-            break;
+		case 's':
+			$srcRoot = $option;
+			break;
 
-        case 'l':
-            $licenseText = $option;
-            break;
-
-        case "h":
+		case "h":
 			exit($HELP_MSG);
 
 		case "1":
@@ -115,7 +114,7 @@ $task->extractTaskFromString($tasksLine);
 //$oBuildRelease->assignFilesNames($fileNamesList);
 
 
-$oExchangeAllLicenses = new exchangeAll_licenseLines($srcRoot, $licenseText);
+$oExchangeAllLicenses = new exchangeAll_actCopyrightYearLines($srcRoot);
 
 $hasError = $oExchangeAllLicenses->assignTask($task);
 if ($hasError) {

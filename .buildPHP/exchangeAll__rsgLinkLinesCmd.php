@@ -3,7 +3,7 @@
 namespace exchangeAllLicenses;
 
 require_once "./commandLine.php";
-require_once "./exchangeAll_licenseLines.php";
+require_once "./exchangeAll_rsgLinkLines.php";
 
 // use \DateTime;
 

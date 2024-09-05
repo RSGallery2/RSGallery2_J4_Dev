@@ -1,6 +1,8 @@
 <?php
+//ToDo: extract year from git log each ..
+//ToDo: create twin file with new name appended so it is easy to decide to use it .. ...
 
-namespace exchangeAll_subPackageLines;
+namespace extendAllCopyrightYear;
 
 require_once "./iExecTask.php";
 require_once "./fileHeaderByFileLine.php";
@@ -13,10 +15,10 @@ use FileNamesList\fileNamesList;
 use task\task;
 
 /*================================================================================
-Class exchangeAll_subPackageLines
+Class extendAllCopyrightYear
 ================================================================================*/
 
-class exchangeAll_subPackageLines implements executeTasksInterface {
+class exchangeAll_actCopyrightYear implements executeTasksInterface {
 
     public string $srcRoot = "";
     public string $licenseText = "";
@@ -57,7 +59,7 @@ class exchangeAll_subPackageLines implements executeTasksInterface {
     public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- exchangeAll_subPackageLines ---" . "\r\n";
+        $OutTxt .= "--- extendAllCopyrightYear ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";
@@ -149,5 +151,5 @@ class exchangeAll_subPackageLines implements executeTasksInterface {
 
         return (0);
     }
-} // exchangeAll_subPackageLines
+} // extendAllCopyrightYear
 

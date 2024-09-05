@@ -62,7 +62,7 @@ class task {
             if ($idx == false) {
                 $taskName = $tasksString;
             } else {
-                // name with options (task:extendCopyrightYear /fileName=".../src/Model/GalleryTreeModel.php" /copyrightDate=1999)
+                // name with options (task:exchangeActCopyrightYear /fileName=".../src/Model/GalleryTreeModel.php" /copyrightDate=1999)
                 $taskName = substr($tasksString, 5, $idx-5);
                 $optionsString = substr($tasksString, $idx + 1);
 

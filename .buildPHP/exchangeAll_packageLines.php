@@ -1,6 +1,6 @@
 <?php
 
-namespace exchangeAll_packages;
+namespace exchangeAll_packageLines;
 
 require_once "./iExecTask.php";
 require_once "./fileHeaderByFileLine.php";
@@ -19,7 +19,7 @@ Class exchangeAll_packages
 class exchangeAll_packages implements executeTasksInterface {
 
     public string $srcRoot = "";
-    public string $licenseText = "";
+    public string $packageText = "";
 
     /**
      * @var fileNamesList
@@ -31,17 +31,17 @@ class exchangeAll_packages implements executeTasksInterface {
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($srcRoot="", $licenseText="") {
+	public function __construct($srcRoot="", $packageText="") {
 
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
             print ("srcRoot: " . $srcRoot . "\r\n");
-            print ("licenseText: " . $licenseText . "\r\n");
+            print ("packageText: " . $packageText . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
             $this->srcRoot = $srcRoot;
-            $this->licenseText = $licenseText;
+            $this->packageText = $packageText;
 
 
         }
@@ -92,9 +92,9 @@ class exchangeAll_packages implements executeTasksInterface {
                     $this->srcRoot = $option->value;
                     break;
 
-                case 'licensetext':
+                case 'packagetext':
                     print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->licenseText = $option->value;
+                    $this->packageText = $option->value;
                     break;
 
 //				case 'X':
@@ -128,7 +128,7 @@ class exchangeAll_packages implements executeTasksInterface {
 
         $fileNamesList->scan4Filenames();
 
-        //--- use file header license task ----------------------
+        //--- use file header package task ----------------------
 
         $fileHeaderByFile = new fileHeaderByFileLine();
 
@@ -136,7 +136,7 @@ class exchangeAll_packages implements executeTasksInterface {
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
 
-            $fileHeaderByFile->exchangeLicense ( $fileName->srcPathFileName);
+            $fileHeaderByFile->exchangePackage ( $fileName->srcPathFileName);
 
         }
 

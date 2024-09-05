@@ -13,7 +13,7 @@ Class fileHeader
 class fileHeaderData {
 
     //
-    public string $package =  "com_rsgallery2";
+    public string $package =  "RSGallery2";
     //
     public string $subpackage =  "com_rsgallery2";
     //

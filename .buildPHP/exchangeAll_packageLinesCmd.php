@@ -1,9 +1,9 @@
 <?php
 
-namespace extendAllCopyrightYear;
+namespace exchangeAll_packageLines;
 
 require_once "./commandLine.php";
-require_once "./exchangeAll_actCopyrightYear.php";
+require_once "./exchangeAll_packageLines.php";
 
 // use \DateTime;
 
@@ -15,10 +15,10 @@ use function commandLine\print_end;
 
 $HELP_MSG = <<<EOT
 >>>
-class exchangeAll_actCopyrightYear
+class exchangeAll_packages
 
-Reads file, exchanges one 'copyright' line 
-Standard replace text is actual year
+Reads file, exchanges one 'package' line 
+Standard replace text is defined in class fileHeaderData
 <<<
 EOT;
 
@@ -27,7 +27,7 @@ EOT;
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:d:h12345";
+$optDefinition = "s:p:h12345";
 $isPrintArguments = false;
 
 list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -42,10 +42,10 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$tasksLine = ' task:exchangeAll_copyrightYear'
+$tasksLine = ' task:exchangeAll_packages'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
-    . ' /licenseText = "GNU General Public License version 2 or later"'
+//    . ' /packageText = "RSGallery2"'
 //    . ' /s='
 ;
 
@@ -53,9 +53,8 @@ $tasksLine = ' task:exchangeAll_copyrightYear'
 //$srcRoot = './../../RSGallery2_J4';
 $srcRoot = '';
 
-//$licenseText = "GNU General Public License version 2 or later;";
-//$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
-$licenseText = '';
+//$packageText = "RSGallery";
+$packageText = '';
 
 foreach ($options as $idx => $option)
 {
@@ -68,7 +67,11 @@ foreach ($options as $idx => $option)
 			$srcRoot = $option;
 			break;
 
-		case "h":
+        case 'p':
+            $packageText = $option;
+            break;
+
+        case "h":
 			exit($HELP_MSG);
 
 		case "1":
@@ -111,21 +114,21 @@ $task->extractTaskFromString($tasksLine);
 //$oBuildRelease->assignFilesNames($fileNamesList);
 
 
-$oExchangeAllLicenses = new exchangeAll_actCopyrightYear($srcRoot);
+$oExchangeAll_packages = new exchangeAll_packages($srcRoot, $packageText);
 
-$hasError = $oExchangeAllLicenses->assignTask($task);
+$hasError = $oExchangeAll_packages->assignTask($task);
 if ($hasError) {
     print ("Error on function assignTask:" . $hasError);
 }
 if ( ! $hasError) {
 
-    $hasError = $oExchangeAllLicenses->execute();
+    $hasError = $oExchangeAll_packages->execute();
     if ($hasError) {
         print ("Error on function execute:" . $hasError);
     }
 }
 
-print ($oExchangeAllLicenses->text () . "\r\n");
+print ($oExchangeAll_packages->text () . "\r\n");
 
 print_end($start);
 

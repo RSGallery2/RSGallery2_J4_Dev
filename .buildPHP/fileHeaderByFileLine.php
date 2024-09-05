@@ -50,6 +50,213 @@ class fileHeaderByFileLine extends fileHeaderData {
 
 
     /*--------------------------------------------------------------------
+    exchangePackage
+    --------------------------------------------------------------------*/
+
+    function exchangePackage(string $fileName="") {
+        $hasError = 0;
+
+        try {
+            print('*********************************************************' . "\r\n");
+            print('exchangePackage' . "\r\n");
+            print ("FileName in: " . $fileName . "\r\n");
+            print('---------------------------------------------------------' . "\r\n");
+
+            if ( ! empty ($fileName)) {
+
+                $this->fileName = $fileName;
+
+            }  else {
+
+                $fileName = $this->fileName;
+            }
+            print ("FileName use: " . $fileName . "\r\n");
+
+            $lines = file($fileName);
+            $outLines = [];
+            $isExchanged = false;
+            $packageLine = $this->headerFormat('package', $this->package);
+
+            foreach ($lines as $line) {
+
+                if ($isExchanged) {
+
+                    $outLines [] = $line;
+                } else {
+                    //  * @license     GNU General Public License version 2 or la ....
+                    if (str_contains($line, '@package')) {
+
+                        if ($line != $packageLine) {
+                            $outLines [] = $packageLine;
+                            $isExchanged = true;
+                        } else {
+                            // line already fixed , no file write
+                            break;
+                        }
+
+                    } else {
+                        $outLines [] = $line;
+                    }
+                }
+            }
+
+            // write to file
+            if ($isExchanged == true) {
+                $isSaved = file_put_contents($fileName, $outLines);
+            }
+        }
+        catch(\Exception $e) {
+            echo 'Message: ' .$e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+
+        print('exit exchangePackage: ' . $hasError . "\r\n");
+        return $hasError;
+    }
+
+
+    /*--------------------------------------------------------------------
+    exchangeSubPackage
+    --------------------------------------------------------------------*/
+
+    function exchangeSubPackage(string $fileName="") {
+        $hasError = 0;
+
+        try {
+            print('*********************************************************' . "\r\n");
+            print('exchangeSubPackage' . "\r\n");
+            print ("FileName in: " . $fileName . "\r\n");
+            print('---------------------------------------------------------' . "\r\n");
+
+            if ( ! empty ($fileName)) {
+
+                $this->fileName = $fileName;
+
+            }  else {
+
+                $fileName = $this->fileName;
+            }
+            print ("FileName use: " . $fileName . "\r\n");
+
+            $lines = file($fileName);
+            $outLines = [];
+            $isExchanged = false;
+            $isFound = false;
+            $subPackageLine = $this->headerFormat('subpackage', $this->subpackage);
+
+            foreach ($lines as $line) {
+
+                if ($isExchanged) {
+
+                    $outLines [] = $line;
+                } else {
+                    //  ToDo:
+                    if (str_contains($line, '@package')) {
+
+                        $isFound = true;
+
+                        if ($line != $subPackageLine) {
+                            $outLines [] = $subPackageLine;
+                            $isExchanged = true;
+                        } else {
+                            // line already fixed , no file write
+                            break;
+                        }
+
+                    } else {
+                        $outLines [] = $line;
+                    }
+                }
+            }
+
+            // write to file
+            if ($isExchanged == true) {
+                $isSaved = file_put_contents($fileName, $outLines);
+            } else {
+
+                // insert if not found
+                if ($isFound == false) {
+
+                    $this->insertSubPackage ();
+                }
+
+            }
+        }
+        catch(\Exception $e) {
+            echo 'Message: ' .$e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+
+        print('exit exchangeSubPackage: ' . $hasError . "\r\n");
+        return $hasError;
+    }
+
+    /*--------------------------------------------------------------------
+    insertSubPackage
+    --------------------------------------------------------------------*/
+
+    function insertSubPackage(string $fileName="") {
+        $hasError = 0;
+
+        try {
+            print('*********************************************************' . "\r\n");
+            print('exchangeSubPackage' . "\r\n");
+            print ("FileName in: " . $fileName . "\r\n");
+            print('---------------------------------------------------------' . "\r\n");
+
+            if ( ! empty ($fileName)) {
+
+                $this->fileName = $fileName;
+
+            }  else {
+
+                $fileName = $this->fileName;
+            }
+            print ("FileName use: " . $fileName . "\r\n");
+
+            $lines = file($fileName);
+            $outLines = [];
+            $isExchanged = false;
+            $isFound = false;
+            $subPackageLine = $this->headerFormat('subpackage', $this->subpackage);
+
+            foreach ($lines as $line) {
+
+                if ($isExchanged) {
+
+                    $outLines [] = $line;
+                } else {
+                    //  ToDo:
+                    if (str_contains($line, '@package')) {
+
+                        $isFound = true;
+
+                        $outLines [] = $line;
+                        $outLines [] = $subPackageLine;
+                        $isExchanged = true;
+
+                    } else {
+                        $outLines [] = $line;
+                    }
+                }
+            }
+
+            // write to file
+            if ($isExchanged == true) {
+                $isSaved = file_put_contents($fileName, $outLines);
+            }
+        }
+        catch(\Exception $e) {
+            echo 'Message: ' .$e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+
+        print('exit insertSubPackage: ' . $hasError . "\r\n");
+        return $hasError;
+    }
+
+
+    /*--------------------------------------------------------------------
     exchangeLicense
     --------------------------------------------------------------------*/
 
@@ -116,15 +323,15 @@ class fileHeaderByFileLine extends fileHeaderData {
 
 
     /*--------------------------------------------------------------------
-    extendCopyrightYear
+    exchangeActCopyrightYear
     --------------------------------------------------------------------*/
 
-    function extendCopyrightYear(string $fileName="", string $toYear='') {
+    function exchangeActCopyrightYear(string $fileName="", string $toYear='') {
         $hasError = 0;
 
         try {
             print('*********************************************************' . "\r\n");
-            print('extendCopyrightYear' . "\r\n");
+            print('exchangeActCopyrightYear' . "\r\n");
             print ("FileName in: " . $fileName . "\r\n");
             print ("Up to year in: " . $toYear . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
@@ -189,9 +396,19 @@ class fileHeaderByFileLine extends fileHeaderData {
             $hasError = -101;
         }
 
-        print('exit extendCopyrightYear: ' . $hasError . "\r\n");
+        print('exit exchangeActCopyrightYear: ' . $hasError . "\r\n");
         return $hasError;
     }
+
+    /*--------------------------------------------------------------------
+    exchangeSinceCopyrightYear
+    --------------------------------------------------------------------*/
+    private function exchangeSinceCopyrightYear(string $fileName, string $copyrightDate)
+    {
+        // ToDo: create exchangeSinceCopyrightYear function
+        // retrieve year first checked in from git ? creaty copy of file with since year ...
+    }
+
 
     /*--------------------------------------------------------------------
     extractHeaderFromFile
@@ -432,14 +649,25 @@ class fileHeaderByFileLine extends fileHeaderData {
                 $this->exchangeLicense($fileName);
                 break;
 
-            case 'extendcopyrightyear':
+            case 'exchangeActCopyrightYear':
                 print ('Execute task: ' . $task->name);
 
                 $options = $task->options;
                 $fileName = $options->getOption ('fileName');
                 $copyrightDate = $options->getOption ('copyrightDate');
 
-                $this->extendCopyrightYear($fileName, $copyrightDate);
+                $this->exchangeActCopyrightYear($fileName, $copyrightDate);
+                break;
+
+            case 'exchangeSinceCopyrightYear':
+                print ('Execute task: ' . $task->name);
+
+                $options = $task->options;
+                $fileName = $options->getOption ('fileName');
+                $copyrightDate = $options->getOption ('copyrightDate');
+
+                // ToDo: create exchangeSinceCopyrightYear function
+                $this->exchangeSinceCopyrightYear($fileName, $copyrightDate);
                 break;
 
             case 'exchangeauthor':

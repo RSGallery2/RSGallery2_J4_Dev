@@ -16,10 +16,10 @@ use task\task;
 Class extendAllCopyrightYear
 ================================================================================*/
 
-class exchangeAll_actCopyrightYear implements executeTasksInterface {
+class exchangeAll_actCopyrightYearLines implements executeTasksInterface {
 
     public string $srcRoot = "";
-    public string $licenseText = "";
+    public string $yearText = "";
 
     /**
      * @var fileNamesList
@@ -31,17 +31,17 @@ class exchangeAll_actCopyrightYear implements executeTasksInterface {
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($srcRoot="", $licenseText="") {
+	public function __construct($srcRoot="", $yearText="") {
 
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
             print ("srcRoot: " . $srcRoot . "\r\n");
-            print ("licenseText: " . $licenseText . "\r\n");
+            print ("yearText: " . $yearText . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
             $this->srcRoot = $srcRoot;
-            $this->licenseText = $licenseText;
+            $this->yearText = $yearText;
 
 
         }
@@ -92,9 +92,9 @@ class exchangeAll_actCopyrightYear implements executeTasksInterface {
                     $this->srcRoot = $option->value;
                     break;
 
-                case 'licensetext':
+                case 'yeartext':
                     print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->licenseText = $option->value;
+                    $this->yearText = $option->value;
                     break;
 
 //				case 'X':
@@ -136,7 +136,7 @@ class exchangeAll_actCopyrightYear implements executeTasksInterface {
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
 
-            $fileHeaderByFile->exchangeLicense ( $fileName->srcPathFileName);
+            $fileHeaderByFile->exchangeActCopyrightYear($fileName->srcPathFileName);
 
         }
 

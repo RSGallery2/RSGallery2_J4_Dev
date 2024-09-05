@@ -1,9 +1,9 @@
 <?php
 
-namespace exchangeAll_packages;
+namespace exchangeAll_subPackageLines;
 
 require_once "./commandLine.php";
-require_once "./exchangeAll_licenseLines.php";
+require_once "./exchangeAll_subPackageLines.php";
 
 // use \DateTime;
 
@@ -15,10 +15,10 @@ use function commandLine\print_end;
 
 $HELP_MSG = <<<EOT
 >>>
-class exchangeAll_packages
+class exchangeAll_subPackageLines
 
-ToDo: option commands , example
-
+Reads file, exchanges one 'subpackage' line 
+Standard replace text is defined in class fileHeaderData
 <<<
 EOT;
 
@@ -27,7 +27,7 @@ EOT;
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:d:h12345";
+$optDefinition = "s:p:h12345";
 $isPrintArguments = false;
 
 list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -42,7 +42,7 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$tasksLine = ' task:exchangeAll_packages'
+$tasksLine = ' task:exchangeAll_subPackageLines'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
     . ' /licenseText = "GNU General Public License version 2 or later"'
@@ -53,9 +53,9 @@ $tasksLine = ' task:exchangeAll_packages'
 //$srcRoot = './../../RSGallery2_J4';
 $srcRoot = '';
 
-//$licenseText = "GNU General Public License version 2 or later;";
-//$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
-$licenseText = '';
+//$subPackageText = "com_rsgallery2";
+$subPackageText = '';
+
 
 foreach ($options as $idx => $option)
 {
@@ -67,6 +67,10 @@ foreach ($options as $idx => $option)
 		case 's':
 			$srcRoot = $option;
 			break;
+
+        case 'p':
+            $subPackageText = $option;
+            break;
 
 		case "h":
 			exit($HELP_MSG);
@@ -111,21 +115,21 @@ $task->extractTaskFromString($tasksLine);
 //$oBuildRelease->assignFilesNames($fileNamesList);
 
 
-$oexchangeAll_packages = new exchangeAll_licenses($srcRoot);
+$oExchangeAll_subPackageLines = new exchangeAll_licenses($srcRoot, $subPackageText);
 
-$hasError = $oexchangeAll_packages->assignTask($task);
+$hasError = $oExchangeAll_subPackageLines->assignTask($task);
 if ($hasError) {
     print ("Error on function assignTask:" . $hasError);
 }
 if ( ! $hasError) {
 
-    $hasError = $oexchangeAll_packages->execute();
+    $hasError = $oExchangeAll_subPackageLines->execute();
     if ($hasError) {
         print ("Error on function execute:" . $hasError);
     }
 }
 
-print ($oexchangeAll_packages->text () . "\r\n");
+print ($oExchangeAll_subPackageLines->text () . "\r\n");
 
 print_end($start);
 
