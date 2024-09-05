@@ -1,20 +1,24 @@
 <?php
 
-namespace FileHeader;
+namespace extendAllCopyrightYear;
 
 require_once "./commandLine.php";
-require_once "./fileHeader.php";
+require_once "./exchangeAll_actCopyrightYear.php";
 
-// use DateTime;
+// use \DateTime;
 
+use task\task;
 use function commandLine\argsAndOptions;
 use function commandLine\print_header;
 use function commandLine\print_end;
 
+
 $HELP_MSG = <<<EOT
 >>>
-fileHeader class 
+class exchangeAll_actCopyrightYear
 
+Reads file, exchanges one 'copyright' line 
+Standard replace text is actual year
 <<<
 EOT;
 
@@ -23,7 +27,7 @@ EOT;
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "o:h12345";
+$optDefinition = "s:d:h12345";
 $isPrintArguments = false;
 
 list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -38,10 +42,20 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-//$optionLine = '/option1';
-$optionLine = '/option2=02_Option';
-//$optionLine = '/option3="01_Xteststring"';
+$tasksLine = ' task:exchangeAll_copyrightYear'
+//    . ' /srcRoot="./../../RSGallery2_J4"'
+    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+    . ' /licenseText = "GNU General Public License version 2 or later"'
+//    . ' /s='
+;
 
+//$srcRoot = './../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop';
+//$srcRoot = './../../RSGallery2_J4';
+$srcRoot = '';
+
+//$licenseText = "GNU General Public License version 2 or later;";
+//$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
+$licenseText = '';
 
 foreach ($options as $idx => $option)
 {
@@ -50,10 +64,10 @@ foreach ($options as $idx => $option)
 
 	switch ($idx)
 	{
-		case 'o':
-			$optionLine = $option;
+		case 's':
+			$srcRoot = $option;
 			break;
-            
+
 		case "h":
 			exit($HELP_MSG);
 
@@ -90,10 +104,28 @@ foreach ($options as $idx => $option)
 // for start / end diff
 $start = print_header($options, $inArgs);
 
-$oFileHeader = new fileHeader();
+$task = new task();
+$task->extractTaskFromString($tasksLine);
 
-print ($oFileHeader->text () . "\r\n");
-print ("Line: '" . $oFileHeader->headerText () . "'" . "\r\n");
+//$fileNamesList = new fileNamesList($basePath);
+//$oBuildRelease->assignFilesNames($fileNamesList);
+
+
+$oExchangeAllLicenses = new exchangeAll_actCopyrightYear($srcRoot);
+
+$hasError = $oExchangeAllLicenses->assignTask($task);
+if ($hasError) {
+    print ("Error on function assignTask:" . $hasError);
+}
+if ( ! $hasError) {
+
+    $hasError = $oExchangeAllLicenses->execute();
+    if ($hasError) {
+        print ("Error on function execute:" . $hasError);
+    }
+}
+
+print ($oExchangeAllLicenses->text () . "\r\n");
 
 print_end($start);
 

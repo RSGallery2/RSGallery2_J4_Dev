@@ -10,7 +10,7 @@ namespace FileHeader;
 Class fileHeader
 ================================================================================*/
 
-class fileHeader {
+class fileHeaderData {
 
     //
     public string $package =  "com_rsgallery2";
@@ -28,7 +28,7 @@ class fileHeader {
     public string $author = "rsgallery2 team";
 
     //
-    public string $link = "https://www.rsgallery2.org";
+    public string $rsgLink = "https://www.rsgallery2.org";
 
     //
     // public string $addition = "RSGallery is Free Software";
@@ -71,7 +71,7 @@ class fileHeader {
         $this->license = "GNU General Public License version 2 or later";
         //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
         $this->author = "rsgallery2 team";
-        $this->link = "https://www.rsgallery2.org";
+        $this->rsgLink = "https://www.rsgallery2.org";
 
         // $this->addition = "RSGallery is Free Software";
         // $this->since = ""; see constManifest.php
@@ -89,7 +89,7 @@ class fileHeader {
         $OutTxt .= "creationDateToday: " . $this->copyrightToday . "\r\n";
         $OutTxt .= "license: " . $this->license . "\r\n";
         $OutTxt .= "package: " . $this->package . "\r\n";
-        $OutTxt .= "link: " . $this->link . "\r\n";
+        $OutTxt .= "rsgLink: " . $this->rsgLink . "\r\n";
         $OutTxt .= "author: " . $this->author . "\r\n";
 
         return $OutTxt;
@@ -106,7 +106,7 @@ class fileHeader {
         $OutTxt .= $this->headerFormat('license', $this->license);
 
         $OutTxt .= $this->headerFormat('author', $this->author);
-        $OutTxt .= $this->headerFormat('link', $this->link);
+        $OutTxt .= $this->headerFormat('link', $this->rsgLink);
 
 //        $OutTxt .= $this->headerFormat('', $this->license);
 //        $OutTxt .= $this->headerFormat('license', $this->license);
@@ -128,5 +128,22 @@ class fileHeader {
 
         return $headerLine;
     }
+
+    public function isDifferent (fileHeaderData $fileHeaderExtern) : bool
+    {
+        $headerLocal = $this->headerText();
+        $headerExtern = $fileHeaderExtern->headerText();
+
+        return $headerLocal !== $headerExtern;
+    }
+
+    public function isDifferentByString (string $externHeaderAsString) : bool
+    {
+        $headerLocal = $this->headerText();
+        $headerExtern = $externHeaderAsString;
+
+        return $headerLocal !== $headerExtern;
+    }
+
 } // fileHeader
 

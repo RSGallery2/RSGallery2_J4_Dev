@@ -1,21 +1,23 @@
 <?php
 
-namespace FileHeader;
+namespace exchangeAllLicenses;
 
 require_once "./commandLine.php";
-require_once "./task.php";
-require_once "./fileHeaderByFile.php";
+require_once "./exchangeAll_licenseLines.php";
 
-// use DateTime;
+// use \DateTime;
 
 use task\task;
 use function commandLine\argsAndOptions;
 use function commandLine\print_header;
 use function commandLine\print_end;
 
+
 $HELP_MSG = <<<EOT
 >>>
-fileHeaderByFile class 
+class exchangeAllLicenses
+
+ToDo: option commands , example
 
 <<<
 EOT;
@@ -25,7 +27,7 @@ EOT;
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "f:t:h12345";
+$optDefinition = "s:d:h12345";
 $isPrintArguments = false;
 
 list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -39,17 +41,21 @@ $LeaveOut_05 = true;
 /*--------------------------------------------
 variables
 --------------------------------------------*/
-$srcfile = '';
-// $srcfile = "./../../RSGallery2_J4/administrator/components/com_rsgallery2/src/Model/GalleryTreeModel.php";
 
-$taskLine = '';
-$tasksLine = ' task:exchangeLicense'
-    . ' /fileName="./../../RSGallery2_J4/administrator/components/com_rsgallery2/src/Model/GalleryTreeModel.php"'
+$tasksLine = ' task:exchangeAllLicenses'
+//    . ' /srcRoot="./../../RSGallery2_J4"'
+    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+    . ' /licenseText = "GNU General Public License version 2 or later"'
+//    . ' /s='
 ;
-//$tasksLine = ' task:extendCopyrightYear'
-//    . ' /fileName="./../../RSGallery2_J4/administrator/components/com_rsgallery2/src/Model/GalleryTreeModel.php"'
-//    . ' /copyrightDate=1999'
-//;
+
+//$srcRoot = './../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop';
+//$srcRoot = './../../RSGallery2_J4';
+$srcRoot = '';
+
+//$licenseText = "GNU General Public License version 2 or later;";
+//$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
+$licenseText = '';
 
 foreach ($options as $idx => $option)
 {
@@ -58,12 +64,8 @@ foreach ($options as $idx => $option)
 
 	switch ($idx)
 	{
-		case 'f':
-			$srcfile = $option;
-			break;
-            
-		case 't':
-			$taskLine = $option;
+		case 's':
+			$srcRoot = $option;
 			break;
 
 		case "h":
@@ -102,41 +104,28 @@ foreach ($options as $idx => $option)
 // for start / end diff
 $start = print_header($options, $inArgs);
 
+$task = new task();
+$task->extractTaskFromString($tasksLine);
 
-if (! empty ($tasksLine)) {
+//$fileNamesList = new fileNamesList($basePath);
+//$oBuildRelease->assignFilesNames($fileNamesList);
 
-    $task = new task();
-    $task->extractTaskFromString($tasksLine);
 
-    $oFileHeader = new fileHeaderByFile();
+$oExchangeAllLicenses = new exchangeAll_licenseLines($srcRoot);
 
-    $hasError = $oFileHeader->assignTask($task);
+$hasError = $oExchangeAllLicenses->assignTask($task);
+if ($hasError) {
+    print ("Error on function assignTask:" . $hasError);
+}
+if ( ! $hasError) {
+
+    $hasError = $oExchangeAllLicenses->execute();
     if ($hasError) {
-        print ("Error on function assignTask:" . $hasError);
+        print ("Error on function execute:" . $hasError);
     }
-    if ( ! $hasError) {
-
-        $hasError = $oFileHeader->execute();
-        if ($hasError) {
-            print ("Error on function execute:" . $hasError);
-        }
-    }
-
-} else {
-
-    if (!empty ($srcfile)) {
-
-        $oFileHeader = new fileHeaderByFile($srcfile);
-
-        $oFileHeader->extractHeaderFromFile();
-
-        print ($oFileHeader->text () . "\r\n");
-        print ("header Lines: '" . $oFileHeader->headerText () . "'" . "\r\n");
-    }
-
 }
 
-
+print ($oExchangeAllLicenses->text () . "\r\n");
 
 print_end($start);
 

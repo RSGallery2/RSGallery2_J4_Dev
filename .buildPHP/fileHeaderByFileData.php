@@ -2,12 +2,12 @@
 
 namespace FileHeader;
 
-require_once "./fileHeader.php";
+require_once "./fileHeaderData.php";
 
 //use \DateTime;
 // use DateTime;
 
-use FileHeader\fileHeader;
+use FileHeader\fileHeaderData;
 use task\task;
 use tasks\tasks;
 
@@ -15,10 +15,10 @@ use tasks\tasks;
 Class fileHeaderByFile
 ================================================================================*/
 
-class fileHeaderByFile extends fileHeader {
+class fileHeaderByFileData extends fileHeaderData {
 
     //
-    public fileHeader $oByFile;
+    public fileHeaderData $oByFile;
 
     public string $fileName;
 
@@ -43,7 +43,7 @@ class fileHeaderByFile extends fileHeader {
         parent::__construct();
 
         // dummy
-        $this->oByFile = new fileHeader();
+        $this->oByFile = new fileHeaderData();
 
         $this->fileName = $srcFile;
     }
@@ -221,6 +221,8 @@ class fileHeaderByFile extends fileHeader {
             $lines = file($fileName);
 
             $headerLines =  [];
+            $originalLines = [];
+            $this->isValid = false;
 
             $isHasStart = false;
             $isHasEnd = false;
@@ -239,6 +241,9 @@ class fileHeaderByFile extends fileHeader {
                 }
 
                 if ($isHasStart ){
+
+                    // keep original
+                    $originalLines [] = $line;
 
                     $headerLines [] = $line;
 
@@ -273,8 +278,16 @@ class fileHeaderByFile extends fileHeader {
                 }
             } // for lines n section
 
+            $this->originalLines = $originalLines;
 
-            $this->extractHeaderFromFileLines ($headerLines);
+            if ($isHasEnd) {
+                $this->extractHeaderFromFileLines($headerLines);
+                $this->isValid = true;
+
+                $this->idxFirstLine = $idxFirstLine;
+                $this->idxLastLine = $idxLastLine;
+
+            }
 
             // todo: print ("headerLines: " . $headerLines . "\r\n");
             // ToDo: print result
@@ -329,7 +342,7 @@ class fileHeaderByFile extends fileHeader {
                             $this->author = $value;
                             break;
                         case 'link':
-                            $this->link = $value;
+                            $this->rsgLink = $value;
                            break;
 
                         default:
@@ -399,6 +412,18 @@ class fileHeaderByFile extends fileHeader {
         $task = $this->task;
         switch (strtolower($task->name)) {
 
+            case 'exchangepackage':
+                print ('Execute task: ' . $task->name);
+
+
+                break;
+
+            case 'exchangesubpackage':
+                print ('Execute task: ' . $task->name);
+
+
+                break;
+
             case 'exchangelicense':
                 print ('Execute task: ' . $task->name);
 
@@ -417,13 +442,25 @@ class fileHeaderByFile extends fileHeader {
                 $this->extendCopyrightYear($fileName, $copyrightDate);
                 break;
 
-            case 'BexchangeLicense':
+            case 'exchangeauthor':
                 print ('Execute task: ' . $task->name);
 
 
                 break;
 
-            case 'CexchangeLicense':
+            case 'exchangersglink':
+                print ('Execute task: ' . $task->name);
+
+
+                break;
+
+            case 'X':
+                print ('Execute task: ' . $task->name);
+
+
+                break;
+
+            case 'Y':
                 print ('Execute task: ' . $task->name);
 
 

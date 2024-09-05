@@ -1,9 +1,9 @@
 <?php
 
-namespace exchangeAllLicenses;
+namespace exchangeAll_subPackageLines;
 
 require_once "./commandLine.php";
-require_once "./exchangeAllLicenses.php";
+require_once "./exchangeAll_licenseLines.php";
 
 // use \DateTime;
 
@@ -15,7 +15,7 @@ use function commandLine\print_end;
 
 $HELP_MSG = <<<EOT
 >>>
-class exchangeAllLicenses
+class exchangeAll_subPackageLines
 
 ToDo: option commands , example
 
@@ -42,7 +42,7 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$tasksLine = ' task:exchangeAllLicenses'
+$tasksLine = ' task:exchangeAll_subPackageLines'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
     . ' /licenseText = "GNU General Public License version 2 or later"'
@@ -111,21 +111,21 @@ $task->extractTaskFromString($tasksLine);
 //$oBuildRelease->assignFilesNames($fileNamesList);
 
 
-$oExchangeAllLicenses = new exchangeAllLicenses($srcRoot);
+$oexchangeAll_subPackageLines = new exchangeAll_licenses($srcRoot);
 
-$hasError = $oExchangeAllLicenses->assignTask($task);
+$hasError = $oexchangeAll_subPackageLines->assignTask($task);
 if ($hasError) {
     print ("Error on function assignTask:" . $hasError);
 }
 if ( ! $hasError) {
 
-    $hasError = $oExchangeAllLicenses->execute();
+    $hasError = $oexchangeAll_subPackageLines->execute();
     if ($hasError) {
         print ("Error on function execute:" . $hasError);
     }
 }
 
-print ($oExchangeAllLicenses->text () . "\r\n");
+print ($oexchangeAll_subPackageLines->text () . "\r\n");
 
 print_end($start);
 
