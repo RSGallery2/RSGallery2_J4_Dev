@@ -88,6 +88,8 @@ class buildRelease implements executeTasksInterface
 
 	    // ($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
 	    // $this->fileNamesList = $fileNamesList;
+        $this->fileNamesList = $fileNamesList;
+
 
     }
 

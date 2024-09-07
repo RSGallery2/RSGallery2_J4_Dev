@@ -233,7 +233,7 @@ class forceVersionId implements executeTasksInterface
     public function assignFilesNames(fileNamesList $fileNamesList)
     {
         // TODO: Implement assignFilesNames() method.
-        // $this->fileNamesList = $fileNamesList;
+        $this->fileNamesList = $fileNamesList;
     }
 
 } // forceVersionId

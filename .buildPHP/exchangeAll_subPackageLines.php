@@ -43,7 +43,7 @@ class exchangeAll_subPackageLines implements executeTasksInterface {
             $this->srcRoot = $srcRoot;
             $this->subpackageText = $subpackageText;
 
-
+            $this->fileNamesList = new fileNamesList();
         }
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
@@ -76,6 +76,8 @@ class exchangeAll_subPackageLines implements executeTasksInterface {
     public function assignFilesNames(fileNamesList $fileNamesList)
     {
         // TODO: Implement assignFilesNames() method.
+        $this->fileNamesList = $fileNamesList;
+
     }
 
     // Task name with options
@@ -123,10 +125,16 @@ class exchangeAll_subPackageLines implements executeTasksInterface {
     {
         //--- collect files ---------------------------------------
 
-        $fileNamesList = new fileNamesList ($this->srcRoot, 'php');
-        $this->fileNamesList = $fileNamesList;
+        // files not set already
+        if (count($this->fileNamesList->fileNames) == 0) {
+            $fileNamesList = new fileNamesList ($this->srcRoot, 'php');
+            $this->fileNamesList = $fileNamesList;
 
-        $fileNamesList->scan4Filenames();
+            $fileNamesList->scan4Filenames();
+        } else {
+            // use given files
+            // $fileNamesList = $this->fileNamesList;
+        }
 
         //--- use file header subpackage task ----------------------
 
