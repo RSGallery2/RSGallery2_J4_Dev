@@ -7,6 +7,7 @@ require_once "./exchangeAll_authorLines.php";
 
 // use \DateTime;
 
+use exchangeAll_subPackageLines\exchangeAll_subPackageLines;
 use task\task;
 use function commandLine\argsAndOptions;
 use function commandLine\print_header;
@@ -17,8 +18,8 @@ $HELP_MSG = <<<EOT
 >>>
 class exchangeAll_authorLines
 
-ToDo: option commands , example
-
+Reads file, exchanges one 'author' line 
+Standard replace text is defined in class fileHeaderData
 <<<
 EOT;
 
@@ -27,7 +28,7 @@ EOT;
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:d:h12345";
+$optDefinition = "s:a:h12345";
 $isPrintArguments = false;
 
 list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -45,7 +46,7 @@ variables
 $tasksLine = ' task:exchangeAll_authorLines'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
-    . ' /licenseText = "GNU General Public License version 2 or later"'
+    . ' /authorText = ""'
 //    . ' /s='
 ;
 
@@ -53,9 +54,9 @@ $tasksLine = ' task:exchangeAll_authorLines'
 //$srcRoot = './../../RSGallery2_J4';
 $srcRoot = '';
 
-//$licenseText = "GNU General Public License version 2 or later;";
-//$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
-$licenseText = '';
+//$authorText = "GNU General Public author version 2 or later;";
+//$this->author = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
+$authorText = '';
 
 foreach ($options as $idx => $option)
 {
@@ -64,11 +65,15 @@ foreach ($options as $idx => $option)
 
 	switch ($idx)
 	{
-		case 's':
-			$srcRoot = $option;
-			break;
+        case 's':
+            $srcRoot = $option;
+            break;
 
-		case "h":
+        case 'a':
+            $authorText = $option;
+            break;
+
+        case "h":
 			exit($HELP_MSG);
 
 		case "1":
@@ -111,7 +116,7 @@ $task->extractTaskFromString($tasksLine);
 //$oBuildRelease->assignFilesNames($fileNamesList);
 
 
-$oExchangeAll_authorLines = new exchangeAll_licenses($srcRoot);
+$oExchangeAll_authorLines = new exchangeAll_authorLines($srcRoot, $authorText);
 
 $hasError = $oExchangeAll_authorLines->assignTask($task);
 if ($hasError) {

@@ -19,7 +19,7 @@ Class exchangeAll_authorLines
 class exchangeAll_authorLines implements executeTasksInterface {
 
     public string $srcRoot = "";
-    public string $licenseText = "";
+    public string $authorText = "";
 
     /**
      * @var fileNamesList
@@ -31,17 +31,17 @@ class exchangeAll_authorLines implements executeTasksInterface {
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($srcRoot="", $licenseText="") {
+	public function __construct($srcRoot="", $authorText="") {
 
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
             print ("srcRoot: " . $srcRoot . "\r\n");
-            print ("licenseText: " . $licenseText . "\r\n");
+            print ("authorText: " . $authorText . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
             $this->srcRoot = $srcRoot;
-            $this->licenseText = $licenseText;
+            $this->authorText = $authorText;
 
 
         }
@@ -92,9 +92,9 @@ class exchangeAll_authorLines implements executeTasksInterface {
                     $this->srcRoot = $option->value;
                     break;
 
-                case 'licensetext':
+                case 'authortext':
                     print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->licenseText = $option->value;
+                    $this->authorText = $option->value;
                     break;
 
 //				case 'X':
@@ -128,7 +128,7 @@ class exchangeAll_authorLines implements executeTasksInterface {
 
         $fileNamesList->scan4Filenames();
 
-        //--- use file header license task ----------------------
+        //--- use file header author task ----------------------
 
         $fileHeaderByFile = new fileHeaderByFileLine();
 
@@ -136,7 +136,7 @@ class exchangeAll_authorLines implements executeTasksInterface {
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
 
-            $fileHeaderByFile->exchangeLicense ( $fileName->srcPathFileName);
+            $fileHeaderByFile->exchangeAuthor ( $fileName->srcPathFileName);
 
         }
 

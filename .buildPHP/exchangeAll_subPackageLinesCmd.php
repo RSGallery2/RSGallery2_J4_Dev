@@ -45,7 +45,7 @@ variables
 $tasksLine = ' task:exchangeAll_subPackageLines'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
-    . ' /licenseText = "GNU General Public License version 2 or later"'
+    . ' /subpackageText = "GNU General Public subpackage version 2 or later"'
 //    . ' /s='
 ;
 
@@ -115,7 +115,7 @@ $task->extractTaskFromString($tasksLine);
 //$oBuildRelease->assignFilesNames($fileNamesList);
 
 
-$oExchangeAll_subPackageLines = new exchangeAll_licenses($srcRoot, $subPackageText);
+$oExchangeAll_subPackageLines = new exchangeAll_subPackageLines($srcRoot, $subPackageText);
 
 $hasError = $oExchangeAll_subPackageLines->assignTask($task);
 if ($hasError) {

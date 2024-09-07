@@ -411,6 +411,136 @@ class fileHeaderByFileLine extends fileHeaderData {
 
 
     /*--------------------------------------------------------------------
+    exchangeLicense
+    --------------------------------------------------------------------*/
+
+    function exchangeAuthor(string $fileName="") {
+        $hasError = 0;
+
+        try {
+            print('*********************************************************' . "\r\n");
+            print('exchangeLicense' . "\r\n");
+            print ("FileName in: " . $fileName . "\r\n");
+            print('---------------------------------------------------------' . "\r\n");
+
+            if ( ! empty ($fileName)) {
+
+                $this->fileName = $fileName;
+
+            }  else {
+
+                $fileName = $this->fileName;
+            }
+            print ("FileName use: " . $fileName . "\r\n");
+
+            $lines = file($fileName);
+            $outLines = [];
+            $isExchanged = false;
+            $authorLine = $this->headerFormat('license', $this->license);
+
+            foreach ($lines as $line) {
+
+                if ($isExchanged) {
+
+                    $outLines [] = $line;
+                } else {
+                    //  * @license     GNU General Public License version 2 or la ....
+                    if (str_contains($line, '@author')) {
+
+                        if ($line != $authorLine) {
+                            $outLines [] = $authorLine;
+                            $isExchanged = true;
+                        } else {
+                            // line already fixed , no file write
+                            break;
+                        }
+
+                    } else {
+                        $outLines [] = $line;
+                    }
+                }
+            }
+
+            // write to file
+            if ($isExchanged == true) {
+                $isSaved = file_put_contents($fileName, $outLines);
+            }
+        }
+        catch(\Exception $e) {
+            echo 'Message: ' .$e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+
+        print('exit exchangeLicense: ' . $hasError . "\r\n");
+        return $hasError;
+    }
+
+    /*--------------------------------------------------------------------
+    exchangeLicense
+    --------------------------------------------------------------------*/
+
+    function exchangeLink(string $fileName="") {
+        $hasError = 0;
+
+        try {
+            print('*********************************************************' . "\r\n");
+            print('exchangeLicense' . "\r\n");
+            print ("FileName in: " . $fileName . "\r\n");
+            print('---------------------------------------------------------' . "\r\n");
+
+            if ( ! empty ($fileName)) {
+
+                $this->fileName = $fileName;
+
+            }  else {
+
+                $fileName = $this->fileName;
+            }
+            print ("FileName use: " . $fileName . "\r\n");
+
+            $lines = file($fileName);
+            $outLines = [];
+            $isExchanged = false;
+            $LinkLine = $this->headerFormat('license', $this->license);
+
+            foreach ($lines as $line) {
+
+                if ($isExchanged) {
+
+                    $outLines [] = $line;
+                } else {
+                    //  * @license     GNU General Public License version 2 or la ....
+                    if (str_contains($line, '@link')) {
+
+                        if ($line != $LinkLine) {
+                            $outLines [] = $LinkLine;
+                            $isExchanged = true;
+                        } else {
+                            // line already fixed , no file write
+                            break;
+                        }
+
+                    } else {
+                        $outLines [] = $line;
+                    }
+                }
+            }
+
+            // write to file
+            if ($isExchanged == true) {
+                $isSaved = file_put_contents($fileName, $outLines);
+            }
+        }
+        catch(\Exception $e) {
+            echo 'Message: ' .$e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+
+        print('exit exchangeLicense: ' . $hasError . "\r\n");
+        return $hasError;
+    }
+
+    /*--------------------------------------------------------------------
     extractHeaderFromFile
     --------------------------------------------------------------------*/
 
@@ -673,7 +803,9 @@ class fileHeaderByFileLine extends fileHeaderData {
             case 'exchangeauthor':
                 print ('Execute task: ' . $task->name);
 
-
+                $options = $task->options;
+                $fileName = $options->getOption ('fileName');
+                $this->exchangeAuthor($fileName);
                 break;
 
             case 'exchangersglink':
