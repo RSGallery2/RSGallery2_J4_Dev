@@ -1,6 +1,6 @@
 <?php
 
-namespace extendAllCopyrightYear;
+namespace exchangeAll_actCopyrightYear;
 
 require_once "./iExecTask.php";
 require_once "./fileHeaderByFileData.php";
@@ -13,10 +13,10 @@ use FileNamesList\fileNamesList;
 use task\task;
 
 /*================================================================================
-Class extendAllCopyrightYear
+Class exchangeAll_actCopyrightYear
 ================================================================================*/
 
-class extendAllCopyrightYear implements executeTasksInterface {
+class exchangeAll_actCopyrightYear implements executeTasksInterface {
 
     public string $srcRoot = "";
     public string $licenseText = "";
@@ -57,7 +57,7 @@ class extendAllCopyrightYear implements executeTasksInterface {
     public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- extendAllCopyrightYear ---" . "\r\n";
+        $OutTxt .= "--- exchangeAll_actCopyrightYearLines ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";
@@ -149,5 +149,5 @@ class extendAllCopyrightYear implements executeTasksInterface {
 
         return (0);
     }
-} // extendAllCopyrightYear
+} // exchangeAll_actCopyrightYear
 

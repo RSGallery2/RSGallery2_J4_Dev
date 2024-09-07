@@ -1,6 +1,6 @@
 <?php
 
-namespace exchangeAllLicenses;
+namespace exchangeAll_licenseLines;
 
 require_once "./iExecTask.php";
 require_once "./fileHeaderByFileLine.php";
@@ -57,7 +57,7 @@ class exchangeAll_licenseLines implements executeTasksInterface {
     public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- exchangeAllLicenses ---" . "\r\n";
+        $OutTxt .= "--- exchangeAll_LicenseLines ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";

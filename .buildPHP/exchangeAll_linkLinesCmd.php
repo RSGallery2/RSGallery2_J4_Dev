@@ -1,6 +1,6 @@
 <?php
 
-namespace exchangeAllLicenses;
+namespace exchangeAll_linkLines;
 
 require_once "./commandLine.php";
 require_once "./exchangeAll_rsgLinkLines.php";
@@ -15,10 +15,10 @@ use function commandLine\print_end;
 
 $HELP_MSG = <<<EOT
 >>>
-class exchangeAllLicenses
+class exchangeAllLinkLines
 
-ToDo: option commands , example
-
+Reads file, exchanges one 'links' line 
+Standard replace text is defined in class fileHeaderData
 <<<
 EOT;
 
@@ -42,10 +42,10 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$tasksLine = ' task:exchangeAllLicenses'
+$tasksLine = ' task:exchangeAlllinks'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
-    . ' /licenseText = "GNU General Public License version 2 or later"'
+    . ' /linkText = "GNU General Public link version 2 or later"'
 //    . ' /s='
 ;
 
@@ -53,9 +53,9 @@ $tasksLine = ' task:exchangeAllLicenses'
 //$srcRoot = './../../RSGallery2_J4';
 $srcRoot = '';
 
-//$licenseText = "GNU General Public License version 2 or later;";
-//$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
-$licenseText = '';
+//$linkText = "GNU General Public link version 2 or later;";
+//$this->link = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
+$linkText = '';
 
 foreach ($options as $idx => $option)
 {
@@ -111,21 +111,21 @@ $task->extractTaskFromString($tasksLine);
 //$oBuildRelease->assignFilesNames($fileNamesList);
 
 
-$oExchangeAllLicenses = new exchangeAll_licenseLines($srcRoot);
+$oExchangeAlllinks = new exchangeAll_linkLines($srcRoot, $linkText);
 
-$hasError = $oExchangeAllLicenses->assignTask($task);
+$hasError = $oExchangeAlllinks->assignTask($task);
 if ($hasError) {
     print ("Error on function assignTask:" . $hasError);
 }
 if ( ! $hasError) {
 
-    $hasError = $oExchangeAllLicenses->execute();
+    $hasError = $oExchangeAlllinks->execute();
     if ($hasError) {
         print ("Error on function execute:" . $hasError);
     }
 }
 
-print ($oExchangeAllLicenses->text () . "\r\n");
+print ($oExchangeAlllinks->text () . "\r\n");
 
 print_end($start);
 

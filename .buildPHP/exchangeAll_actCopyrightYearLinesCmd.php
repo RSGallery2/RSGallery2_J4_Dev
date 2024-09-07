@@ -1,6 +1,6 @@
 <?php
 
-namespace extendAllCopyrightYear;
+namespace exchangeAll_actCopyrightYear;
 
 require_once "./commandLine.php";
 require_once "./exchangeAll_actCopyrightYear.php";
@@ -17,7 +17,7 @@ $HELP_MSG = <<<EOT
 >>>
 class exchangeAll_actCopyrightYear
 
-Reads file, exchanges one 'copyright' line 
+Reads file, exchanges one 'copyright' line for actual year part (second year in line)
 Standard replace text is actual year
 <<<
 EOT;
@@ -42,7 +42,7 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$tasksLine = ' task:exchangeAll_copyrightYear'
+$tasksLine = ' task:exchangeAll_actCopyrightYear'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
     . ' /yearText = "1984"'
@@ -55,7 +55,7 @@ $srcRoot = '';
 
 //$licenseText = "GNU General Public License version 2 or later;";
 //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
-$licenseText = '';
+$yearText = '';
 
 foreach ($options as $idx => $option)
 {

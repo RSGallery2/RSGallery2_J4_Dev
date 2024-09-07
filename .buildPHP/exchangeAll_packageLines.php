@@ -57,7 +57,7 @@ class exchangeAll_packages implements executeTasksInterface {
     public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- exchangeAll_packages ---" . "\r\n";
+        $OutTxt .= "--- exchangeAll_packageLines ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";

@@ -1,6 +1,6 @@
 <?php
 
-namespace exchangeAllLicenses;
+namespace exchangeAll_linkLines;
 
 require_once "./iExecTask.php";
 require_once "./fileHeaderByFileLine.php";
@@ -13,13 +13,13 @@ use FileNamesList\fileNamesList;
 use task\task;
 
 /*================================================================================
-Class exchangeAllLicenses
+Class exchangeAlllinks
 ================================================================================*/
 
-class exchangeAllLicenses implements executeTasksInterface {
+class exchangeAll_linkLines implements executeTasksInterface {
 
     public string $srcRoot = "";
-    public string $licenseText = "";
+    public string $linkText = "";
 
     /**
      * @var fileNamesList
@@ -31,17 +31,17 @@ class exchangeAllLicenses implements executeTasksInterface {
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($srcRoot="", $licenseText="") {
+	public function __construct($srcRoot="", $linkText="") {
 
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
             print ("srcRoot: " . $srcRoot . "\r\n");
-            print ("licenseText: " . $licenseText . "\r\n");
+            print ("linkText: " . $linkText . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
             $this->srcRoot = $srcRoot;
-            $this->licenseText = $licenseText;
+            $this->linkText = $linkText;
 
 
         }
@@ -57,7 +57,7 @@ class exchangeAllLicenses implements executeTasksInterface {
     public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- exchangeAllLicenses ---" . "\r\n";
+        $OutTxt .= "--- exchangeAll_linksLines ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";
@@ -92,9 +92,9 @@ class exchangeAllLicenses implements executeTasksInterface {
                     $this->srcRoot = $option->value;
                     break;
 
-                case 'licensetext':
+                case 'linktext':
                     print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->licenseText = $option->value;
+                    $this->linkText = $option->value;
                     break;
 
 //				case 'X':
@@ -128,7 +128,7 @@ class exchangeAllLicenses implements executeTasksInterface {
 
         $fileNamesList->scan4Filenames();
 
-        //--- use file header license task ----------------------
+        //--- use file header link task ----------------------
 
         $fileHeaderByFile = new fileHeaderByFileLine();
 
@@ -136,7 +136,7 @@ class exchangeAllLicenses implements executeTasksInterface {
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
 
-            $fileHeaderByFile->exchangeLicense ( $fileName->srcPathFileName);
+            $fileHeaderByFile->exchangeLink ( $fileName->srcPathFileName);
 
         }
 
@@ -149,5 +149,5 @@ class exchangeAllLicenses implements executeTasksInterface {
 
         return (0);
     }
-} // exchangeAllLicenses
+} // exchangeAlllinks
 

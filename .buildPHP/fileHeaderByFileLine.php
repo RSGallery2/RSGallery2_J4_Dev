@@ -403,8 +403,9 @@ class fileHeaderByFileLine extends fileHeaderData {
     /*--------------------------------------------------------------------
     exchangeSinceCopyrightYear
     --------------------------------------------------------------------*/
-    private function exchangeSinceCopyrightYear(string $fileName, string $copyrightDate)
+    public function exchangeSinceCopyrightYear(string $fileName, string $sinceYear)
     {
+
         // ToDo: create exchangeSinceCopyrightYear function
         // retrieve year first checked in from git ? creaty copy of file with since year ...
     }

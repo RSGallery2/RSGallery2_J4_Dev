@@ -2,7 +2,7 @@
 //ToDo: extract year from git log each ..
 //ToDo: create twin file with new name appended so it is easy to decide to use it .. ...
 
-namespace extendAllCopyrightYear;
+namespace exchangeAll_sinceCopyrightYear;
 
 require_once "./iExecTask.php";
 require_once "./fileHeaderByFileLine.php";
@@ -15,13 +15,13 @@ use FileNamesList\fileNamesList;
 use task\task;
 
 /*================================================================================
-Class extendAllCopyrightYear
+Class exchangeAll_sinceCopyrightYear
 ================================================================================*/
 
-class exchangeAll_actCopyrightYear implements executeTasksInterface {
+class exchangeAll_sinceCopyrightYear implements executeTasksInterface {
 
     public string $srcRoot = "";
-    public string $licenseText = "";
+    public string $yearText = "";
 
     /**
      * @var fileNamesList
@@ -33,17 +33,17 @@ class exchangeAll_actCopyrightYear implements executeTasksInterface {
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($srcRoot="", $licenseText="") {
+	public function __construct($srcRoot="", $yearText="") {
 
         $hasError = 0;
         try {
             print('*********************************************************' . "\r\n");
             print ("srcRoot: " . $srcRoot . "\r\n");
-            print ("licenseText: " . $licenseText . "\r\n");
+            print ("yearText: " . $yearText . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
             $this->srcRoot = $srcRoot;
-            $this->licenseText = $licenseText;
+            $this->yearText = $yearText;
 
 
         }
@@ -59,7 +59,7 @@ class exchangeAll_actCopyrightYear implements executeTasksInterface {
     public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- extendAllCopyrightYear ---" . "\r\n";
+        $OutTxt .= "--- exchangeAll_sinceCopyrightYearLines ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";
@@ -94,9 +94,9 @@ class exchangeAll_actCopyrightYear implements executeTasksInterface {
                     $this->srcRoot = $option->value;
                     break;
 
-                case 'licensetext':
+                case 'yearText':
                     print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->licenseText = $option->value;
+                    $this->yearText = $option->value;
                     break;
 
 //				case 'X':
@@ -138,7 +138,8 @@ class exchangeAll_actCopyrightYear implements executeTasksInterface {
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
 
-            $fileHeaderByFile->exchangeLicense ( $fileName->srcPathFileName);
+            $fileHeaderByFile->exchangeSinceCopyrightYear ( $fileName->srcPathFileName,
+                $this->yearText);
 
         }
 
@@ -151,5 +152,5 @@ class exchangeAll_actCopyrightYear implements executeTasksInterface {
 
         return (0);
     }
-} // extendAllCopyrightYear
+} // exchangeAll_sinceCopyrightYear
 

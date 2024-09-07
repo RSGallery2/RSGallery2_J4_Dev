@@ -1,6 +1,6 @@
 <?php
 
-namespace extendAllCopyrightYear;
+namespace exchangeAll_sinceCopyright;
 
 require_once "./commandLine.php";
 require_once "./exchangeAll_sinceCopyrightYear.php";
@@ -17,7 +17,7 @@ $HELP_MSG = <<<EOT
 >>>
 class exchangeAll_sinceCopyrightYear
 
-Reads file, exchanges one 'copyright' line 
+Reads file, exchanges one 'copyright' line for 'since'' year part (first year in line)
 Standard replace text is ??? year
 
 ToDo: extract year from git log each ..
@@ -30,7 +30,7 @@ EOT;
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:d:h12345";
+$optDefinition = "s:y:h12345";
 $isPrintArguments = false;
 
 list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -45,7 +45,7 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$tasksLine = ' task:exchangeAll_copyrightYear'
+$tasksLine = ' task:exchangeAll_sinceCopyrightYear'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
     . ' /licenseText = "GNU General Public License version 2 or later"'
@@ -58,7 +58,7 @@ $srcRoot = '';
 
 //$licenseText = "GNU General Public License version 2 or later;";
 //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
-$licenseText = '';
+$yearText = '';
 
 foreach ($options as $idx => $option)
 {
@@ -71,7 +71,11 @@ foreach ($options as $idx => $option)
 			$srcRoot = $option;
 			break;
 
-		case "h":
+        case 'y':
+            $yearText = $option;
+            break;
+
+        case "h":
 			exit($HELP_MSG);
 
 		case "1":
@@ -114,7 +118,7 @@ $task->extractTaskFromString($tasksLine);
 //$oBuildRelease->assignFilesNames($fileNamesList);
 
 
-$oExchangeAllLicenses = new exchangeAll_actCopyrightYearLines($srcRoot);
+$oExchangeAllLicenses = new exchangeAll_sinceCopyrightYearLines($srcRoot, $yearText);
 
 $hasError = $oExchangeAllLicenses->assignTask($task);
 if ($hasError) {

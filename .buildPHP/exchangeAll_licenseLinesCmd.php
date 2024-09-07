@@ -1,6 +1,6 @@
 <?php
 
-namespace exchangeAllLicenses;
+namespace exchangeAll_licenseLines;
 
 require_once "./commandLine.php";
 require_once "./exchangeAll_licenseLines.php";

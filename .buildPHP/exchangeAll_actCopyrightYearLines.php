@@ -1,6 +1,6 @@
 <?php
 
-namespace extendAllCopyrightYear;
+namespace exchangeAll_actCopyrightYear;
 
 require_once "./iExecTask.php";
 require_once "./fileHeaderByFileLine.php";
@@ -13,7 +13,7 @@ use FileNamesList\fileNamesList;
 use task\task;
 
 /*================================================================================
-Class extendAllCopyrightYear
+Class exchangeAll_actCopyrightYear
 ================================================================================*/
 
 class exchangeAll_actCopyrightYearLines implements executeTasksInterface {
@@ -57,7 +57,7 @@ class exchangeAll_actCopyrightYearLines implements executeTasksInterface {
     public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- extendAllCopyrightYear ---" . "\r\n";
+        $OutTxt .= "--- exchangeAll_actCopyrightYearLines ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";
@@ -136,7 +136,8 @@ class exchangeAll_actCopyrightYearLines implements executeTasksInterface {
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
 
-            $fileHeaderByFile->exchangeActCopyrightYear($fileName->srcPathFileName);
+            $fileHeaderByFile->exchangeActCopyrightYear($fileName->srcPathFileName,
+                $this->yearText);
 
         }
 
@@ -149,5 +150,5 @@ class exchangeAll_actCopyrightYearLines implements executeTasksInterface {
 
         return (0);
     }
-} // extendAllCopyrightYear
+} // exchangeAll_actCopyrightYear
 
