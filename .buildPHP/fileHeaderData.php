@@ -28,7 +28,7 @@ class fileHeaderData {
     public string $author = "rsgallery2 team";
 
     //
-    public string $rsgLink = "https://www.rsgallery2.org";
+    public string $link = "https://www.rsgallery2.org";
 
     //
     // public string $addition = "RSGallery is Free Software";
@@ -71,7 +71,7 @@ class fileHeaderData {
         $this->license = "GNU General Public License version 2 or later";
         //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
         $this->author = "rsgallery2 team";
-        $this->rsgLink = "https://www.rsgallery2.org";
+        $this->link = "https://www.rsgallery2.org";
 
         // $this->addition = "RSGallery is Free Software";
         // $this->since = ""; see constManifest.php
@@ -89,7 +89,7 @@ class fileHeaderData {
         $OutTxt .= "creationDateToday: " . $this->copyrightToday . "\r\n";
         $OutTxt .= "license: " . $this->license . "\r\n";
         $OutTxt .= "package: " . $this->package . "\r\n";
-        $OutTxt .= "rsgLink: " . $this->rsgLink . "\r\n";
+        $OutTxt .= "rsgLink: " . $this->link . "\r\n";
         $OutTxt .= "author: " . $this->author . "\r\n";
 
         return $OutTxt;
@@ -106,7 +106,7 @@ class fileHeaderData {
         $OutTxt .= $this->headerFormat('license', $this->license);
 
         $OutTxt .= $this->headerFormat('author', $this->author);
-        $OutTxt .= $this->headerFormat('link', $this->rsgLink);
+        $OutTxt .= $this->headerFormat('link', $this->link);
 
 //        $OutTxt .= $this->headerFormat('', $this->license);
 //        $OutTxt .= $this->headerFormat('license', $this->license);
@@ -124,7 +124,7 @@ class fileHeaderData {
         $headerLine = str_pad(" * @" . $name, $this->padCount, " ", STR_PAD_RIGHT);
         $headerLine .= $value;
 
-        $headerLine = trim($headerLine) . "\r\n";
+        $headerLine = rtrim($headerLine) . "\r\n";
 
         return $headerLine;
     }
@@ -143,6 +143,19 @@ class fileHeaderData {
         $headerExtern = $externHeaderAsString;
 
         return $headerLocal !== $headerExtern;
+    }
+
+    public function scan4HeaderValueInLine (string $name, string $line) : string {
+        $value = '';
+
+        $idx = strpos ($line, '@' . $name);
+        if ($idx !== false) {
+
+            $idx += 1 + strlen ($name);
+            $value = trim(substr ($line, $idx));
+        }
+
+        return $value;
     }
 
 } // fileHeader

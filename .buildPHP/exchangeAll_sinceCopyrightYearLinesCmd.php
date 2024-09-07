@@ -3,7 +3,7 @@
 namespace exchangeAll_sinceCopyright;
 
 require_once "./commandLine.php";
-require_once "./exchangeAll_sinceCopyrightYear.php";
+require_once "./exchangeAll_sinceCopyrightYearLines.php";
 
 // use \DateTime;
 

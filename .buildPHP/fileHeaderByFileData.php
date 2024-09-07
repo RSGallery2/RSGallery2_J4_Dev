@@ -342,7 +342,7 @@ class fileHeaderByFileData extends fileHeaderData {
                             $this->author = $value;
                             break;
                         case 'link':
-                            $this->rsgLink = $value;
+                            $this->link = $value;
                            break;
 
                         default:

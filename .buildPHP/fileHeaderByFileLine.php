@@ -86,6 +86,7 @@ class fileHeaderByFileLine extends fileHeaderData {
                     //  * @license     GNU General Public License version 2 or la ....
                     if (str_contains($line, '@package')) {
 
+                        // assign standard
                         if ($line != $packageLine) {
                             $outLines [] = $packageLine;
                             $isExchanged = true;
@@ -151,10 +152,11 @@ class fileHeaderByFileLine extends fileHeaderData {
                     $outLines [] = $line;
                 } else {
                     //  ToDo:
-                    if (str_contains($line, '@package')) {
+                    if (str_contains($line, '@subpackage')) {
 
                         $isFound = true;
 
+                        // assign standard
                         if ($line != $subPackageLine) {
                             $outLines [] = $subPackageLine;
                             $isExchanged = true;
@@ -232,6 +234,7 @@ class fileHeaderByFileLine extends fileHeaderData {
                         $isFound = true;
 
                         $outLines [] = $line;
+                        // assign standard
                         $outLines [] = $subPackageLine;
                         $isExchanged = true;
 
@@ -294,6 +297,8 @@ class fileHeaderByFileLine extends fileHeaderData {
                     if (str_contains($line, '@license')) {
 
                         if ($line != $licenseLine) {
+
+                            // assign standard
                             $outLines [] = $licenseLine;
                             $isExchanged = true;
                         } else {
@@ -367,10 +372,13 @@ class fileHeaderByFileLine extends fileHeaderData {
                     //   * @copyright (c)  2020-2022 Team
                     if (str_contains($line, '@copyright')) {
 
+                        $oldvalue = $this->scan4HeaderValueInLine('copyright', $line);
+
                         //  * @copyright (c)  2020-2022 Team
                         // $outLine = preg_replace('/(.*\d+\-)(.* ?)(.*)/',
-                        $copyrightLine = preg_replace('/(.* \d+-)(\d+)(.*)/',
-                            '${1}' . $toYear . '${3}', $line);
+                        $newValue = preg_replace('/(.* \d+-)(\d+)(.*)/',
+                            '${1}' . $toYear . '${3}', $oldvalue);
+                        $copyrightLine = $this->headerFormat ('copyright', $newValue);
 
                         if ($line != $copyrightLine) {
                             $outLines [] = $copyrightLine;
@@ -407,7 +415,83 @@ class fileHeaderByFileLine extends fileHeaderData {
     {
 
         // ToDo: create exchangeSinceCopyrightYear function
-        // retrieve year first checked in from git ? creaty copy of file with since year ...
+
+        throw new Exception("test before use: ??? overwrite valid ...");
+
+        $hasError = 0;
+
+        try {
+            print('*********************************************************' . "\r\n");
+            print('exchangeActCopyrightYear' . "\r\n");
+            print ("FileName in: " . $fileName . "\r\n");
+            print ("Up to year in: " . $toYear . "\r\n");
+            print('---------------------------------------------------------' . "\r\n");
+
+            if ( ! empty ($fileName)) {
+
+                $this->fileName = $fileName;
+
+            }  else {
+
+                $fileName = $this->fileName;
+            }
+            print ("FileName use: " . $fileName . "\r\n");
+
+            if (empty ($toYear)) {
+
+                $date_format        = 'Y';
+                $toYear = date ($date_format);
+            }
+            print ("Up to year use: " . $toYear . "\r\n");
+
+
+            $lines = file($fileName);
+            $outLines = [];
+            $isExchanged = false;
+
+            foreach ($lines as $line) {
+
+                if ($isExchanged) {
+
+                    $outLines [] = $line;
+                } else {
+                    //   * @copyright (c)  2020-2022 Team
+                    if (str_contains($line, '@copyright')) {
+
+                        $oldvalue = $this->scan4HeaderValueInLine('copyright', $line);
+
+                        //  * @copyright (c)  2020-2022 Team
+                        // $outLine = preg_replace('/(.*\d+\-)(.* ?)(.*)/',
+                        $newValue = preg_replace('/(.* )(\d+-)(\d+.*)/',
+                            '${1}' . $toYear . '${3}', $oldvalue);
+                        $copyrightLine = $this->headerFormat ('copyright', $newValue);
+
+                        if ($line != $copyrightLine) {
+                            $outLines [] = $copyrightLine;
+                            $isExchanged = true;
+                        } else {
+                            // line already fixed, no file write
+                            break;
+                        }
+
+                    } else {
+                        $outLines [] = $line;
+                    }
+                }
+            }
+
+            // write to file
+            if ($isExchanged == true) {
+                $isSaved = file_put_contents($fileName, $outLines);
+            }
+        }
+        catch(\Exception $e) {
+            echo 'Message: ' .$e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+
+        print('exit exchangeActCopyrightYear: ' . $hasError . "\r\n");
+        return $hasError;
     }
 
 
@@ -448,6 +532,7 @@ class fileHeaderByFileLine extends fileHeaderData {
                     //  * @license     GNU General Public License version 2 or la ....
                     if (str_contains($line, '@author')) {
 
+                        // assign standard
                         if ($line != $authorLine) {
                             $outLines [] = $authorLine;
                             $isExchanged = true;
@@ -513,6 +598,7 @@ class fileHeaderByFileLine extends fileHeaderData {
                     //  * @license     GNU General Public License version 2 or la ....
                     if (str_contains($line, '@link')) {
 
+                        // assign standard
                         if ($line != $LinkLine) {
                             $outLines [] = $LinkLine;
                             $isExchanged = true;
@@ -690,7 +776,7 @@ class fileHeaderByFileLine extends fileHeaderData {
                             $this->author = $value;
                             break;
                         case 'link':
-                            $this->rsgLink = $value;
+                            $this->link = $value;
                            break;
 
                         default:
