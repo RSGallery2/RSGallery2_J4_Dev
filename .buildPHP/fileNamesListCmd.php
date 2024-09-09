@@ -54,6 +54,7 @@ $srcRoot = "..\\..\\RSGallery2_J4";
 //$includeExt = "php";
 //$includeExt = "xmp";
 //$includeExt = "ini";
+//$includeExt = "ts";
 $includeExt = "";
 
 //$excludeExt = "php xmp ini";

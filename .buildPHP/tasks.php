@@ -66,32 +66,33 @@ class tasks {
             //            . 'task:task02 /optionX /option2=Y /optionZ="Zteststring"';
 	        $tasksLine = Trim($tasksLine);
 
-	        while ($this->isTaskStart($tasksLine))
-	        {
-		        $idxStart = strpos($tasksLine, ":");
-		        $idxNext = strpos($tasksLine, "task:", $idxStart+1);
+            if ($tasksLine != '')
+            {
+                while ($this->isTaskStart($tasksLine))
+                {
+                    $idxStart = strpos($tasksLine, ":");
+                    $idxNext = strpos($tasksLine, "task:", $idxStart + 1);
 
-		        // last task
-		        if ($idxNext == false) {
+                    // last task
+                    if ($idxNext == false) {
 
-			        $singleTask = substr($tasksLine, $idxStart+1);
+                        $singleTask = substr($tasksLine, $idxStart + 1);
 
-			        $tasksLine = '';
-		        } else {
+                        $tasksLine = '';
+                    } else {
 
-			        // multiple options
-			        $singleTask = substr($tasksLine, $idxStart+1, $idxNext - $idxStart -1-1);;
+                        // multiple options
+                        // $singleTask = substr($tasksLine, $idxStart + 1, $idxNext - $idxStart - 1 - 1);
+                        $singleTask = substr($tasksLine, 0, $idxNext - 1);
 
-			        $tasksLine = substr($tasksLine, $idxNext);
-			        $tasksLine = Trim($tasksLine);
+                        $tasksLine = substr($tasksLine, $idxNext);
+                        $tasksLine = Trim($tasksLine);
+                    }
 
-		        }
-
-		        $task = (new task())->extractTaskFromString($singleTask);
-		        $this->addTask ($task);
-
-	        }
-
+                    $task = (new task())->extractTaskFromString($singleTask);
+                    $this->addTask($task);
+                }
+            }
 
         } catch (\Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";

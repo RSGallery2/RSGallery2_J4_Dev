@@ -5,6 +5,9 @@ namespace ExecuteTasks;
 require_once "./fileNamesList.php";
 require_once "./task.php";
 
+require_once "./exchangeAll_licenseLines.php";
+
+
 // use \DateTime;
 // use DateTime;
 

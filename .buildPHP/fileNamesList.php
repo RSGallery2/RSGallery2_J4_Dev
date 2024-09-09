@@ -2,6 +2,7 @@
 
 namespace FileNamesList;
 
+require_once "./iExecTask.php";
 require_once "./fithFileName.php";
 require_once "./folderName.php";
 
@@ -495,7 +496,13 @@ class fileNamesList implements executeTasksInterface {
 
     public function addFilenames(array $fileNames)
     {
-        array_push($this->fileNames, $fileNames);
+        // array_push($this->fileNames, $fileNames->fileNames);
+
+        foreach ($fileNames as $fileName)
+        {
+            $this->fileNames [] = $fileName;
+        }
+
     }
 
     private function clone(fileNamesList $fileNamesList) : fileNamesList
@@ -516,7 +523,7 @@ class fileNamesList implements executeTasksInterface {
     }
     public function assignTask(task $task): int
     {
-        $this->clean(); todo: ;
+        $this->clean();
 
         $options = $task->options;
 
@@ -543,17 +550,17 @@ class fileNamesList implements executeTasksInterface {
                         $this->splitExtensionString($option->value);
                     break;
 
-                case 'isNoRecursion':
+                case 'isnorecursion':
                     print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->isNoRecursion = boolval($option->value);
                     break;
 
-                case 'isWriteListToFile':
+                case 'iswritelisttofile':
                     print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->isWriteListToFile = boolval($option->value);
                     break;
 
-				case 'listFileName':
+				case 'listfilename':
 					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->listFileName = boolval($option->value);
 					break;

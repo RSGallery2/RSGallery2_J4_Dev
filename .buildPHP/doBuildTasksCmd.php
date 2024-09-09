@@ -3,7 +3,7 @@
 namespace DoBuildTasks;
 
 require_once "./commandLine.php";
-require_once "./dBuildTasks.php";
+require_once "./doBuildTasks.php";
 
 use function commandLine\argsAndOptions;
 use function commandLine\print_header;
@@ -121,18 +121,40 @@ $tasksLine = '';
 $tasksLine .= "task:createFilenamesList"
     . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /isNoRecursion=true'
- //   . ' /includeFolder="./Administrator'
- //   . ' /includeFolder="./Administrator'
-    ;
+    . ' /includeExt = "php"'
+//    . ' /includeExt = "xmp"'
+//    . ' /includeExt = "ini"'
+//    . ' /includeExt = "ts"'
+//   . ' /includeFolder="./Administrator'
+//   . ' /includeFolder="./Administrator'
+    . ' ';
 $tasksLine .= "task:add2FilenamesList"
     . ' /srcRoot="./../../RSGallery2_J4/administrator"'
-    ;
+    . ' /includeExt = "php"'
+//    . ' /includeExt = "xmp"'
+//    . ' /includeExt = "ini"'
+//    . ' /includeExt = "ts"'
+//   . ' /includeFolder="./Administrator'
+//   . ' /includeFolder="./Administrator'
+    . ' ';
 $tasksLine .= "task:add2FilenamesList"
     . ' /srcRoot="./../../RSGallery2_J4/component"'
-    ;
+    . ' /includeExt = "php"'
+//    . ' /includeExt = "xmp"'
+//    . ' /includeExt = "ini"'
+//    . ' /includeExt = "ts"'
+//   . ' /includeFolder="./Administrator'
+//   . ' /includeFolder="./Administrator'
+    . ' ';
 $tasksLine .= "task:add2FilenamesList"
     . ' /srcRoot="./../../RSGallery2_J4/media"'
-    ;
+//    . ' /includeExt = "php"'
+//    . ' /includeExt = "xmp"'
+//    . ' /includeExt = "ini"'
+    . ' /includeExt = "ts"'
+//   . ' /includeFolder="./Administrator'
+//   . ' /includeFolder="./Administrator'
+    . ' ';
 
 ////--- RSG2 module files ---------------------------------
 //
@@ -147,7 +169,7 @@ $tasksLine .= "task:add2FilenamesList"
 //;
 //
 
-$tasksLine .= ' task:exchangeAllLicenses'
+$tasksLine .= ' task:exchangeall_licenselines'
     . ' /licenseText = "GNU General Public License version 2 or later"'
 //    . ' /s='
 ;
@@ -229,19 +251,17 @@ $oDoBuildTasks = new doBuildTasks(); // $basePath, $tasksLine
 
 //--- extract tasks from string or file ---------------------------------
 
-if (empty ($hasError) ) {
-    if ($taskFile!="") {
-        $hasError = $oDoBuildTasks->extractTasksFromFile($taskFile);
-        if (!empty ($hasError) ) {
-            print ("Error on function extractTasksFromFile:" . $hasError
-                . ' path: ' . $basePath);
-        }
-    } else {
-        $hasError = $oDoBuildTasks->extractTasksFromString($tasksLine);
-        if (!empty ($hasError) ) {
-            print ("Error on function extractTasksFromString:" . $hasError
-                . ' path: ' . $basePath);
-        }
+if ($taskFile!="") {
+    $hasError = $oDoBuildTasks->extractTasksFromFile($taskFile);
+    if (!empty ($hasError) ) {
+        print ("Error on function extractTasksFromFile:" . $hasError
+            . ' path: ' . $basePath);
+    }
+} else {
+    $hasError = $oDoBuildTasks->extractTasksFromString($tasksLine);
+    if (!empty ($hasError) ) {
+        print ("Error on function extractTasksFromString:" . $hasError
+            . ' path: ' . $basePath);
     }
 }
 
