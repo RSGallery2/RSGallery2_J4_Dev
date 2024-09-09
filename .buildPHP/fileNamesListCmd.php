@@ -48,7 +48,7 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$path = "..\\..\\RSGallery2_J4";
+$srcRoot = "..\\..\\RSGallery2_J4";
 
 //$includeExt = "php xmp ini";
 //$includeExt = "php";
@@ -77,7 +77,7 @@ foreach ($options as $idx => $option)
     switch ($idx)
     {
         case 'p':
-            $path = $option;
+            $srcRoot = $option;
             break;
 
         case 'i':
@@ -133,7 +133,7 @@ foreach ($options as $idx => $option)
 // for start / end diff
 $start = print_header($options, $inArgs);
 
-$oFileNamesList = new fileNamesList($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
+$oFileNamesList = new fileNamesList($srcRoot, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
 
 $hasError = $oFileNamesList->scan4Filenames();
 

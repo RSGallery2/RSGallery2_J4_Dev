@@ -39,7 +39,7 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-//$tasksString = "task:task00" . "\r\n"
+//$tasksLine = "task:task00" . "\r\n"
 //    . 'task:task01 /option1 /option2=xxx /option3="01teststring"' . "\r\n"
 //    . 'task:task02 /optionX /option2=Y /optionZ="Zteststring"' . "\r\n"
 //;
@@ -50,7 +50,7 @@ variables
 //;
 //$tasksLine = "task:clean4git";
 //$tasksLine = "task:clean4release";
-//$tasksLine = "task:updateCopyrightYear";
+//$tasksLine = "task:updateActCopyrightYear";
 
 // build without properties: component path to rsgallery2_j4
 // build without changes, increase id, prepare for release
@@ -65,64 +65,104 @@ variables
 
 $tasksLine = '';
 
-$tasksLine .= ' task:forceVersionId'
-    . ' /id="9.9.9"'
-    . ' /type=component'
-    . ' /srcRoot="./../../RSGallery2_J4/=component'
-    . ' /name=rsgallery2'
-;
-
-$tasksLine .= ' task:forceVersionId'
-    . ' /idFile="./VersionId.txt"'
-    . ' /type=component'
-    . ' /srcRoot="./../../RSGallery2_J4/=component'
-    . ' /name=rsgallery2'
-;
-
-$tasksLine .= ' task:increaseVersionId'
-    . ' /type=component'
-    . ' /srcRoot="./../../RSGallery2_J4/=component'
-    . ' /name=rsgallery2'
-    . ' /version=major|minor|patch|dev'
-;
-
+//$tasksLine .= ' task:forceVersionId'
+//    . ' /id="9.9.9"'
+//    . ' /srcRoot="./../../RSGallery2_J4/'
+//    . ' /type=component'
+//    . ' /name=rsgallery2'
+//;
+//
+//$tasksLine .= ' task:forceVersionId'
+//    . ' /idFile="./VersionId.txt"'
+//    . ' /srcRoot="./../../RSGallery2_J4/'
+//    . ' /type=component'
+//    . ' /name=rsgallery2'
+//;
+//
+//$tasksLine .= ' task:increaseVersionId'
+//    . ' /type=component'
+//    . ' /srcRoot="./../../RSGallery2_J4/'
+//    . ' /name=rsgallery2'
+//    . ' /version=major|minor|patch|dev'
+//;
+//
 //$tasksLine .= ' task:clean4release'
 //    . ' /type=component'
 //    . ' /name=rsgallery2'
 //;
+//
+//$tasksLine .= ' task:clean4git'
+//    . ' /type=component'
+//    . ' /name=rsgallery2'
+//    . ' /srcRoot="./../../RSGallery2_J4'
+//;
+//
+//$tasksLine .= ' task:updateActCopyrightYear'
+//    . ' /srcRoot="./../../RSGallery2_J4'
+//;
+//
+//$tasksLine .= ' task:buildRelease'
+//    . ' /type=component'
+//    . ' /srcRoot="./../../RSGallery2_J4'
+//    . ' /buildDir="./../.packages/"'
+////    . ' /adminPath='
+////    . ' /sitePath='
+////    . ' /mediaPath='
+//    . ' /name=rsgallery2'
+//    . ' /extension=RSGallery2'
+//// name.xml ?    . '/manifestFile='
+////    . '/s='
+////    . '/s='
+////    . '/s='
+//;
 
-$tasksLine .= ' task:clean4git'
-    . ' /type=component'
-    . ' /name=rsgallery2'
+//--- RSG2 standard files ---------------------------------
+
+$tasksLine .= "task:createFilenamesList"
+    . ' /srcRoot="./../../RSGallery2_J4"'
+    . ' /isNoRecursion=true'
+ //   . ' /includeFolder="./Administrator'
+ //   . ' /includeFolder="./Administrator'
+    ;
+$tasksLine .= "task:add2FilenamesList"
+    . ' /srcRoot="./../../RSGallery2_J4/administrator"'
+    ;
+$tasksLine .= "task:add2FilenamesList"
+    . ' /srcRoot="./../../RSGallery2_J4/component"'
+    ;
+$tasksLine .= "task:add2FilenamesList"
+    . ' /srcRoot="./../../RSGallery2_J4/media"'
+    ;
+
+////--- RSG2 module files ---------------------------------
+//
+//$tasksLine .= "task:createFilenamesList"
+//    . ' /srcRoot="./../../RSGallery2_J4/module"'
+//;
+//
+////--- RSG2 plugin files ---------------------------------
+//
+//$tasksLine .= "task:createFilenamesList"
+//    . ' /srcRoot="./../../RSGallery2_J4/plugins"'
+//;
+//
+
+$tasksLine .= ' task:exchangeAllLicenses'
+    . ' /licenseText = "GNU General Public License version 2 or later"'
+//    . ' /s='
 ;
 
-$tasksLine .= ' task:updateCopyrightYear'
-    . ' /type=component'
-    . ' /name=rsgallery2'
-;
 
-$tasksLine .= ' task:buildRelease'
-    . ' /type=component'
-    . ' /srcRoot="./../../RSGallery2_J4/=component'
-    . ' /buildDir="./../.packages/"'
-//    . ' /adminPath='
-//    . ' /sitePath='
-//    . ' /mediaPath='
-    . ' /name=rsgallery2'
-    . ' /extension=RSGallery2'
-// name.xml ?    . '/manifestFile='
-//    . '/s='
-//    . '/s='
-//    . '/s='
-;
 
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
-//$tasksString = "task: ";
+//$tasksLine .= "task: ";
+//$tasksLine .= "task: ";
+//$tasksLine .= "task: ";
+//$tasksLine .= "task: ";
+//$tasksLine .= "task: ";
+//$tasksLine .= "task: ";
+
+$tasksLine .= 'task:execute';
+
 
 
 $basePath = "..\\..\\RSGallery2_J4";
@@ -185,7 +225,7 @@ foreach ($options as $idx => $option)
 // for start / end diff
 $start = print_header($options, $inArgs);
 
-$oDoBuildTasks = new doBuildTasks(); // $basePath, $tasksString
+$oDoBuildTasks = new doBuildTasks(); // $basePath, $tasksLine
 
 //--- extract tasks from string or file ---------------------------------
 
@@ -207,19 +247,12 @@ if (empty ($hasError) ) {
 
 print ($oDoBuildTasks->tasksText());
 
-//--- collect files to execute tasks on  ---------------------------------
-
-$hasError = $oDoBuildTasks->collectFiles($basePath);
-if (!empty ($hasError) ) {
-    print ("Error on function collectFiles:" . $hasError
-        . ' path: ' . $basePath);
-}
-
 //--- execute tasks ---------------------------------
 
 if (empty ($hasError) ) {
 
-    $hasError = $oDoBuildTasks->executeTasks();
+    // create task classes, when task execute is issued the task does execute
+    $hasError = $oDoBuildTasks->applyTasks();
 
     if ($hasError) {
 

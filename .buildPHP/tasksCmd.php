@@ -47,7 +47,7 @@ $tasksLine = "task:task00 "
     ;
 //$tasksLine = "task:clean4git";
 //$tasksLine = "task:clean4release";
-//$tasksLine = "task:updateCopyrightYear";
+//$tasksLine = "task:updateActCopyrightYear";
 
 // build without properties: component path to rsgallery2_j4
 // build without changes, increase id, prepare for release

@@ -5,9 +5,11 @@ namespace FileNamesList;
 require_once "./fithFileName.php";
 require_once "./folderName.php";
 
-use \DateTime;
+//use \DateTime;
+use ExecuteTasks\executeTasksInterface;
 use FileName\fithFileName;
 use FolderName\fithFolderName;
+use task\task;
 
 /**
 ToDo:
@@ -19,29 +21,36 @@ ToDo:
 Class FileNamesList
 ================================================================================*/
 
-class fileNamesList {
-
-	/** @var string $path */
-    public $path = "";
+class fileNamesList implements executeTasksInterface {
 
     /** @var fithFileName[] $fileNames */
     public array $fileNames;
 
+    /** @var string $srcRoot */
+    public string $srcRoot = "";
+
 	/** @var bool */
-    private $isIncludeExt = False;
+    private bool $isIncludeExt = False;
+    /** @var string []  */
     private array $includeExtList;
 
 	/** @var bool */
-    private $isExcludeExt = False;
+    private bool $isExcludeExt = False;
+    /** @var string []  */
     private array $excludeExtList;
 
+    /** @var bool */
+    private bool $isExcludeFolder = False;
+    /** @var string []  */
+    private array $excludeFolderList;
+
+    /** @var bool */
+    private bool $isNoRecursion = False;
 	/** @var bool */
-    private $isNoRecursion = False;
-	/** @var bool */
-    private $isWriteListToFile = False;
+    private bool $isWriteListToFile = False;
 
 	/** @var string  */
-    private $listFileName = "";
+    private string $listFileName = "";
 
     /*--------------------------------------------------------------------
     construction
@@ -99,7 +108,7 @@ class fileNamesList {
             $this->fileNames = [];
 
             // iterate over folder and recursiv if set
-            $this->scanPath4Filenames($this->path);
+            $this->scanPath4Filenames($this->srcRoot);
 
         }
             /*--- exception ----------------------------------------------------*/
@@ -135,7 +144,7 @@ class fileNamesList {
     {
         $OutTxt = "";
 
-        $OutTxt .= "path: " . $this->path . "\r\n";
+        $OutTxt .= "path: " . $this->srcRoot . "\r\n";
         
         $OutTxt .= "isIncludeExt: " . $this->isIncludeExt . "\r\n";
         $OutTxt .= "includeExtList: " . 
@@ -167,16 +176,16 @@ class fileNamesList {
 
     public function clean()
     {
-        $this->path = "";
-
         $this->fileNames = [];
 
+        $this->srcRoot = "";
+
         $this->isIncludeExt = False;
-
         $this->includeExtList = [];
-        $this->isExcludeExt = False;
 
+        $this->isExcludeExt = False;
         $this->excludeExtList = [];
+
         $this->isNoRecursion = False;
 
         $this->isWriteListToFile = False;
@@ -303,7 +312,7 @@ class fileNamesList {
      */
     public function asssignParameters(mixed $path, mixed $includeExt, mixed $excludeExt, mixed $isNoRecursion, mixed $writeListToFile): void
     {
-        $this->path = $path;
+        $this->srcRoot = $path;
 
         [$this->isIncludeExt, $this->includeExtList] =
             $this->splitExtensionString($includeExt);
@@ -322,7 +331,7 @@ class fileNamesList {
 
     private function mergeParameter2Class(mixed $path, mixed $includeExt, mixed $excludeExt, mixed $isNoRecursion, mixed $writeListToFile)
     {
-        if (empty ($path)) { $path = $this->path; }
+        if (empty ($path)) { $path = $this->srcRoot; }
         if (empty ($includeExt)) { $includeExt = implode(' ', $this->includeExtList); }
         if (empty ($excludeExt)) { $excludeExt = implode(' ', $this->excludeExtList); }
         if (empty ($isNoRecursion)) { $isNoRecursion = $this->isNoRecursion; }
@@ -468,6 +477,127 @@ class fileNamesList {
 		return $isValid;
 	}
 
+
+    public function assignFilesNames(fileNamesList $fileNamesList) : int
+    {
+        // ToDo: extract function to use as constructor01
+        $this->srcRoot = $fileNamesList->srcRoot;
+        $this->isIncludeExt = $fileNamesList->isIncludeExt;
+        $this->includeExtList = $fileNamesList->includeExtList;
+        $this->isExcludeExt = $fileNamesList->isExcludeExt;
+        $this->excludeExtList = $fileNamesList->excludeExtList;
+        $this->isNoRecursion = $fileNamesList->isNoRecursion;
+        $this->isWriteListToFile = $fileNamesList->isWriteListToFile;
+        $this->listFileName = $fileNamesList->listFileName;
+
+        return 0;
+    }
+
+    public function addFilenames(array $fileNames)
+    {
+        array_push($this->fileNames, $fileNames);
+    }
+
+    private function clone(fileNamesList $fileNamesList) : fileNamesList
+    {
+        $fileNamesList = new fileNamesList();
+
+        $fileNamesList->fileNames = $this->fileNames;
+        $fileNamesList->srcRoot = $this->srcRoot;
+        $fileNamesList->isIncludeExt = $this->isIncludeExt;
+        $fileNamesList->includeExtList = $this->includeExtList;
+        $fileNamesList->isExcludeExt = $this->isExcludeExt;
+        $fileNamesList->excludeExtList = $this->excludeExtList;
+        $fileNamesList->isNoRecursion = $this->isNoRecursion;
+        $fileNamesList->isWriteListToFile = $this->isWriteListToFile;
+        $fileNamesList->listFileName = $this->listFileName;
+
+        return $fileNamesList;
+    }
+    public function assignTask(task $task): int
+    {
+        $this->clean(); todo: ;
+
+        $options = $task->options;
+
+        foreach ($options->options as $option) {
+
+            switch (strtolower($option->name)) {
+
+                case 'srcroot':
+                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->srcRoot = $option->value;
+                    break;
+
+                case 'includeext':
+                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    //$this->yearText = $option->value;
+                    [$this->isIncludeExt, $this->includeExtList] =
+                        $this->splitExtensionString($option->value);
+                    break;
+
+                case 'excludeext':
+                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    //$this->yearText = $option->value;
+                    [$this->isExcludeExt, $this->excludeExtList] =
+                        $this->splitExtensionString($option->value);
+                    break;
+
+                case 'isNoRecursion':
+                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->isNoRecursion = boolval($option->value);
+                    break;
+
+                case 'isWriteListToFile':
+                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->isWriteListToFile = boolval($option->value);
+                    break;
+
+				case 'listFileName':
+					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->listFileName = boolval($option->value);
+					break;
+
+//				case 'X':
+//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					break;
+//
+//				case 'Y':
+//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					break;
+//
+//				case 'Z':
+//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					break;
+
+                default:
+                    print ('Execute Default task: ' . $option->name. "\r\n");
+            } // switch
+
+            // $OutTxt .= $task->text() . "\r\n";
+        }
+
+        return 0;
+    }
+
+    public function execute(): int
+    {
+         $this->scan4Filenames();
+
+         return (0);
+    }
+
+//    public function subFileListByExtensions (string $includeExtList, string $excludeExtList): fileNamesList
+//    {
+//        // TODO: Implement subFileListByExtensions() method.
+//
+//    }
+//
+    public function executeFile(string $filePathName): bool
+    {
+        // TODO: throw
+        return 0;
+    }
 
 } // FileNamesList
 
