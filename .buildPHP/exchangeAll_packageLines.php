@@ -35,10 +35,10 @@ class exchangeAll_packages implements executeTasksInterface {
 
         $hasError = 0;
         try {
-            print('*********************************************************' . "\r\n");
-            print ("srcRoot: " . $srcRoot . "\r\n");
-            print ("packageText: " . $packageText . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+//            print('*********************************************************' . "\r\n");
+//            print ("srcRoot: " . $srcRoot . "\r\n");
+//            print ("packageText: " . $packageText . "\r\n");
+//            print('---------------------------------------------------------' . "\r\n");
 
             $this->srcRoot = $srcRoot;
             $this->packageText = $packageText;
@@ -50,7 +50,7 @@ class exchangeAll_packages implements executeTasksInterface {
             $hasError = -101;
         }
 
-        print('exit __construct: ' . $hasError . "\r\n");
+        // print('exit __construct: ' . $hasError . "\r\n");
     }
 
 
@@ -90,25 +90,25 @@ class exchangeAll_packages implements executeTasksInterface {
             switch (strtolower($option->name)) {
 
                 case 'srcroot':
-                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->srcRoot = $option->value;
                     break;
 
                 case 'packagetext':
-                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->packageText = $option->value;
                     break;
 
 //				case 'X':
-//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 //
 //				case 'Y':
-//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 //
 //				case 'Z':
-//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 
                 default:

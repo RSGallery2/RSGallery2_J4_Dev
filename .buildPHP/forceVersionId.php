@@ -39,11 +39,11 @@ class forceVersionId implements executeTasksInterface
 
         $hasError = 0;
         try {
-            print('*********************************************************' . "\r\n");
-            print ("Construct forceVersionId: " . "\r\n");
-//            print ("srcFile: " . $srcFile . "\r\n");
-//            print ("dstFile: " . $dstFile . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+//            print('*********************************************************' . "\r\n");
+//            print ("Construct forceVersionId: " . "\r\n");
+////            print ("srcFile: " . $srcFile . "\r\n");
+////            print ("dstFile: " . $dstFile . "\r\n");
+//            print('---------------------------------------------------------' . "\r\n");
 
 //            $this->srcFile = $srcFile;
 //            $this->dstFile = $dstFile;
@@ -55,7 +55,7 @@ class forceVersionId implements executeTasksInterface
             $hasError = -101;
         }
 
-        print('exit __construct: ' . $hasError . "\r\n");
+        // print('exit __construct: ' . $hasError . "\r\n");
     }
 
     // Task name with options
@@ -68,17 +68,17 @@ class forceVersionId implements executeTasksInterface
             switch (strtolower($option->name)) {
 
                 case 'srcroot':
-                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->srcRoot = $option->value;
                     break;
 
                 case 'name':
-                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->name = $option->value;
                     break;
 
                 case 'version':
-                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->componentVersion = $option->value;
                     break;
 

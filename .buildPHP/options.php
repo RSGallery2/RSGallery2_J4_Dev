@@ -40,7 +40,7 @@ class options {
             $hasError = -101;
         }
 
-//        print('exit __construct: ' . $hasError . "\r\n");
+//        // print('exit __construct: ' . $hasError . "\r\n");
     }
 
     public function clear() : void
@@ -190,11 +190,11 @@ class options {
 
     public function text() : string
     {
-        $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- options ---" . "\r\n";
+        $OutTxt = "";
+        // $OutTxt .= "options" . "\r\n";
 
         foreach ($this->options as $option) {
-            $OutTxt .= $option->text() . " ";
+            $OutTxt .= "   " . $option->text4Line() . "\r\n";
         }
 
         return $OutTxt;

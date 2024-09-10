@@ -835,7 +835,7 @@ class fileHeaderByFileLine extends fileHeaderData {
 //            switch (strtolower($option->name)) {
 //
 //                case 'srcroot':
-//                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+//                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //                    $this->srcRoot = $option->value;
 //                    break;
 
@@ -847,19 +847,19 @@ class fileHeaderByFileLine extends fileHeaderData {
         switch (strtolower($task->name)) {
 
             case 'exchangepackage':
-                print ('Execute task: ' . $task->name);
+                print ('Execute task: ' . $task->name . "\r\n");
 
 
                 break;
 
             case 'exchangesubpackage':
-                print ('Execute task: ' . $task->name);
+                print ('Execute task: ' . $task->name . "\r\n");
 
 
                 break;
 
             case 'exchangelicense':
-                print ('Execute task: ' . $task->name);
+                print ('Execute task: ' . $task->name . "\r\n");
 
                 $options = $task->options;
                 $fileName = $options->getOption ('fileName');
@@ -867,7 +867,7 @@ class fileHeaderByFileLine extends fileHeaderData {
                 break;
 
             case 'exchangeActCopyrightYear':
-                print ('Execute task: ' . $task->name);
+                print ('Execute task: ' . $task->name . "\r\n");
 
                 $options = $task->options;
                 $fileName = $options->getOption ('fileName');
@@ -877,7 +877,7 @@ class fileHeaderByFileLine extends fileHeaderData {
                 break;
 
             case 'exchangeSinceCopyrightYear':
-                print ('Execute task: ' . $task->name);
+                print ('Execute task: ' . $task->name . "\r\n");
 
                 $options = $task->options;
                 $fileName = $options->getOption ('fileName');
@@ -888,7 +888,7 @@ class fileHeaderByFileLine extends fileHeaderData {
                 break;
 
             case 'exchangeauthor':
-                print ('Execute task: ' . $task->name);
+                print ('Execute task: ' . $task->name . "\r\n");
 
                 $options = $task->options;
                 $fileName = $options->getOption ('fileName');
@@ -896,25 +896,25 @@ class fileHeaderByFileLine extends fileHeaderData {
                 break;
 
             case 'exchangersglink':
-                print ('Execute task: ' . $task->name);
+                print ('Execute task: ' . $task->name . "\r\n");
 
 
                 break;
 
             case 'X':
-                print ('Execute task: ' . $task->name);
+                print ('Execute task: ' . $task->name . "\r\n");
 
 
                 break;
 
             case 'Y':
-                print ('Execute task: ' . $task->name);
+                print ('Execute task: ' . $task->name . "\r\n");
 
 
                 break;
 
             default:
-                print ('!!! Task not executed: ' . $task->name . '!!!');
+                print ('!!! Task not executed: ' . $task->name . '!!!' . "\r\n");
 
                 break;
         }

@@ -62,18 +62,18 @@ class fileNamesList implements executeTasksInterface {
 
         $hasError = 0;
         try {
-            print('*********************************************************' . "\r\n");
-            print ("construct: " . "\r\n");
-            print ("path: " . $path . "\r\n");
-            print ("includeExt: " . $includeExt . "\r\n");
-            print ("excludeExt: " . $excludeExt . "\r\n");
-            print ("isNoRecursion: " . $isNoRecursion . "\r\n");
-            print ("writeListToFile: " . $writeListToFile . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+//            print('*********************************************************' . "\r\n");
+//            print ("construct: " . "\r\n");
+//            print ("path: " . $path . "\r\n");
+//            print ("includeExt: " . $includeExt . "\r\n");
+//            print ("excludeExt: " . $excludeExt . "\r\n");
+//            print ("isNoRecursion: " . $isNoRecursion . "\r\n");
+//            print ("writeListToFile: " . $writeListToFile . "\r\n");
+//            print('---------------------------------------------------------' . "\r\n");
 
             $this->clean();
 
-            $this->asssignParameters($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
+            $this->assignParameters($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
         }
         /*--- exception ----------------------------------------------------*/
         catch(\Exception $e) {
@@ -81,7 +81,7 @@ class fileNamesList implements executeTasksInterface {
             $hasError = -101;
         }
 
-        print('exit __construct: ' . $hasError . "\r\n");
+        // // print('exit __construct: ' . $hasError . "\r\n");
     }
 
     /*--------------------------------------------------------------------
@@ -93,14 +93,14 @@ class fileNamesList implements executeTasksInterface {
         $hasError = 0;
 
         try {
-            print('*********************************************************' . "\r\n");
-            print ("scan4Filenames: " . "\r\n");
-            print ("path: " . $path . "\r\n");
-            print ("includeExt: " . $includeExt . "\r\n");
-            print ("excludeExt: " . $excludeExt . "\r\n");
-            print ("isNoRecursion: " . $isNoRecursion . "\r\n");
-            print ("writeListToFile: " . $writeListToFile . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+//            print('*********************************************************' . "\r\n");
+//            print ("scan4Filenames: " . "\r\n");
+//            print ("path: " . $path . "\r\n");
+//            print ("includeExt: " . $includeExt . "\r\n");
+//            print ("excludeExt: " . $excludeExt . "\r\n");
+//            print ("isNoRecursion: " . $isNoRecursion . "\r\n");
+//            print ("writeListToFile: " . $writeListToFile . "\r\n");
+//            print('---------------------------------------------------------' . "\r\n");
 
             // merge with parameters (empty values will use local value
             $this->mergeParameter2Class ($path, $includeExt, $excludeExt,
@@ -118,7 +118,7 @@ class fileNamesList implements executeTasksInterface {
             $hasError = -101;
         }
 
-        print('exit scan4Filenames: ' . $hasError . "\r\n");
+//        print('exit scan4Filenames: ' . $hasError . "\r\n");
         return $hasError;
     }
 
@@ -311,7 +311,7 @@ class fileNamesList implements executeTasksInterface {
      * @param mixed $writeListToFile
      * @return void
      */
-    public function asssignParameters(mixed $path, mixed $includeExt, mixed $excludeExt, mixed $isNoRecursion, mixed $writeListToFile): void
+    public function assignParameters(mixed $path, mixed $includeExt, mixed $excludeExt, mixed $isNoRecursion, mixed $writeListToFile): void
     {
         $this->srcRoot = $path;
 
@@ -338,7 +338,7 @@ class fileNamesList implements executeTasksInterface {
         if (empty ($isNoRecursion)) { $isNoRecursion = $this->isNoRecursion; }
         if (empty ($writeListToFile)) { $writeListToFile = $this->listFileName; }
 
-        $this->asssignParameters($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
+        $this->assignParameters($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
     }
 
     private function scanPath4Filenames(mixed $inPath)
@@ -532,49 +532,49 @@ class fileNamesList implements executeTasksInterface {
             switch (strtolower($option->name)) {
 
                 case 'srcroot':
-                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->srcRoot = $option->value;
                     break;
 
                 case 'includeext':
-                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     //$this->yearText = $option->value;
                     [$this->isIncludeExt, $this->includeExtList] =
                         $this->splitExtensionString($option->value);
                     break;
 
                 case 'excludeext':
-                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     //$this->yearText = $option->value;
                     [$this->isExcludeExt, $this->excludeExtList] =
                         $this->splitExtensionString($option->value);
                     break;
 
                 case 'isnorecursion':
-                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->isNoRecursion = boolval($option->value);
                     break;
 
                 case 'iswritelisttofile':
-                    print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->isWriteListToFile = boolval($option->value);
                     break;
 
 				case 'listfilename':
-					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->listFileName = boolval($option->value);
 					break;
 
 //				case 'X':
-//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 //
 //				case 'Y':
-//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 //
 //				case 'Z':
-//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 
                 default:

@@ -50,7 +50,6 @@ variables
 //;
 //$tasksLine = "task:clean4git";
 //$tasksLine = "task:clean4release";
-//$tasksLine = "task:updateActCopyrightYear";
 
 // build without properties: component path to rsgallery2_j4
 // build without changes, increase id, prepare for release
@@ -97,9 +96,6 @@ $tasksLine = '';
 //    . ' /srcRoot="./../../RSGallery2_J4'
 //;
 //
-//$tasksLine .= ' task:updateActCopyrightYear'
-//    . ' /srcRoot="./../../RSGallery2_J4'
-//;
 //
 //$tasksLine .= ' task:buildRelease'
 //    . ' /type=component'
@@ -121,40 +117,47 @@ $tasksLine = '';
 $tasksLine .= "task:createFilenamesList"
     . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /isNoRecursion=true'
-    . ' /includeExt = "php"'
-//    . ' /includeExt = "xmp"'
-//    . ' /includeExt = "ini"'
-//    . ' /includeExt = "ts"'
+//    . ' /isCrawlSilent=false' default true ToDo:
+    . ' /includeExt="php"'
+//    . ' /includeExt="xmp"'
+//    . ' /includeExt="xmp"'
+//    . ' /includeExt="ini"'
+//    . ' /includeFiles="???"'
+//    . ' /excludeFiles="./../../RSGallery2_J4/.gitignore ./../../RSGallery2_J4/LICENSE.txt /../../RSGallery2_J4/README.md ./../../RSGallery2_J4/index.html "'
 //   . ' /includeFolder="./Administrator'
 //   . ' /includeFolder="./Administrator'
     . ' ';
 $tasksLine .= "task:add2FilenamesList"
     . ' /srcRoot="./../../RSGallery2_J4/administrator"'
-    . ' /includeExt = "php"'
-//    . ' /includeExt = "xmp"'
-//    . ' /includeExt = "ini"'
-//    . ' /includeExt = "ts"'
+    . ' /includeExt="php"'
+//    . ' /includeExt="xmp"'
+//    . ' /includeExt="ini"'
+//    . ' /includeExt="ts"'
 //   . ' /includeFolder="./Administrator'
 //   . ' /includeFolder="./Administrator'
     . ' ';
-$tasksLine .= "task:add2FilenamesList"
-    . ' /srcRoot="./../../RSGallery2_J4/component"'
-    . ' /includeExt = "php"'
-//    . ' /includeExt = "xmp"'
-//    . ' /includeExt = "ini"'
-//    . ' /includeExt = "ts"'
-//   . ' /includeFolder="./Administrator'
-//   . ' /includeFolder="./Administrator'
-    . ' ';
+//$tasksLine .= "task:add2FilenamesList"
+//    . ' /srcRoot="./../../RSGallery2_J4/component"'
+//    . ' /includeExt="php"'
+////    . ' /includeExt="xmp"'
+////    . ' /includeExt="ini"'
+////    . ' /includeExt="ts"'
+////   . ' /includeFolder="./Administrator'
+////   . ' /includeFolder="./Administrator'
+//    . ' ';
 $tasksLine .= "task:add2FilenamesList"
     . ' /srcRoot="./../../RSGallery2_J4/media"'
-//    . ' /includeExt = "php"'
-//    . ' /includeExt = "xmp"'
-//    . ' /includeExt = "ini"'
-    . ' /includeExt = "ts"'
+//    . ' /includeExt="php"'
+//    . ' /includeExt="xmp"'
+//    . ' /includeExt="ini"'
+    . ' /includeExt="ts"'
 //   . ' /includeFolder="./Administrator'
 //   . ' /includeFolder="./Administrator'
     . ' ';
+
+$tasksLine .= "task:printFilenamesList"
+    . ' ';
+
 
 ////--- RSG2 module files ---------------------------------
 //
@@ -169,12 +172,47 @@ $tasksLine .= "task:add2FilenamesList"
 //;
 //
 
+//$tasksLine .= ' task:exchangeall_licenselines'
+//    . ' /licenseText = "GNU General Public License version 2 or later"'
+////    . ' /s='
+//    . ' ';
+//
+
 $tasksLine .= ' task:exchangeall_licenselines'
     . ' /licenseText = "GNU General Public License version 2 or later"'
 //    . ' /s='
-;
+    . ' ';
 
+$tasksLine .= 'task:execute'
+. ' ';
 
+$tasksLine .= ' task:exchangeAll_actCopyrightYearLines'
+//    . ' /s='
+    . ' ';
+
+$tasksLine .= 'task:execute'
+. ' ';
+
+$tasksLine .= ' task:exchangeAll_linkLines'
+//    . ' /s='
+    . ' ';
+
+$tasksLine .= 'task:execute'
+. ' ';
+
+$tasksLine .= ' task:exchangeAll_packages'
+//    . ' /s='
+    . ' ';
+
+$tasksLine .= 'task:execute'
+. ' ';
+
+$tasksLine .= ' task:exchangeAll_subPackageLines'
+//    . ' /s='
+    . ' ';
+
+$tasksLine .= 'task:execute'
+. ' ';
 
 //$tasksLine .= "task: ";
 //$tasksLine .= "task: ";
@@ -183,8 +221,7 @@ $tasksLine .= ' task:exchangeall_licenselines'
 //$tasksLine .= "task: ";
 //$tasksLine .= "task: ";
 
-$tasksLine .= 'task:execute';
-
+// $tasksLine .= 'task:execute';
 
 
 $basePath = "..\\..\\RSGallery2_J4";
@@ -266,6 +303,8 @@ if ($taskFile!="") {
 }
 
 print ($oDoBuildTasks->tasksText());
+
+// exit (234);
 
 //--- execute tasks ---------------------------------
 

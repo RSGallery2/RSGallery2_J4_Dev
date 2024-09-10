@@ -36,7 +36,8 @@ class tasks {
     {
 
         if (!empty ($task->name)) {
-            $this->tasks [$task->name] = $task;
+            // $this->tasks [$task->name] = $task;
+            $this->tasks [] = $task;
         }
     }
 
@@ -76,7 +77,8 @@ class tasks {
                     // last task
                     if ($idxNext == false) {
 
-                        $singleTask = substr($tasksLine, $idxStart + 1);
+                        // wrong ? $singleTask = substr($tasksLine, $idxStart + 1);
+                        $singleTask = $tasksLine;
 
                         $tasksLine = '';
                     } else {

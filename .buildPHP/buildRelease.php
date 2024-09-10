@@ -65,9 +65,9 @@ class buildRelease implements executeTasksInterface
 
         $hasError = 0;
         try {
-            print('*********************************************************' . "\r\n");
-            print ("Construct buildRelease: " . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+//            print('*********************************************************' . "\r\n");
+//            print ("Construct buildRelease: " . "\r\n");
+//            print('---------------------------------------------------------' . "\r\n");
 
 //            $this->srcFile = $srcFile;
 //            $this->dstFile = $dstFile;
@@ -79,7 +79,7 @@ class buildRelease implements executeTasksInterface
             $hasError = -101;
         }
 
-        print('exit __construct: ' . $hasError . "\r\n");
+        // print('exit __construct: ' . $hasError . "\r\n");
     }
 
     // List of filenames to use
@@ -103,45 +103,45 @@ class buildRelease implements executeTasksInterface
 			switch (strtolower($option->name)) {
 
 				case 'srcroot':
-					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 					$this->srcRoot = $option->value;
 					break;
 
 				case 'builddir':
-					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 					$this->buildDir = $option->value;
 					break;
 
 				case 'name':
-					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 					$this->name = $option->value;
 					break;
 
 				case 'extension':
-					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 					$this->extension = $option->value;
 					break;
 
 				case 'type':
-					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 					$this->componentType = $option->value;
 					break;
 
 				case 'version':
-					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 					$this->componentVersion = $option->value;
 					break;
 
 //				case 'X':
-//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 //
 //				case 'Y':
-//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 //
 //				case 'Z':
-//					print ('Task option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 
 				default:

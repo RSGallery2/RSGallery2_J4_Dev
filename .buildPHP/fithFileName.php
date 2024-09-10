@@ -35,9 +35,9 @@ class fithFileName {
 
         $hasError = 0;
         try {
-            print('*********************************************************' . "\r\n");
-            print ("srcFile: " . $srcFile . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+//            print('*********************************************************' . "\r\n");
+//            print ("srcFile: " . $srcFile . "\r\n");
+//            print('---------------------------------------------------------' . "\r\n");
 
             $this->extractNameParts($srcFile);
 
@@ -47,7 +47,7 @@ class fithFileName {
             $hasError = -101;
         }
 
-        print('exit __construct: ' . $hasError . "\r\n");
+        // print('exit __construct: ' . $hasError . "\r\n");
     }
 
     /*--------------------------------------------------------------------

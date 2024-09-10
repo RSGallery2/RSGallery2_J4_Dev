@@ -35,7 +35,7 @@ class option {
             $hasError = -101;
         }
 
-//        print('exit __construct: ' . $hasError . "\r\n");
+//        // print('exit __construct: ' . $hasError . "\r\n");
     }
 
     public function clear() : void

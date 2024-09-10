@@ -48,14 +48,31 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-$srcRoot = "..\\..\\RSGallery2_J4";
+// ToDo: use tasklines as command
 
+//$tasksLine .= "task:createFilenamesList"
+//    . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /isNoRecursion=true'
+//    . ' /includeExt = "php"'
+////    . ' /includeExt="xmp"'
+////    . ' /includeExt="ini"'
+////    . ' /includeExt="ts"'
+////   . ' /includeFolder="./Administrator'
+////   . ' /includeFolder="./Administrator'
+//    . ' ';
+
+//$srcRoot = "..\\..\\RSGallery2_J4";
+//$srcRoot = "./../../RSGallery2_J4";
+//$srcRoot = "./../../RSGallery2_J4/administrator";
+//$srcRoot = "./../../RSGallery2_J4/component";
+$srcRoot = "./../../RSGallery2_J4/media";
+
+$includeExt = "";
 //$includeExt = "php xmp ini";
 //$includeExt = "php";
 //$includeExt = "xmp";
 //$includeExt = "ini";
-//$includeExt = "ts";
-$includeExt = "";
+$includeExt = "ts";
 
 //$excludeExt = "php xmp ini";
 //$excludeExt = "php";

@@ -5,6 +5,14 @@ namespace DoBuildTasks;
 require_once "./fileNamesList.php";
 require_once "./buildRelease.php";
 
+require_once "./exchangeAll_actCopyrightYearLines.php";
+require_once "./exchangeAll_authorLines.php";
+require_once "./exchangeAll_licenseLines.php";
+require_once "./exchangeAll_linkLines.php";
+require_once "./exchangeAll_packageLines.php";
+require_once "./exchangeAll_sinceCopyrightYearLines.php";
+require_once "./exchangeAll_subPackageLines.php";
+
 // require_once "./option.php";
 // require_once "./options.php";
 // require_once "./task.php";
@@ -13,7 +21,14 @@ require_once "./tasks.php";
 // use \DateTime;
 // use DateTime;
 
+use exchangeAll_actCopyrightYear\exchangeAll_actCopyrightYearLines;
+use exchangeAll_authorLines\exchangeAll_authorLines;
 use exchangeAll_licenseLines\exchangeAll_licenseLines;
+use exchangeAll_linkLines\exchangeAll_linkLines;
+use exchangeAll_packageLines\exchangeAll_packages;
+use exchangeAll_sinceCopyrightYear\exchangeAll_sinceCopyrightYear;
+use exchangeAll_subPackageLines\exchangeAll_subPackageLines;
+
 use ExecuteTasks\executeTasksInterface;
 use FileNamesList\fileNamesList;
 use ExecuteTasks\buildRelease;
@@ -66,14 +81,18 @@ class doBuildTasks {
 
         $hasError = 0;
         try {
-            print('*********************************************************' . "\r\n");
-            print("basePath: " . $basePath . "\r\n");
-            print("tasks: " . $tasksLine . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+//            print('*********************************************************' . "\r\n");
+//            print("basePath: " . $basePath . "\r\n");
+//            print("tasks: " . $tasksLine . "\r\n");
+//            print('---------------------------------------------------------' . "\r\n");
 
             $this->basePath = $basePath;
-            $tasks = new tasks();
-            $this->textTasks = $tasks->extractTasksFromString($tasksLine);
+            $this->textTasks = new tasks();
+            $this->fileNamesList = new fileNamesList();
+
+            if (strlen($tasksLine) > 0) {
+                $this->textTasks = $this->textTasks->extractTasksFromString($tasksLine);
+            }
 
             // print ($this->tasksText ());
         }
@@ -82,7 +101,7 @@ class doBuildTasks {
             $hasError = -101;
         }
 
-        print('exit __construct: ' . $hasError . "\r\n");
+        // print('exit __construct: ' . $hasError . "\r\n");
     }
 
     /*--------------------------------------------------------------------
@@ -100,14 +119,20 @@ class doBuildTasks {
 
             foreach ($this->textTasks->tasks as $textTask) {
 
-                print ("--- apply task: " . $textTask->name . "\r\n");
+                // print ("--- apply task: " . $textTask->name . "\r\n");
+                print (">>>---------------------------------" . "\r\n");
 
                 switch (strtolower($textTask->name)) {
 
                     //--- let the task run -------------------------
 
                     case 'execute':
-                        print ('>>> Execute task: >>>');
+                        print ('>>> Call execute task:  >>>' . "\r\n");
+
+                        // ToDo: dummy task
+//                        if (empty ($this->actTask)){
+//                            $this->actTask = new executeTasksInterface ();
+//                        }
 
                         // prepared filenames list
                         $this->actTask->assignFilesNames($this->fileNamesList);
@@ -120,7 +145,7 @@ class doBuildTasks {
                     //--- assign files to task -----------------------
 
                     case 'createfilenameslist':
-                        print ('Execute task: ' . $textTask->name);
+                        print ('Execute task: ' . $textTask->name . "\r\n");
 
                         $filenamesList = new fileNamesList ();
                         $this->actTask = $this->createTask ($filenamesList, $textTask);
@@ -133,14 +158,22 @@ class doBuildTasks {
                     //--- add more files to task -----------------------
 
                     case 'add2filenameslist':
-                        print ('Execute task: ' . $textTask->name);
+                        print ('Execute task: ' . $textTask->name . "\r\n");
                         $filenamesList = new fileNamesList ();
                         $filenamesList->assignTask ($textTask);
                         $filenamesList->execute ();
 
-                        $this->fileNamesList->addFilenames ($filenamesList->fileNames);
+                        if (empty($this->fileNamesList)) {
+                            $this->fileNamesList = new fileNamesList ();
+                        }
 
+                        $this->fileNamesList->addFilenames ($filenamesList->fileNames);
                         break;
+
+                    case 'printfilenameslist':
+                        print ($this->fileNamesList->text_listFileNames());
+                        break;
+
 
                     //=== real task definitions =================================
 
@@ -161,15 +194,42 @@ class doBuildTasks {
 		                break;
 
                     case 'clean4gitcheckin':
-//                        $this->actTask = $this->createTask (new clean4gitcheckin (), $textTask);
+//                        ToDo: $this->actTask = $this->createTask (new clean4gitcheckin (), $textTask);
                         break;
 
-                    case 'updateactcopyrightyear':
-                        // $this->actTask = $this->createTask (new buildRelease (), $textTask);
+                    case 'clean4release':
+//                        ToDo: $this->actTask = $this->createTask (new clean4release (), $textTask);
                         break;
+
+
+                    //--- exchange header tasks --------------------------------------------------
 
                     case 'exchangeall_licenselines':
                         $this->actTask = $this->createTask (new exchangeAll_licenseLines (), $textTask);
+                        break;
+
+                    case 'exchangeall_actcopyrightyearlines':
+                        $this->actTask = $this->createTask (new exchangeAll_actCopyrightYearLines (), $textTask);
+                        break;
+
+                    case 'exchangeall_authorlines':
+                        $this->actTask = $this->createTask (new exchangeAll_authorLines (), $textTask);
+                        break;
+
+                    case 'exchangeall_linklines':
+                        $this->actTask = $this->createTask (new exchangeAll_linkLines (), $textTask);
+                        break;
+
+                    case 'exchangeall_packages':
+                        $this->actTask = $this->createTask (new exchangeAll_packages (), $textTask);
+                        break;
+
+                    case 'exchangeall_sincecopyrightyear':
+                        $this->actTask = $this->createTask (new exchangeAll_sinceCopyrightYear (), $textTask);
+                        break;
+
+                    case 'exchangeall_subpackagelines':
+                        $this->actTask = $this->createTask (new exchangeAll_subPackageLines (), $textTask);
                         break;
 
 //                    case 'X':
@@ -184,7 +244,7 @@ class doBuildTasks {
 //                        break;
 //
                     default:
-                        print ('Execute Default task: ' . $textTask->name);
+                        print ('!!! Execute Default task: ' . $textTask->name . ' !!!!');
                 } // switch
 
                 // $OutTxt .= $task->text() . "\r\n";
@@ -222,10 +282,12 @@ class doBuildTasks {
 
     public function tasksText()
     {
-        $OutTxt = "------------------------------------------" . "\r\n";
+        // $OutTxt = "------------------------------------------" . "\r\n";
+        $OutTxt = "";
+
         $OutTxt .= "--- doBuildTasks: Tasks ---" . "\r\n";
 
-	    $OutTxt .= "Tasks count: " . $this->textTasks->count() . "\r\n";
+	    // $OutTxt .= "Tasks count: " . $this->textTasks->count() . "\r\n";
 
         $OutTxt .= $this->textTasks->text() . "\r\n";
 

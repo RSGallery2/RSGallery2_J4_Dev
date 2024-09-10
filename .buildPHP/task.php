@@ -60,7 +60,7 @@ class task {
 
             // name without options
             if ($idx == false) {
-                $taskName = $tasksString;
+                $taskName = substr($tasksString, 5);
             } else {
                 // name with options (task:exchangeActCopyrightYear /fileName=".../src/Model/GalleryTreeModel.php" /copyrightDate=1999)
                 $taskName = substr($tasksString, 5, $idx-5);
@@ -102,13 +102,13 @@ class task {
 
     public function text() : string
     {
-        $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- task ---" . "\r\n";
-
-        $OutTxt .= "name: " . $this->name . "\r\n";
+        // $OutTxt = "------------------------------------------" . "\r\n";
+        $OutTxt = "";
+        $OutTxt .= "--- task: ". $this->name . "\r\n";
 	    if ($this->options->count() > 0)
 	    {
-		    $OutTxt .= "options: " . $OutTxt .= $this->options->text(); // . "\r\n";
+		    // $OutTxt .= "options: ";
+            $OutTxt .= $this->options->text(); // . "\r\n";
 	    }
 
         return $OutTxt;

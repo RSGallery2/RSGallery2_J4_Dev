@@ -39,9 +39,9 @@ class fithFolderName {
 
         $hasError = 0;
         try {
-            print('*********************************************************' . "\r\n");
-            print ("srcFolder: " . $srcFolder . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+//            print('*********************************************************' . "\r\n");
+//            print ("srcFolder: " . $srcFolder . "\r\n");
+//            print('---------------------------------------------------------' . "\r\n");
 
             $this->extractNameParts($srcFolder);
 
@@ -51,7 +51,7 @@ class fithFolderName {
             $hasError = -101;
         }
 
-        print('exit __construct: ' . $hasError . "\r\n");
+        // print('exit __construct: ' . $hasError . "\r\n");
     }
 
     /*--------------------------------------------------------------------
