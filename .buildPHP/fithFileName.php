@@ -2,7 +2,7 @@
 
 namespace FileName;
 
-use \DateTime;
+// use \DateTime;
 // use DateTime;
 
 
@@ -13,19 +13,19 @@ Class fithFileName
 class fithFileName {
 
     // given name
-    public $srcSpecifiedName = "";
+    public string $srcSpecifiedName = "";
     // realpath
-    public $srcPathFileName = "";
+    public string $srcPathFileName = "";
 
 
     // file name part
-    public $fileName = "";
+    public string $fileName = "";
     // file name part
-    public $fileExtension = "";
+    public string $fileExtension = "";
     // file name part
     // file name part
-    public $fileBaseName = "";
-    public $filePath = "";
+    public string $fileBaseName = "";
+    public string $filePath = "";
 
     /*--------------------------------------------------------------------
     construction
@@ -33,7 +33,7 @@ class fithFileName {
 
     public function __construct($srcFile="") {
 
-        $hasError = 0;
+        //$hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
 //            print ("srcFile: " . $srcFile . "\r\n");
@@ -44,7 +44,7 @@ class fithFileName {
         }
         catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage() . "\r\n";
-            $hasError = -101;
+            //$hasError = -101;
         }
 
         // print('exit __construct: ' . $hasError . "\r\n");
@@ -54,14 +54,15 @@ class fithFileName {
     extractNameParts
     --------------------------------------------------------------------*/
 
-    function extractNameParts($srcFile="") {
+    function extractNameParts($srcFile="") : int {
         $hasError = 0;
 
         try {
-            print('*********************************************************' . "\r\n");
-            print('extractNameParts' . "\r\n");
-            print("srcSpecifiedName: " . $srcFile . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+//            print('*********************************************************' . "\r\n");
+//            print('extractNameParts' . "\r\n");
+//            print("srcSpecifiedName: " . $srcFile . "\r\n");
+//            print('---------------------------------------------------------' . "\r\n");
+            print("    " . $srcFile . "\r\n");
 
             $this->clear ();
 
@@ -81,7 +82,7 @@ class fithFileName {
             $hasError = -101;
         }
 
-        print('exit extractNameParts: ' . $hasError . "\r\n");
+//        print('exit extractNameParts: ' . $hasError . "\r\n");
         return $hasError;
     }
 
@@ -170,7 +171,7 @@ class fithFileName {
     public function text() : string
     {
         $OutTxt = "";
-        $OutTxt = "------------------------------------------" . "\r\n";
+        $OutTxt .= "------------------------------------------" . "\r\n";
         $OutTxt .= "--- fithFileName ---" . "\r\n";
 
         $OutTxt .= "srcSpecifiedName: " . $this->srcSpecifiedName . "\r\n";

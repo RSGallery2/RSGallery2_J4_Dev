@@ -62,10 +62,11 @@ class fithFolderName {
         $hasError = 0;
 
         try {
-            print('*********************************************************' . "\r\n");
-            print('extractNameParts' . "\r\n");
-            print("srcSpecifiedName: " . $srcFolder . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+//            print('*********************************************************' . "\r\n");
+//            print('extractNameParts' . "\r\n");
+//            print("srcSpecifiedName: " . $srcFolder . "\r\n");
+//            print('---------------------------------------------------------' . "\r\n");
+//            print("Collect folder: " . $srcFolder . "\r\n");
 
             $this->clear ();
 
@@ -84,7 +85,7 @@ class fithFolderName {
             $hasError = -101;
         }
 
-        print('exit extractNameParts: ' . $hasError . "\r\n");
+//        print('exit extractNameParts: ' . $hasError . "\r\n");
         return $hasError;
     }
 

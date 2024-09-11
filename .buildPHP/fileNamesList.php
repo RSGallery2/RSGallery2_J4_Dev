@@ -341,16 +341,17 @@ class fileNamesList implements executeTasksInterface {
         $this->assignParameters($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
     }
 
-    private function scanPath4Filenames(mixed $inPath)
+    private function scanPath4Filenames(string $inPath)
     {
-            print('*********************************************************' . "\r\n");
-            print ("scanPath4Filenames: " . "\r\n");
-            print ("inPath: " . $inPath . "\r\n");
+            //print('*********************************************************' . "\r\n");
+//            print (">>> scanPath4Filenames: " . "\r\n");
+//            print ("    inPath: " . $inPath . "\r\n");
+            print (">>> scanPath4Filenames: " . $inPath . "\r\n");
 
         try {
             [$files, $folders] = $this->filesAndFoldersInDir($inPath);
 
-            print ("files count: " . count($files) . "\r\n");
+            // print ("    files count: " . count($files) . "\r\n");
 
             foreach ($files as $file) {
 
@@ -372,7 +373,7 @@ class fileNamesList implements executeTasksInterface {
             // follow sub folders
             if ( ! $this->isNoRecursion) {
 
-                print ("folders count: " . count($folders) . "\r\n");
+                // print ("    folders count: " . count($folders) . "\r\n");
 
                 foreach ($folders as $folder) {
 

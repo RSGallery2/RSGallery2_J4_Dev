@@ -88,7 +88,7 @@ class buildRelease implements executeTasksInterface
 
 	    // ($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
 	    // $this->fileNamesList = $fileNamesList;
-        $this->fileNamesList = $fileNamesList;
+        // not used ? $this->fileNamesList = $fileNamesList;
 
 
     }
@@ -279,7 +279,7 @@ class buildRelease implements executeTasksInterface
         print ("manifestPathFileName: " . $manifestPathFileName . "\r\n");
 
         // ToDo: external parameter;
-		$date_format = 'Ymd';
+		$date_format = 'Y.m.d';
         $dateText = date ($date_format);
 
         $this->exchangeDateInManifestFile ($manifestPathFileName, $dateText);
@@ -439,10 +439,8 @@ class buildRelease implements executeTasksInterface
                 } else {
                     // <creationDate>31. May. 2024</creationDate>
                     if (str_contains($line, '<creationDate>')) {
-                        // $outLine = preg_replace('/(.*>?)(.*)(<.*)/',
-                        $outLine = preg_replace('/(.*>?)(\d*.*\d*)(<.*)/',
+                        $outLine = preg_replace('/(.*<creationDate>)(.+)(<\/creationDate.*)/i',
                             '${1}' . $strDate . '${3}', $line);
-
                         $outLines [] = $outLine;
 
                         $isExchanged = true;

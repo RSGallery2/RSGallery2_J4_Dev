@@ -140,6 +140,9 @@ class doBuildTasks {
                         // run task
                         $hasError = $this->actTask->execute ();
 
+//                        // stop after first task
+//                        exit (99);
+
                         break;
 
                     //--- assign files to task -----------------------
@@ -170,8 +173,15 @@ class doBuildTasks {
                         $this->fileNamesList->addFilenames ($filenamesList->fileNames);
                         break;
 
+                    case 'clearfilenameslist':
+                        $this->fileNamesList = new fileNamesList();
+                        break;
+
                     case 'printfilenameslist':
                         print ($this->fileNamesList->text_listFileNames());
+
+                        // stop after print files to check the files
+                        exit (98);
                         break;
 
 
@@ -179,6 +189,7 @@ class doBuildTasks {
 
                     case 'buildrelease':
                         $this->actTask = $this->createTask (new buildRelease (), $textTask);
+
                         break;
 
 	                case 'forceversionid':

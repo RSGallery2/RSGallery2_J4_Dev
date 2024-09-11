@@ -55,7 +55,7 @@ variables
 // build without changes, increase id, prepare for release
 // build type: component module plugin package
 // build folder:
-// build dev update version
+// build dev update version:
 // Version ID  /increaseDevelop: x.x.x.n, release x.n.00, versionByConfig
 //
 //$tasksLine = "task:build /type=component";
@@ -63,6 +63,23 @@ variables
 //$tasksLine = "task:build /increaseId /clean4release";
 
 $tasksLine = '';
+
+//$tasksLine .= ' task:buildRelease'
+//    . ' /type=component'
+//    . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /buildDir="./../.packages"'
+////    . ' /adminPath='
+////    . ' /sitePath='
+////    . ' /mediaPath='
+//    . ' /name=rsgallery2'
+//    . ' /extension=RSGallery2'
+//// name.xml ?    . '/manifestFile='
+////    . '/s='
+////    . '/s='
+////    . '/s='
+//    . ' ';
+//
+//$tasksLine .= 'task:execute' . ' ';
 
 //$tasksLine .= ' task:forceVersionId'
 //    . ' /id="9.9.9"'
@@ -93,25 +110,10 @@ $tasksLine = '';
 //$tasksLine .= ' task:clean4git'
 //    . ' /type=component'
 //    . ' /name=rsgallery2'
-//    . ' /srcRoot="./../../RSGallery2_J4'
+//    . ' /srcRoot="./../../RSGallery2_J4"'
 //;
 //
 //
-//$tasksLine .= ' task:buildRelease'
-//    . ' /type=component'
-//    . ' /srcRoot="./../../RSGallery2_J4'
-//    . ' /buildDir="./../.packages/"'
-////    . ' /adminPath='
-////    . ' /sitePath='
-////    . ' /mediaPath='
-//    . ' /name=rsgallery2'
-//    . ' /extension=RSGallery2'
-//// name.xml ?    . '/manifestFile='
-////    . '/s='
-////    . '/s='
-////    . '/s='
-//;
-
 //--- RSG2 standard files ---------------------------------
 
 $tasksLine .= "task:createFilenamesList"
@@ -136,15 +138,15 @@ $tasksLine .= "task:add2FilenamesList"
 //   . ' /includeFolder="./Administrator'
 //   . ' /includeFolder="./Administrator'
     . ' ';
-//$tasksLine .= "task:add2FilenamesList"
-//    . ' /srcRoot="./../../RSGallery2_J4/component"'
-//    . ' /includeExt="php"'
-////    . ' /includeExt="xmp"'
-////    . ' /includeExt="ini"'
-////    . ' /includeExt="ts"'
-////   . ' /includeFolder="./Administrator'
-////   . ' /includeFolder="./Administrator'
-//    . ' ';
+$tasksLine .= "task:add2FilenamesList"
+    . ' /srcRoot="./../../RSGallery2_J4/components"'
+    . ' /includeExt="php"'
+//    . ' /includeExt="xmp"'
+//    . ' /includeExt="ini"'
+//    . ' /includeExt="ts"'
+//   . ' /includeFolder="./Administrator'
+//   . ' /includeFolder="./Administrator'
+    . ' ';
 $tasksLine .= "task:add2FilenamesList"
     . ' /srcRoot="./../../RSGallery2_J4/media"'
 //    . ' /includeExt="php"'
@@ -183,45 +185,77 @@ $tasksLine .= ' task:exchangeall_licenselines'
 //    . ' /s='
     . ' ';
 
-$tasksLine .= 'task:execute'
-. ' ';
+$tasksLine .= 'task:execute' . ' ';
 
 $tasksLine .= ' task:exchangeAll_actCopyrightYearLines'
 //    . ' /s='
     . ' ';
 
-$tasksLine .= 'task:execute'
-. ' ';
+$tasksLine .= 'task:execute' . ' ';
 
 $tasksLine .= ' task:exchangeAll_linkLines'
 //    . ' /s='
     . ' ';
 
-$tasksLine .= 'task:execute'
-. ' ';
+$tasksLine .= 'task:execute' . ' ';
 
 $tasksLine .= ' task:exchangeAll_packages'
 //    . ' /s='
     . ' ';
 
-$tasksLine .= 'task:execute'
-. ' ';
+$tasksLine .= 'task:execute' . ' ';
 
 $tasksLine .= ' task:exchangeAll_subPackageLines'
 //    . ' /s='
     . ' ';
 
-$tasksLine .= 'task:execute'
-. ' ';
+$tasksLine .= 'task:execute' . ' ';
 
+//$tasksLine .= "task: "
+////    . ' /s='
+//   . ' ';
+//$tasksLine .= 'task:execute' . ' ';
 //$tasksLine .= "task: ";
+////    . ' /s='
+//   . ' ';
+//$tasksLine .= 'task:execute' . ' ';
 //$tasksLine .= "task: ";
+////    . ' /s='
+//   . ' ';
+//$tasksLine .= 'task:execute' . ' ';
 //$tasksLine .= "task: ";
+////    . ' /s='
+//   . ' ';
+//$tasksLine .= 'task:execute' . ' ';
 //$tasksLine .= "task: ";
+////    . ' /s='
+//   . ' ';
+//$tasksLine .= 'task:execute' . ' ';
 //$tasksLine .= "task: ";
-//$tasksLine .= "task: ";
+////    . ' /s='
+//   . ' ';
+//$tasksLine .= 'task:execute' . ' ';
 
-// $tasksLine .= 'task:execute';
+$tasksLine .= 'task:clearFilenamesList' . ' ';
+
+$tasksLine .= ' task:buildRelease'
+    . ' /type=component'
+    . ' /srcRoot="./../../RSGallery2_J4"'
+    . ' /buildDir="./../.packages"'
+//    . ' /adminPath='
+//    . ' /sitePath='
+//    . ' /mediaPath='
+    . ' /name=rsgallery2'
+    . ' /extension=RSGallery2'
+// name.xml ?    . '/manifestFile='
+//    . '/s='
+//    . '/s='
+//    . '/s='
+    . ' ';
+
+$tasksLine .= 'task:execute' . ' ';
+
+
 
 
 $basePath = "..\\..\\RSGallery2_J4";
