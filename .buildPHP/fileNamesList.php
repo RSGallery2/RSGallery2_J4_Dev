@@ -601,7 +601,7 @@ class fileNamesList implements executeTasksInterface {
 //
 //    }
 //
-    public function executeFile(string $filePathName): bool
+    public function executeFile(string $filePathName): int
     {
         // TODO: throw
         return 0;

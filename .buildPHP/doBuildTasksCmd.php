@@ -180,35 +180,37 @@ $tasksLine .= "task:printFilenamesList"
 //    . ' ';
 //
 
+$tasksLine .= ' task:clean4GitCheckin'
+//    . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /s='
+    . ' ';
+$tasksLine .= 'task:execute' . ' ';
+
+
 $tasksLine .= ' task:exchangeall_licenselines'
     . ' /licenseText = "GNU General Public License version 2 or later"'
 //    . ' /s='
     . ' ';
-
 $tasksLine .= 'task:execute' . ' ';
 
 $tasksLine .= ' task:exchangeAll_actCopyrightYearLines'
 //    . ' /s='
     . ' ';
-
 $tasksLine .= 'task:execute' . ' ';
 
 $tasksLine .= ' task:exchangeAll_linkLines'
 //    . ' /s='
     . ' ';
-
 $tasksLine .= 'task:execute' . ' ';
 
 $tasksLine .= ' task:exchangeAll_packages'
 //    . ' /s='
     . ' ';
-
 $tasksLine .= 'task:execute' . ' ';
 
 $tasksLine .= ' task:exchangeAll_subPackageLines'
 //    . ' /s='
     . ' ';
-
 $tasksLine .= 'task:execute' . ' ';
 
 //$tasksLine .= "task: "
@@ -252,9 +254,7 @@ $tasksLine .= ' task:buildRelease'
 //    . '/s='
 //    . '/s='
     . ' ';
-
 $tasksLine .= 'task:execute' . ' ';
-
 
 
 

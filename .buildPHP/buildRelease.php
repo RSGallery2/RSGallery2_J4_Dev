@@ -190,7 +190,7 @@ class buildRelease implements executeTasksInterface
 	    return (0);
     }
 
-    public function executeFile (string $filePathName) : bool // $isChanged
+    public function executeFile (string $filePathName) : int
     {
 
 		// not supported

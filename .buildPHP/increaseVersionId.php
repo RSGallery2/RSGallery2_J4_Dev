@@ -30,6 +30,11 @@ class increaseVersionId implements executeTasksInterface
     // internal
     private string $manifestPathFileName = '';
 
+    /**
+     * @var fileNamesList
+     */
+    public fileNamesList $fileNamesList;
+
 
     /*--------------------------------------------------------------------
     construction
@@ -54,6 +59,7 @@ class increaseVersionId implements executeTasksInterface
 //            $this->srcFile = $srcFile;
 //            $this->dstFile = $dstFile;
 
+            $this->fileNamesList = new fileNamesList();
 
         }
         catch(\Exception $e) {
@@ -298,7 +304,6 @@ class increaseVersionId implements executeTasksInterface
     // TODO: Exe for forceVersionIdAll ...  -> instead
     public function assignFilesNames(fileNamesList $fileNamesList)
     {
-        // TODO: Implement assignFilesNames() method.
         $this->fileNamesList = $fileNamesList;
     }
 

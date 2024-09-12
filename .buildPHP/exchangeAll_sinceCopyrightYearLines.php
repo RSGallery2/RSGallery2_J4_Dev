@@ -1,7 +1,7 @@
 <?php
 //ToDo: extract year from git log each ..
 //ToDo: create twin file with new name appended so it is easy to decide to use it .. ...
-
+// git log --format="format:%ci" --reverse config.xml
 namespace exchangeAll_sinceCopyrightYear;
 
 require_once "./iExecTask.php";
@@ -78,7 +78,6 @@ class exchangeAll_sinceCopyrightYear implements executeTasksInterface {
 
     public function assignFilesNames(fileNamesList $fileNamesList)
     {
-        // TODO: Implement assignFilesNames() method.
         $this->fileNamesList = $fileNamesList;
     }
 
@@ -154,9 +153,13 @@ class exchangeAll_sinceCopyrightYear implements executeTasksInterface {
         return (0);
     }
 
-    public function executeFile(string $filePathName): bool
+    public function executeFile(string $filePathName): int
     {
-        // TODO: Implement executeFile() method.
+        // create a one file 'fileNamesList' object
+        $this->fileNamesList = new fileNamesList();
+        $this->fileNamesList[] = $filePathName;
+
+        $this->execute();
 
         return (0);
     }

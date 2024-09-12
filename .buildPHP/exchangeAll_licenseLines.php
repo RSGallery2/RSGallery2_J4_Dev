@@ -75,7 +75,6 @@ class exchangeAll_licenseLines implements executeTasksInterface {
 
     public function assignFilesNames(fileNamesList $fileNamesList)
     {
-        // TODO: Implement assignFilesNames() method.
         $this->fileNamesList = $fileNamesList;
 
     }
@@ -151,9 +150,13 @@ class exchangeAll_licenseLines implements executeTasksInterface {
         return (0);
     }
 
-    public function executeFile(string $filePathName): bool
+    public function executeFile(string $filePathName): int
     {
-        // TODO: Implement executeFile() method.
+        // create a one file 'fileNamesList' object
+        $this->fileNamesList = new fileNamesList();
+        $this->fileNamesList[] = $filePathName;
+
+        $this->execute();
 
         return (0);
     }

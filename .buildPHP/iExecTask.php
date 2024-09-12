@@ -25,7 +25,7 @@ interface executeTasksInterface
 
    public function execute () : int; // $hasError
 
-   public function executeFile (string $filePathName) : bool; // $isChanged
+   public function executeFile (string $filePathName) : int;
 
 
 }

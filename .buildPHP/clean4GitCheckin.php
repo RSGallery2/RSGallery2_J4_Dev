@@ -1,6 +1,6 @@
 <?php
 
-namespace exchangeAll_subPackageLines;
+namespace clean4GitCheckin;
 
 require_once "./iExecTask.php";
 require_once "./fileHeaderByFileLine.php";
@@ -13,13 +13,12 @@ use FileNamesList\fileNamesList;
 use task\task;
 
 /*================================================================================
-Class exchangeAll_subPackageLines
+Class clean4GitCheckin
 ================================================================================*/
 
-class exchangeAll_subPackageLines implements executeTasksInterface {
+class clean4GitCheckin implements executeTasksInterface {
 
     public string $srcRoot = "";
-    public string $subpackageText = "";
 
     /**
      * @var fileNamesList
@@ -31,17 +30,16 @@ class exchangeAll_subPackageLines implements executeTasksInterface {
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($srcRoot="", $subpackageText="") {
+	public function __construct($srcRoot="") {
 
         $hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
 //            print ("srcRoot: " . $srcRoot . "\r\n");
-//            print ("subpackageText: " . $subpackageText . "\r\n");
+//            print ("linkText: " . $linkText . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
             $this->srcRoot = $srcRoot;
-            $this->subpackageText = $subpackageText;
 
             $this->fileNamesList = new fileNamesList();
         }
@@ -57,15 +55,12 @@ class exchangeAll_subPackageLines implements executeTasksInterface {
     public function text() : string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- exchangeAll_subPackageLines ---" . "\r\n";
+        $OutTxt .= "--- clean4GitCheckin ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";
         /**
         $OutTxt .= "fileName: " . $this->fileName . "\r\n";
-        $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
-        $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
-        $OutTxt .= "filePath: " . $this->filePath . "\r\n";
         $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
         /**/
 
@@ -89,15 +84,15 @@ class exchangeAll_subPackageLines implements executeTasksInterface {
             switch (strtolower($option->name)) {
 
                 case 'srcroot':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->srcRoot = $option->value;
+                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                     $this->srcRoot = $option->value;
                     break;
 
-                case 'subpackagetext':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->subpackageText = $option->value;
-                    break;
-
+//                case 'Xlinktext':
+//                    // print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+//                    // $this->linkText = $option->value;
+//                    break;
+//
 //				case 'X':
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
@@ -126,7 +121,7 @@ class exchangeAll_subPackageLines implements executeTasksInterface {
 
         // files not set already
         if (count($this->fileNamesList->fileNames) == 0) {
-            $fileNamesList = new fileNamesList ($this->srcRoot, 'php');
+            $fileNamesList = new fileNamesList ($this->srcRoot, '');
             $this->fileNamesList = $fileNamesList;
 
             $fileNamesList->scan4Filenames();
@@ -135,15 +130,11 @@ class exchangeAll_subPackageLines implements executeTasksInterface {
             // $fileNamesList = $this->fileNamesList;
         }
 
-        //--- use file header subpackage task ----------------------
-
-        $fileHeaderByFile = new fileHeaderByFileLine();
-
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
 
-            $fileHeaderByFile->exchangeSubpackage ( $fileName->srcPathFileName);
+            $this->trimFile ($fileName->srcPathFileName);
 
         }
 
@@ -160,5 +151,44 @@ class exchangeAll_subPackageLines implements executeTasksInterface {
 
         return (0);
     }
-} // exchangeAll_subPackageLines
+
+    private function trimFile(string $fileName) : bool
+    {
+        $isExchanged = false;
+
+        try {
+
+            $lines = file($fileName);
+            $outLines = [];
+
+            // all lines
+            foreach ($lines as $line) {
+
+                if ($isExchanged) {
+                    $outLines [] = rtrim($line) . "\r\n";
+                } else {
+                    $trimmed = rtrim($line) . "\r\n";
+                    $outLines [] = $trimmed;
+
+                    if (strlen ($trimmed) < strlen($line)) {
+                        $isExchanged = true;
+                    }
+                }
+            }
+
+            // write to file
+            if ($isExchanged == true) {
+                $isSaved = file_put_contents($fileName, $outLines);
+            }
+
+        }
+        catch(\Exception $e) {
+            echo 'Message: ' .$e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+
+        return $isExchanged;
+    }
+
+} // clean4GitCheckin
 

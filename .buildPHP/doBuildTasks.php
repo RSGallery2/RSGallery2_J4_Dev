@@ -5,6 +5,7 @@ namespace DoBuildTasks;
 require_once "./fileNamesList.php";
 require_once "./buildRelease.php";
 
+require_once "./clean4GitCheckin.php";
 require_once "./exchangeAll_actCopyrightYearLines.php";
 require_once "./exchangeAll_authorLines.php";
 require_once "./exchangeAll_licenseLines.php";
@@ -21,6 +22,7 @@ require_once "./tasks.php";
 // use \DateTime;
 // use DateTime;
 
+use clean4GitCheckin\clean4GitCheckin;
 use exchangeAll_actCopyrightYear\exchangeAll_actCopyrightYearLines;
 use exchangeAll_authorLines\exchangeAll_authorLines;
 use exchangeAll_licenseLines\exchangeAll_licenseLines;
@@ -181,7 +183,7 @@ class doBuildTasks {
                         print ($this->fileNamesList->text_listFileNames());
 
                         // stop after print files to check the files
-                        exit (98);
+                        // exit (98);
                         break;
 
 
@@ -205,7 +207,7 @@ class doBuildTasks {
 		                break;
 
                     case 'clean4gitcheckin':
-//                        ToDo: $this->actTask = $this->createTask (new clean4gitcheckin (), $textTask);
+                        $this->actTask = $this->createTask (new clean4GitCheckin (), $textTask);
                         break;
 
                     case 'clean4release':
