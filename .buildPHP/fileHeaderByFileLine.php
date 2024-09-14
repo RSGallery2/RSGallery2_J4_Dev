@@ -79,7 +79,7 @@ class fileHeaderByFileLine extends fileHeaderData
                 if ($isExchanged) {
                     $outLines [] = $line;
                 } else {
-                    //  * @license     GNU General Public License version 2 or la ....
+                    //  * @package  ....
                     if (str_contains($line, '@package')) {
                         // assign standard
                         if ($line != $packageLine) {
@@ -458,7 +458,7 @@ class fileHeaderByFileLine extends fileHeaderData
 
 
     /*--------------------------------------------------------------------
-    exchangeLicense
+    exchangeAuthor
     --------------------------------------------------------------------*/
 
     function exchangeAuthor(string $fileName = "")
@@ -467,7 +467,7 @@ class fileHeaderByFileLine extends fileHeaderData
 
         try {
             print('*********************************************************' . "\r\n");
-            print('exchangeLicense' . "\r\n");
+            print('exchangeAuthor' . "\r\n");
             print ("FileName in: " . $fileName . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
@@ -481,13 +481,13 @@ class fileHeaderByFileLine extends fileHeaderData
             $lines       = file($fileName);
             $outLines    = [];
             $isExchanged = false;
-            $authorLine  = $this->headerFormat('license', $this->license);
+            $authorLine  = $this->headerFormat('author', $this->author);
 
             foreach ($lines as $line) {
                 if ($isExchanged) {
                     $outLines [] = $line;
                 } else {
-                    //  * @license     GNU General Public License version 2 or la ....
+                    //  * @author     ...
                     if (str_contains($line, '@author')) {
                         // assign standard
                         if ($line != $authorLine) {
@@ -512,13 +512,13 @@ class fileHeaderByFileLine extends fileHeaderData
             $hasError = -101;
         }
 
-        print('exit exchangeLicense: ' . $hasError . "\r\n");
+        print('exit exchangeAuthor: ' . $hasError . "\r\n");
 
         return $hasError;
     }
 
     /*--------------------------------------------------------------------
-    exchangeLicense
+    exchangeLink
     --------------------------------------------------------------------*/
 
     function exchangeLink(string $fileName = "")
@@ -527,7 +527,7 @@ class fileHeaderByFileLine extends fileHeaderData
 
         try {
             print('*********************************************************' . "\r\n");
-            print('exchangeLicense' . "\r\n");
+            print('exchangeLink' . "\r\n");
             print ("FileName in: " . $fileName . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
@@ -541,13 +541,13 @@ class fileHeaderByFileLine extends fileHeaderData
             $lines       = file($fileName);
             $outLines    = [];
             $isExchanged = false;
-            $LinkLine    = $this->headerFormat('license', $this->license);
+            $LinkLine    = $this->headerFormat('link', $this->link);
 
             foreach ($lines as $line) {
                 if ($isExchanged) {
                     $outLines [] = $line;
                 } else {
-                    //  * @license     GNU General Public License version 2 or la ....
+                    //  * @link
                     if (str_contains($line, '@link')) {
                         // assign standard
                         if ($line != $LinkLine) {
@@ -572,7 +572,7 @@ class fileHeaderByFileLine extends fileHeaderData
             $hasError = -101;
         }
 
-        print('exit exchangeLicense: ' . $hasError . "\r\n");
+        print('exit exchangeLink: ' . $hasError . "\r\n");
 
         return $hasError;
     }

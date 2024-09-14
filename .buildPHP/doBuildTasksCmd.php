@@ -94,13 +94,6 @@ $tasksLine = '';
 //    . ' /name=rsgallery2'
 //;
 //
-//$tasksLine .= ' task:increaseVersionId'
-//    . ' /type=component'
-//    . ' /srcRoot="./../../RSGallery2_J4/'
-//    . ' /name=rsgallery2'
-//    . ' /version=major|minor|patch|dev'
-//;
-//
 //$tasksLine .= ' task:clean4release'
 //    . ' /type=component'
 //    . ' /name=rsgallery2'
@@ -236,6 +229,16 @@ $tasksLine .= 'task:execute' . ' ';
 ////    . ' /s='
 //   . ' ';
 //$tasksLine .= 'task:execute' . ' ';
+
+$tasksLine .= ' task:increaseVersionId'
+    . ' /type=component'
+    . ' /srcRoot="./../../RSGallery2_J4/'
+    . ' /name=rsgallery2'
+    . ' /version=major|minor|patch|dev'
+    . ' /s='
+. ' ';
+$tasksLine .= 'task:execute' . ' ';
+
 
 $tasksLine .= 'task:clearFilenamesList' . ' ';
 

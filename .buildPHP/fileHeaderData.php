@@ -26,7 +26,7 @@ class fileHeaderData
     //public string $license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
 
     //
-    public string $author = "rsgallery2 team";
+    public string $author = "RSGallery2 Team <team2@rsgallery2.org>";
 
     //
     public string $link = "https://www.rsgallery2.org";
@@ -46,7 +46,8 @@ class fileHeaderData
     public $additionalLines = [];
 
     // adjust lengt of 'name' before value
-    private int $padCount = 15; // By 'subpackage' name length
+    private int $padCount = 20; // By 'subpackage' name length
+    // private int $padCountCopyright = 15; // By 'subpackage' name length
 
 
     /*--------------------------------------------------------------------
@@ -102,7 +103,7 @@ class fileHeaderData
 
         $OutTxt .= $this->headerFormat('package', $this->package);
         $OutTxt .= $this->headerFormat('subpackage', $this->subpackage);
-        $OutTxt .= $this->headerFormat('copyright', $this->copyright);
+        $OutTxt .= $this->headerFormat('copyright  (C)', $this->copyright);
         $OutTxt .= $this->headerFormat('license', $this->license);
 
         $OutTxt .= $this->headerFormat('author', $this->author);
@@ -121,7 +122,13 @@ class fileHeaderData
 
     public function headerFormat($name, $value) // , int $padCount
     {
-        $headerLine = str_pad(" * @" . $name, $this->padCount, " ", STR_PAD_RIGHT);
+        // copyright begins earlier
+        $padCount = $this->padCount;
+//        if ($name == 'copyright') {
+//            $padCount = $this->padCountCopyright;
+//        }
+
+        $headerLine = str_pad(" * @" . $name, $padCount, " ", STR_PAD_RIGHT);
         $headerLine .= $value;
 
         $headerLine = rtrim($headerLine) . "\r\n";

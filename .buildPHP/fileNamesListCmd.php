@@ -144,6 +144,8 @@ foreach ($options as $idx => $option) {
 // for start / end diff
 $start = print_header($options, $inArgs);
 
+// ToDo: assign task instead if exist
+
 $oFileNamesList = new fileNamesList($srcRoot, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
 
 $hasError = $oFileNamesList->scan4Filenames();

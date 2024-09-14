@@ -122,9 +122,10 @@ class exchangeAll_authorLines implements executeTasksInterface
     {
         //--- collect files ---------------------------------------
 
-        // files not set already
+        // files not set already use local file nam+es task
         if (count($this->fileNamesList->fileNames) == 0) {
-            $fileNamesList       = new fileNamesList ($this->srcRoot, 'php');
+            $fileNamesList       = new fileNamesList ($this->srcRoot, 'php',
+                '', true); // no recoursion
             $this->fileNamesList = $fileNamesList;
 
             $fileNamesList->scan4Filenames();

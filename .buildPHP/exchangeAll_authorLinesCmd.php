@@ -43,9 +43,27 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
+//// idea: own task for filenames
+//$filesTaskLine = "task:createFilenamesList"
+//    . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /isNoRecursion=true'
+////    . ' /isCrawlSilent=false' default true ToDo:
+//    . ' /includeExt="php"'
+////    . ' /includeExt="xmp"'
+////    . ' /includeExt="xmp"'
+////    . ' /includeExt="ini"'
+////    . ' /includeFiles="???"'
+////    . ' /excludeFiles="./../../RSGallery2_J4/.gitignore ./../../RSGallery2_J4/LICENSE.txt /../../RSGallery2_J4/README.md ./../../RSGallery2_J4/index.html "'
+////   . ' /includeFolder="./Administrator'
+////   . ' /includeFolder="./Administrator'
+//    . ' ';
+
+
 $tasksLine = ' task:exchangeAll_authorLines'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+//    . ' /srcRoot="./../../RSGallery2_J4"'
+    . ' '
     . ' /authorText = ""'//    . ' /s='
 ;
 
