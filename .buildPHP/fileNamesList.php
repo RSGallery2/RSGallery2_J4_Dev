@@ -7,22 +7,23 @@ require_once "./fithFileName.php";
 require_once "./folderName.php";
 
 //use \DateTime;
+use Exception;
 use ExecuteTasks\executeTasksInterface;
 use FileName\fithFileName;
 use FolderName\fithFolderName;
 use task\task;
 
 /**
-ToDo:
-* folder name regex
-* filename regex
-/**/
-
+ * ToDo:
+ * folder name regex
+ * filename regex
+ * /**/
 /*================================================================================
 Class FileNamesList
 ================================================================================*/
 
-class fileNamesList implements executeTasksInterface {
+class fileNamesList implements executeTasksInterface
+{
 
     /** @var fithFileName[] $fileNames */
     public array $fileNames;
@@ -30,36 +31,40 @@ class fileNamesList implements executeTasksInterface {
     /** @var string $srcRoot */
     public string $srcRoot = "";
 
-	/** @var bool */
-    private bool $isIncludeExt = False;
-    /** @var string []  */
+    /** @var bool */
+    private bool $isIncludeExt = false;
+    /** @var string [] */
     private array $includeExtList;
 
-	/** @var bool */
-    private bool $isExcludeExt = False;
-    /** @var string []  */
+    /** @var bool */
+    private bool $isExcludeExt = false;
+    /** @var string [] */
     private array $excludeExtList;
 
     /** @var bool */
-    private bool $isExcludeFolder = False;
-    /** @var string []  */
+    private bool $isExcludeFolder = false;
+    /** @var string [] */
     private array $excludeFolderList;
 
     /** @var bool */
-    private bool $isNoRecursion = False;
-	/** @var bool */
-    private bool $isWriteListToFile = False;
+    private bool $isNoRecursion = false;
+    /** @var bool */
+    private bool $isWriteListToFile = false;
 
-	/** @var string  */
+    /** @var string */
     private string $listFileName = "";
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($path='', $includeExt='', $excludeExt='',
-                         $isNoRecursion='', $writeListToFile='') {
-
+    public function __construct(
+        $path = '',
+        $includeExt = '',
+        $excludeExt = '',
+        $isNoRecursion = '',
+        $writeListToFile = '',
+    ) {
         $hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
@@ -74,13 +79,11 @@ class fileNamesList implements executeTasksInterface {
             $this->clean();
 
             $this->assignParameters($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
-        }
-        /*--- exception ----------------------------------------------------*/
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } /*--- exception ----------------------------------------------------*/
+        catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
-
         // // print('exit __construct: ' . $hasError . "\r\n");
     }
 
@@ -88,8 +91,13 @@ class fileNamesList implements executeTasksInterface {
     scan4Filenames
     --------------------------------------------------------------------*/
 
-    function scan4Filenames($path='', $includeExt='', $excludeExt='',
-                            $isNoRecursion='', $writeListToFile='') {
+    function scan4Filenames(
+        $path = '',
+        $includeExt = '',
+        $excludeExt = '',
+        $isNoRecursion = '',
+        $writeListToFile = '',
+    ) {
         $hasError = 0;
 
         try {
@@ -103,18 +111,21 @@ class fileNamesList implements executeTasksInterface {
 //            print('---------------------------------------------------------' . "\r\n");
 
             // merge with parameters (empty values will use local value
-            $this->mergeParameter2Class ($path, $includeExt, $excludeExt,
-                $isNoRecursion, $writeListToFile);
+            $this->mergeParameter2Class(
+                $path,
+                $includeExt,
+                $excludeExt,
+                $isNoRecursion,
+                $writeListToFile,
+            );
 
             $this->fileNames = [];
 
             // iterate over folder and recursiv if set
             $this->scanPath4Filenames($this->srcRoot);
-
-        }
-            /*--- exception ----------------------------------------------------*/
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } /*--- exception ----------------------------------------------------*/
+        catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
@@ -122,7 +133,7 @@ class fileNamesList implements executeTasksInterface {
         return $hasError;
     }
 
-    public function text() : string
+    public function text(): string
     {
         $OutTxt = "";
         $OutTxt .= "------------------------------------------" . "\r\n";
@@ -138,38 +149,34 @@ class fileNamesList implements executeTasksInterface {
     }
 
 
-
-
-
-    public function textProperties() : string
+    public function textProperties(): string
     {
         $OutTxt = "";
 
         $OutTxt .= "path: " . $this->srcRoot . "\r\n";
-        
+
         $OutTxt .= "isIncludeExt: " . $this->isIncludeExt . "\r\n";
-        $OutTxt .= "includeExtList: " . 
-            $this->combineExtensionString ($this->includeExtList) . "\r\n";
-        
+        $OutTxt .= "includeExtList: " .
+            $this->combineExtensionString($this->includeExtList) . "\r\n";
+
         $OutTxt .= "isExcludeExt: " . $this->isExcludeExt . "\r\n";
         $OutTxt .= "excludeExtList: " .
-            $this->combineExtensionString ($this->excludeExtList) . "\r\n";
-        
+            $this->combineExtensionString($this->excludeExtList) . "\r\n";
+
         $OutTxt .= "isNoRecursion: " . $this->isNoRecursion . "\r\n";
         $OutTxt .= "isWriteListToFile: " . $this->isWriteListToFile . "\r\n";
+
         /**/
 
         return $OutTxt;
     }
 
-    public function text_listFileNames() : string
+    public function text_listFileNames(): string
     {
         $OutTxt = "";
 
         foreach ($this->fileNames as $fileName) {
-
             $OutTxt .= $fileName->text_NamePathLine() . "\r\n";
-
         }
 
         return $OutTxt;
@@ -181,15 +188,15 @@ class fileNamesList implements executeTasksInterface {
 
         $this->srcRoot = "";
 
-        $this->isIncludeExt = False;
+        $this->isIncludeExt   = false;
         $this->includeExtList = [];
 
-        $this->isExcludeExt = False;
+        $this->isExcludeExt   = false;
         $this->excludeExtList = [];
 
-        $this->isNoRecursion = False;
+        $this->isNoRecursion = false;
 
-        $this->isWriteListToFile = False;
+        $this->isWriteListToFile = false;
 
         $this->listFileName = "";
     }
@@ -199,30 +206,25 @@ class fileNamesList implements executeTasksInterface {
         $isExtFound = false;
         $extensions = [];
 
-        if (! empty ($extString)) {
-
+        if (!empty ($extString)) {
             $parts = explode(" ", $extString);
 
             foreach ($parts as $part) {
-
-                if ( ! empty($part)) {
-
+                if (!empty($part)) {
                     $extensions [] = $part;
                 }
-
             }
 
             // one or more extension defined
-            if (count ($extensions) > 0) {
-                $isExtFound = True;
+            if (count($extensions) > 0) {
+                $isExtFound = true;
             }
-
         }
 
         return [$isExtFound, $extensions];
     }
 
-    private function combineExtensionString($extArray = []) : string
+    private function combineExtensionString($extArray = []): string
     {
         $outTxt = implode(" ", $extArray);
 
@@ -231,17 +233,15 @@ class fileNamesList implements executeTasksInterface {
 
     public function filesAndFoldersInDir($inPath)
     {
-        $files = [];
+        $files   = [];
         $folders = [];
 
         try {
             // Is the path a folder?
             if (is_dir($inPath)) {
-
                 $items = scandir($inPath);
 
                 foreach ($items as $item) {
-
                     if ($item !== '.' && $item !== '..') {
                         $path = $inPath . '/' . $item;
                         if (is_file($path)) {
@@ -251,13 +251,11 @@ class fileNamesList implements executeTasksInterface {
                         }
                     }
                 }
-
             }
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
+            $hasError = -101;
         }
-        catch(\Exception $e) {
-                echo 'Message: ' .$e->getMessage() . "\r\n";
-                $hasError = -101;
-            }
 
         return ([$files, $folders]);
     }
@@ -267,19 +265,18 @@ class fileNamesList implements executeTasksInterface {
      *
      * @return array|bool
      *
-     * @throws \Exception
+     * @throws Exception
      * @since version
      */
     public function filesInDir($inPath)
     {
-        $files = [];
-        $folders= [];
+        $files   = [];
+        $folders = [];
 
         try {
             [$files, $folders] = $this->filesAndFoldersInDir($inPath);
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
@@ -289,14 +286,13 @@ class fileNamesList implements executeTasksInterface {
 
     public function folderInDir($inPath)
     {
-        $files = [];
-        $folders= [];
+        $files   = [];
+        $folders = [];
 
         try {
             [$files, $folders] = $this->filesAndFoldersInDir($inPath);
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
@@ -304,15 +300,21 @@ class fileNamesList implements executeTasksInterface {
     }
 
     /**
-     * @param mixed $path
-     * @param mixed $includeExt
-     * @param mixed $excludeExt
-     * @param mixed $isNoRecursion
-     * @param mixed $writeListToFile
+     * @param   mixed  $path
+     * @param   mixed  $includeExt
+     * @param   mixed  $excludeExt
+     * @param   mixed  $isNoRecursion
+     * @param   mixed  $writeListToFile
+     *
      * @return void
      */
-    public function assignParameters(mixed $path, mixed $includeExt, mixed $excludeExt, mixed $isNoRecursion, mixed $writeListToFile): void
-    {
+    public function assignParameters(
+        mixed $path,
+        mixed $includeExt,
+        mixed $excludeExt,
+        mixed $isNoRecursion,
+        mixed $writeListToFile,
+    ): void {
         $this->srcRoot = $path;
 
         [$this->isIncludeExt, $this->includeExtList] =
@@ -323,30 +325,44 @@ class fileNamesList implements executeTasksInterface {
         $this->isNoRecursion = $isNoRecursion;
 
         if (!empty ($writeListToFile)) {
-
-            $this->isWriteListToFile = True;
+            $this->isWriteListToFile = true;
 
             $this->listFileName = $writeListToFile;
         }
     }
 
-    private function mergeParameter2Class(mixed $path, mixed $includeExt, mixed $excludeExt, mixed $isNoRecursion, mixed $writeListToFile)
-    {
-        if (empty ($path)) { $path = $this->srcRoot; }
-        if (empty ($includeExt)) { $includeExt = implode(' ', $this->includeExtList); }
-        if (empty ($excludeExt)) { $excludeExt = implode(' ', $this->excludeExtList); }
-        if (empty ($isNoRecursion)) { $isNoRecursion = $this->isNoRecursion; }
-        if (empty ($writeListToFile)) { $writeListToFile = $this->listFileName; }
+    private function mergeParameter2Class(
+        mixed $path,
+        mixed $includeExt,
+        mixed $excludeExt,
+        mixed $isNoRecursion,
+        mixed $writeListToFile,
+    ) {
+        if (empty ($path)) {
+            $path = $this->srcRoot;
+        }
+        if (empty ($includeExt)) {
+            $includeExt = implode(' ', $this->includeExtList);
+        }
+        if (empty ($excludeExt)) {
+            $excludeExt = implode(' ', $this->excludeExtList);
+        }
+        if (empty ($isNoRecursion)) {
+            $isNoRecursion = $this->isNoRecursion;
+        }
+        if (empty ($writeListToFile)) {
+            $writeListToFile = $this->listFileName;
+        }
 
         $this->assignParameters($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
     }
 
     private function scanPath4Filenames(string $inPath)
     {
-            //print('*********************************************************' . "\r\n");
+        //print('*********************************************************' . "\r\n");
 //            print (">>> scanPath4Filenames: " . "\r\n");
 //            print ("    inPath: " . $inPath . "\r\n");
-            print (">>> scanPath4Filenames: " . $inPath . "\r\n");
+        print (">>> scanPath4Filenames: " . $inPath . "\r\n");
 
         try {
             [$files, $folders] = $this->filesAndFoldersInDir($inPath);
@@ -354,57 +370,43 @@ class fileNamesList implements executeTasksInterface {
             // print ("    files count: " . count($files) . "\r\n");
 
             foreach ($files as $file) {
-
                 $fithFileName = new fithFileName($file);
 
-                $isExpected = $this->check4ValidFileName ($fithFileName);
+                $isExpected = $this->check4ValidFileName($fithFileName);
 
                 // ToDo: handle include / exclude
 
 
                 if ($isExpected) {
-
                     $this->fileNames [] = $fithFileName;
-
                 }
-
             }
 
             // follow sub folders
-            if ( ! $this->isNoRecursion) {
-
+            if (!$this->isNoRecursion) {
                 // print ("    folders count: " . count($folders) . "\r\n");
 
                 foreach ($folders as $folder) {
+                    $isExpected = $this->check4ValidFolderName($folder);
+
+                    // $isExpected = False;
+                    // $isExpected = True;
 
 
-	                $isExpected = $this->check4ValidFolderName ($folder);
-
-	                // $isExpected = False;
-	                // $isExpected = True;
+                    // ToDo: handle include / exclude
 
 
-	                // ToDo: handle include / exclude
-
-
-	                if ($isExpected)
-	                {
-		                $this->scanPath4Filenames($folder);
-	                }
+                    if ($isExpected) {
+                        $this->scanPath4Filenames($folder);
+                    }
                 }
-            }
-            else
-            {
+            } else {
                 print ("NoRecursion: Exit after base folder requested: : " . count($folders) . "\r\n");
             }
-
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
-
-
     }
 
     private function check4ValidFileName(fithFileName $fithFileName)
@@ -417,18 +419,16 @@ class fileNamesList implements executeTasksInterface {
             } else {
                 if ($this->isExcludeExt) {
                     $isValid = !$this->check4ExtExists($fithFileName, $this->excludeExtList);
+                } else {
+                    // $isExpected = False;
+                    $isValid = true;
                 }
-				else {
-					// $isExpected = False;
-					$isValid = True;
-				}
             }
 
-	        if ($fithFileName->fileBaseName == '.gitignore') {
-		        $isValid = false;
-	        }
-
-        } catch (\Exception $e) {
+            if ($fithFileName->fileBaseName == '.gitignore') {
+                $isValid = false;
+            }
+        } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
@@ -441,16 +441,13 @@ class fileNamesList implements executeTasksInterface {
         $isFound = false;
 
         try {
-
             foreach ($extList as $ext) {
-
                 $isFound = $fithFileName->hasExtension($ext);
                 if ($isFound) {
                     break;
                 }
             }
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
@@ -458,39 +455,37 @@ class fileNamesList implements executeTasksInterface {
         return $isFound;
     }
 
-	private function check4ValidFolderName(string $folder)
-	{
-		$isValid = true;
+    private function check4ValidFolderName(string $folder)
+    {
+        $isValid = true;
 
-		try {
-			$fithFolderName = new fithFolderName($folder);
-
-
-			if ($fithFolderName->folderName == '.git') {
-				$isValid = false;
-			}
+        try {
+            $fithFolderName = new fithFolderName($folder);
 
 
-		} catch (\Exception $e) {
-			echo 'Message: ' . $e->getMessage() . "\r\n";
-			$hasError = -101;
-		}
+            if ($fithFolderName->folderName == '.git') {
+                $isValid = false;
+            }
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
 
-		return $isValid;
-	}
+        return $isValid;
+    }
 
 
-    public function assignFilesNames(fileNamesList $fileNamesList) : int
+    public function assignFilesNames(fileNamesList $fileNamesList): int
     {
         // ToDo: extract function to use as constructor01
-        $this->srcRoot = $fileNamesList->srcRoot;
-        $this->isIncludeExt = $fileNamesList->isIncludeExt;
-        $this->includeExtList = $fileNamesList->includeExtList;
-        $this->isExcludeExt = $fileNamesList->isExcludeExt;
-        $this->excludeExtList = $fileNamesList->excludeExtList;
-        $this->isNoRecursion = $fileNamesList->isNoRecursion;
+        $this->srcRoot           = $fileNamesList->srcRoot;
+        $this->isIncludeExt      = $fileNamesList->isIncludeExt;
+        $this->includeExtList    = $fileNamesList->includeExtList;
+        $this->isExcludeExt      = $fileNamesList->isExcludeExt;
+        $this->excludeExtList    = $fileNamesList->excludeExtList;
+        $this->isNoRecursion     = $fileNamesList->isNoRecursion;
         $this->isWriteListToFile = $fileNamesList->isWriteListToFile;
-        $this->listFileName = $fileNamesList->listFileName;
+        $this->listFileName      = $fileNamesList->listFileName;
 
         return 0;
     }
@@ -499,29 +494,28 @@ class fileNamesList implements executeTasksInterface {
     {
         // array_push($this->fileNames, $fileNames->fileNames);
 
-        foreach ($fileNames as $fileName)
-        {
+        foreach ($fileNames as $fileName) {
             $this->fileNames [] = $fileName;
         }
-
     }
 
-    private function clone(fileNamesList $fileNamesList) : fileNamesList
+    private function clone(fileNamesList $fileNamesList): fileNamesList
     {
         $fileNamesList = new fileNamesList();
 
-        $fileNamesList->fileNames = $this->fileNames;
-        $fileNamesList->srcRoot = $this->srcRoot;
-        $fileNamesList->isIncludeExt = $this->isIncludeExt;
-        $fileNamesList->includeExtList = $this->includeExtList;
-        $fileNamesList->isExcludeExt = $this->isExcludeExt;
-        $fileNamesList->excludeExtList = $this->excludeExtList;
-        $fileNamesList->isNoRecursion = $this->isNoRecursion;
+        $fileNamesList->fileNames         = $this->fileNames;
+        $fileNamesList->srcRoot           = $this->srcRoot;
+        $fileNamesList->isIncludeExt      = $this->isIncludeExt;
+        $fileNamesList->includeExtList    = $this->includeExtList;
+        $fileNamesList->isExcludeExt      = $this->isExcludeExt;
+        $fileNamesList->excludeExtList    = $this->excludeExtList;
+        $fileNamesList->isNoRecursion     = $this->isNoRecursion;
         $fileNamesList->isWriteListToFile = $this->isWriteListToFile;
-        $fileNamesList->listFileName = $this->listFileName;
+        $fileNamesList->listFileName      = $this->listFileName;
 
         return $fileNamesList;
     }
+
     public function assignTask(task $task): int
     {
         $this->clean();
@@ -529,9 +523,7 @@ class fileNamesList implements executeTasksInterface {
         $options = $task->options;
 
         foreach ($options->options as $option) {
-
             switch (strtolower($option->name)) {
-
                 case 'srcroot':
                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->srcRoot = $option->value;
@@ -561,10 +553,10 @@ class fileNamesList implements executeTasksInterface {
                     $this->isWriteListToFile = boolval($option->value);
                     break;
 
-				case 'listfilename':
-					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                case 'listfilename':
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->listFileName = boolval($option->value);
-					break;
+                    break;
 
 //				case 'X':
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
@@ -579,7 +571,7 @@ class fileNamesList implements executeTasksInterface {
 //					break;
 
                 default:
-                    print ('Execute Default task: ' . $option->name. "\r\n");
+                    print ('Execute Default task: ' . $option->name . "\r\n");
             } // switch
 
             // $OutTxt .= $task->text() . "\r\n";
@@ -590,9 +582,9 @@ class fileNamesList implements executeTasksInterface {
 
     public function execute(): int
     {
-         $this->scan4Filenames();
+        $this->scan4Filenames();
 
-         return (0);
+        return (0);
     }
 
 //    public function subFileListByExtensions (string $includeExtList, string $excludeExtList): fileNamesList

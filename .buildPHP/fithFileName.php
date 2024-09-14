@@ -10,7 +10,10 @@ namespace FileName;
 Class fithFileName
 ================================================================================*/
 
-class fithFileName {
+use Exception;
+
+class fithFileName
+{
 
     // given name
     public string $srcSpecifiedName = "";
@@ -31,8 +34,8 @@ class fithFileName {
     construction
     --------------------------------------------------------------------*/
 
-    public function __construct($srcFile="") {
-
+    public function __construct($srcFile = "")
+    {
         //$hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
@@ -40,13 +43,10 @@ class fithFileName {
 //            print('---------------------------------------------------------' . "\r\n");
 
             $this->extractNameParts($srcFile);
-
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             //$hasError = -101;
         }
-
         // print('exit __construct: ' . $hasError . "\r\n");
     }
 
@@ -54,7 +54,8 @@ class fithFileName {
     extractNameParts
     --------------------------------------------------------------------*/
 
-    function extractNameParts($srcFile="") : int {
+    function extractNameParts($srcFile = ""): int
+    {
         $hasError = 0;
 
         try {
@@ -64,7 +65,7 @@ class fithFileName {
 //            print('---------------------------------------------------------' . "\r\n");
             print("    " . $srcFile . "\r\n");
 
-            $this->clear ();
+            $this->clear();
 
             $this->srcSpecifiedName = $srcFile;
 
@@ -72,13 +73,12 @@ class fithFileName {
 
             $path_parts = pathinfo($srcFile);
 
-            $this->fileName = $path_parts['filename'];
+            $this->fileName      = $path_parts['filename'];
             $this->fileExtension = $path_parts['extension'];
-            $this->fileBaseName = $path_parts['basename'];
-            $this->filePath = $path_parts['dirname'];
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+            $this->fileBaseName  = $path_parts['basename'];
+            $this->filePath      = $path_parts['dirname'];
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
@@ -90,85 +90,81 @@ class fithFileName {
     compare for same extension
     --------------------------------------------------------------------*/
 
-    function hasExtension($check = '') {
+    function hasExtension($check = '')
+    {
+        $hasExtension = false;
 
-		$hasExtension = false;
-
-	    if ($this->fileExtension == $check){
-
-			$hasExtension = true;
-	    }
+        if ($this->fileExtension == $check) {
+            $hasExtension = true;
+        }
 
         return $hasExtension;
     }
 
-	/*--------------------------------------------------------------------
-	compare for name matches regex
-	--------------------------------------------------------------------*/
+    /*--------------------------------------------------------------------
+    compare for name matches regex
+    --------------------------------------------------------------------*/
 
-	function nameMatchesRegEx($regex = '') {
+    function nameMatchesRegEx($regex = '')
+    {
+        $isMatchesRegex = false;
 
-		$isMatchesRegex = false;
+        if (preg_match($regex, $this->fileName)) {
+            $isMatchesRegex = true;
+        }
 
-		if (preg_match($regex, $this->fileName)) {
+        return $isMatchesRegex;
+    }
 
-			$isMatchesRegex = true;
-		}
+    /*--------------------------------------------------------------------
+    compare for name and extension matches regex
+    --------------------------------------------------------------------*/
 
-		return $isMatchesRegex;
-	}
+    function basenameMatchesRegEx($regex = '')
+    {
+        $isMatchesRegex = false;
 
-	/*--------------------------------------------------------------------
-	compare for name and extension matches regex
-	--------------------------------------------------------------------*/
+        if (preg_match($regex, $this->fileBaseName)) {
+            $isMatchesRegex = true;
+        }
 
-	function basenameMatchesRegEx($regex = '') {
+        return $isMatchesRegex;
+    }
 
-		$isMatchesRegex = false;
+    /*--------------------------------------------------------------------
+    compare for name and extension matches regex
+    --------------------------------------------------------------------*/
 
-		if (preg_match($regex, $this->fileBaseName)) {
+    function pathMatchesRegex($regex = '')
+    {
+        $isMatchesRegex = false;
 
-			$isMatchesRegex = true;
-		}
+        if (preg_match($regex, $this->filePath)) {
+            $isMatchesRegex = true;
+        }
 
-		return $isMatchesRegex;
-	}
+        return $isMatchesRegex;
+    }
 
-	/*--------------------------------------------------------------------
-	compare for name and extension matches regex
-	--------------------------------------------------------------------*/
+    /*--------------------------------------------------------------------
+    clear: init to empty
+    --------------------------------------------------------------------*/
 
-	function pathMatchesRegex($regex = '') {
-
-		$isMatchesRegex = false;
-
-		if (preg_match($regex, $this->filePath)) {
-
-			$isMatchesRegex = true;
-		}
-
-		return $isMatchesRegex;
-	}
-
-	/*--------------------------------------------------------------------
-	clear: init to empty
-	--------------------------------------------------------------------*/
-
-    function clear() {
-
+    function clear()
+    {
         $this->srcSpecifiedName = "";
-        $this->srcPathFileName = "";
+        $this->srcPathFileName  = "";
 
         // file name part
-        $this->fileName = "";
+        $this->fileName      = "";
         $this->fileExtension = "";
-        $this->fileBaseName = "";
-        $this->filePath = "";
+        $this->fileBaseName  = "";
+        $this->filePath      = "";
 
         return;
     }
 
-    public function text() : string
+    public function text(): string
     {
         $OutTxt = "";
         $OutTxt .= "------------------------------------------" . "\r\n";
@@ -184,7 +180,7 @@ class fithFileName {
         return $OutTxt;
     }
 
-    public function text_NamePathLine() : string
+    public function text_NamePathLine(): string
     {
         $OutTxt = "";
         $OutTxt .= "- " . $this->fileBaseName . " :: " . $this->filePath;

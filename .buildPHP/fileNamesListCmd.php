@@ -5,25 +5,21 @@ namespace FileNamesList;
 require_once "./commandLine.php";
 require_once "./FileNamesList.php";
 
-use \DateTime;
-use FileName\fithFileName;
-use FolderName\fithFolderName;
-
 use function commandLine\argsAndOptions;
-use function commandLine\print_header;
 use function commandLine\print_end;
+use function commandLine\print_header;
 
 /**
-ToDo:
-* folder name regex
-* filename regex
-/**/
+ * ToDo:
+ * folder name regex
+ * filename regex
+ * /**/
 
 $HELP_MSG = <<<EOT
->>>
-FileNameList class ...
-<<<
-EOT;
+    >>>
+    FileNameList class ...
+    <<<
+    EOT;
 
 /*================================================================================
 main (used from command line)
@@ -32,10 +28,10 @@ main (used from command line)
 $options = getopt("e:i:p:w:nh12345", []);
 var_dump($options);
 
-$optDefinition = "oe:i:p:w:nh12345";
+$optDefinition    = "oe:i:p:w:nh12345";
 $isPrintArguments = false;
 
-list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
+[$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 
 $LeaveOut_01 = true;
@@ -81,19 +77,17 @@ $includeExt = "ts";
 $excludeExt = "";
 
 // no recursion, actual folder only
-$isNoRecursion = False;
+$isNoRecursion = false;
 //$isNoRecursion = True;
 
 //$writeListToFile = "";
 $writeListToFile = "./FileNamesList.txt";
 
-foreach ($options as $idx => $option)
-{
+foreach ($options as $idx => $option) {
     print ("idx: " . $idx . "\r\n");
     print ("option: " . $option . "\r\n");
 
-    switch ($idx)
-    {
+    switch ($idx) {
         case 'p':
             $srcRoot = $option;
             break;
@@ -107,7 +101,7 @@ foreach ($options as $idx => $option)
             break;
 
         case 'n':
-            $isNoRecursion = True;
+            $isNoRecursion = true;
             break;
 
         case 'w':
@@ -143,7 +137,6 @@ foreach ($options as $idx => $option)
             print("Option not supported '" . $option . "'");
             break;
     }
-
 }
 
 //--- call function ---------------------------------
@@ -156,12 +149,10 @@ $oFileNamesList = new fileNamesList($srcRoot, $includeExt, $excludeExt, $isNoRec
 $hasError = $oFileNamesList->scan4Filenames();
 
 if ($hasError) {
-
     print ("Error on function scan4Filenames:" . $hasError);
-
 } else {
-	print ("--- result -------------------" . "\r\n");
-    print ($oFileNamesList->text () . "\r\n");
+    print ("--- result -------------------" . "\r\n");
+    print ($oFileNamesList->text() . "\r\n");
 }
 
 

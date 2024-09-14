@@ -5,19 +5,18 @@ namespace FolderName;
 require_once "./commandLine.php";
 require_once "./folderName.php";
 
-use \DateTime;
-// use DateTime;
-
 use function commandLine\argsAndOptions;
-use function commandLine\print_header;
 use function commandLine\print_end;
+use function commandLine\print_header;
+
+// use DateTime;
 
 
 $HELP_MSG = <<<EOT
->>>
-fithFolderName class ...
-<<<
-EOT;
+    >>>
+    fithFolderName class ...
+    <<<
+    EOT;
 
 /* ToDo: functions
 hasExtension
@@ -32,10 +31,10 @@ text ();
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:d:h12345";
+$optDefinition    = "s:d:h12345";
 $isPrintArguments = false;
 
-list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
+[$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 $LeaveOut_01 = true;
 $LeaveOut_02 = true;
@@ -51,46 +50,43 @@ variables
 // $srcFolder = "./";
 $srcFolder = "..\\.buildPHP\\";
 
-foreach ($options as $idx => $option)
-{
-	print ("idx: " . $idx . "\r\n");
-	print ("option: " . $option . "\r\n");
+foreach ($options as $idx => $option) {
+    print ("idx: " . $idx . "\r\n");
+    print ("option: " . $option . "\r\n");
 
-	switch ($idx)
-	{
-		case 's':
-			$srcFolder = $option;
-			break;
+    switch ($idx) {
+        case 's':
+            $srcFolder = $option;
+            break;
 
-		case "h":
-			exit($HELP_MSG);
+        case "h":
+            exit($HELP_MSG);
 
-		case "1":
-			$LeaveOut_01 = true;
-			print("LeaveOut_01");
-			break;
-		case "2":
-			$LeaveOut_02 = true;
-			print("LeaveOut__02");
-			break;
-		case "3":
-			$LeaveOut_03 = true;
-			print("LeaveOut__03");
-			break;
-		case "4":
-			$LeaveOut_04 = true;
-			print("LeaveOut__04");
-			break;
-		case "5":
-			$LeaveOut_05 = true;
-			print("LeaveOut__05");
-			break;
+        case "1":
+            $LeaveOut_01 = true;
+            print("LeaveOut_01");
+            break;
+        case "2":
+            $LeaveOut_02 = true;
+            print("LeaveOut__02");
+            break;
+        case "3":
+            $LeaveOut_03 = true;
+            print("LeaveOut__03");
+            break;
+        case "4":
+            $LeaveOut_04 = true;
+            print("LeaveOut__04");
+            break;
+        case "5":
+            $LeaveOut_05 = true;
+            print("LeaveOut__05");
+            break;
 
-		default:
-			print("Option not supported '" . $option . "'");
-			break;
-	}
-
+        default:
+            print("Option not supported '" . $option . "'");
+            break;
+    }
 }
 
 //--- call function ---------------------------------
@@ -100,7 +96,7 @@ $start = print_header($options, $inArgs);
 
 $oFolderName = new fithFolderName($srcFolder);
 // $hasError = $oFolderName->extractNameParts();
-print ($oFolderName->text () . "\r\n");
+print ($oFolderName->text() . "\r\n");
 
 print_end($start);
 

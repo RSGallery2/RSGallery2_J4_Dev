@@ -5,38 +5,40 @@ namespace fileDateTime;
 require_once "./commandLine.php";
 
 
-use \DateTime;
-// use DateTime;
+use DateTime;
 
 use function commandLine\argsAndOptions;
-use function commandLine\print_header;
 use function commandLine\print_end;
+use function commandLine\print_header;
+
+// use DateTime;
 
 $HELP_MSG = <<<EOT
->>>
-class fileDateTime
-
-ToDo: option commands , example
-
-<<<
-EOT;
+    >>>
+    class fileDateTime
+    
+    ToDo: option commands , example
+    
+    <<<
+    EOT;
 
 
 /*================================================================================
 Class fileDateTime
 ================================================================================*/
 
-class fileDateTime {
+class fileDateTime
+{
 
     /*--------------------------------------------------------------------
 
     --------------------------------------------------------------------*/
 
-    public static function stdFileDateTimeFormatString () : string
+    public static function stdFileDateTimeFormatString(): string
     {
         // "yyyymmdd") + "_" + "hhmmss"));
         $date_format = 'Ymd_His';
-        $OutTxt = date ($date_format);
+        $OutTxt      = date($date_format);
 
         return $OutTxt;
     }
@@ -47,17 +49,17 @@ class fileDateTime {
         $date_format = 'Ymd';
         $time_format = 'His';
 
-        $OutTxt = 'Date: ' . date ($date_format) . ' ' . 'Time: ' . date ($time_format);
+        $OutTxt = 'Date: ' . date($date_format) . ' ' . 'Time: ' . date($time_format);
 
         return $OutTxt;
     }
 
-    public static function StdFileDateTimeFormatStringMsec() : string
+    public static function StdFileDateTimeFormatStringMsec(): string
     {
         // "yyyymmdd") + "_" + "hhmmss.uuuuu"));
         $date_format = 'Ymd_His.u';
 
-        $now = DateTime::createFromFormat('U.u', microtime(true));
+        $now    = DateTime::createFromFormat('U.u', microtime(true));
         $OutTxt = $now->format($date_format);
 
         return $OutTxt;
@@ -69,10 +71,10 @@ class fileDateTime {
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:d:h12345";
+$optDefinition    = "s:d:h12345";
 $isPrintArguments = false;
 
-list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
+[$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 //$LeaveOut_01 = true;
 //$LeaveOut_02 = true;
@@ -139,9 +141,9 @@ list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArgument
 
 $start = print_header($options, $inArgs);
 
-print ("Date file format: " .  fileDateTime::stdFileDateTimeFormatString());
-print ("Date expizit" .  fileDateTime::DateTimeFormatString());
-print ("Date file format (msec): " .  fileDateTime::StdFileDateTimeFormatStringMsec());
+print ("Date file format: " . fileDateTime::stdFileDateTimeFormatString());
+print ("Date expizit" . fileDateTime::DateTimeFormatString());
+print ("Date file format (msec): " . fileDateTime::StdFileDateTimeFormatStringMsec());
 
 print_end($start);
 

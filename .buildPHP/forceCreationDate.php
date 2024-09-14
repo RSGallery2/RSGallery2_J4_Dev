@@ -6,8 +6,8 @@ require_once "./iExecTask.php";
 
 // use \DateTime;
 
+use Exception;
 use ExecuteTasks\executeTasksInterface;
-
 use FileNamesList\fileNamesList;
 use task\task;
 
@@ -18,10 +18,10 @@ Class forceCreationDate
 class forceCreationDate implements executeTasksInterface
 {
 
-    private string $srcRoot='';
-    private string $name='';
+    private string $srcRoot = '';
+    private string $name = '';
 
-	private string $creationDate;
+    private string $creationDate;
 
     // internal
     private string $manifestPathFileName = '';
@@ -32,8 +32,8 @@ class forceCreationDate implements executeTasksInterface
     --------------------------------------------------------------------*/
 
     // ToDo: a lot of parameters ....
-	public function __construct($srcFile="", $dstFile="") {
-
+    public function __construct($srcFile = "", $dstFile = "")
+    {
         $hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
@@ -46,27 +46,22 @@ class forceCreationDate implements executeTasksInterface
 //            $this->dstFile = $dstFile;
 
             // $date_format        = 'Ymd';
-	        $date_format        = 'd.m.Y';
-	        $this->creationDate = date ($date_format);
-
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+            $date_format        = 'd.m.Y';
+            $this->creationDate = date($date_format);
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
-
         // print('exit __construct: ' . $hasError . "\r\n");
     }
 
     // Task name with options
-    public function assignTask (task $task) : int
+    public function assignTask(task $task): int
     {
         $options = $task->options;
 
         foreach ($options->options as $option) {
-
             switch (strtolower($option->name)) {
-
                 case 'srcroot':
                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->srcRoot = $option->value;
@@ -83,7 +78,7 @@ class forceCreationDate implements executeTasksInterface
                     break;
 
                 default:
-                    print ('Execute Default task: ' . $option->name. "\r\n");
+                    print ('Execute Default task: ' . $option->name . "\r\n");
             } // switch
 
             // $OutTxt .= $task->text() . "\r\n";
@@ -92,7 +87,7 @@ class forceCreationDate implements executeTasksInterface
         return 0;
     }
 
-    public function execute (): int // $hasError
+    public function execute(): int // $hasError
     {
         print('*********************************************************' . "\r\n");
         print ("Execute forceCreationDate : " . "\r\n");
@@ -103,7 +98,7 @@ class forceCreationDate implements executeTasksInterface
         return $hasError;
     }
 
-    public function executeFile (string $filePathName) : bool // $isChanged
+    public function executeFile(string $filePathName): bool // $isChanged
     {
         $hasError = 0;
 
@@ -116,8 +111,8 @@ class forceCreationDate implements executeTasksInterface
     funYYY
     --------------------------------------------------------------------*/
 
-    function exchangeCreationDate() : int {
-
+    function exchangeCreationDate(): int
+    {
         $hasError = 0;
 
         try {
@@ -125,20 +120,20 @@ class forceCreationDate implements executeTasksInterface
             print('exchangeCreationDate' . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
-            $manifestPathFileName = $this->manifestPathFileName ();
+            $manifestPathFileName = $this->manifestPathFileName();
             print ("manifestPathFileName: " . $manifestPathFileName . "\r\n");
 
             $creationDate = $this->creationDate;
             print ("CreationDate: " . $creationDate . "\r\n");
 
-            $hasError = $this->exchangeCreationDateInManifestFile ($manifestPathFileName, $creationDate);
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+            $hasError = $this->exchangeCreationDateInManifestFile($manifestPathFileName, $creationDate);
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
         print('exit exchangeCreationDate: ' . $hasError . "\r\n");
+
         return $hasError;
     }
 
@@ -147,21 +142,21 @@ class forceCreationDate implements executeTasksInterface
         $isSaved = false;
 
         try {
-
-            $lines = file($manifestFileName);
-            $outLines = [];
+            $lines       = file($manifestFileName);
+            $outLines    = [];
             $isExchanged = false;
 
             foreach ($lines as $line) {
-
                 if ($isExchanged) {
-
                     $outLines [] = $line;
                 } else {
                     // <creationDate>31. May. 2024</creationDate>
                     if (str_contains($line, '<creationDate>')) {
-                        $outLine = preg_replace('/(.*>?)(.*)(<.*)/',
-                            '${1}' . $strDate . '${3}', $line);
+                        $outLine = preg_replace(
+                            '/(.*>?)(.*)(<.*)/',
+                            '${1}' . $strDate . '${3}',
+                            $line,
+                        );
 
                         $outLines [] = $outLine;
 
@@ -189,9 +184,7 @@ class forceCreationDate implements executeTasksInterface
             // write to file
             //$isSaved = File::write($manifestFileName, $fileLines);
             $isSaved = file_put_contents($manifestFileName, $outLines);
-        }
-        catch(\Exception $e)
-		{
+        } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
@@ -199,9 +192,8 @@ class forceCreationDate implements executeTasksInterface
         return $isSaved;
     }
 
-    private function manifestPathFileName() : string
+    private function manifestPathFileName(): string
     {
-
         if ($this->manifestPathFileName == '') {
             $this->manifestPathFileName = $this->srcRoot . '/' . $this->name . '.xml';
         }
@@ -210,20 +202,21 @@ class forceCreationDate implements executeTasksInterface
     }
 
 
-    public function text() : string
+    public function text(): string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- forceCreationDate ---" . "\r\n";
 
 
         $OutTxt .= "Text(): Not defined yet " . "\r\n";
+
         /**
-        $OutTxt .= "fileName: " . $this->fileName . "\r\n";
-        $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
-        $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
-        $OutTxt .= "filePath: " . $this->filePath . "\r\n";
-        $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
-        /**/
+         * $OutTxt .= "fileName: " . $this->fileName . "\r\n";
+         * $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
+         * $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
+         * $OutTxt .= "filePath: " . $this->filePath . "\r\n";
+         * $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
+         * /**/
 
         return $OutTxt;
     }
