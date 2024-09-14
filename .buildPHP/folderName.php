@@ -2,7 +2,6 @@
 
 namespace FolderName;
 
-use \DateTime;
 // use DateTime;
 
 
@@ -19,7 +18,10 @@ text ();
 Class fithFolderName
 ================================================================================*/
 
-class fithFolderName {
+use Exception;
+
+class fithFolderName
+{
 
     // given name
     public $srcSpecifiedName = "";
@@ -35,8 +37,8 @@ class fithFolderName {
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($srcFolder="") {
-
+    public function __construct($srcFolder = "")
+    {
         $hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
@@ -44,13 +46,10 @@ class fithFolderName {
 //            print('---------------------------------------------------------' . "\r\n");
 
             $this->extractNameParts($srcFolder);
-
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
-
         // print('exit __construct: ' . $hasError . "\r\n");
     }
 
@@ -58,7 +57,8 @@ class fithFolderName {
     extractNameParts
     --------------------------------------------------------------------*/
 
-    function extractNameParts($srcFolder="") {
+    function extractNameParts($srcFolder = "")
+    {
         $hasError = 0;
 
         try {
@@ -68,7 +68,7 @@ class fithFolderName {
 //            print('---------------------------------------------------------' . "\r\n");
 //            print("Collect folder: " . $srcFolder . "\r\n");
 
-            $this->clear ();
+            $this->clear();
 
             $this->srcSpecifiedName = $srcFolder;
 
@@ -79,9 +79,8 @@ class fithFolderName {
 
             $this->folderName = $path_parts['basename'];
             $this->folderPath = $path_parts['dirname'];
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
@@ -93,9 +92,9 @@ class fithFolderName {
     clear: init to empty
     --------------------------------------------------------------------*/
 
-    function clear() {
-
-        $this->srcSpecifiedName = "";
+    function clear()
+    {
+        $this->srcSpecifiedName  = "";
         $this->srcPathFolderName = "";
 
         // file name part
@@ -105,7 +104,7 @@ class fithFolderName {
         return;
     }
 
-    public function text() : string
+    public function text(): string
     {
         $OutTxt = "";
         $OutTxt .= "------------------------------------------" . "\r\n";
@@ -114,7 +113,7 @@ class fithFolderName {
         $OutTxt .= "srcSpecifiedName: " . $this->srcSpecifiedName . "\r\n";
         $OutTxt .= "folderName: " . $this->folderName . "\r\n";
         $OutTxt .= "folderPath: " . $this->folderPath . "\r\n";
-	    $OutTxt .= "srcPathFolderName: " . $this->srcPathFolderName . "\r\n";
+        $OutTxt .= "srcPathFolderName: " . $this->srcPathFolderName . "\r\n";
 
         return $OutTxt;
     }

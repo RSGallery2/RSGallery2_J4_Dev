@@ -8,32 +8,33 @@ require_once "./exchangeAll_sinceCopyrightYearLines.php";
 // use \DateTime;
 
 use task\task;
+
 use function commandLine\argsAndOptions;
-use function commandLine\print_header;
 use function commandLine\print_end;
+use function commandLine\print_header;
 
 
 $HELP_MSG = <<<EOT
->>>
-class exchangeAll_sinceCopyrightYear
-
-Reads file, exchanges one 'copyright' line for 'since'' year part (first year in line)
-Standard replace text is ??? year
-
-ToDo: extract year from git log each ..
-ToDo: create twin file with new name appended so it is easy to decide to use it .. ...
-<<<
-EOT;
+    >>>
+    class exchangeAll_sinceCopyrightYear
+    
+    Reads file, exchanges one 'copyright' line for 'since'' year part (first year in line)
+    Standard replace text is ??? year
+    
+    ToDo: extract year from git log each ..
+    ToDo: create twin file with new name appended so it is easy to decide to use it .. ...
+    <<<
+    EOT;
 
 
 /*================================================================================
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:y:h12345";
+$optDefinition    = "s:y:h12345";
 $isPrintArguments = false;
 
-list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
+[$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 $LeaveOut_01 = true;
 $LeaveOut_02 = true;
@@ -48,8 +49,7 @@ variables
 $tasksLine = ' task:exchangeAll_sinceCopyrightYear'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
-    . ' /licenseText = "GNU General Public License version 2 or later"'
-//    . ' /s='
+    . ' /licenseText = "GNU General Public License version 2 or later"'//    . ' /s='
 ;
 
 //$srcRoot = './../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop';
@@ -60,50 +60,47 @@ $srcRoot = '';
 //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
 $yearText = '';
 
-foreach ($options as $idx => $option)
-{
-	print ("idx: " . $idx . "\r\n");
-	print ("option: " . $option . "\r\n");
+foreach ($options as $idx => $option) {
+    print ("idx: " . $idx . "\r\n");
+    print ("option: " . $option . "\r\n");
 
-	switch ($idx)
-	{
-		case 's':
-			$srcRoot = $option;
-			break;
+    switch ($idx) {
+        case 's':
+            $srcRoot = $option;
+            break;
 
         case 'y':
             $yearText = $option;
             break;
 
         case "h":
-			exit($HELP_MSG);
+            exit($HELP_MSG);
 
-		case "1":
-			$LeaveOut_01 = true;
-			print("LeaveOut_01");
-			break;
-		case "2":
-			$LeaveOut_02 = true;
-			print("LeaveOut__02");
-			break;
-		case "3":
-			$LeaveOut_03 = true;
-			print("LeaveOut__03");
-			break;
-		case "4":
-			$LeaveOut_04 = true;
-			print("LeaveOut__04");
-			break;
-		case "5":
-			$LeaveOut_05 = true;
-			print("LeaveOut__05");
-			break;
+        case "1":
+            $LeaveOut_01 = true;
+            print("LeaveOut_01");
+            break;
+        case "2":
+            $LeaveOut_02 = true;
+            print("LeaveOut__02");
+            break;
+        case "3":
+            $LeaveOut_03 = true;
+            print("LeaveOut__03");
+            break;
+        case "4":
+            $LeaveOut_04 = true;
+            print("LeaveOut__04");
+            break;
+        case "5":
+            $LeaveOut_05 = true;
+            print("LeaveOut__05");
+            break;
 
-		default:
-			print("Option not supported '" . $option . "'");
-			break;
-	}
-
+        default:
+            print("Option not supported '" . $option . "'");
+            break;
+    }
 }
 
 //--- call function ---------------------------------
@@ -124,15 +121,14 @@ $hasError = $oExchangeAllLicenses->assignTask($task);
 if ($hasError) {
     print ("Error on function assignTask:" . $hasError);
 }
-if ( ! $hasError) {
-
+if (!$hasError) {
     $hasError = $oExchangeAllLicenses->execute();
     if ($hasError) {
         print ("Error on function execute:" . $hasError);
     }
 }
 
-print ($oExchangeAllLicenses->text () . "\r\n");
+print ($oExchangeAllLicenses->text() . "\r\n");
 
 print_end($start);
 

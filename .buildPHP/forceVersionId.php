@@ -6,10 +6,11 @@ require_once "./iExecTask.php";
 
 // use \DateTime;
 
+use Exception;
 use ExecuteTasks\executeTasksInterface;
-
 use FileNamesList\fileNamesList;
 use task\task;
+
 //use function commandLine\argsAndOptions;
 //use function commandLine\print_header;
 //use function commandLine\print_end;
@@ -21,10 +22,10 @@ Class forceVersionId
 class forceVersionId implements executeTasksInterface
 {
 
-    private string $srcRoot='';
-    private string $name='';
+    private string $srcRoot = '';
+    private string $name = '';
 
-    private string $componentVersion='';
+    private string $componentVersion = '';
 
     // internal
     private string $manifestPathFileName = '';
@@ -40,8 +41,8 @@ class forceVersionId implements executeTasksInterface
     --------------------------------------------------------------------*/
 
     // ToDo: a lot of parameters ....
-	public function __construct($srcFile="", $dstFile="") {
-
+    public function __construct($srcFile = "", $dstFile = "")
+    {
         $hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
@@ -54,25 +55,20 @@ class forceVersionId implements executeTasksInterface
 //            $this->dstFile = $dstFile;
 
             $this->fileNamesList = new fileNamesList();
-
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
-
         // print('exit __construct: ' . $hasError . "\r\n");
     }
 
     // Task name with options
-    public function assignTask (task $task) : int
+    public function assignTask(task $task): int
     {
         $options = $task->options;
 
         foreach ($options->options as $option) {
-
             switch (strtolower($option->name)) {
-
                 case 'srcroot':
                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->srcRoot = $option->value;
@@ -89,7 +85,7 @@ class forceVersionId implements executeTasksInterface
                     break;
 
                 default:
-                    print ('Execute Default task: ' . $option->name. "\r\n");
+                    print ('Execute Default task: ' . $option->name . "\r\n");
             } // switch
 
             // $OutTxt .= $task->text() . "\r\n";
@@ -98,7 +94,7 @@ class forceVersionId implements executeTasksInterface
         return 0;
     }
 
-    public function execute (): int // $hasError
+    public function execute(): int // $hasError
     {
         print('*********************************************************' . "\r\n");
         print ("Execute forceVersionId : " . "\r\n");
@@ -109,7 +105,7 @@ class forceVersionId implements executeTasksInterface
         return $hasError;
     }
 
-    public function executeFile (string $filePathName) : bool // $isChanged
+    public function executeFile(string $filePathName): bool // $isChanged
     {
         $hasError = 0;
 
@@ -122,8 +118,8 @@ class forceVersionId implements executeTasksInterface
     funYYY
     --------------------------------------------------------------------*/
 
-    function exchangeVersionId() {
-
+    function exchangeVersionId()
+    {
         $hasError = 0;
 
         try {
@@ -131,20 +127,20 @@ class forceVersionId implements executeTasksInterface
             print('exchangeVersionId' . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
-            $manifestPathFileName = $this->manifestPathFileName ();
+            $manifestPathFileName = $this->manifestPathFileName();
             print ("manifestPathFileName: " . $manifestPathFileName . "\r\n");
 
             $componentVersion = $this->componentVersion;
             print ("version: " . $componentVersion . "\r\n");
 
-            $hasError = $this->exchangeVersionInManifestFile ($manifestPathFileName, $componentVersion);
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+            $hasError = $this->exchangeVersionInManifestFile($manifestPathFileName, $componentVersion);
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
         print('exit exchangeVersionId: ' . $hasError . "\r\n");
+
         return $hasError;
     }
 
@@ -153,21 +149,21 @@ class forceVersionId implements executeTasksInterface
         $isSaved = false;
 
         try {
-
-            $lines = file($manifestFileName);
-            $outLines = [];
+            $lines       = file($manifestFileName);
+            $outLines    = [];
             $isExchanged = false;
 
             foreach ($lines as $line) {
-
                 if ($isExchanged) {
-
                     $outLines [] = $line;
                 } else {
                     // 	<version>5.0.12.4</version>
                     if (str_contains($line, '<version>')) {
-                        $outLine = preg_replace('/(.*>?)(.*)(<.*)/',
-                            '${1}' . $strVersion . '${3}', $line);
+                        $outLine = preg_replace(
+                            '/(.*>?)(.*)(<.*)/',
+                            '${1}' . $strVersion . '${3}',
+                            $line,
+                        );
 
                         $outLines [] = $outLine;
 
@@ -195,9 +191,7 @@ class forceVersionId implements executeTasksInterface
             // write to file
             //$isSaved = File::write($manifestFileName, $fileLines);
             $isSaved = file_put_contents($manifestFileName, $outLines);
-        }
-        catch(\Exception $e)
-		{
+        } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
@@ -205,9 +199,8 @@ class forceVersionId implements executeTasksInterface
         return $isSaved;
     }
 
-    private function manifestPathFileName() : string
+    private function manifestPathFileName(): string
     {
-
         if ($this->manifestPathFileName == '') {
             $this->manifestPathFileName = $this->srcRoot . '/' . $this->name . '.xml';
         }
@@ -216,20 +209,21 @@ class forceVersionId implements executeTasksInterface
     }
 
 
-    public function text() : string
+    public function text(): string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- forceVersionId ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";
+
         /**
-        $OutTxt .= "fileName: " . $this->fileName . "\r\n";
-        $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
-        $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
-        $OutTxt .= "filePath: " . $this->filePath . "\r\n";
-        $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
-        /**/
+         * $OutTxt .= "fileName: " . $this->fileName . "\r\n";
+         * $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
+         * $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
+         * $OutTxt .= "filePath: " . $this->filePath . "\r\n";
+         * $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
+         * /**/
 
         return $OutTxt;
     }

@@ -6,6 +6,7 @@ require_once "./option.php";
 
 // use DateTime;
 
+use Exception;
 use option\option;
 
 
@@ -13,19 +14,20 @@ use option\option;
 Class options
 ================================================================================*/
 
-class options {
+class options
+{
 
-	/**
-	 * @var option[] $options
-	 */
+    /**
+     * @var option[] $options
+     */
     public $options;
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($options = []) {
-
+    public function __construct($options = [])
+    {
         $hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
@@ -33,45 +35,37 @@ class options {
 //            print('---------------------------------------------------------' . "\r\n");
 
             $this->options = $options;
-            
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
-
 //        // print('exit __construct: ' . $hasError . "\r\n");
     }
 
-    public function clear() : void
+    public function clear(): void
     {
-
         $this->options = [];
-
     }
 
-    public function count() : int
+    public function count(): int
     {
-
-        return (count ($this->options));
-
+        return (count($this->options));
     }
 
 
-    public function addOption (option $option) : void {
-
-        if ( ! empty ($option->name))
-        {
+    public function addOption(option $option): void
+    {
+        if (!empty ($option->name)) {
             // $this->options [$option->name] = $option;
             $this->options [] = $option;
         }
     }
 
-    public function getOption (string $name, bool $isIgnoreCase= false) : string {
+    public function getOption(string $name, bool $isIgnoreCase = false): string
+    {
         $value = '';
 
         foreach ($this->options as $option) {
-
             $isFound = false;
 
             if ($isIgnoreCase) {
@@ -80,8 +74,7 @@ class options {
                 $isFound = $option->name === $name;
             }
 
-            if ($isFound)
-            {
+            if ($isFound) {
                 $value = $option->value;
             }
         }
@@ -93,21 +86,20 @@ class options {
     extractOptionsFromString
     --------------------------------------------------------------------*/
 
-    public function extractOptionsFromString($inOptionsString = "") : options
+    public function extractOptionsFromString($inOptionsString = ""): options
     {
-        $this->clear ();
+        $this->clear();
 
         try {
             $optionsString = Trim($inOptionsString);
 
             // multiple: /optionName or /optionName=value or /optionName="optionValue"
             while ($this->hasOptionChar($optionsString)) {
-
                 //--- extract next option -------------------------------
 
-				// first find '=' then check for '"' .
+                // first find '=' then check for '"' .
                 $idxEqual = strpos($optionsString, "=");
-                $idxEnd = strpos($optionsString, " ");
+                $idxEnd   = strpos($optionsString, " ");
 
                 // last option in string
                 if ($idxEnd == false) {
@@ -116,28 +108,25 @@ class options {
                     // No more option parts
                     $optionsString = '';
                 } else {
-
                     //--- separate next option in string ----------------------
 
                     // Equal char found before end
                     // -> has value part
                     // -> check for end  '"'
                     if ($idxEqual && $idxEqual < $idxEnd) {
-
                         // check for '"' to adjust end index
                         //$idxBracket = strpos($optionsString, '"');
                         $idxBracket = $idxEqual + 1;
 
                         // option value enclosed in brackets ?
                         if ($optionsString[$idxBracket] == '"') {
-
                             // If found, find second one
-                            $idxEnd = strpos($optionsString, '"', $idxBracket+1);
+                            $idxEnd = strpos($optionsString, '"', $idxBracket + 1);
                         }
                     }
 
                     // this option string part
-                    $singleOption = substr($optionsString, 0, $idxEnd+1);
+                    $singleOption = substr($optionsString, 0, $idxEnd + 1);
 
                     // further options string part
                     $optionsString = substr($optionsString, $idxEnd + 1);
@@ -145,11 +134,10 @@ class options {
                 }
 
                 // extract actual option
-	            $option = (new option())->extractOptionFromString($singleOption);
-	            $this->addOption ($option);
-
+                $option = (new option())->extractOptionFromString($singleOption);
+                $this->addOption($option);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
@@ -188,7 +176,7 @@ class options {
     }
 
 
-    public function text() : string
+    public function text(): string
     {
         $OutTxt = "";
         // $OutTxt .= "options" . "\r\n";

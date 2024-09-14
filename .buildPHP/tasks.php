@@ -4,15 +4,15 @@ namespace tasks;
 
 require_once "./task.php";
 
-use DateTime;
-
+use Exception;
 use task\task;
 
 /*================================================================================
 Class task
 ================================================================================*/
 
-class tasks {
+class tasks
+{
 
     /**
      * @var task[] $tasks
@@ -24,17 +24,15 @@ class tasks {
     --------------------------------------------------------------------*/
 
     public
-    function __construct($tasks = [])
-    {
-
+    function __construct(
+        $tasks = [],
+    ) {
         $this->tasks = $tasks;
-
     }
 
 
     public function addTask(task $task): void
     {
-
         if (!empty ($task->name)) {
             // $this->tasks [$task->name] = $task;
             $this->tasks [] = $task;
@@ -42,47 +40,39 @@ class tasks {
     }
 
 
-    public function clear() : void
+    public function clear(): void
     {
-
         $this->tasks = [];
-
     }
 
-    public function count() : int
+    public function count(): int
     {
-
-        return (count ($this->tasks));
-
+        return (count($this->tasks));
     }
 
     // extract multiple tasks from string
-    public function extractTasksFromString($tasksLine = "") : tasks
+    public function extractTasksFromString($tasksLine = ""): tasks
     {
-        $this->clear ();
+        $this->clear();
 
         try {
             //        $tasks = "task:task00"
             //            . 'task:task01 /option1 /option2=xxx /option3="01teststring"'
             //            . 'task:task02 /optionX /option2=Y /optionZ="Zteststring"';
-	        $tasksLine = Trim($tasksLine);
+            $tasksLine = Trim($tasksLine);
 
-            if ($tasksLine != '')
-            {
-                while ($this->isTaskStart($tasksLine))
-                {
+            if ($tasksLine != '') {
+                while ($this->isTaskStart($tasksLine)) {
                     $idxStart = strpos($tasksLine, ":");
-                    $idxNext = strpos($tasksLine, "task:", $idxStart + 1);
+                    $idxNext  = strpos($tasksLine, "task:", $idxStart + 1);
 
                     // last task
                     if ($idxNext == false) {
-
                         // wrong ? $singleTask = substr($tasksLine, $idxStart + 1);
                         $singleTask = $tasksLine;
 
                         $tasksLine = '';
                     } else {
-
                         // multiple options
                         // $singleTask = substr($tasksLine, $idxStart + 1, $idxNext - $idxStart - 1 - 1);
                         $singleTask = substr($tasksLine, 0, $idxNext - 1);
@@ -95,8 +85,7 @@ class tasks {
                     $this->addTask($task);
                 }
             }
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
@@ -105,35 +94,32 @@ class tasks {
     }
 
     // ToDo: A task may have more attributes like *.ext to
-    public function extractTasksFromFile(string $taskFile) : tasks
+    public function extractTasksFromFile(string $taskFile): tasks
     {
         print('*********************************************************' . "\r\n");
         print ("extractTasksFromFile: " . $taskFile . "\r\n");
         print('---------------------------------------------------------' . "\r\n");
 
-        $this->clear ();
+        $this->clear();
 
         try {
             $content = file_get_contents('data.txt'); //Get the file
-            $lines = explode("\n", $content); //Split the file by each line
+            $lines   = explode("\n", $content); //Split the file by each line
 
             foreach ($lines as $line) {
-
-                $line =  trim($line);
+                $line = trim($line);
 
                 // ToDo use before each ? "/*" comments like lang manager
 
                 // ignore comments
                 if (!str_starts_with($line, '//')) {
-
                     $task = (new task())->extractTaskFromString(Trim($line));
-                    $this->addTask ($task);
+                    $this->addTask($task);
                 }
             }
-
             // print ($this->tasksText ());
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
@@ -148,7 +134,7 @@ class tasks {
         $OutTxt = "";
 
         foreach ($this->tasks as $task) {
-            $OutTxt .= $task->text4Line () . ' ';
+            $OutTxt .= $task->text4Line() . ' ';
         }
 
         $OutTxt .= "\r\n";
@@ -157,7 +143,7 @@ class tasks {
     }
 
 
-    public function text() : string
+    public function text(): string
     {
         $OutTxt = "--- Tasks: ---" . "\r\n";
 
@@ -170,20 +156,20 @@ class tasks {
         return $OutTxt;
     }
 
-	private function isTaskStart(string $tasksLine)
-	{
-		$isTask = false;
+    private function isTaskStart(string $tasksLine)
+    {
+        $isTask = false;
 
-		$tasksLine = Trim($tasksLine);
-		$checkPart = strtolower(substr ($tasksLine, 0,5));
+        $tasksLine = Trim($tasksLine);
+        $checkPart = strtolower(substr($tasksLine, 0, 5));
 
-		// /option1 /option2=xxx /option3="01teststring"
-		if ($checkPart == 'task:') {
-			$isTask = true;
-		}
+        // /option1 /option2=xxx /option3="01teststring"
+        if ($checkPart == 'task:') {
+            $isTask = true;
+        }
 
-		return $isTask;
-	}
+        return $isTask;
+    }
 
 
 } // task

@@ -6,28 +6,27 @@ require_once "./commandLine.php";
 require_once "./doBuildTasks.php";
 
 use function commandLine\argsAndOptions;
-use function commandLine\print_header;
 use function commandLine\print_end;
+use function commandLine\print_header;
 
 $HELP_MSG = <<<EOT
->>>
-doBuildTasks class 
-
-ToDo: option commands , example
-
-<<<
-EOT;
-
+    >>>
+    doBuildTasks class 
+    
+    ToDo: option commands , example
+    
+    <<<
+    EOT;
 
 
 /*================================================================================
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "t:p:h12345";
+$optDefinition    = "t:p:h12345";
 $isPrintArguments = false;
 
-list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
+[$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 $LeaveOut_01 = true;
 $LeaveOut_02 = true;
@@ -257,60 +256,56 @@ $tasksLine .= ' task:buildRelease'
 $tasksLine .= 'task:execute' . ' ';
 
 
-
 $basePath = "..\\..\\RSGallery2_J4";
 
-$taskFile="";
+$taskFile = "";
 // $taskFile="./taskFile.cmd";
 
-foreach ($options as $idx => $option)
-{
-	print ("idx: " . $idx . "\r\n");
-	print ("option: " . $option . "\r\n");
+foreach ($options as $idx => $option) {
+    print ("idx: " . $idx . "\r\n");
+    print ("option: " . $option . "\r\n");
 
-	switch ($idx)
-	{
-		case 's':
-			$tasks = $option;
-			break;
+    switch ($idx) {
+        case 's':
+            $tasks = $option;
+            break;
 
-		case 't':
+        case 't':
             $tasksLine = $option;
-			break;
+            break;
 
-		case 'f':
+        case 'f':
             $taskFile = $option;
-			break;
+            break;
 
-		case "h":
-			exit($HELP_MSG);
+        case "h":
+            exit($HELP_MSG);
 
-		case "1":
-			$LeaveOut_01 = true;
-			print("LeaveOut_01");
-			break;
-		case "2":
-			$LeaveOut_02 = true;
-			print("LeaveOut__02");
-			break;
-		case "3":
-			$LeaveOut_03 = true;
-			print("LeaveOut__03");
-			break;
-		case "4":
-			$LeaveOut_04 = true;
-			print("LeaveOut__04");
-			break;
-		case "5":
-			$LeaveOut_05 = true;
-			print("LeaveOut__05");
-			break;
+        case "1":
+            $LeaveOut_01 = true;
+            print("LeaveOut_01");
+            break;
+        case "2":
+            $LeaveOut_02 = true;
+            print("LeaveOut__02");
+            break;
+        case "3":
+            $LeaveOut_03 = true;
+            print("LeaveOut__03");
+            break;
+        case "4":
+            $LeaveOut_04 = true;
+            print("LeaveOut__04");
+            break;
+        case "5":
+            $LeaveOut_05 = true;
+            print("LeaveOut__05");
+            break;
 
-		default:
-			print("Option not supported '" . $option . "'");
-			break;
-	}
-
+        default:
+            print("Option not supported '" . $option . "'");
+            break;
+    }
 }
 
 //--- create class object ---------------------------------
@@ -322,15 +317,15 @@ $oDoBuildTasks = new doBuildTasks(); // $basePath, $tasksLine
 
 //--- extract tasks from string or file ---------------------------------
 
-if ($taskFile!="") {
+if ($taskFile != "") {
     $hasError = $oDoBuildTasks->extractTasksFromFile($taskFile);
-    if (!empty ($hasError) ) {
+    if (!empty ($hasError)) {
         print ("Error on function extractTasksFromFile:" . $hasError
             . ' path: ' . $basePath);
     }
 } else {
     $hasError = $oDoBuildTasks->extractTasksFromString($tasksLine);
-    if (!empty ($hasError) ) {
+    if (!empty ($hasError)) {
         print ("Error on function extractTasksFromString:" . $hasError
             . ' path: ' . $basePath);
     }
@@ -342,21 +337,18 @@ print ($oDoBuildTasks->tasksText());
 
 //--- execute tasks ---------------------------------
 
-if (empty ($hasError) ) {
-
+if (empty ($hasError)) {
     // create task classes, when task execute is issued the task does execute
     $hasError = $oDoBuildTasks->applyTasks();
 
     if ($hasError) {
-
         print ("Error on function collectFiles:" . $hasError
             . ' path: ' . $basePath);
     }
 }
 
 if (empty ($hasError)) {
-
-    print ($oDoBuildTasks->text () . "\r\n");
+    print ($oDoBuildTasks->text() . "\r\n");
 }
 
 

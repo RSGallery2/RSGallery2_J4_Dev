@@ -7,33 +7,30 @@ require_once "./forceCreationDate.php";
 
 // use \DateTime;
 
-use ExecuteTasks\executeTasksInterface;
-
-use FileNamesList\fileNamesList;
 use task\task;
 
 use function commandLine\argsAndOptions;
-use function commandLine\print_header;
 use function commandLine\print_end;
+use function commandLine\print_header;
 
 
 $HELP_MSG = <<<EOT
->>>
-class forceCreationDate
-
-ToDo: option commands , example
-
-<<<
-EOT;
+    >>>
+    class forceCreationDate
+    
+    ToDo: option commands , example
+    
+    <<<
+    EOT;
 
 /*================================================================================
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:d:h12345";
+$optDefinition    = "s:d:h12345";
 $isPrintArguments = false;
 
-list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
+[$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 $LeaveOut_01 = true;
 $LeaveOut_02 = true;
@@ -52,50 +49,47 @@ $tasksLine = ' task:forceCreationDate'
 //    . ' /date="22. Feb. 2022"'
 ;
 
-foreach ($options as $idx => $option)
-{
-	print ("idx: " . $idx . "\r\n");
-	print ("option: " . $option . "\r\n");
+foreach ($options as $idx => $option) {
+    print ("idx: " . $idx . "\r\n");
+    print ("option: " . $option . "\r\n");
 
-	switch ($idx)
-	{
-		case 's':
-			$srcFile = $option;
-			break;
+    switch ($idx) {
+        case 's':
+            $srcFile = $option;
+            break;
 
-		case 'd':
-			$dstFile = $option;
-			break;
+        case 'd':
+            $dstFile = $option;
+            break;
 
-		case "h":
-			exit($HELP_MSG);
+        case "h":
+            exit($HELP_MSG);
 
-		case "1":
-			$LeaveOut_01 = true;
-			print("LeaveOut_01");
-			break;
-		case "2":
-			$LeaveOut_02 = true;
-			print("LeaveOut__02");
-			break;
-		case "3":
-			$LeaveOut_03 = true;
-			print("LeaveOut__03");
-			break;
-		case "4":
-			$LeaveOut_04 = true;
-			print("LeaveOut__04");
-			break;
-		case "5":
-			$LeaveOut_05 = true;
-			print("LeaveOut__05");
-			break;
+        case "1":
+            $LeaveOut_01 = true;
+            print("LeaveOut_01");
+            break;
+        case "2":
+            $LeaveOut_02 = true;
+            print("LeaveOut__02");
+            break;
+        case "3":
+            $LeaveOut_03 = true;
+            print("LeaveOut__03");
+            break;
+        case "4":
+            $LeaveOut_04 = true;
+            print("LeaveOut__04");
+            break;
+        case "5":
+            $LeaveOut_05 = true;
+            print("LeaveOut__05");
+            break;
 
-		default:
-			print("Option not supported '" . $option . "'");
-			break;
-	}
-
+        default:
+            print("Option not supported '" . $option . "'");
+            break;
+    }
 }
 
 //--- call function ---------------------------------
@@ -112,8 +106,7 @@ $hasError = $oforceCreationDate->assignTask($task);
 if ($hasError) {
     print ("Error on function assignTask:" . $hasError);
 }
-if ( ! $hasError) {
-
+if (!$hasError) {
     $hasError = $oforceCreationDate->execute();
     if ($hasError) {
         print ("Error on function execute:" . $hasError);

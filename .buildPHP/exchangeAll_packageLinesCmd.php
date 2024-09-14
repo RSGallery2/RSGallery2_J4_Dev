@@ -8,29 +8,30 @@ require_once "./exchangeAll_packageLines.php";
 // use \DateTime;
 
 use task\task;
+
 use function commandLine\argsAndOptions;
-use function commandLine\print_header;
 use function commandLine\print_end;
+use function commandLine\print_header;
 
 
 $HELP_MSG = <<<EOT
->>>
-class exchangeAll_packages
-
-Reads file, exchanges one 'package' line 
-Standard replace text is defined in class fileHeaderData
-<<<
-EOT;
+    >>>
+    class exchangeAll_packages
+    
+    Reads file, exchanges one 'package' line 
+    Standard replace text is defined in class fileHeaderData
+    <<<
+    EOT;
 
 
 /*================================================================================
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:p:h12345";
+$optDefinition    = "s:p:h12345";
 $isPrintArguments = false;
 
-list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
+[$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 $LeaveOut_01 = true;
 $LeaveOut_02 = true;
@@ -56,50 +57,47 @@ $srcRoot = '';
 //$packageText = "RSGallery";
 $packageText = '';
 
-foreach ($options as $idx => $option)
-{
-	print ("idx: " . $idx . "\r\n");
-	print ("option: " . $option . "\r\n");
+foreach ($options as $idx => $option) {
+    print ("idx: " . $idx . "\r\n");
+    print ("option: " . $option . "\r\n");
 
-	switch ($idx)
-	{
-		case 's':
-			$srcRoot = $option;
-			break;
+    switch ($idx) {
+        case 's':
+            $srcRoot = $option;
+            break;
 
         case 'p':
             $packageText = $option;
             break;
 
         case "h":
-			exit($HELP_MSG);
+            exit($HELP_MSG);
 
-		case "1":
-			$LeaveOut_01 = true;
-			print("LeaveOut_01");
-			break;
-		case "2":
-			$LeaveOut_02 = true;
-			print("LeaveOut__02");
-			break;
-		case "3":
-			$LeaveOut_03 = true;
-			print("LeaveOut__03");
-			break;
-		case "4":
-			$LeaveOut_04 = true;
-			print("LeaveOut__04");
-			break;
-		case "5":
-			$LeaveOut_05 = true;
-			print("LeaveOut__05");
-			break;
+        case "1":
+            $LeaveOut_01 = true;
+            print("LeaveOut_01");
+            break;
+        case "2":
+            $LeaveOut_02 = true;
+            print("LeaveOut__02");
+            break;
+        case "3":
+            $LeaveOut_03 = true;
+            print("LeaveOut__03");
+            break;
+        case "4":
+            $LeaveOut_04 = true;
+            print("LeaveOut__04");
+            break;
+        case "5":
+            $LeaveOut_05 = true;
+            print("LeaveOut__05");
+            break;
 
-		default:
-			print("Option not supported '" . $option . "'");
-			break;
-	}
-
+        default:
+            print("Option not supported '" . $option . "'");
+            break;
+    }
 }
 
 //--- call function ---------------------------------
@@ -120,15 +118,14 @@ $hasError = $oExchangeAll_packages->assignTask($task);
 if ($hasError) {
     print ("Error on function assignTask:" . $hasError);
 }
-if ( ! $hasError) {
-
+if (!$hasError) {
     $hasError = $oExchangeAll_packages->execute();
     if ($hasError) {
         print ("Error on function execute:" . $hasError);
     }
 }
 
-print ($oExchangeAll_packages->text () . "\r\n");
+print ($oExchangeAll_packages->text() . "\r\n");
 
 print_end($start);
 

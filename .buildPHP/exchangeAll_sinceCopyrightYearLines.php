@@ -9,6 +9,7 @@ require_once "./fileHeaderByFileLine.php";
 
 
 // use \DateTime;
+use Exception;
 use ExecuteTasks\executeTasksInterface;
 use FileHeader\fileHeaderByFileLine;
 use FileNamesList\fileNamesList;
@@ -18,7 +19,8 @@ use task\task;
 Class exchangeAll_sinceCopyrightYear
 ================================================================================*/
 
-class exchangeAll_sinceCopyrightYear implements executeTasksInterface {
+class exchangeAll_sinceCopyrightYear implements executeTasksInterface
+{
 
     public string $srcRoot = "";
     public string $yearText = "";
@@ -33,8 +35,8 @@ class exchangeAll_sinceCopyrightYear implements executeTasksInterface {
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($srcRoot="", $yearText="") {
-
+    public function __construct($srcRoot = "", $yearText = "")
+    {
         $hasError = 0;
 
         try {
@@ -43,34 +45,33 @@ class exchangeAll_sinceCopyrightYear implements executeTasksInterface {
 //            print ("yearText: " . $yearText . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-            $this->srcRoot = $srcRoot;
+            $this->srcRoot  = $srcRoot;
             $this->yearText = $yearText;
 
             $this->fileNamesList = new fileNamesList();
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
-
         // print('exit __construct: ' . $hasError . "\r\n");
     }
 
 
-    public function text() : string
+    public function text(): string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- exchangeAll_sinceCopyrightYearLines ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";
+
         /**
-        $OutTxt .= "fileName: " . $this->fileName . "\r\n";
-        $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
-        $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
-        $OutTxt .= "filePath: " . $this->filePath . "\r\n";
-        $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
-        /**/
+         * $OutTxt .= "fileName: " . $this->fileName . "\r\n";
+         * $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
+         * $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
+         * $OutTxt .= "filePath: " . $this->filePath . "\r\n";
+         * $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
+         * /**/
 
         return $OutTxt;
     }
@@ -82,14 +83,12 @@ class exchangeAll_sinceCopyrightYear implements executeTasksInterface {
     }
 
     // Task name with options
-    public function assignTask (task $task) : int
+    public function assignTask(task $task): int
     {
         $options = $task->options;
 
         foreach ($options->options as $option) {
-
             switch (strtolower($option->name)) {
-
                 case 'srcroot':
                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->srcRoot = $option->value;
@@ -113,7 +112,7 @@ class exchangeAll_sinceCopyrightYear implements executeTasksInterface {
 //					break;
 
                 default:
-                    print ('Execute Default task: ' . $option->name. "\r\n");
+                    print ('Execute Default task: ' . $option->name . "\r\n");
             } // switch
 
             // $OutTxt .= $task->text() . "\r\n";
@@ -128,7 +127,7 @@ class exchangeAll_sinceCopyrightYear implements executeTasksInterface {
 
         // files not set already
         if (count($this->fileNamesList->fileNames) == 0) {
-            $fileNamesList = new fileNamesList ($this->srcRoot, 'php');
+            $fileNamesList       = new fileNamesList ($this->srcRoot, 'php');
             $this->fileNamesList = $fileNamesList;
 
             $fileNamesList->scan4Filenames();
@@ -144,10 +143,10 @@ class exchangeAll_sinceCopyrightYear implements executeTasksInterface {
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
-
-            $fileHeaderByFile->exchangeSinceCopyrightYear ( $fileName->srcPathFileName,
-                $this->yearText);
-
+            $fileHeaderByFile->exchangeSinceCopyrightYear(
+                $fileName->srcPathFileName,
+                $this->yearText,
+            );
         }
 
         return (0);
@@ -156,7 +155,7 @@ class exchangeAll_sinceCopyrightYear implements executeTasksInterface {
     public function executeFile(string $filePathName): int
     {
         // create a one file 'fileNamesList' object
-        $this->fileNamesList = new fileNamesList();
+        $this->fileNamesList   = new fileNamesList();
         $this->fileNamesList[] = $filePathName;
 
         $this->execute();

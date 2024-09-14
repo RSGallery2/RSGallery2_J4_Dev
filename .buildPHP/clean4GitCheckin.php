@@ -7,8 +7,8 @@ require_once "./fileHeaderByFileLine.php";
 
 
 // use \DateTime;
+use Exception;
 use ExecuteTasks\executeTasksInterface;
-use FileHeader\fileHeaderByFileLine;
 use FileNamesList\fileNamesList;
 use task\task;
 
@@ -16,7 +16,8 @@ use task\task;
 Class clean4GitCheckin
 ================================================================================*/
 
-class clean4GitCheckin implements executeTasksInterface {
+class clean4GitCheckin implements executeTasksInterface
+{
 
     public string $srcRoot = "";
 
@@ -30,8 +31,8 @@ class clean4GitCheckin implements executeTasksInterface {
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($srcRoot="") {
-
+    public function __construct($srcRoot = "")
+    {
         $hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
@@ -42,27 +43,26 @@ class clean4GitCheckin implements executeTasksInterface {
             $this->srcRoot = $srcRoot;
 
             $this->fileNamesList = new fileNamesList();
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
-
         // print('exit __construct: ' . $hasError . "\r\n");
     }
 
 
-    public function text() : string
+    public function text(): string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- clean4GitCheckin ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";
+
         /**
-        $OutTxt .= "fileName: " . $this->fileName . "\r\n";
-        $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
-        /**/
+         * $OutTxt .= "fileName: " . $this->fileName . "\r\n";
+         * $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
+         * /**/
 
         return $OutTxt;
     }
@@ -71,21 +71,18 @@ class clean4GitCheckin implements executeTasksInterface {
     public function assignFilesNames(fileNamesList $fileNamesList)
     {
         $this->fileNamesList = $fileNamesList;
-
     }
 
     // Task name with options
-    public function assignTask (task $task) : int
+    public function assignTask(task $task): int
     {
         $options = $task->options;
 
         foreach ($options->options as $option) {
-
             switch (strtolower($option->name)) {
-
                 case 'srcroot':
-                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                     $this->srcRoot = $option->value;
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->srcRoot = $option->value;
                     break;
 
 //                case 'Xlinktext':
@@ -106,7 +103,7 @@ class clean4GitCheckin implements executeTasksInterface {
 //					break;
 
                 default:
-                    print ('Execute Default task: ' . $option->name. "\r\n");
+                    print ('Execute Default task: ' . $option->name . "\r\n");
             } // switch
 
             // $OutTxt .= $task->text() . "\r\n";
@@ -121,7 +118,7 @@ class clean4GitCheckin implements executeTasksInterface {
 
         // files not set already
         if (count($this->fileNamesList->fileNames) == 0) {
-            $fileNamesList = new fileNamesList ($this->srcRoot, '');
+            $fileNamesList       = new fileNamesList ($this->srcRoot, '');
             $this->fileNamesList = $fileNamesList;
 
             $fileNamesList->scan4Filenames();
@@ -133,9 +130,7 @@ class clean4GitCheckin implements executeTasksInterface {
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
-
-            $this->trimFile ($fileName->srcPathFileName);
-
+            $this->trimFile($fileName->srcPathFileName);
         }
 
         return (0);
@@ -144,7 +139,7 @@ class clean4GitCheckin implements executeTasksInterface {
     public function executeFile(string $filePathName): int
     {
         // create a one file 'fileNamesList' object
-        $this->fileNamesList = new fileNamesList();
+        $this->fileNamesList   = new fileNamesList();
         $this->fileNamesList[] = $filePathName;
 
         $this->execute();
@@ -152,25 +147,23 @@ class clean4GitCheckin implements executeTasksInterface {
         return (0);
     }
 
-    private function trimFile(string $fileName) : bool
+    private function trimFile(string $fileName): bool
     {
         $isExchanged = false;
 
         try {
-
-            $lines = file($fileName);
+            $lines    = file($fileName);
             $outLines = [];
 
             // all lines
             foreach ($lines as $line) {
-
                 if ($isExchanged) {
                     $outLines [] = rtrim($line) . "\r\n";
                 } else {
-                    $trimmed = rtrim($line) . "\r\n";
+                    $trimmed     = rtrim($line) . "\r\n";
                     $outLines [] = $trimmed;
 
-                    if (strlen ($trimmed) < strlen($line)) {
+                    if (strlen($trimmed) < strlen($line)) {
                         $isExchanged = true;
                     }
                 }
@@ -180,10 +173,8 @@ class clean4GitCheckin implements executeTasksInterface {
             if ($isExchanged == true) {
                 $isSaved = file_put_contents($fileName, $outLines);
             }
-
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 

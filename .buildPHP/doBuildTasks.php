@@ -23,6 +23,7 @@ require_once "./tasks.php";
 // use DateTime;
 
 use clean4GitCheckin\clean4GitCheckin;
+use Exception;
 use exchangeAll_actCopyrightYear\exchangeAll_actCopyrightYearLines;
 use exchangeAll_authorLines\exchangeAll_authorLines;
 use exchangeAll_licenseLines\exchangeAll_licenseLines;
@@ -30,57 +31,57 @@ use exchangeAll_linkLines\exchangeAll_linkLines;
 use exchangeAll_packageLines\exchangeAll_packages;
 use exchangeAll_sinceCopyrightYear\exchangeAll_sinceCopyrightYear;
 use exchangeAll_subPackageLines\exchangeAll_subPackageLines;
-
+use ExecuteTasks\buildRelease;
 use ExecuteTasks\executeTasksInterface;
 use FileNamesList\fileNamesList;
-use ExecuteTasks\buildRelease;
-
-//use option\option;
-//use options\options;
-//use task\task;
 use forceCreationDate\forceCreationDate;
 use forceVersionId\forceVersionId;
 use increaseVersionId\increaseVersionId;
 use task\task;
 use tasks\tasks;
 
+//use option\option;
+//use options\options;
+//use task\task;
+
 $HELP_MSG = <<<EOT
->>>
-doBuildTasks class 
-
-ToDo: option commands , example
-
-<<<
-EOT;
+    >>>
+    doBuildTasks class 
+    
+    ToDo: option commands , example
+    
+    <<<
+    EOT;
 
 
 /*================================================================================
 Class doBuildTasks
 ================================================================================*/
 
-class doBuildTasks {
+class doBuildTasks
+{
 
     /**
      * @var tasks
      */
-	public tasks $textTasks;
+    public tasks $textTasks;
 
     public executeTasksInterface $actTask;
     /**
      * @var fileNamesList
      */
-	public fileNamesList $fileNamesList;
+    public fileNamesList $fileNamesList;
 
     //
-	public string $basePath = "";
+    public string $basePath = "";
 
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-	public function __construct($basePath="", $tasksLine="") {
-
+    public function __construct($basePath = "", $tasksLine = "")
+    {
         $hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
@@ -88,21 +89,18 @@ class doBuildTasks {
 //            print("tasks: " . $tasksLine . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-            $this->basePath = $basePath;
-            $this->textTasks = new tasks();
+            $this->basePath      = $basePath;
+            $this->textTasks     = new tasks();
             $this->fileNamesList = new fileNamesList();
 
             if (strlen($tasksLine) > 0) {
                 $this->textTasks = $this->textTasks->extractTasksFromString($tasksLine);
             }
-
             // print ($this->tasksText ());
-        }
-        catch(\Exception $e) {
+        } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
-
         // print('exit __construct: ' . $hasError . "\r\n");
     }
 
@@ -110,7 +108,8 @@ class doBuildTasks {
     applyTasks
     --------------------------------------------------------------------*/
 
-    public function applyTasks() : int {
+    public function applyTasks(): int
+    {
         $hasError = 0;
 
         try {
@@ -120,12 +119,10 @@ class doBuildTasks {
             print('---------------------------------------------------------' . "\r\n");
 
             foreach ($this->textTasks->tasks as $textTask) {
-
                 // print ("--- apply task: " . $textTask->name . "\r\n");
                 print (">>>---------------------------------" . "\r\n");
 
                 switch (strtolower($textTask->name)) {
-
                     //--- let the task run -------------------------
 
                     case 'execute':
@@ -140,7 +137,7 @@ class doBuildTasks {
                         $this->actTask->assignFilesNames($this->fileNamesList);
 
                         // run task
-                        $hasError = $this->actTask->execute ();
+                        $hasError = $this->actTask->execute();
 
 //                        // stop after first task
 //                        exit (99);
@@ -153,8 +150,8 @@ class doBuildTasks {
                         print ('Execute task: ' . $textTask->name . "\r\n");
 
                         $filenamesList = new fileNamesList ();
-                        $this->actTask = $this->createTask ($filenamesList, $textTask);
-                        $filenamesList->execute ();
+                        $this->actTask = $this->createTask($filenamesList, $textTask);
+                        $filenamesList->execute();
 
                         $this->fileNamesList = $filenamesList;
 
@@ -165,14 +162,14 @@ class doBuildTasks {
                     case 'add2filenameslist':
                         print ('Execute task: ' . $textTask->name . "\r\n");
                         $filenamesList = new fileNamesList ();
-                        $filenamesList->assignTask ($textTask);
-                        $filenamesList->execute ();
+                        $filenamesList->assignTask($textTask);
+                        $filenamesList->execute();
 
                         if (empty($this->fileNamesList)) {
                             $this->fileNamesList = new fileNamesList ();
                         }
 
-                        $this->fileNamesList->addFilenames ($filenamesList->fileNames);
+                        $this->fileNamesList->addFilenames($filenamesList->fileNames);
                         break;
 
                     case 'clearfilenameslist':
@@ -190,24 +187,24 @@ class doBuildTasks {
                     //=== real task definitions =================================
 
                     case 'buildrelease':
-                        $this->actTask = $this->createTask (new buildRelease (), $textTask);
+                        $this->actTask = $this->createTask(new buildRelease (), $textTask);
 
                         break;
 
-	                case 'forceversionid':
-                        $this->actTask = $this->createTask (new forceVersionId (), $textTask);
+                    case 'forceversionid':
+                        $this->actTask = $this->createTask(new forceVersionId (), $textTask);
                         break;
 
-	                case 'forcecreationdate':
-                        $this->actTask = $this->createTask (new forceCreationDate (), $textTask);
-		                break;
+                    case 'forcecreationdate':
+                        $this->actTask = $this->createTask(new forceCreationDate (), $textTask);
+                        break;
 
-	                case 'increaseversionid':
-                        $this->actTask = $this->createTask (new increaseVersionId (), $textTask);
-		                break;
+                    case 'increaseversionid':
+                        $this->actTask = $this->createTask(new increaseVersionId (), $textTask);
+                        break;
 
                     case 'clean4gitcheckin':
-                        $this->actTask = $this->createTask (new clean4GitCheckin (), $textTask);
+                        $this->actTask = $this->createTask(new clean4GitCheckin (), $textTask);
                         break;
 
                     case 'clean4release':
@@ -218,31 +215,31 @@ class doBuildTasks {
                     //--- exchange header tasks --------------------------------------------------
 
                     case 'exchangeall_licenselines':
-                        $this->actTask = $this->createTask (new exchangeAll_licenseLines (), $textTask);
+                        $this->actTask = $this->createTask(new exchangeAll_licenseLines (), $textTask);
                         break;
 
                     case 'exchangeall_actcopyrightyearlines':
-                        $this->actTask = $this->createTask (new exchangeAll_actCopyrightYearLines (), $textTask);
+                        $this->actTask = $this->createTask(new exchangeAll_actCopyrightYearLines (), $textTask);
                         break;
 
                     case 'exchangeall_authorlines':
-                        $this->actTask = $this->createTask (new exchangeAll_authorLines (), $textTask);
+                        $this->actTask = $this->createTask(new exchangeAll_authorLines (), $textTask);
                         break;
 
                     case 'exchangeall_linklines':
-                        $this->actTask = $this->createTask (new exchangeAll_linkLines (), $textTask);
+                        $this->actTask = $this->createTask(new exchangeAll_linkLines (), $textTask);
                         break;
 
                     case 'exchangeall_packages':
-                        $this->actTask = $this->createTask (new exchangeAll_packages (), $textTask);
+                        $this->actTask = $this->createTask(new exchangeAll_packages (), $textTask);
                         break;
 
                     case 'exchangeall_sincecopyrightyear':
-                        $this->actTask = $this->createTask (new exchangeAll_sinceCopyrightYear (), $textTask);
+                        $this->actTask = $this->createTask(new exchangeAll_sinceCopyrightYear (), $textTask);
                         break;
 
                     case 'exchangeall_subpackagelines':
-                        $this->actTask = $this->createTask (new exchangeAll_subPackageLines (), $textTask);
+                        $this->actTask = $this->createTask(new exchangeAll_subPackageLines (), $textTask);
                         break;
 
 //                    case 'X':
@@ -262,33 +259,32 @@ class doBuildTasks {
 
                 // $OutTxt .= $task->text() . "\r\n";
             }
-
-        }
-        catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage() . "\r\n";
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
         print('exit applyTasks: ' . $hasError . "\r\n");
+
         return $hasError;
     }
 
 
-
-    public function text() : string
+    public function text(): string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- doBuildTasks: class  ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";
+
         /**
-        $OutTxt .= "fileName: " . $this->fileName . "\r\n";
-        $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
-        $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
-        $OutTxt .= "filePath: " . $this->filePath . "\r\n";
-        $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
-        /**/
+         * $OutTxt .= "fileName: " . $this->fileName . "\r\n";
+         * $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
+         * $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
+         * $OutTxt .= "filePath: " . $this->filePath . "\r\n";
+         * $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
+         * /**/
 
         return $OutTxt;
     }
@@ -300,30 +296,30 @@ class doBuildTasks {
 
         $OutTxt .= "--- doBuildTasks: Tasks ---" . "\r\n";
 
-	    // $OutTxt .= "Tasks count: " . $this->textTasks->count() . "\r\n";
+        // $OutTxt .= "Tasks count: " . $this->textTasks->count() . "\r\n";
 
         $OutTxt .= $this->textTasks->text() . "\r\n";
 
         return $OutTxt;
     }
 
-	public function extractTasksFromString(mixed $tasksLine)
-	{
-		$task = new tasks();
-		$this->textTasks = $task->extractTasksFromString($tasksLine);
-	}
+    public function extractTasksFromString(mixed $tasksLine)
+    {
+        $task            = new tasks();
+        $this->textTasks = $task->extractTasksFromString($tasksLine);
+    }
 
-	public function extractTasksFromFile(mixed $taskFile)
-	{
-		$task = new tasks();
-		$this->textTasks = $task->extractTasksFromFile($taskFile);
-	}
+    public function extractTasksFromFile(mixed $taskFile)
+    {
+        $task            = new tasks();
+        $this->textTasks = $task->extractTasksFromFile($taskFile);
+    }
 
-    private function createTask(executeTasksInterface $execTask, task $textTask) : executeTasksInterface
+    private function createTask(executeTasksInterface $execTask, task $textTask): executeTasksInterface
     {
         print ('Assign task: ' . $textTask->name);
 
-        $execTask->assignTask ($textTask);
+        $execTask->assignTask($textTask);
 
         return $execTask;
     }

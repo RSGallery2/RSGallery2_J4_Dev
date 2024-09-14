@@ -10,12 +10,13 @@ namespace FileHeader;
 Class fileHeader
 ================================================================================*/
 
-class fileHeaderData {
+class fileHeaderData
+{
 
     //
-    public string $package =  "RSGallery2";
+    public string $package = "RSGallery2";
     //
-    public string $subpackage =  "com_rsgallery2";
+    public string $subpackage = "com_rsgallery2";
     //
     public string $copyright = "(C) 2016-2024 RSGallery2 Team";
     public string $copyrightToday = "(C) 2024-2024 RSGallery2 Team";
@@ -52,26 +53,25 @@ class fileHeaderData {
     construction
     --------------------------------------------------------------------*/
 
-    public function __construct() {
-
-        $this->init ();
-
+    public function __construct()
+    {
+        $this->init();
     }
 
-    public function init () {
-
+    public function init()
+    {
         // $date_format        = 'Ymd';
-        $date_format        = 'd.m.Y';
-        $copyrightDate = date ($date_format);
+        $date_format   = 'd.m.Y';
+        $copyrightDate = date($date_format);
 
-        $this->package =  "RSGallery2";
-        $this->subpackage =  "com_rsgallery2";
-        $this->copyright = "(C) 2016-2024 RSGallery2 Team";
-        $this->copyrightToday = "(C) " . '-' . $copyrightDate . "-" . $copyrightDate .  "RSGallery2 Team";
-        $this->license = "GNU General Public License version 2 or later";
+        $this->package        = "RSGallery2";
+        $this->subpackage     = "com_rsgallery2";
+        $this->copyright      = "(C) 2016-2024 RSGallery2 Team";
+        $this->copyrightToday = "(C) " . '-' . $copyrightDate . "-" . $copyrightDate . "RSGallery2 Team";
+        $this->license        = "GNU General Public License version 2 or later";
         //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
         $this->author = "rsgallery2 team";
-        $this->link = "https://www.rsgallery2.org";
+        $this->link   = "https://www.rsgallery2.org";
 
         // $this->addition = "RSGallery is Free Software";
         // $this->since = ""; see constManifest.php
@@ -79,7 +79,7 @@ class fileHeaderData {
 
     }
 
-    public function text() : string
+    public function text(): string
     {
         $OutTxt = "";
         $OutTxt = "------------------------------------------" . "\r\n";
@@ -129,30 +129,30 @@ class fileHeaderData {
         return $headerLine;
     }
 
-    public function isDifferent (fileHeaderData $fileHeaderExtern) : bool
+    public function isDifferent(fileHeaderData $fileHeaderExtern): bool
     {
-        $headerLocal = $this->headerText();
+        $headerLocal  = $this->headerText();
         $headerExtern = $fileHeaderExtern->headerText();
 
         return $headerLocal !== $headerExtern;
     }
 
-    public function isDifferentByString (string $externHeaderAsString) : bool
+    public function isDifferentByString(string $externHeaderAsString): bool
     {
-        $headerLocal = $this->headerText();
+        $headerLocal  = $this->headerText();
         $headerExtern = $externHeaderAsString;
 
         return $headerLocal !== $headerExtern;
     }
 
-    public function scan4HeaderValueInLine (string $name, string $line) : string {
+    public function scan4HeaderValueInLine(string $name, string $line): string
+    {
         $value = '';
 
-        $idx = strpos ($line, '@' . $name);
+        $idx = strpos($line, '@' . $name);
         if ($idx !== false) {
-
-            $idx += 1 + strlen ($name);
-            $value = trim(substr ($line, $idx));
+            $idx   += 1 + strlen($name);
+            $value = trim(substr($line, $idx));
         }
 
         return $value;

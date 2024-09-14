@@ -6,29 +6,27 @@ require_once "./commandLine.php";
 require_once "./task.php";
 require_once "./tasks.php";
 
-use task\task;
-
 use function commandLine\argsAndOptions;
-use function commandLine\print_header;
 use function commandLine\print_end;
+use function commandLine\print_header;
 
 
 $HELP_MSG = <<<EOT
->>>
-class tasks
-
-<<<
-EOT;
+    >>>
+    class tasks
+    
+    <<<
+    EOT;
 
 
 /*================================================================================
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "t:h12345";
+$optDefinition    = "t:h12345";
 $isPrintArguments = false;
 
-list($inArgs, $options) = argsAndOptions($argv, $optDefinition, $isPrintArguments);
+[$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
 $LeaveOut_01 = true;
 $LeaveOut_02 = true;
@@ -43,8 +41,7 @@ variables
 //$tasksLine = '/option1 $optionLine = /option2=Option /option3="01_Xteststring"';
 $tasksLine = "task:task00 "
     . 'task:task01 /option1 /option2=xxx /option3="01_Xteststring" '
-    . 'task:task02 /optionX /option2=Y /optionZ="02_Zteststring" '
-    ;
+    . 'task:task02 /optionX /option2=Y /optionZ="02_Zteststring" ';
 //$tasksLine = "task:clean4git";
 //$tasksLine = "task:clean4release";
 
@@ -67,49 +64,46 @@ $tasksLine = "task:task00 "
 //$tasksLine = "task: ";
 
 
-$taskFile="";
+$taskFile = "";
 // $taskFile="./taskFile.cmd";
 
-foreach ($options as $idx => $option)
-{
-	print ("idx: " . $idx . "\r\n");
-	print ("option: " . $option . "\r\n");
+foreach ($options as $idx => $option) {
+    print ("idx: " . $idx . "\r\n");
+    print ("option: " . $option . "\r\n");
 
-	switch ($idx)
-	{
-		case 't':
-			$srcFile = $option;
-			break;
+    switch ($idx) {
+        case 't':
+            $srcFile = $option;
+            break;
 
-		case "h":
-			exit($HELP_MSG);
+        case "h":
+            exit($HELP_MSG);
 
-		case "1":
-			$LeaveOut_01 = true;
-			print("LeaveOut_01");
-			break;
-		case "2":
-			$LeaveOut_02 = true;
-			print("LeaveOut__02");
-			break;
-		case "3":
-			$LeaveOut_03 = true;
-			print("LeaveOut__03");
-			break;
-		case "4":
-			$LeaveOut_04 = true;
-			print("LeaveOut__04");
-			break;
-		case "5":
-			$LeaveOut_05 = true;
-			print("LeaveOut__05");
-			break;
+        case "1":
+            $LeaveOut_01 = true;
+            print("LeaveOut_01");
+            break;
+        case "2":
+            $LeaveOut_02 = true;
+            print("LeaveOut__02");
+            break;
+        case "3":
+            $LeaveOut_03 = true;
+            print("LeaveOut__03");
+            break;
+        case "4":
+            $LeaveOut_04 = true;
+            print("LeaveOut__04");
+            break;
+        case "5":
+            $LeaveOut_05 = true;
+            print("LeaveOut__05");
+            break;
 
-		default:
-			print("Option not supported '" . $option . "'");
-			break;
-	}
-
+        default:
+            print("Option not supported '" . $option . "'");
+            break;
+    }
 }
 
 //--- call function ---------------------------------
@@ -119,20 +113,18 @@ $start = print_header($options, $inArgs);
 
 $oTasks = new tasks();
 
-if ($tasksLine != '')
-{
-	$oTasksResult = $oTasks->extractTasksFromString($tasksLine);
+if ($tasksLine != '') {
+    $oTasksResult = $oTasks->extractTasksFromString($tasksLine);
 
-	print ($oTasks->text () . "\r\n");
-	print ("Line: '" . $oTasksResult->text4Line () . "'" . "\r\n");
+    print ($oTasks->text() . "\r\n");
+    print ("Line: '" . $oTasksResult->text4Line() . "'" . "\r\n");
 }
 
-if ($taskFile != '')
-{
-	$oTasksResult = $oTasks->extractTasksFromFile($taskFile);
+if ($taskFile != '') {
+    $oTasksResult = $oTasks->extractTasksFromFile($taskFile);
 
-	print ($oTasks->text() . "\r\n");
-	print ("Line: '" . $oTasksResult->text4Line() . "'" . "\r\n");
+    print ($oTasks->text() . "\r\n");
+    print ("Line: '" . $oTasksResult->text4Line() . "'" . "\r\n");
 }
 
 print_end($start);
