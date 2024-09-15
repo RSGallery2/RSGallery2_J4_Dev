@@ -73,7 +73,6 @@ class fileHeaderByFileLine extends fileHeaderData
             $lines = file($fileName);
             $outLines = [];
             $isExchanged = false;
-            $packageLine = $this->headerFormat('package', $this->package);
 
             foreach ($lines as $line) {
                 if ($isExchanged) {
@@ -81,7 +80,9 @@ class fileHeaderByFileLine extends fileHeaderData
                 } else {
                     //  * @package  ....
                     if (str_contains($line, '@package')) {
-                        // assign standard
+
+                        $packageLine = $this->replacePackageLine($line);
+
                         if ($line != $packageLine) {
                             $outLines [] = $packageLine;
                             $isExchanged = true;
@@ -135,8 +136,6 @@ class fileHeaderByFileLine extends fileHeaderData
             $outLines = [];
             $isExchanged = false;
             $isFound = false;
-            $subPackageLine = $this->headerFormat('subpackage', $this->subpackage);
-
             foreach ($lines as $line) {
                 if ($isExchanged) {
                     $outLines [] = $line;
@@ -145,7 +144,8 @@ class fileHeaderByFileLine extends fileHeaderData
                     if (str_contains($line, '@subpackage')) {
                         $isFound = true;
 
-                        // assign standard
+                        $subPackageLine = $this->replaceSubPackageLine($line);
+
                         if ($line != $subPackageLine) {
                             $outLines [] = $subPackageLine;
                             $isExchanged = true;
@@ -203,7 +203,6 @@ class fileHeaderByFileLine extends fileHeaderData
             $outLines = [];
             $isExchanged = false;
             $isFound = false;
-            $subPackageLine = $this->headerFormat('subpackage', $this->subpackage);
 
             foreach ($lines as $line) {
                 if ($isExchanged) {
@@ -211,12 +210,15 @@ class fileHeaderByFileLine extends fileHeaderData
                 } else {
                     //  ToDo:
                     if (str_contains($line, '@package')) {
-                        $isFound = true;
+                        $subPackageLine = $this->replaceSubPackageLine();
 
-                        $outLines [] = $line;
-                        // assign standard
-                        $outLines [] = $subPackageLine;
-                        $isExchanged = true;
+                        if ($line != $subPackageLine) {
+                            $outLines [] = $subPackageLine;
+                            $isExchanged = true;
+                        } else {
+                            // line already fixed , no file write
+                            break;
+                        }
                     } else {
                         $outLines [] = $line;
                     }
@@ -262,7 +264,6 @@ class fileHeaderByFileLine extends fileHeaderData
             $lines = file($fileName);
             $outLines = [];
             $isExchanged = false;
-            $licenseLine = $this->headerFormat('license', $this->license);
 
             foreach ($lines as $line) {
                 if ($isExchanged) {
@@ -270,6 +271,11 @@ class fileHeaderByFileLine extends fileHeaderData
                 } else {
                     //  * @license     GNU General Public License version 2 or la ....
                     if (str_contains($line, '@license')) {
+
+                        $isFound = true;
+
+                        $licenseLine = $this->replaceLicenseLine($line);
+
                         if ($line != $licenseLine) {
                             // assign standard
                             $outLines [] = $licenseLine;
@@ -339,16 +345,7 @@ class fileHeaderByFileLine extends fileHeaderData
                     //   * @copyright (c)  2020-2022 Team
                     if (str_contains($line, '@copyright')) {
 
-                        $oldValue = $this->scan4CopyrightHeaderInLine($line);
-
-                        //  * @copyright (c)  2020-2022 Team
-                        // value: 2020-2022 Rsgallery2 Team
-                        $newValue = preg_replace(
-                            '/(.*\d+-)(\d+)(.*)/',
-                            '${1}' . $toYear . '${3}',
-                            $oldValue,
-                        );
-                        $copyrightLine = $this->headerFormat('copyright  (c)', $newValue);
+                        $copyrightLine = $this->replaceActCopyrightLine($line, $toYear);
 
                         if ($line != $copyrightLine) {
                             $outLines [] = $copyrightLine;
@@ -419,17 +416,8 @@ class fileHeaderByFileLine extends fileHeaderData
                 } else {
                     //   * @copyright (c)  2020-2022 Team
                     if (str_contains($line, '@copyright')) {
-                        $oldValue = $this->scan4CopyrightHeaderInLine($line);
 
-                        //  * @copyright (c)  2020-2022 Rsgallery2 Team
-                        // value: 2020-2022 Rsgallery2 Team
-                        // $outLine = preg_replace('/(.*\d+\-)(.* ?)(.*)/',
-                        $newValue = preg_replace(
-                            '/(\d+)(-\d+.*)/',
-                            $sinceYear . '${2}',
-                            $oldValue,
-                        );
-                        $copyrightLine = $this->headerFormat('copyright  (c)', $newValue);
+                        $copyrightLine = $this->extractSinceCopyright($line, $sinceYear);
 
                         if ($line != $copyrightLine) {
                             $outLines [] = $copyrightLine;
@@ -491,24 +479,7 @@ class fileHeaderByFileLine extends fileHeaderData
                     //  * @author     ...
                     if (str_contains($line, '@author')) {
 
-                        $oldValue = $this->scan4HeaderValueInLine('author', $line);
-
-                        // keep author
-                        if ($oldValue == 'finnern') {
-                            // "RSGallery2 Team <team2@rsgallery2.org>";
-                            $newValue = $this->author;
-                        } else {
-                            // keep author
-                            if (str_starts_with(strtolower($oldValue), 'rsgallery2')) {
-                                // "RSGallery2 Team <team2@rsgallery2.org>";
-                                $newValue = $this->author;
-                            } else {
-                                // $newValue      = $author; // not given then format old value
-                                $newValue = $oldValue;
-                            }
-                        }
-
-                        $authorLine = $this->headerFormat('author', $newValue);
+                        $authorLine = $this->replaceAuthorLine($line);
 
                         // assign standard
                         if ($line != $authorLine) {
@@ -563,7 +534,6 @@ class fileHeaderByFileLine extends fileHeaderData
             $lines = file($fileName);
             $outLines = [];
             $isExchanged = false;
-            $LinkLine = $this->headerFormat('link', $this->link);
 
             foreach ($lines as $line) {
                 if ($isExchanged) {
@@ -571,7 +541,9 @@ class fileHeaderByFileLine extends fileHeaderData
                 } else {
                     //  * @link
                     if (str_contains($line, '@link')) {
-                        // assign standard
+
+                        $LinkLine = $this->replaceLinkLine($line);
+
                         if ($line != $LinkLine) {
                             $outLines [] = $LinkLine;
                             $isExchanged = true;
@@ -898,6 +870,127 @@ class fileHeaderByFileLine extends fileHeaderData
 
         return $OutTxt;
     }
+
+    /**
+     * @param mixed $line
+     * @return string
+     */
+    public function replacePackageLine(mixed $line): string
+    {
+        $oldValue = $this->scan4HeaderValueInLine('package', $line);
+
+        // assign standard
+        $packageLine = $this->headerFormat('package', $this->package);
+        return $packageLine;
+    }
+
+    /**
+     * @param mixed $line
+     * @return string
+     */
+    public function replaceSubPackageLine(mixed $line): string
+    {
+        $oldValue = $this->scan4HeaderValueInLine('subpackage', $line);
+
+        // assign standard
+        $subPackageLine = $this->headerFormat('subpackage', $this->subpackage);
+        return $subPackageLine;
+    }
+
+    /**
+     * @param mixed $line
+     * @return string
+     */
+    public function replaceLicenseLine(mixed $line): string
+    {
+        $oldValue = $this->scan4HeaderValueInLine('license', $line);
+
+        // assign standard
+        $licenseLine = $this->headerFormat('license', $this->license);
+        return $licenseLine;
+    }
+
+    /**
+     * @param mixed $line
+     * @param string $toYear
+     * @return string
+     */
+    public function replaceActCopyrightLine(mixed $line, string $toYear): string
+    {
+        $oldValue = $this->scan4CopyrightHeaderInLine($line);
+
+        //  * @copyright (c)  2020-2022 Team
+        // value: 2020-2022 Rsgallery2 Team
+        $newValue = preg_replace(
+            '/(.*\d+-)(\d+)(.*)/',
+            '${1}' . $toYear . '${3}',
+            $oldValue,
+        );
+        $copyrightLine = $this->headerFormat('copyright  (c)', $newValue);
+        return $copyrightLine;
+    }
+
+    /**
+     * @param mixed $line
+     * @param string $sinceYear
+     * @return string
+     */
+    public function replaceSinceCopyright(mixed $line, string $sinceYear): string
+    {
+        $oldValue = $this->scan4CopyrightHeaderInLine($line);
+
+        //  * @copyright (c)  2020-2022 Rsgallery2 Team
+        // value: 2020-2022 Rsgallery2 Team
+        // $outLine = preg_replace('/(.*\d+\-)(.* ?)(.*)/',
+        $newValue = preg_replace(
+            '/(\d+)(-\d+.*)/',
+            $sinceYear . '${2}',
+            $oldValue,
+        );
+        $copyrightLine = $this->headerFormat('copyright  (c)', $newValue);
+        return $copyrightLine;
+    }
+
+    /**
+     * @param mixed $line
+     * @return string
+     */
+    public function replaceAuthorLine(mixed $line): string
+    {
+        $oldValue = $this->scan4HeaderValueInLine('author', $line);
+
+        // keep author
+        if ($oldValue == 'finnern') {
+            // "RSGallery2 Team <team2@rsgallery2.org>";
+            $newValue = $this->author;
+        } else {
+            // keep author
+            if (str_starts_with(strtolower($oldValue), 'rsgallery2')) {
+                // "RSGallery2 Team <team2@rsgallery2.org>";
+                $newValue = $this->author;
+            } else {
+                // $newValue      = $author; // not given then format old value
+                $newValue = $oldValue;
+            }
+        }
+
+        $authorLine = $this->headerFormat('author', $newValue);
+        return $authorLine;
+    }
+
+    /**
+     * @param mixed $line
+     * @return string
+     */
+    public function replaceLinkLine(mixed $line): string
+    {
+        $oldValue = $this->scan4HeaderValueInLine('link', $line);
+
+        // assign standard
+        $LinkLine = $this->headerFormat('link', $this->link);
+        return $LinkLine;
+    }
+
 
 } // fileHeaderByFile
 
