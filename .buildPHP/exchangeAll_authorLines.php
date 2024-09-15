@@ -21,6 +21,7 @@ class exchangeAll_authorLines implements executeTasksInterface
 {
 
     public string $srcRoot = "";
+    private bool $isNoRecursion = false;
     public string $authorText = "";
 
     /**
@@ -91,6 +92,11 @@ class exchangeAll_authorLines implements executeTasksInterface
                     $this->srcRoot = $option->value;
                     break;
 
+                case 'isnorecursion':
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->isNoRecursion = boolval($option->value);
+                    break;
+
                 case 'authortext':
                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->authorText = $option->value;
@@ -125,7 +131,7 @@ class exchangeAll_authorLines implements executeTasksInterface
         // files not set already use local file nam+es task
         if (count($this->fileNamesList->fileNames) == 0) {
             $fileNamesList       = new fileNamesList ($this->srcRoot, 'php',
-                '', true); // no recoursion
+                '', $this->isNoRecursion);
             $this->fileNamesList = $fileNamesList;
 
             $fileNamesList->scan4Filenames();

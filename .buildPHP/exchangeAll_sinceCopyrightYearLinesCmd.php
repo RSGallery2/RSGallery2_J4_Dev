@@ -7,6 +7,7 @@ require_once "./exchangeAll_sinceCopyrightYearLines.php";
 
 // use \DateTime;
 
+use exchangeAll_sinceCopyrightYear\exchangeAll_sinceCopyrightYearLines;
 use task\task;
 
 use function commandLine\argsAndOptions;
@@ -47,9 +48,10 @@ variables
 --------------------------------------------*/
 
 $tasksLine = ' task:exchangeAll_sinceCopyrightYear'
-//    . ' /srcRoot="./../../RSGallery2_J4"'
-    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
-    . ' /licenseText = "GNU General Public License version 2 or later"'//    . ' /s='
+    . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+    . ' /isNoRecursion=true'
+    . ' /yearText="1960"'//
 ;
 
 //$srcRoot = './../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop';
@@ -110,10 +112,6 @@ $start = print_header($options, $inArgs);
 
 $task = new task();
 $task->extractTaskFromString($tasksLine);
-
-//$fileNamesList = new fileNamesList($basePath);
-//$oBuildRelease->assignFilesNames($fileNamesList);
-
 
 $oExchangeAllLicenses = new exchangeAll_sinceCopyrightYearLines($srcRoot, $yearText);
 

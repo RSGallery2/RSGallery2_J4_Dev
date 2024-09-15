@@ -46,6 +46,7 @@ variables
 $tasksLine = ' task:exchangeAll_subPackageLines'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+//    . ' /isNoRecursion=true'
     . ' /subpackageText = "GNU General Public subpackage version 2 or later"'//    . ' /s='
 ;
 
@@ -107,10 +108,6 @@ $start = print_header($options, $inArgs);
 
 $task = new task();
 $task->extractTaskFromString($tasksLine);
-
-//$fileNamesList = new fileNamesList($basePath);
-//$oBuildRelease->assignFilesNames($fileNamesList);
-
 
 $oExchangeAll_subPackageLines = new exchangeAll_subPackageLines($srcRoot, $subPackageText);
 

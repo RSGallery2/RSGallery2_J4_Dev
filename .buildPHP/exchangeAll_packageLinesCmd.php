@@ -46,6 +46,7 @@ variables
 $tasksLine = ' task:exchangeAll_packages'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+//    . ' /isNoRecursion=true'
 //    . ' /packageText = "RSGallery2"'
 //    . ' /s='
 ;
@@ -107,10 +108,6 @@ $start = print_header($options, $inArgs);
 
 $task = new task();
 $task->extractTaskFromString($tasksLine);
-
-//$fileNamesList = new fileNamesList($basePath);
-//$oBuildRelease->assignFilesNames($fileNamesList);
-
 
 $oExchangeAll_packages = new exchangeAll_packages($srcRoot, $packageText);
 

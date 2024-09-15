@@ -100,6 +100,11 @@ class buildRelease implements executeTasksInterface
                     $this->srcRoot = $option->value;
                     break;
 
+                case 'isnorecursion':
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->isNoRecursion = boolval($option->value);
+                    break;
+
                 case 'builddir':
                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->buildDir = $option->value;

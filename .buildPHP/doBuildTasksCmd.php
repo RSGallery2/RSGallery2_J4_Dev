@@ -66,6 +66,7 @@ $tasksLine = '';
 //$tasksLine .= ' task:buildRelease'
 //    . ' /type=component'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /isNoRecursion=true'
 //    . ' /buildDir="./../.packages"'
 ////    . ' /adminPath='
 ////    . ' /sitePath='
@@ -83,6 +84,7 @@ $tasksLine = '';
 //$tasksLine .= ' task:forceVersionId'
 //    . ' /id="9.9.9"'
 //    . ' /srcRoot="./../../RSGallery2_J4/'
+//    . ' /isNoRecursion=true'
 //    . ' /type=component'
 //    . ' /name=rsgallery2'
 //;
@@ -90,6 +92,7 @@ $tasksLine = '';
 //$tasksLine .= ' task:forceVersionId'
 //    . ' /idFile="./VersionId.txt"'
 //    . ' /srcRoot="./../../RSGallery2_J4/'
+//    . ' /isNoRecursion=true'
 //    . ' /type=component'
 //    . ' /name=rsgallery2'
 //;
@@ -123,6 +126,7 @@ $tasksLine .= "task:createFilenamesList"
     . ' ';
 $tasksLine .= "task:add2FilenamesList"
     . ' /srcRoot="./../../RSGallery2_J4/administrator"'
+//    . ' /isNoRecursion=true'
     . ' /includeExt="php"'
 //    . ' /includeExt="xmp"'
 //    . ' /includeExt="ini"'
@@ -132,6 +136,7 @@ $tasksLine .= "task:add2FilenamesList"
     . ' ';
 $tasksLine .= "task:add2FilenamesList"
     . ' /srcRoot="./../../RSGallery2_J4/components"'
+    //    . ' /isNoRecursion=true'
     . ' /includeExt="php"'
 //    . ' /includeExt="xmp"'
 //    . ' /includeExt="ini"'
@@ -141,6 +146,7 @@ $tasksLine .= "task:add2FilenamesList"
     . ' ';
 $tasksLine .= "task:add2FilenamesList"
     . ' /srcRoot="./../../RSGallery2_J4/media"'
+//    . ' /isNoRecursion=true'
 //    . ' /includeExt="php"'
 //    . ' /includeExt="xmp"'
 //    . ' /includeExt="ini"'
@@ -157,12 +163,14 @@ $tasksLine .= "task:printFilenamesList"
 //
 //$tasksLine .= "task:createFilenamesList"
 //    . ' /srcRoot="./../../RSGallery2_J4/module"'
+//    . ' /isNoRecursion=true'
 //;
 //
 ////--- RSG2 plugin files ---------------------------------
 //
 //$tasksLine .= "task:createFilenamesList"
 //    . ' /srcRoot="./../../RSGallery2_J4/plugins"'
+//    . ' /isNoRecursion=true'
 //;
 //
 
@@ -174,12 +182,13 @@ $tasksLine .= "task:printFilenamesList"
 
 $tasksLine .= ' task:clean4GitCheckin'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /isNoRecursion=true'
 //    . ' /s='
     . ' ';
 $tasksLine .= 'task:execute' . ' ';
 
 
-$tasksLine .= ' task:exchangeall_licenselines'
+$tasksLine .= ' task:exchangeAll_licenseLines'
     . ' /licenseText = "GNU General Public License version 2 or later"'
 //    . ' /s='
     . ' ';
@@ -233,6 +242,7 @@ $tasksLine .= 'task:execute' . ' ';
 $tasksLine .= ' task:increaseVersionId'
     . ' /type=component'
     . ' /srcRoot="./../../RSGallery2_J4/'
+    //    . ' /isNoRecursion=true'
     . ' /name=rsgallery2'
     . ' /version=major|minor|patch|dev'
     . ' /s='
@@ -245,6 +255,7 @@ $tasksLine .= 'task:clearFilenamesList' . ' ';
 $tasksLine .= ' task:buildRelease'
     . ' /type=component'
     . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /isNoRecursion=true'
     . ' /buildDir="./../.packages"'
 //    . ' /adminPath='
 //    . ' /sitePath='

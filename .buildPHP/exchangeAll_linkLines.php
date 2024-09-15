@@ -21,6 +21,7 @@ class exchangeAll_linkLines implements executeTasksInterface
 {
 
     public string $srcRoot = "";
+    private bool $isNoRecursion = false;
     public string $linkText = "";
 
     /**
@@ -91,6 +92,11 @@ class exchangeAll_linkLines implements executeTasksInterface
                     $this->srcRoot = $option->value;
                     break;
 
+                case 'isnorecursion':
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->isNoRecursion = boolval($option->value);
+                    break;
+
                 case 'linktext':
                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->linkText = $option->value;
@@ -124,7 +130,8 @@ class exchangeAll_linkLines implements executeTasksInterface
 
         // files not set already
         if (count($this->fileNamesList->fileNames) == 0) {
-            $fileNamesList       = new fileNamesList ($this->srcRoot, 'php');
+            $fileNamesList       = new fileNamesList ($this->srcRoot, 'php',
+                '', $this->isNoRecursion);
             $this->fileNamesList = $fileNamesList;
 
             $fileNamesList->scan4Filenames();

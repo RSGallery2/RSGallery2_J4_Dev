@@ -20,6 +20,7 @@ class clean4GitCheckin implements executeTasksInterface
 {
 
     public string $srcRoot = "";
+    private bool $isNoRecursion = false;
 
     /**
      * @var fileNamesList
@@ -83,6 +84,11 @@ class clean4GitCheckin implements executeTasksInterface
                 case 'srcroot':
                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->srcRoot = $option->value;
+                    break;
+
+                case 'isnorecursion':
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->isNoRecursion = boolval($option->value);
                     break;
 
 //                case 'Xlinktext':

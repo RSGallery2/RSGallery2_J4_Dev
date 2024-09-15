@@ -28,30 +28,23 @@ class fileNamesList implements executeTasksInterface
     /** @var fithFileName[] $fileNames */
     public array $fileNames;
 
-    /** @var string $srcRoot */
     public string $srcRoot = "";
-
-    /** @var bool */
     private bool $isIncludeExt = false;
+
     /** @var string [] */
     private array $includeExtList;
 
-    /** @var bool */
     private bool $isExcludeExt = false;
     /** @var string [] */
     private array $excludeExtList;
 
-    /** @var bool */
     private bool $isExcludeFolder = false;
     /** @var string [] */
     private array $excludeFolderList;
 
-    /** @var bool */
     private bool $isNoRecursion = false;
-    /** @var bool */
     private bool $isWriteListToFile = false;
 
-    /** @var string */
     private string $listFileName = "";
 
     /*--------------------------------------------------------------------
@@ -384,7 +377,7 @@ class fileNamesList implements executeTasksInterface
 
             // follow sub folders
             if (!$this->isNoRecursion) {
-                // print ("    folders count: " . count($folders) . "\r\n");
+                // print ('    folders count: ' . count($folders) . "\r\n");
 
                 foreach ($folders as $folder) {
                     $isExpected = $this->check4ValidFolderName($folder);
@@ -527,6 +520,11 @@ class fileNamesList implements executeTasksInterface
                 case 'srcroot':
                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->srcRoot = $option->value;
+                    break;
+
+                case 'isnorecursion':
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->isNoRecursion = boolval($option->value);
                     break;
 
                 case 'includeext':

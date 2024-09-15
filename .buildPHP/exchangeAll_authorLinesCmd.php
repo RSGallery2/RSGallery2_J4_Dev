@@ -60,8 +60,9 @@ variables
 
 
 $tasksLine = ' task:exchangeAll_authorLines'
-//    . ' /srcRoot="./../../RSGallery2_J4"'
-    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+    . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+    . ' /isNoRecursion=true'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' '
     . ' /authorText = ""'//    . ' /s='
@@ -125,10 +126,6 @@ $start = print_header($options, $inArgs);
 
 $task = new task();
 $task->extractTaskFromString($tasksLine);
-
-//$fileNamesList = new fileNamesList($basePath);
-//$oBuildRelease->assignFilesNames($fileNamesList);
-
 
 $oExchangeAll_authorLines = new exchangeAll_authorLines($srcRoot, $authorText);
 

@@ -44,6 +44,7 @@ variables
 
 $tasksLine = ' task:forceCreationDate'
     . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /isNoRecursion=true'
     . ' /name=rsgallery2'
 //    . ' /extension=RSGallery2'
 //    . ' /date="22. Feb. 2022"'

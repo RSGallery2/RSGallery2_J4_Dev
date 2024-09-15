@@ -74,6 +74,11 @@ class forceVersionId implements executeTasksInterface
                     $this->srcRoot = $option->value;
                     break;
 
+                case 'isnorecursion':
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->isNoRecursion = boolval($option->value);
+                    break;
+
                 case 'name':
                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->name = $option->value;
@@ -105,7 +110,7 @@ class forceVersionId implements executeTasksInterface
         return $hasError;
     }
 
-    public function executeFile(string $filePathName): bool // $isChanged
+    public function executeFile(string $filePathName): int // $isChanged
     {
         $hasError = 0;
 

@@ -44,9 +44,10 @@ variables
 --------------------------------------------*/
 
 $tasksLine = ' task:exchangeAll_actCopyrightYear'
-//    . ' /srcRoot="./../../RSGallery2_J4"'
-    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
-    . ' /yearText = "1984"'//    . ' /s='
+    . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+    . ' /isNoRecursion=true'
+    . ' /yearText="1984"'//    . ' /s='
 ;
 
 //$srcRoot = './../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop';
@@ -107,9 +108,6 @@ $start = print_header($options, $inArgs);
 
 $task = new task();
 $task->extractTaskFromString($tasksLine);
-
-//$fileNamesList = new fileNamesList($basePath);
-//$oBuildRelease->assignFilesNames($fileNamesList);
 
 
 $oExchangeAllActCopyright = new exchangeAll_actCopyrightYearLines($srcRoot, $yearText);

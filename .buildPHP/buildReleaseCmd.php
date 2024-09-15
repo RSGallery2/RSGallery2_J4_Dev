@@ -44,6 +44,7 @@ variables
 $tasksLine = ' task:buildRelease'
     . ' /type=component'
     . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /isNoRecursion=true'
     . ' /buildDir="./../.packages"'
 //    . ' /adminPath='
 //    . ' /sitePath='
@@ -117,9 +118,6 @@ $task = new task();
 $task->extractTaskFromString($tasksLine);
 
 $oBuildRelease = new buildRelease();
-
-//$fileNamesList = new fileNamesList($basePath);
-//$oBuildRelease->assignFilesNames($fileNamesList);
 
 $hasError = $oBuildRelease->assignTask($task);
 if ($hasError) {

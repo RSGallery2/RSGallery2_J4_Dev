@@ -3,7 +3,7 @@
 namespace exchangeAll_linkLines;
 
 require_once "./commandLine.php";
-require_once "./exchangeAll_rsgLinkLines.php";
+require_once "./exchangeAll_authorLines.php";
 
 // use \DateTime;
 
@@ -46,6 +46,7 @@ variables
 $tasksLine = ' task:exchangeAlllinks'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+    //    . ' /isNoRecursion=true'
     . ' /linkText = "GNU General Public link version 2 or later"'//    . ' /s='
 ;
 
@@ -103,10 +104,6 @@ $start = print_header($options, $inArgs);
 
 $task = new task();
 $task->extractTaskFromString($tasksLine);
-
-//$fileNamesList = new fileNamesList($basePath);
-//$oBuildRelease->assignFilesNames($fileNamesList);
-
 
 $oExchangeAlllinks = new exchangeAll_linkLines($srcRoot, $linkText);
 

@@ -45,6 +45,7 @@ variables
 
 $tasksLine = ' task:increaseVersionId'
     . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /isNoRecursion=true'
     . ' /name=rsgallery2'
 //    . ' /extension=RSGallery2'
 //    . ' /isIncreaseMajor'

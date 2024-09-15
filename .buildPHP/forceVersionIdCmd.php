@@ -45,6 +45,7 @@ variables
 
 $tasksLine = ' task:forceVersionId'
     . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /isNoRecursion=true'
     . ' /name=rsgallery2'
 //    . ' /extension=RSGallery2'
     . ' /version="5.0.12.4"';

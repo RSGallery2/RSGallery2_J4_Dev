@@ -44,7 +44,9 @@ variables
 
 $tasksLine = ' task:clean4GitCheckin'
     . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /isNoRecursion=true'
 //    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+//    . ' /isNoRecursion=true'
 //    . ' /s='
 ;
 
@@ -102,10 +104,6 @@ $start = print_header($options, $inArgs);
 
 $task = new task();
 $task->extractTaskFromString($tasksLine);
-
-//$fileNamesList = new fileNamesList($basePath);
-//$oBuildRelease->assignFilesNames($fileNamesList);
-
 
 $oClean4GitCheckin = new clean4GitCheckin($srcRoot, $linkText);
 

@@ -70,8 +70,8 @@ class fileHeaderByFileLine extends fileHeaderData
             }
             print ("FileName use: " . $fileName . "\r\n");
 
-            $lines       = file($fileName);
-            $outLines    = [];
+            $lines = file($fileName);
+            $outLines = [];
             $isExchanged = false;
             $packageLine = $this->headerFormat('package', $this->package);
 
@@ -131,10 +131,10 @@ class fileHeaderByFileLine extends fileHeaderData
             }
             print ("FileName use: " . $fileName . "\r\n");
 
-            $lines          = file($fileName);
-            $outLines       = [];
-            $isExchanged    = false;
-            $isFound        = false;
+            $lines = file($fileName);
+            $outLines = [];
+            $isExchanged = false;
+            $isFound = false;
             $subPackageLine = $this->headerFormat('subpackage', $this->subpackage);
 
             foreach ($lines as $line) {
@@ -199,10 +199,10 @@ class fileHeaderByFileLine extends fileHeaderData
             }
             print ("FileName use: " . $fileName . "\r\n");
 
-            $lines          = file($fileName);
-            $outLines       = [];
-            $isExchanged    = false;
-            $isFound        = false;
+            $lines = file($fileName);
+            $outLines = [];
+            $isExchanged = false;
+            $isFound = false;
             $subPackageLine = $this->headerFormat('subpackage', $this->subpackage);
 
             foreach ($lines as $line) {
@@ -259,8 +259,8 @@ class fileHeaderByFileLine extends fileHeaderData
             }
             print ("FileName use: " . $fileName . "\r\n");
 
-            $lines       = file($fileName);
-            $outLines    = [];
+            $lines = file($fileName);
+            $outLines = [];
             $isExchanged = false;
             $licenseLine = $this->headerFormat('license', $this->license);
 
@@ -323,13 +323,13 @@ class fileHeaderByFileLine extends fileHeaderData
 
             if (empty ($toYear)) {
                 $date_format = 'Y';
-                $toYear      = date($date_format);
+                $toYear = date($date_format);
             }
             print ("Up to year use: " . $toYear . "\r\n");
 
 
-            $lines       = file($fileName);
-            $outLines    = [];
+            $lines = file($fileName);
+            $outLines = [];
             $isExchanged = false;
 
             foreach ($lines as $line) {
@@ -338,16 +338,17 @@ class fileHeaderByFileLine extends fileHeaderData
                 } else {
                     //   * @copyright (c)  2020-2022 Team
                     if (str_contains($line, '@copyright')) {
-                        $oldvalue = $this->scan4HeaderValueInLine('copyright', $line);
+
+                        $oldValue = $this->scan4CopyrightHeaderInLine($line);
 
                         //  * @copyright (c)  2020-2022 Team
-                        // $outLine = preg_replace('/(.*\d+\-)(.* ?)(.*)/',
-                        $newValue      = preg_replace(
-                            '/(.* \d+-)(\d+)(.*)/',
+                        // value: 2020-2022 Rsgallery2 Team
+                        $newValue = preg_replace(
+                            '/(.*\d+-)(\d+)(.*)/',
                             '${1}' . $toYear . '${3}',
-                            $oldvalue,
+                            $oldValue,
                         );
-                        $copyrightLine = $this->headerFormat('copyright', $newValue);
+                        $copyrightLine = $this->headerFormat('copyright  (c)', $newValue);
 
                         if ($line != $copyrightLine) {
                             $outLines [] = $copyrightLine;
@@ -383,15 +384,15 @@ class fileHeaderByFileLine extends fileHeaderData
     {
         // ToDo: create exchangeSinceCopyrightYear function
 
-        throw new Exception("test before use: ??? overwrite valid ...");
+//        throw new Exception("test before use: ??? overwrite valid ...");
 
         $hasError = 0;
 
         try {
             print('*********************************************************' . "\r\n");
-            print('exchangeActCopyrightYear' . "\r\n");
+            print('exchangeSinceCopyrightYear' . "\r\n");
             print ("FileName in: " . $fileName . "\r\n");
-            print ("Up to year in: " . $toYear . "\r\n");
+            print ("Since year in: " . $sinceYear . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
             if (!empty ($fileName)) {
@@ -401,15 +402,15 @@ class fileHeaderByFileLine extends fileHeaderData
             }
             print ("FileName use: " . $fileName . "\r\n");
 
-            if (empty ($toYear)) {
+            if (empty ($sinceYear)) {
                 $date_format = 'Y';
-                $toYear      = date($date_format);
+                $sinceYear = date($date_format);
             }
-            print ("Up to year use: " . $toYear . "\r\n");
+            print ("Since year use: " . $sinceYear . "\r\n");
 
 
-            $lines       = file($fileName);
-            $outLines    = [];
+            $lines = file($fileName);
+            $outLines = [];
             $isExchanged = false;
 
             foreach ($lines as $line) {
@@ -418,16 +419,17 @@ class fileHeaderByFileLine extends fileHeaderData
                 } else {
                     //   * @copyright (c)  2020-2022 Team
                     if (str_contains($line, '@copyright')) {
-                        $oldvalue = $this->scan4HeaderValueInLine('copyright', $line);
+                        $oldValue = $this->scan4CopyrightHeaderInLine($line);
 
-                        //  * @copyright (c)  2020-2022 Team
+                        //  * @copyright (c)  2020-2022 Rsgallery2 Team
+                        // value: 2020-2022 Rsgallery2 Team
                         // $outLine = preg_replace('/(.*\d+\-)(.* ?)(.*)/',
-                        $newValue      = preg_replace(
-                            '/(.* )(\d+-)(\d+.*)/',
-                            '${1}' . $toYear . '${3}',
-                            $oldvalue,
+                        $newValue = preg_replace(
+                            '/(\d+)(-\d+.*)/',
+                            $sinceYear . '${2}',
+                            $oldValue,
                         );
-                        $copyrightLine = $this->headerFormat('copyright', $newValue);
+                        $copyrightLine = $this->headerFormat('copyright  (c)', $newValue);
 
                         if ($line != $copyrightLine) {
                             $outLines [] = $copyrightLine;
@@ -451,7 +453,7 @@ class fileHeaderByFileLine extends fileHeaderData
             $hasError = -101;
         }
 
-        print('exit exchangeActCopyrightYear: ' . $hasError . "\r\n");
+        print('exit exchangeSinceCopyrightYear: ' . $hasError . "\r\n");
 
         return $hasError;
     }
@@ -478,10 +480,9 @@ class fileHeaderByFileLine extends fileHeaderData
             }
             print ("FileName use: " . $fileName . "\r\n");
 
-            $lines       = file($fileName);
-            $outLines    = [];
+            $lines = file($fileName);
+            $outLines = [];
             $isExchanged = false;
-            $authorLine  = $this->headerFormat('author', $this->author);
 
             foreach ($lines as $line) {
                 if ($isExchanged) {
@@ -489,6 +490,26 @@ class fileHeaderByFileLine extends fileHeaderData
                 } else {
                     //  * @author     ...
                     if (str_contains($line, '@author')) {
+
+                        $oldValue = $this->scan4HeaderValueInLine('author', $line);
+
+                        // keep author
+                        if ($oldValue == 'finnern') {
+                            // "RSGallery2 Team <team2@rsgallery2.org>";
+                            $newValue = $this->author;
+                        } else {
+                            // keep author
+                            if (str_starts_with(strtolower($oldValue), 'rsgallery2')) {
+                                // "RSGallery2 Team <team2@rsgallery2.org>";
+                                $newValue = $this->author;
+                            } else {
+                                // $newValue      = $author; // not given then format old value
+                                $newValue = $oldValue;
+                            }
+                        }
+
+                        $authorLine = $this->headerFormat('author', $newValue);
+
                         // assign standard
                         if ($line != $authorLine) {
                             $outLines [] = $authorLine;
@@ -507,7 +528,8 @@ class fileHeaderByFileLine extends fileHeaderData
             if ($isExchanged == true) {
                 $isSaved = file_put_contents($fileName, $outLines);
             }
-        } catch (Exception $e) {
+        } catch
+        (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
@@ -538,10 +560,10 @@ class fileHeaderByFileLine extends fileHeaderData
             }
             print ("FileName use: " . $fileName . "\r\n");
 
-            $lines       = file($fileName);
-            $outLines    = [];
+            $lines = file($fileName);
+            $outLines = [];
             $isExchanged = false;
-            $LinkLine    = $this->headerFormat('link', $this->link);
+            $LinkLine = $this->headerFormat('link', $this->link);
 
             foreach ($lines as $line) {
                 if ($isExchanged) {
@@ -600,22 +622,22 @@ class fileHeaderByFileLine extends fileHeaderData
 
             $lines = file($fileName);
 
-            $headerLines   = [];
+            $headerLines = [];
             $originalLines = [];
             $this->isValid = false;
 
             $isHasStart = false;
-            $isHasEnd   = false;
-            $isValid    = false;
+            $isHasEnd = false;
+            $isValid = false;
 
-            $idx          = 0;
+            $idx = 0;
             $idxFirstLine = 0;
-            $idxLastLine  = 0;
-            $maxIdx       = 30;
+            $idxLastLine = 0;
+            $maxIdx = 30;
 
             foreach ($lines as $line) {
                 if (str_starts_with(trim($line), '/**')) {
-                    $isHasStart   = true;
+                    $isHasStart = true;
                     $idxFirstLine = $idx;
                 }
 
@@ -634,12 +656,12 @@ class fileHeaderByFileLine extends fileHeaderData
                 if (str_contains(trim($line), ' */')) {
                     // comment before comment ?
                     if (!$isValid) {
-                        $isHasStart  = false;
+                        $isHasStart = false;
                         $headerLines = [];
                     } else {
                         // valid section
                         $idxLastLine = $idx;
-                        $isHasEnd    = true;
+                        $isHasEnd = true;
                         break;
                     }
                 }
@@ -660,7 +682,7 @@ class fileHeaderByFileLine extends fileHeaderData
                 $this->isValid = true;
 
                 $this->idxFirstLine = $idxFirstLine;
-                $this->idxLastLine  = $idxLastLine;
+                $this->idxLastLine = $idxLastLine;
             }
 
             // todo: print ("headerLines: " . $headerLines . "\r\n");
@@ -741,7 +763,7 @@ class fileHeaderByFileLine extends fileHeaderData
 
     private function extractHeaderLine(mixed $line)
     {
-        $name  = '';
+        $name = '';
         $value = '';
 
         //  * @copyright (c) 2005-2024 RSGallery2 Team
@@ -749,8 +771,8 @@ class fileHeaderByFileLine extends fileHeaderData
         if (!empty($atIdx)) {
             $blankIdx = strpos($line, ' ', $atIdx + 1);
 
-            $name  = substr($line, $atIdx + 1, $blankIdx - $atIdx - 1);
-            $name  = trim($name);
+            $name = substr($line, $atIdx + 1, $blankIdx - $atIdx - 1);
+            $name = trim($name);
             $value = substr($line, $blankIdx + 1);
             $value = trim($value);
         }
@@ -795,7 +817,7 @@ class fileHeaderByFileLine extends fileHeaderData
             case 'exchangelicense':
                 print ('Execute task: ' . $task->name . "\r\n");
 
-                $options  = $task->options;
+                $options = $task->options;
                 $fileName = $options->getOption('fileName');
                 $this->exchangeLicense($fileName);
                 break;
@@ -803,8 +825,8 @@ class fileHeaderByFileLine extends fileHeaderData
             case 'exchangeActCopyrightYear':
                 print ('Execute task: ' . $task->name . "\r\n");
 
-                $options       = $task->options;
-                $fileName      = $options->getOption('fileName');
+                $options = $task->options;
+                $fileName = $options->getOption('fileName');
                 $copyrightDate = $options->getOption('copyrightDate');
 
                 $this->exchangeActCopyrightYear($fileName, $copyrightDate);
@@ -813,8 +835,8 @@ class fileHeaderByFileLine extends fileHeaderData
             case 'exchangeSinceCopyrightYear':
                 print ('Execute task: ' . $task->name . "\r\n");
 
-                $options       = $task->options;
-                $fileName      = $options->getOption('fileName');
+                $options = $task->options;
+                $fileName = $options->getOption('fileName');
                 $copyrightDate = $options->getOption('copyrightDate');
 
                 // ToDo: create exchangeSinceCopyrightYear function
@@ -824,7 +846,7 @@ class fileHeaderByFileLine extends fileHeaderData
             case 'exchangeauthor':
                 print ('Execute task: ' . $task->name . "\r\n");
 
-                $options  = $task->options;
+                $options = $task->options;
                 $fileName = $options->getOption('fileName');
                 $this->exchangeAuthor($fileName);
                 break;

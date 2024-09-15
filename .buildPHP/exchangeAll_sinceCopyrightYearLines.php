@@ -19,10 +19,11 @@ use task\task;
 Class exchangeAll_sinceCopyrightYear
 ================================================================================*/
 
-class exchangeAll_sinceCopyrightYear implements executeTasksInterface
+class exchangeAll_sinceCopyrightYearLines implements executeTasksInterface
 {
 
     public string $srcRoot = "";
+    private bool $isNoRecursion = false;
     public string $yearText = "";
 
     /**
@@ -94,7 +95,12 @@ class exchangeAll_sinceCopyrightYear implements executeTasksInterface
                     $this->srcRoot = $option->value;
                     break;
 
-                case 'yearText':
+                case 'isnorecursion':
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->isNoRecursion = boolval($option->value);
+                    break;
+
+                case 'yeartext':
                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->yearText = $option->value;
                     break;
@@ -127,7 +133,8 @@ class exchangeAll_sinceCopyrightYear implements executeTasksInterface
 
         // files not set already
         if (count($this->fileNamesList->fileNames) == 0) {
-            $fileNamesList       = new fileNamesList ($this->srcRoot, 'php');
+            $fileNamesList       = new fileNamesList ($this->srcRoot, 'php',
+                '', $this->isNoRecursion);
             $this->fileNamesList = $fileNamesList;
 
             $fileNamesList->scan4Filenames();

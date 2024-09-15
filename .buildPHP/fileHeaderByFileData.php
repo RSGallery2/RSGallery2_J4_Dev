@@ -409,6 +409,16 @@ class fileHeaderByFileData extends fileHeaderData
             case 'exchangeActCopyrightYear':
                 print ('Execute task: ' . $task->name . "\r\n");
 
+
+
+
+
+
+
+
+
+
+
                 $options       = $task->options;
                 $fileName      = $options->getOption('fileName');
                 $copyrightDate = $options->getOption('copyrightDate');
