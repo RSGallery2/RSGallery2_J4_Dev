@@ -18,7 +18,7 @@ class fileHeaderByFileLine extends fileHeaderData
 {
 
     //
-    public fileHeaderData $oByFile;
+    // public fileHeaderData $oByFile;
 
     public string $fileName;
 
@@ -43,7 +43,7 @@ class fileHeaderByFileLine extends fileHeaderData
         parent::__construct();
 
         // dummy
-        $this->oByFile = new fileHeaderData();
+        //$this->oByFile = new fileHeaderData();
 
         $this->fileName = $srcFile;
     }
@@ -210,7 +210,7 @@ class fileHeaderByFileLine extends fileHeaderData
                 } else {
                     //  ToDo:
                     if (str_contains($line, '@package')) {
-                        $subPackageLine = $this->replaceSubPackageLine();
+                        $subPackageLine = $this->replaceSubPackageLine($line);
 
                         if ($line != $subPackageLine) {
                             $outLines [] = $subPackageLine;
@@ -417,7 +417,7 @@ class fileHeaderByFileLine extends fileHeaderData
                     //   * @copyright (c)  2020-2022 Team
                     if (str_contains($line, '@copyright')) {
 
-                        $copyrightLine = $this->extractSinceCopyright($line, $sinceYear);
+                        $copyrightLine = $this->replaceSinceCopyrightLine($line, $sinceYear);
 
                         if ($line != $copyrightLine) {
                             $outLines [] = $copyrightLine;
@@ -571,186 +571,186 @@ class fileHeaderByFileLine extends fileHeaderData
         return $hasError;
     }
 
-    /*--------------------------------------------------------------------
-    extractHeaderFromFile
-    --------------------------------------------------------------------*/
-
-    function extractHeaderFromFile(string $fileName = ""): int
-    {
-        $hasError = 0;
-
-        try {
-            print('*********************************************************' . "\r\n");
-            print('extractFileHeader' . "\r\n");
-            print ("FileName in: " . $fileName . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
-
-            if (!empty ($fileName)) {
-                $this->fileName = $fileName;
-            } else {
-                $fileName = $this->fileName;
-            }
-            print ("FileName use: " . $fileName . "\r\n");
-
-            $lines = file($fileName);
-
-            $headerLines = [];
-            $originalLines = [];
-            $this->isValid = false;
-
-            $isHasStart = false;
-            $isHasEnd = false;
-            $isValid = false;
-
-            $idx = 0;
-            $idxFirstLine = 0;
-            $idxLastLine = 0;
-            $maxIdx = 30;
-
-            foreach ($lines as $line) {
-                if (str_starts_with(trim($line), '/**')) {
-                    $isHasStart = true;
-                    $idxFirstLine = $idx;
-                }
-
-                if ($isHasStart) {
-                    // keep original
-                    $originalLines [] = $line;
-
-                    $headerLines [] = $line;
-
-                    if (str_contains($line, '@package')) {
-                        $isValid = true;
-                    }
-                }
-
-                // exit on valid section  (containing @package)
-                if (str_contains(trim($line), ' */')) {
-                    // comment before comment ?
-                    if (!$isValid) {
-                        $isHasStart = false;
-                        $headerLines = [];
-                    } else {
-                        // valid section
-                        $idxLastLine = $idx;
-                        $isHasEnd = true;
-                        break;
-                    }
-                }
-
-                $idx++;
-                //$idxLastLine = $idx;
-
-                // must be within first lines
-                if ($idx > $maxIdx) {
-                    break;
-                }
-            } // for lines n section
-
-            $this->originalLines = $originalLines;
-
-            if ($isHasEnd) {
-                $this->extractHeaderFromFileLines($headerLines);
-                $this->isValid = true;
-
-                $this->idxFirstLine = $idxFirstLine;
-                $this->idxLastLine = $idxLastLine;
-            }
-
-            // todo: print ("headerLines: " . $headerLines . "\r\n");
-            // ToDo: print result
-        } catch (Exception $e) {
-            echo 'Message: ' . $e->getMessage() . "\r\n";
-            $hasError = -101;
-        }
-
-        print('exit extractFileHeader: ' . $hasError . "\r\n");
-
-        return $hasError;
-    }
-
-    /*--------------------------------------------------------------------
-    extractHeaderFromFileLines
-    --------------------------------------------------------------------*/
-
-    function extractHeaderFromFileLines(array $lines = [])
-    {
-        $hasError = 0;
-
-        $this->additionalLines = [];
-
-        try {
-            print('*********************************************************' . "\r\n");
-            print('extractHeaderFromFileLines' . "\r\n");
-            print ("lines in: " . count($lines) . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
-
-            // ToDo: Init write to log file with actual name
-            foreach ($lines as $line) {
-                [$name, $value] = $this->extractHeaderLine($line);
-
-                if (!empty ($name)) {
-                    switch ($name) {
-                        case 'package':
-                            $this->package = $value;
-                            break;
-                        case 'subpackage':
-                            $this->subpackage = $value;
-                            break;
-                        case 'copyright':
-                            $this->copyright = $value;
-                            break;
-                        case 'license':
-                            $this->license = $value;
-                            break;
-                        case 'author':
-                            $this->author = $value;
-                            break;
-                        case 'link':
-                            $this->link = $value;
-                            break;
-
-                        default:
-                            $this->additionalLines [] = $line;
-
-                            break;
-                    }
-                }
-            } // for lines n section
-
-//            // ToDo: Write to log file with actual name
-//            print ('!!! additional header line found: "' . $name . '" !!!' . "\r\n");
-//            if (count ($this->adittionalLines)) {
+//    /*--------------------------------------------------------------------
+//    extractHeaderFromFile
+//    --------------------------------------------------------------------*/
 //
+//    function extractHeaderFromFile(string $fileName = ""): int
+//    {
+//        $hasError = 0;
+//
+//        try {
+//            print('*********************************************************' . "\r\n");
+//            print('extractFileHeader' . "\r\n");
+//            print ("FileName in: " . $fileName . "\r\n");
+//            print('---------------------------------------------------------' . "\r\n");
+//
+//            if (!empty ($fileName)) {
+//                $this->fileName = $fileName;
+//            } else {
+//                $fileName = $this->fileName;
 //            }
-        } catch (Exception $e) {
-            echo 'Message: ' . $e->getMessage() . "\r\n";
-            $hasError = -101;
-        }
-
-        print('exit extractFileHeader: ' . $hasError . "\r\n");
-
-        return $hasError;
-    }
-
-    private function extractHeaderLine(mixed $line)
-    {
-        $name = '';
-        $value = '';
-
-        //  * @copyright (c) 2005-2024 RSGallery2 Team
-        $atIdx = strpos($line, '@');
-        if (!empty($atIdx)) {
-            $blankIdx = strpos($line, ' ', $atIdx + 1);
-
-            $name = substr($line, $atIdx + 1, $blankIdx - $atIdx - 1);
-            $name = trim($name);
-            $value = substr($line, $blankIdx + 1);
-            $value = trim($value);
-        }
-
-        return [$name, $value];
-    }
+//            print ("FileName use: " . $fileName . "\r\n");
+//
+//            $lines = file($fileName);
+//
+//            $headerLines = [];
+//            $originalLines = [];
+//            $this->isValid = false;
+//
+//            $isHasStart = false;
+//            $isHasEnd = false;
+//            $isValid = false;
+//
+//            $idx = 0;
+//            $idxFirstLine = 0;
+//            $idxLastLine = 0;
+//            $maxIdx = 30;
+//
+//            foreach ($lines as $line) {
+//                if (str_starts_with(trim($line), '/**')) {
+//                    $isHasStart = true;
+//                    $idxFirstLine = $idx;
+//                }
+//
+//                if ($isHasStart) {
+//                    // keep original
+//                    $originalLines [] = $line;
+//
+//                    $headerLines [] = $line;
+//
+//                    if (str_contains($line, '@package')) {
+//                        $isValid = true;
+//                    }
+//                }
+//
+//                // exit on valid section  (containing @package)
+//                if (str_contains(trim($line), ' */')) {
+//                    // comment before comment ?
+//                    if (!$isValid) {
+//                        $isHasStart = false;
+//                        $headerLines = [];
+//                    } else {
+//                        // valid section
+//                        $idxLastLine = $idx;
+//                        $isHasEnd = true;
+//                        break;
+//                    }
+//                }
+//
+//                $idx++;
+//                //$idxLastLine = $idx;
+//
+//                // must be within first lines
+//                if ($idx > $maxIdx) {
+//                    break;
+//                }
+//            } // for lines n section
+//
+//            $this->originalLines = $originalLines;
+//
+//            if ($isHasEnd) {
+//                $this->extractHeaderFromFileLines($headerLines);
+//                $this->isValid = true;
+//
+//                $this->idxFirstLine = $idxFirstLine;
+//                $this->idxLastLine = $idxLastLine;
+//            }
+//
+//            // todo: print ("headerLines: " . $headerLines . "\r\n");
+//            // ToDo: print result
+//        } catch (Exception $e) {
+//            echo 'Message: ' . $e->getMessage() . "\r\n";
+//            $hasError = -101;
+//        }
+//
+//        print('exit extractFileHeader: ' . $hasError . "\r\n");
+//
+//        return $hasError;
+//    }
+//
+//    /*--------------------------------------------------------------------
+//    extractHeaderFromFileLines
+//    --------------------------------------------------------------------*/
+//
+//    function extractHeaderFromFileLines(array $lines = [])
+//    {
+//        $hasError = 0;
+//
+//        $this->additionalLines = [];
+//
+//        try {
+//            print('*********************************************************' . "\r\n");
+//            print('extractHeaderFromFileLines' . "\r\n");
+//            print ("lines in: " . count($lines) . "\r\n");
+//            print('---------------------------------------------------------' . "\r\n");
+//
+//            // ToDo: Init write to log file with actual name
+//            foreach ($lines as $line) {
+//                [$name, $value] = $this->extractHeaderLine($line);
+//
+//                if (!empty ($name)) {
+//                    switch ($name) {
+//                        case 'package':
+//                            $this->package = $value;
+//                            break;
+//                        case 'subpackage':
+//                            $this->subpackage = $value;
+//                            break;
+//                        case 'copyright':
+//                            $this->copyright = $value;
+//                            break;
+//                        case 'license':
+//                            $this->license = $value;
+//                            break;
+//                        case 'author':
+//                            $this->author = $value;
+//                            break;
+//                        case 'link':
+//                            $this->link = $value;
+//                            break;
+//
+//                        default:
+//                            $this->additionalLines [] = $line;
+//
+//                            break;
+//                    }
+//                }
+//            } // for lines n section
+//
+////            // ToDo: Write to log file with actual name
+////            print ('!!! additional header line found: "' . $name . '" !!!' . "\r\n");
+////            if (count ($this->adittionalLines)) {
+////
+////            }
+//        } catch (Exception $e) {
+//            echo 'Message: ' . $e->getMessage() . "\r\n";
+//            $hasError = -101;
+//        }
+//
+//        print('exit extractFileHeader: ' . $hasError . "\r\n");
+//
+//        return $hasError;
+//    }
+//
+//    private function extractHeaderLine(mixed $line)
+//    {
+//        $name = '';
+//        $value = '';
+//
+//        //  * @copyright (c) 2005-2024 RSGallery2 Team
+//        $atIdx = strpos($line, '@');
+//        if (!empty($atIdx)) {
+//            $blankIdx = strpos($line, ' ', $atIdx + 1);
+//
+//            $name = substr($line, $atIdx + 1, $blankIdx - $atIdx - 1);
+//            $name = trim($name);
+//            $value = substr($line, $blankIdx + 1);
+//            $value = trim($value);
+//        }
+//
+//        return [$name, $value];
+//    }
 
 
     public function assignTask(task $task)
@@ -862,7 +862,7 @@ class fileHeaderByFileLine extends fileHeaderData
         $OutTxt .= ">>> --- file data ----------------" . "\r\n";
 
         $OutTxt .= "fileName: " . $this->fileName . "\r\n";
-        $OutTxt .= $this->oByFile->text();
+//        $OutTxt .= $this->oByFile->text();
 
         $OutTxt .= ">>> --- file lines ----------------" . "\r\n";
 
@@ -935,7 +935,7 @@ class fileHeaderByFileLine extends fileHeaderData
      * @param string $sinceYear
      * @return string
      */
-    public function replaceSinceCopyright(mixed $line, string $sinceYear): string
+    public function replaceSinceCopyrightLine(mixed $line, string $sinceYear): string
     {
         $oldValue = $this->scan4CopyrightHeaderInLine($line);
 

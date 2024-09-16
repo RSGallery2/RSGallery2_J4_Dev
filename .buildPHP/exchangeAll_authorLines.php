@@ -142,12 +142,12 @@ class exchangeAll_authorLines implements executeTasksInterface
 
         //--- use file header author task ----------------------
 
-        $fileHeaderByFile = new fileHeaderByFileLine();
+        $fileHeaderByFileLine = new fileHeaderByFileLine();
 
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
-            $fileHeaderByFile->exchangeAuthor($fileName->srcPathFileName);
+            $fileHeaderByFileLine->exchangeAuthor($fileName->srcPathFileName);
         }
 
         return (0);

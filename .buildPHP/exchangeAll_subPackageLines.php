@@ -142,12 +142,12 @@ class exchangeAll_subPackageLines implements executeTasksInterface
 
         //--- use file header subpackage task ----------------------
 
-        $fileHeaderByFile = new fileHeaderByFileLine();
+        $fileHeaderByFileLine = new fileHeaderByFileLine();
 
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
-            $fileHeaderByFile->exchangeSubpackage($fileName->srcPathFileName);
+            $fileHeaderByFileLine->exchangeSubpackage($fileName->srcPathFileName);
         }
 
         return (0);

@@ -142,12 +142,12 @@ class exchangeAll_actCopyrightYearLines implements executeTasksInterface
 
         //--- use file header license task ----------------------
 
-        $fileHeaderByFile = new fileHeaderByFileLine();
+        $fileHeaderByFileLine = new fileHeaderByFileLine();
 
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
-            $fileHeaderByFile->exchangeActCopyrightYear(
+            $fileHeaderByFileLine->exchangeActCopyrightYear(
                 $fileName->srcPathFileName,
                 $this->yearText,
             );

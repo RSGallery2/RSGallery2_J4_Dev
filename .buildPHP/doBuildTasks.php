@@ -242,6 +242,10 @@ class doBuildTasks
                         $this->actTask = $this->createTask(new exchangeAll_subPackageLines (), $textTask);
                         break;
 
+                    case 'exchangeall_headers':
+                        $this->actTask = $this->createTask (new buildRelease (), $textTask);
+                        break;
+
 //                    case 'X':
 //                        $this->actTask = $this->createTask (new buildRelease (), $textTask);
 //                        break;

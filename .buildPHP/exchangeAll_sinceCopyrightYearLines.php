@@ -145,12 +145,12 @@ class exchangeAll_sinceCopyrightYearLines implements executeTasksInterface
 
         //--- use file header license task ----------------------
 
-        $fileHeaderByFile = new fileHeaderByFileLine();
+        $fileHeaderByFileLine = new fileHeaderByFileLine();
 
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
-            $fileHeaderByFile->exchangeSinceCopyrightYear(
+            $fileHeaderByFileLine->exchangeSinceCopyrightYear(
                 $fileName->srcPathFileName,
                 $this->yearText,
             );

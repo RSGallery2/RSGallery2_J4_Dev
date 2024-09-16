@@ -39,6 +39,7 @@ class buildRelease implements executeTasksInterface
 
     // Options
     private string $srcRoot = '';
+    private bool $isNoRecursion = false;
     private string $buildDir = '';
     private string $name = '';
     private string $extension = '';
@@ -343,9 +344,15 @@ class buildRelease implements executeTasksInterface
         }
     }
 
-    private function buildModule() {}
+    private function buildModule() {
 
-    private function buildPlugin() {}
+
+    }
+
+    private function buildPlugin() {
+
+
+    }
 
     private function buildPackage()
     {

@@ -142,12 +142,12 @@ class exchangeAll_linkLines implements executeTasksInterface
 
         //--- use file header link task ----------------------
 
-        $fileHeaderByFile = new fileHeaderByFileLine();
+        $fileHeaderByFileLine = new fileHeaderByFileLine();
 
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
-            $fileHeaderByFile->exchangeLink($fileName->srcPathFileName);
+            $fileHeaderByFileLine->exchangeLink($fileName->srcPathFileName);
         }
 
         return (0);

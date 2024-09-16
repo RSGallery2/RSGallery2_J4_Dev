@@ -142,12 +142,12 @@ class exchangeAll_packages implements executeTasksInterface
 
         //--- use file header package task ----------------------
 
-        $fileHeaderByFile = new fileHeaderByFileLine();
+        $fileHeaderByFileLine = new fileHeaderByFileLine();
 
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
-            $fileHeaderByFile->exchangePackage($fileName->srcPathFileName);
+            $fileHeaderByFileLine->exchangePackage($fileName->srcPathFileName);
         }
 
         return (0);

@@ -142,12 +142,12 @@ class exchangeAll_licenseLines implements executeTasksInterface
 
         //--- use file header license task ----------------------
 
-        $fileHeaderByFile = new fileHeaderByFileLine();
+        $fileHeaderByFileLine = new fileHeaderByFileLine();
 
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
-            $fileHeaderByFile->exchangeLicense($fileName->srcPathFileName);
+            $fileHeaderByFileLine->exchangeLicense($fileName->srcPathFileName);
         }
 
         return (0);
