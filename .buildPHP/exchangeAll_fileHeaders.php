@@ -3,13 +3,13 @@
 namespace exchangeAll_fileHeaders;
 
 require_once "./iExecTask.php";
-require_once "./fileHeaderByFileLine.php";
+require_once "./fileHeaderByFileData.php";
 
 
 // use \DateTime;
 use Exception;
 use ExecuteTasks\executeTasksInterface;
-use FileHeader\fileHeaderByFileLine;
+use FileHeader\fileHeaderByFileData;
 use FileNamesList\fileNamesList;
 use task\task;
 
@@ -22,7 +22,6 @@ class exchangeAll_fileHeaders implements executeTasksInterface
 
     public string $srcRoot = "";
     private bool $isNoRecursion = false;
-    public string $authorText = "";
 
     /**
      * @var fileNamesList
@@ -34,17 +33,15 @@ class exchangeAll_fileHeaders implements executeTasksInterface
     construction
     --------------------------------------------------------------------*/
 
-    public function __construct($srcRoot = "", $authorText = "")
+    public function __construct($srcRoot = "")
     {
         $hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
 //            print ("srcRoot: " . $srcRoot . "\r\n");
-//            print ("authorText: " . $authorText . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
             $this->srcRoot    = $srcRoot;
-            $this->authorText = $authorText;
 
             $this->fileNamesList = new fileNamesList();
         } catch (Exception $e) {
@@ -97,11 +94,6 @@ class exchangeAll_fileHeaders implements executeTasksInterface
                     $this->isNoRecursion = boolval($option->value);
                     break;
 
-                case 'authortext':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->authorText = $option->value;
-                    break;
-
 //				case 'X':
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
@@ -130,7 +122,7 @@ class exchangeAll_fileHeaders implements executeTasksInterface
 
         // files not set already use local file nam+es task
         if (count($this->fileNamesList->fileNames) == 0) {
-            $fileNamesList       = new fileNamesList ($this->srcRoot, 'php',
+            $fileNamesList       = new fileNamesList ($this->srcRoot, 'php ts',
                 '', $this->isNoRecursion);
             $this->fileNamesList = $fileNamesList;
 
@@ -142,12 +134,12 @@ class exchangeAll_fileHeaders implements executeTasksInterface
 
         //--- use file header author task ----------------------
 
-        $fileHeaderByFileLine = new fileHeaderByFileLine();
+        $fileHeaderByFileData = new fileHeaderByFileData();
 
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
-            $fileHeaderByFileLine->exchangeAuthor($fileName->srcPathFileName);
+            $fileHeaderByFileData->replaceHeader($fileName->srcPathFileName);
         }
 
         return (0);

@@ -480,5 +480,11 @@ class fileHeaderByFileData extends fileHeaderData
         return $OutTxt;
     }
 
+    public function replaceHeader(string $srcPathFileName)
+    {
+        yyyy
+
+    }
+
 } // fileHeaderByFile
 
