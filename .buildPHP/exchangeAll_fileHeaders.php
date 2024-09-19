@@ -21,12 +21,11 @@ class exchangeAll_fileHeaders implements executeTasksInterface
 {
 
     public string $srcRoot = "";
-    private bool $isNoRecursion = false;
-
     /**
      * @var fileNamesList
      */
     public fileNamesList $fileNamesList;
+    private bool $isNoRecursion = false;
 
 
     /*--------------------------------------------------------------------
@@ -41,7 +40,7 @@ class exchangeAll_fileHeaders implements executeTasksInterface
 //            print ("srcRoot: " . $srcRoot . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-            $this->srcRoot    = $srcRoot;
+            $this->srcRoot = $srcRoot;
 
             $this->fileNamesList = new fileNamesList();
         } catch (Exception $e) {
@@ -107,7 +106,7 @@ class exchangeAll_fileHeaders implements executeTasksInterface
 //					break;
 
                 default:
-                    print ('Execute Default task: ' . $option->name . "\r\n");
+                    print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
             } // switch
 
             // $OutTxt .= $task->text() . "\r\n";
@@ -116,13 +115,24 @@ class exchangeAll_fileHeaders implements executeTasksInterface
         return 0;
     }
 
+    public function executeFile(string $filePathName): int
+    {
+        // create a one file 'fileNamesList' object
+        $this->fileNamesList = new fileNamesList();
+        $this->fileNamesList[] = $filePathName;
+
+        $this->execute();
+
+        return (0);
+    }
+
     public function execute(): int
     {
         //--- collect files ---------------------------------------
 
         // files not set already use local file nam+es task
         if (count($this->fileNamesList->fileNames) == 0) {
-            $fileNamesList       = new fileNamesList ($this->srcRoot, 'php ts',
+            $fileNamesList = new fileNamesList ($this->srcRoot, 'php ts',
                 '', $this->isNoRecursion);
             $this->fileNamesList = $fileNamesList;
 
@@ -139,19 +149,8 @@ class exchangeAll_fileHeaders implements executeTasksInterface
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
-            $fileHeaderByFileData->replaceHeader($fileName->srcPathFileName);
+            $fileHeaderByFileData->upgradeHeader($fileName->srcPathFileName);
         }
-
-        return (0);
-    }
-
-    public function executeFile(string $filePathName): int
-    {
-        // create a one file 'fileNamesList' object
-        $this->fileNamesList   = new fileNamesList();
-        $this->fileNamesList[] = $filePathName;
-
-        $this->execute();
 
         return (0);
     }

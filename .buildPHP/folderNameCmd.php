@@ -31,7 +31,7 @@ text ();
 main (used from command line)
 ================================================================================*/
 
-$optDefinition    = "s:d:h12345";
+$optDefinition = "s:d:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);

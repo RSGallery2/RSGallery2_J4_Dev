@@ -144,7 +144,7 @@ class buildRelease implements executeTasksInterface
 //					break;
 
                 default:
-                    print ('Execute Default task: ' . $option->name . "\r\n");
+                    print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
             } // switch
 
             // $OutTxt .= $task->text() . "\r\n";
@@ -188,40 +188,6 @@ class buildRelease implements executeTasksInterface
         return (0);
     }
 
-    public function executeFile(string $filePathName): int
-    {
-        // not supported
-        return (0);
-    }
-
-
-    public function text(): string
-    {
-        $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- buildRelease --------" . "\r\n";
-
-        $OutTxt .= "Not defined yet " . "\r\n";
-
-        /**
-         * $OutTxt .= "fileName: " . $this->fileName . "\r\n";
-         * $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
-         * $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
-         * $OutTxt .= "filePath: " . $this->filePath . "\r\n";
-         * $OutTxt .= "srcRootFileName: " . $this->srcRootFileName . "\r\n";
-         * /**/
-
-        return $OutTxt;
-    }
-
-    private function manifestPathFileName(): string
-    {
-        if ($this->manifestPathFileName == '') {
-            $this->manifestPathFileName = $this->srcRoot . '/' . $this->name . '.xml';
-        }
-
-        return $this->manifestPathFileName;
-    }
-
     private function componentType()
     {
         if ($this->componentType == '') {
@@ -241,28 +207,6 @@ class buildRelease implements executeTasksInterface
         return $componentType;
     }
 
-    private function componentVersion()
-    {
-        // ToDo: option for version
-        // ToDo: retrieve version from manifest
-
-        if ($this->componentVersion == '') {
-            $this->componentVersion = $this->detectCompVersionFromFile($this->manifestPathFileName);
-        }
-
-        return $this->componentVersion;
-    }
-
-    private function detectCompVersionFromFile(string $manifestPathFileName)
-    {
-        $componentVersion = '';
-
-        // ToDo: read file for
-
-
-        return $componentVersion;
-    }
-
     private function buildComponent()
     {
         //--------------------------------------------------------------------
@@ -274,7 +218,7 @@ class buildRelease implements executeTasksInterface
 
         // ToDo: external parameter;
         $date_format = 'Y.m.d';
-        $dateText    = date($date_format);
+        $dateText = date($date_format);
 
         $this->exchangeDateInManifestFile($manifestPathFileName, $dateText);
 
@@ -344,64 +288,13 @@ class buildRelease implements executeTasksInterface
         }
     }
 
-    private function buildModule() {
-
-
-    }
-
-    private function buildPlugin() {
-
-
-    }
-
-    private function buildPackage()
+    private function manifestPathFileName(): string
     {
-        // build component
-
-        // on all module folder build module
-
-
-        // on all plugins folder build plugins
-
-        // ? Specialities
-
-        // remove temp
-
-    }
-
-    private function createComponentZipName()
-    {
-        // rsgallery2.5.0.12.4_20240818.zip
-
-        // ToDo: option for version
-        // ToDo: retrieve version from manifest
-
-        // $date = "20240824";
-        $date_format = 'Ymd';
-        $date        = date($date_format);
-
-        $ZipName = $this->name . '.' . $this->componentVersion . '_' . $date . '.zip';
-
-        return $ZipName;
-    }
-
-    private function xcopyElement(string $name, string $srcRoot, string $dstRoot)
-    {
-        $hasError = 0;
-        try {
-            $srcPath = $srcRoot . '/' . $name;
-            $dstPath = $dstRoot . '/' . $name;
-
-            if (is_dir($srcPath)) {
-                mkdir($dstPath);
-                xcopy($srcPath, $dstPath);
-            } else {
-                copy($srcPath, $dstPath);
-            }
-        } catch (Exception $e) {
-            echo 'Message: ' . $e->getMessage() . "\r\n";
-            $hasError = -101;
+        if ($this->manifestPathFileName == '') {
+            $this->manifestPathFileName = $this->srcRoot . '/' . $this->name . '.xml';
         }
+
+        return $this->manifestPathFileName;
     }
 
     private function exchangeDateInManifestFile(string $manifestFileName, string $strDate)
@@ -409,8 +302,8 @@ class buildRelease implements executeTasksInterface
         $isSaved = false;
 
         try {
-            $lines       = file($manifestFileName);
-            $outLines    = [];
+            $lines = file($manifestFileName);
+            $outLines = [];
             $isExchanged = false;
 
             foreach ($lines as $line) {
@@ -419,7 +312,7 @@ class buildRelease implements executeTasksInterface
                 } else {
                     // <creationDate>31. May. 2024</creationDate>
                     if (str_contains($line, '<creationDate>')) {
-                        $outLine     = preg_replace(
+                        $outLine = preg_replace(
                             '/(.*<creationDate>)(.+)(<\/creationDate.*)/i',
                             '${1}' . $strDate . '${3}',
                             $line,
@@ -456,6 +349,114 @@ class buildRelease implements executeTasksInterface
         }
 
         return $isSaved;
+    }
+
+    private function xcopyElement(string $name, string $srcRoot, string $dstRoot)
+    {
+        $hasError = 0;
+        try {
+            $srcPath = $srcRoot . '/' . $name;
+            $dstPath = $dstRoot . '/' . $name;
+
+            if (is_dir($srcPath)) {
+                mkdir($dstPath);
+                xcopy($srcPath, $dstPath);
+            } else {
+                copy($srcPath, $dstPath);
+            }
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+    }
+
+    private function createComponentZipName()
+    {
+        // rsgallery2.5.0.12.4_20240818.zip
+
+        // ToDo: option for version
+        // ToDo: retrieve version from manifest
+
+        // $date = "20240824";
+        $date_format = 'Ymd';
+        $date = date($date_format);
+
+        $ZipName = $this->name . '.' . $this->componentVersion . '_' . $date . '.zip';
+
+        return $ZipName;
+    }
+
+    private function buildModule()
+    {
+
+
+    }
+
+    private function buildPlugin()
+    {
+
+
+    }
+
+    private function buildPackage()
+    {
+        // build component
+
+        // on all module folder build module
+
+
+        // on all plugins folder build plugins
+
+        // ? Specialities
+
+        // remove temp
+
+    }
+
+    public function executeFile(string $filePathName): int
+    {
+        // not supported
+        return (0);
+    }
+
+    public function text(): string
+    {
+        $OutTxt = "------------------------------------------" . "\r\n";
+        $OutTxt .= "--- buildRelease --------" . "\r\n";
+
+        $OutTxt .= "Not defined yet " . "\r\n";
+
+        /**
+         * $OutTxt .= "fileName: " . $this->fileName . "\r\n";
+         * $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
+         * $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
+         * $OutTxt .= "filePath: " . $this->filePath . "\r\n";
+         * $OutTxt .= "srcRootFileName: " . $this->srcRootFileName . "\r\n";
+         * /**/
+
+        return $OutTxt;
+    }
+
+    private function componentVersion()
+    {
+        // ToDo: option for version
+        // ToDo: retrieve version from manifest
+
+        if ($this->componentVersion == '') {
+            $this->componentVersion = $this->detectCompVersionFromFile($this->manifestPathFileName);
+        }
+
+        return $this->componentVersion;
+    }
+
+    private function detectCompVersionFromFile(string $manifestPathFileName)
+    {
+        $componentVersion = '';
+
+        // ToDo: read file for
+
+
+        return $componentVersion;
     }
 
 
@@ -532,7 +533,7 @@ function zipItRelative($rootPath, $zipFilename)
 
     foreach ($files as $name => $file) {
         // Get real and relative path for current file
-        $filePath     = $file->getRealPath();
+        $filePath = $file->getRealPath();
         $relativePath = substr($filePath, strlen($rootPath) + 1);
 
         if (!$file->isDir()) {

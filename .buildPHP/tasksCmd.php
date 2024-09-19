@@ -23,7 +23,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition    = "t:h12345";
+$optDefinition = "t:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);

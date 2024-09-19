@@ -46,7 +46,7 @@ class forceCreationDate implements executeTasksInterface
 //            $this->dstFile = $dstFile;
 
             // $date_format        = 'Ymd';
-            $date_format        = 'd.m.Y';
+            $date_format = 'd.m.Y';
             $this->creationDate = date($date_format);
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
@@ -83,7 +83,7 @@ class forceCreationDate implements executeTasksInterface
                     break;
 
                 default:
-                    print ('Execute Default task: ' . $option->name . "\r\n");
+                    print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
             } // switch
 
             // $OutTxt .= $task->text() . "\r\n";
@@ -102,19 +102,6 @@ class forceCreationDate implements executeTasksInterface
 
         return $hasError;
     }
-
-    public function executeFile(string $filePathName): int // $isChanged
-    {
-        $hasError = 0;
-
-        // $hasError = $this->exchangeCreationDate ();
-
-        return ($hasError);
-    }
-
-    /*--------------------------------------------------------------------
-    funYYY
-    --------------------------------------------------------------------*/
 
     function exchangeCreationDate(): int
     {
@@ -142,13 +129,26 @@ class forceCreationDate implements executeTasksInterface
         return $hasError;
     }
 
+    /*--------------------------------------------------------------------
+    funYYY
+    --------------------------------------------------------------------*/
+
+    private function manifestPathFileName(): string
+    {
+        if ($this->manifestPathFileName == '') {
+            $this->manifestPathFileName = $this->srcRoot . '/' . $this->name . '.xml';
+        }
+
+        return $this->manifestPathFileName;
+    }
+
     private function exchangeCreationDateInManifestFile(string $manifestFileName, string $strDate)
     {
         $isSaved = false;
 
         try {
-            $lines       = file($manifestFileName);
-            $outLines    = [];
+            $lines = file($manifestFileName);
+            $outLines = [];
             $isExchanged = false;
 
             foreach ($lines as $line) {
@@ -197,15 +197,14 @@ class forceCreationDate implements executeTasksInterface
         return $isSaved;
     }
 
-    private function manifestPathFileName(): string
+    public function executeFile(string $filePathName): int // $isChanged
     {
-        if ($this->manifestPathFileName == '') {
-            $this->manifestPathFileName = $this->srcRoot . '/' . $this->name . '.xml';
-        }
+        $hasError = 0;
 
-        return $this->manifestPathFileName;
+        // $hasError = $this->exchangeCreationDate ();
+
+        return ($hasError);
     }
-
 
     public function text(): string
     {

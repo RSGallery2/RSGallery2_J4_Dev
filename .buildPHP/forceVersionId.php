@@ -22,18 +22,16 @@ Class forceVersionId
 class forceVersionId implements executeTasksInterface
 {
 
-    private string $srcRoot = '';
-    private string $name = '';
-
-    private string $componentVersion = '';
-
-    // internal
-    private string $manifestPathFileName = '';
-
     /**
      * @var fileNamesList
      */
     public fileNamesList $fileNamesList;
+    private string $srcRoot = '';
+    private string $name = '';
+
+    // internal
+    private string $componentVersion = '';
+    private string $manifestPathFileName = '';
 
 
     /*--------------------------------------------------------------------
@@ -41,6 +39,7 @@ class forceVersionId implements executeTasksInterface
     --------------------------------------------------------------------*/
 
     // ToDo: a lot of parameters ....
+
     public function __construct($srcFile = "", $dstFile = "")
     {
         $hasError = 0;
@@ -90,7 +89,7 @@ class forceVersionId implements executeTasksInterface
                     break;
 
                 default:
-                    print ('Execute Default task: ' . $option->name . "\r\n");
+                    print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
             } // switch
 
             // $OutTxt .= $task->text() . "\r\n";
@@ -109,19 +108,6 @@ class forceVersionId implements executeTasksInterface
 
         return $hasError;
     }
-
-    public function executeFile(string $filePathName): int // $isChanged
-    {
-        $hasError = 0;
-
-        // $hasError = $this->exchangeVersionId ();
-
-        return ($hasError);
-    }
-
-    /*--------------------------------------------------------------------
-    funYYY
-    --------------------------------------------------------------------*/
 
     function exchangeVersionId()
     {
@@ -149,13 +135,26 @@ class forceVersionId implements executeTasksInterface
         return $hasError;
     }
 
+    /*--------------------------------------------------------------------
+    funYYY
+    --------------------------------------------------------------------*/
+
+    private function manifestPathFileName(): string
+    {
+        if ($this->manifestPathFileName == '') {
+            $this->manifestPathFileName = $this->srcRoot . '/' . $this->name . '.xml';
+        }
+
+        return $this->manifestPathFileName;
+    }
+
     private function exchangeVersionInManifestFile(string $manifestFileName, string $strVersion)
     {
         $isSaved = false;
 
         try {
-            $lines       = file($manifestFileName);
-            $outLines    = [];
+            $lines = file($manifestFileName);
+            $outLines = [];
             $isExchanged = false;
 
             foreach ($lines as $line) {
@@ -204,15 +203,14 @@ class forceVersionId implements executeTasksInterface
         return $isSaved;
     }
 
-    private function manifestPathFileName(): string
+    public function executeFile(string $filePathName): int // $isChanged
     {
-        if ($this->manifestPathFileName == '') {
-            $this->manifestPathFileName = $this->srcRoot . '/' . $this->name . '.xml';
-        }
+        $hasError = 0;
 
-        return $this->manifestPathFileName;
+        // $hasError = $this->exchangeVersionId ();
+
+        return ($hasError);
     }
-
 
     public function text(): string
     {

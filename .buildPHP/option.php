@@ -38,10 +38,19 @@ class option
 //        // print('exit __construct: ' . $hasError . "\r\n");
     }
 
-    public function clear(): void
+    private function removeQuotation(string $optionValuePart)
     {
-        $this->name  = '';
-        $this->value = '';
+        $optionValue = $optionValuePart;
+
+        if ($optionValue != '') {
+            $firstChar = $optionValuePart[0];
+            if ($firstChar == '"' or $firstChar == "'") {
+                $this->quotation = $firstChar;
+                $optionValue = substr($optionValuePart, 1, -1);
+            }
+        }
+
+        return $optionValue;
     }
 
     public function extractOptionFromString($inOptionsString = ""): option
@@ -68,10 +77,10 @@ class option
 
 
                 $optionValuePart = substr($optionsString, $idx + 1);
-                $optionValue     = $this->removeQuotation($optionValuePart);
+                $optionValue = $this->removeQuotation($optionValuePart);
             }
 
-            $this->name  = $optionName;
+            $this->name = $optionName;
             $this->value = $optionValue;
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
@@ -79,6 +88,12 @@ class option
         }
 
         return $this;
+    }
+
+    public function clear(): void
+    {
+        $this->name = '';
+        $this->value = '';
     }
 
     public function text4Line(): string
@@ -101,7 +116,6 @@ class option
         return $OutTxt;
     }
 
-
     public function text(): string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
@@ -121,21 +135,6 @@ class option
          * /**/
 
         return $OutTxt;
-    }
-
-    private function removeQuotation(string $optionValuePart)
-    {
-        $optionValue = $optionValuePart;
-
-        if ($optionValue != '') {
-            $firstChar = $optionValuePart[0];
-            if ($firstChar == '"' or $firstChar == "'") {
-                $this->quotation = $firstChar;
-                $optionValue     = substr($optionValuePart, 1, -1);
-            }
-        }
-
-        return $optionValue;
     }
 
 

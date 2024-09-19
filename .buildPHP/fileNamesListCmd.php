@@ -28,7 +28,7 @@ main (used from command line)
 $options = getopt("e:i:p:w:nh12345", []);
 var_dump($options);
 
-$optDefinition    = "oe:i:p:w:nh12345";
+$optDefinition = "oe:i:p:w:nh12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);

@@ -9,7 +9,6 @@ require_once "./exchangeAll_sinceCopyrightYearLines.php";
 
 use exchangeAll_sinceCopyrightYear\exchangeAll_sinceCopyrightYearLines;
 use task\task;
-
 use function commandLine\argsAndOptions;
 use function commandLine\print_end;
 use function commandLine\print_header;
@@ -32,7 +31,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition    = "s:y:h12345";
+$optDefinition = "s:y:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);

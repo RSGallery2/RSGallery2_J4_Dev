@@ -8,7 +8,6 @@ require_once "./exchangeAll_licenseLines.php";
 // use \DateTime;
 
 use task\task;
-
 use function commandLine\argsAndOptions;
 use function commandLine\print_end;
 use function commandLine\print_header;
@@ -28,7 +27,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition    = "s:l:h12345";
+$optDefinition = "s:l:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);

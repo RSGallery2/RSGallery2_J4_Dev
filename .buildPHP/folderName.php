@@ -94,7 +94,7 @@ class fithFolderName
 
     function clear()
     {
-        $this->srcSpecifiedName  = "";
+        $this->srcSpecifiedName = "";
         $this->srcPathFolderName = "";
 
         // file name part

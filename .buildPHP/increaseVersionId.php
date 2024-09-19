@@ -19,18 +19,16 @@ Class increaseVersionId
 class increaseVersionId implements executeTasksInterface
 {
 
-    private string $srcRoot = '';
-    private string $name = '';
-
-    private string $componentVersion = '';
-
-    // internal
-    private string $manifestPathFileName = '';
-
     /**
      * @var fileNamesList
      */
     public fileNamesList $fileNamesList;
+    private string $srcRoot = '';
+    private string $name = '';
+
+    // internal
+    private string $componentVersion = '';
+    private string $manifestPathFileName = '';
 
 
     /*--------------------------------------------------------------------
@@ -112,7 +110,7 @@ class increaseVersionId implements executeTasksInterface
                     break;
 
                 default:
-                    print ('Execute Default task: ' . $option->name . "\r\n");
+                    print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
             } // switch
 
             // $OutTxt .= $task->text() . "\r\n";
@@ -131,19 +129,6 @@ class increaseVersionId implements executeTasksInterface
 
         return $hasError;
     }
-
-    public function executeFile(string $filePathName): int // $isChanged
-    {
-        $hasError = 0;
-
-        // $hasError = $this->exchangeVersionId ();
-
-        return ($hasError);
-    }
-
-    /*--------------------------------------------------------------------
-    funYYY
-    --------------------------------------------------------------------*/
 
     function exchangeVersionId()
     {
@@ -171,13 +156,26 @@ class increaseVersionId implements executeTasksInterface
         return $hasError;
     }
 
+    /*--------------------------------------------------------------------
+    funYYY
+    --------------------------------------------------------------------*/
+
+    private function manifestPathFileName(): string
+    {
+        if ($this->manifestPathFileName == '') {
+            $this->manifestPathFileName = $this->srcRoot . '/' . $this->name . '.xml';
+        }
+
+        return $this->manifestPathFileName;
+    }
+
     private function exchangeVersionInManifestFile(string $manifestFileName, string $strVersion)
     {
         $isSaved = false;
 
         try {
-            $lines       = file($manifestFileName);
-            $outLines    = [];
+            $lines = file($manifestFileName);
+            $outLines = [];
             $isExchanged = false;
 
             foreach ($lines as $line) {
@@ -242,19 +240,19 @@ class increaseVersionId implements executeTasksInterface
         // standard is 3 parts. optional 4th dev part
         if (count($parts) > 2) {
             if ($this->isIncreaseMajor) {
-                $major    = intval($parts[0]);
+                $major = intval($parts[0]);
                 $parts[0] = strval($major + 1);
             }
             if ($this->isIncreaseMinor) {
-                $minor    = intval($parts[1]);
+                $minor = intval($parts[1]);
                 $parts[1] = strval($minor + 1);
             }
             if ($this->isIncreasePatch) {
-                $patch    = intval($parts[2]);
+                $patch = intval($parts[2]);
                 $parts[2] = strval($patch + 1);
             }
             if ($this->isIncreaseDev) {
-                $dev      = intval($parts[3]);
+                $dev = intval($parts[3]);
                 $parts[3] = strval($dev + 1);
             }
 
@@ -264,15 +262,14 @@ class increaseVersionId implements executeTasksInterface
         return $newVersion;
     }
 
-    private function manifestPathFileName(): string
+    public function executeFile(string $filePathName): int // $isChanged
     {
-        if ($this->manifestPathFileName == '') {
-            $this->manifestPathFileName = $this->srcRoot . '/' . $this->name . '.xml';
-        }
+        $hasError = 0;
 
-        return $this->manifestPathFileName;
+        // $hasError = $this->exchangeVersionId ();
+
+        return ($hasError);
     }
-
 
     public function text(): string
     {

@@ -6,7 +6,6 @@ require_once "./commandLine.php";
 require_once "./buildRelease.php";
 
 use task\task;
-
 use function commandLine\argsAndOptions;
 use function commandLine\print_end;
 use function commandLine\print_header;
@@ -26,7 +25,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition    = "s:d:h12345";
+$optDefinition = "s:d:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);

@@ -9,7 +9,6 @@ require_once "./fileHeaderByFileData.php";
 // use DateTime;
 
 use task\task;
-
 use function commandLine\argsAndOptions;
 use function commandLine\print_end;
 use function commandLine\print_header;
@@ -26,7 +25,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition    = "f:t:h12345";
+$optDefinition = "f:t:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -43,12 +42,51 @@ variables
 $srcfile = '';
 // $srcfile = "./../../RSGallery2_J4/administrator/components/com_rsgallery2/src/Model/GalleryTreeModel.php";
 
-$taskLine  = '';
-$tasksLine = ' task:exchangeLicense'
+$taskLine = '';
+// $tasksLine = ' task:replaceHeader'
+$tasksLine = ' task:upgradeHeader'
     . ' /fileName="./../../RSGallery2_J4/administrator/components/com_rsgallery2/src/Model/GalleryTreeModel.php"';
 //$tasksLine = ' task:exchangeActCopyrightYear'
 //    . ' /fileName="./../../RSGallery2_J4/administrator/components/com_rsgallery2/src/Model/GalleryTreeModel.php"'
 //    . ' /copyrightDate=1999'
+//
+//    . ' /package        = "RSGallery2";
+//    . ' /subpackage     = "com_rsgallery2";
+//    . ' /actCopyright      = "2024";
+//    . ' /sincCopyright      = "2016";
+//    . ' /copyrightToday = $copyrightDate . "-" . $copyrightDate . " RSGallery2 Team";
+//    . ' /license        = "GNU General Public License version 2 or later";
+//        //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
+//    . ' /author = "RSGallery2 Team <team2@rsgallery2.org>";
+//    . ' /link   = "https://www.rsgallery2.org";
+//
+//    . ' /isForceStdPackage        = "RSGallery2";
+//    . ' /isForceStdSubpackage     = "com_rsgallery2";
+//    . ' /isForceStdActCopyright      = "2024";
+//    . ' /isForceStdSinceCopyright      = "2016";
+//    . ' /isForceStdcopyrightToday = $copyrightDate . "-" . $copyrightDate . " RSGallery2 Team";
+//    . ' /isForceStdLicense        = "GNU General Public License version 2 or later";
+//    . ' /isForceStdAuthor = "RSGallery2 Team <team2@rsgallery2.org>";
+//    . ' /isForceStdlink   = "https://www.rsgallery2.org";
+//
+//    . ' /isForcePackage        = "RSGallery2";
+//    . ' /isForceSubpackage     = "com_rsgallery2";
+//    . ' /isForceActCopyright      = "2024";
+//    . ' /isForceSinceCopyright      = "2016";
+//    . ' /isForcecopyrightToday = $copyrightDate . "-" . $copyrightDate . " RSGallery2 Team";
+//    . ' /isForcelicense        = "GNU General Public License version 2 or later";
+//    . ' /isForceAuthor = "RSGallery2 Team <team2@rsgallery2.org>";
+//    . ' /isForcelink   = "https://www.rsgallery2.org";
+//
+//    . ' /isKeepStdPackage        = "RSGallery2";
+//    . ' /isKeepStdSubpackage     = "com_rsgallery2";
+//    . ' /isKeepStdActCopyright      = "2024";
+//    . ' /isKeepStdSincCopyright      = "2016";
+//    . ' /isKeepStdcopyrightToday = $copyrightDate . "-" . $copyrightDate . " RSGallery2 Team";
+//    . ' /isKeepStdlicense        = "GNU General Public License version 2 or later";
+//    . ' /isKeepStdAuthor = "RSGallery2 Team <team2@rsgallery2.org>";
+//    . ' /isKeepStdlink   = "https://www.rsgallery2.org";
+//
 //;
 
 foreach ($options as $idx => $option) {
@@ -120,7 +158,7 @@ if (!empty ($tasksLine)) {
     if (!empty ($srcfile)) {
         $oFileHeader = new fileHeaderByFileData($srcfile);
 
-        $oFileHeader->extractHeaderFromFile();
+        $oFileHeader->importFileData();
 
         print ($oFileHeader->text() . "\r\n");
         print ("header Lines: '" . $oFileHeader->headerText() . "'" . "\r\n");

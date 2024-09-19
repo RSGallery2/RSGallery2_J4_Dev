@@ -73,10 +73,10 @@ class fithFileName
 
             $path_parts = pathinfo($srcFile);
 
-            $this->fileName      = $path_parts['filename'];
+            $this->fileName = $path_parts['filename'];
             $this->fileExtension = $path_parts['extension'];
-            $this->fileBaseName  = $path_parts['basename'];
-            $this->filePath      = $path_parts['dirname'];
+            $this->fileBaseName = $path_parts['basename'];
+            $this->filePath = $path_parts['dirname'];
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
@@ -88,6 +88,24 @@ class fithFileName
 
     /*--------------------------------------------------------------------
     compare for same extension
+    --------------------------------------------------------------------*/
+
+    function clear()
+    {
+        $this->srcSpecifiedName = "";
+        $this->srcPathFileName = "";
+
+        // file name part
+        $this->fileName = "";
+        $this->fileExtension = "";
+        $this->fileBaseName = "";
+        $this->filePath = "";
+
+        return;
+    }
+
+    /*--------------------------------------------------------------------
+    compare for name matches regex
     --------------------------------------------------------------------*/
 
     function hasExtension($check = '')
@@ -102,7 +120,7 @@ class fithFileName
     }
 
     /*--------------------------------------------------------------------
-    compare for name matches regex
+    compare for name and extension matches regex
     --------------------------------------------------------------------*/
 
     function nameMatchesRegEx($regex = '')
@@ -132,7 +150,7 @@ class fithFileName
     }
 
     /*--------------------------------------------------------------------
-    compare for name and extension matches regex
+    clear: init to empty
     --------------------------------------------------------------------*/
 
     function pathMatchesRegex($regex = '')
@@ -144,24 +162,6 @@ class fithFileName
         }
 
         return $isMatchesRegex;
-    }
-
-    /*--------------------------------------------------------------------
-    clear: init to empty
-    --------------------------------------------------------------------*/
-
-    function clear()
-    {
-        $this->srcSpecifiedName = "";
-        $this->srcPathFileName  = "";
-
-        // file name part
-        $this->fileName      = "";
-        $this->fileExtension = "";
-        $this->fileBaseName  = "";
-        $this->filePath      = "";
-
-        return;
     }
 
     public function text(): string

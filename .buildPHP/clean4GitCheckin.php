@@ -20,12 +20,11 @@ class clean4GitCheckin implements executeTasksInterface
 {
 
     public string $srcRoot = "";
-    private bool $isNoRecursion = false;
-
     /**
      * @var fileNamesList
      */
     public fileNamesList $fileNamesList;
+    private bool $isNoRecursion = false;
 
 
     /*--------------------------------------------------------------------
@@ -109,7 +108,7 @@ class clean4GitCheckin implements executeTasksInterface
 //					break;
 
                 default:
-                    print ('Execute Default task: ' . $option->name . "\r\n");
+                    print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
             } // switch
 
             // $OutTxt .= $task->text() . "\r\n";
@@ -118,13 +117,24 @@ class clean4GitCheckin implements executeTasksInterface
         return 0;
     }
 
+    public function executeFile(string $filePathName): int
+    {
+        // create a one file 'fileNamesList' object
+        $this->fileNamesList = new fileNamesList();
+        $this->fileNamesList[] = $filePathName;
+
+        $this->execute();
+
+        return (0);
+    }
+
     public function execute(): int
     {
         //--- collect files ---------------------------------------
 
         // files not set already
         if (count($this->fileNamesList->fileNames) == 0) {
-            $fileNamesList       = new fileNamesList ($this->srcRoot, '');
+            $fileNamesList = new fileNamesList ($this->srcRoot, '');
             $this->fileNamesList = $fileNamesList;
 
             $fileNamesList->scan4Filenames();
@@ -142,23 +152,12 @@ class clean4GitCheckin implements executeTasksInterface
         return (0);
     }
 
-    public function executeFile(string $filePathName): int
-    {
-        // create a one file 'fileNamesList' object
-        $this->fileNamesList   = new fileNamesList();
-        $this->fileNamesList[] = $filePathName;
-
-        $this->execute();
-
-        return (0);
-    }
-
     private function trimFile(string $fileName): bool
     {
         $isExchanged = false;
 
         try {
-            $lines    = file($fileName);
+            $lines = file($fileName);
             $outLines = [];
 
             // all lines
@@ -166,7 +165,7 @@ class clean4GitCheckin implements executeTasksInterface
                 if ($isExchanged) {
                     $outLines [] = rtrim($line) . "\r\n";
                 } else {
-                    $trimmed     = rtrim($line) . "\r\n";
+                    $trimmed = rtrim($line) . "\r\n";
                     $outLines [] = $trimmed;
 
                     if (strlen($trimmed) < strlen($line)) {

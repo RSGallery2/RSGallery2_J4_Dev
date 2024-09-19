@@ -47,7 +47,7 @@ function print_end(DateTime $start)
 function argsAndOptions($argv, string $optDefinition, bool $isPrintArguments): array
 {
     $options = [];
-    $inArgs  = [];
+    $inArgs = [];
 
     //--- argv ---------------------------------
 

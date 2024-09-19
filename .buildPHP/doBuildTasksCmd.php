@@ -23,7 +23,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition    = "t:p:h12345";
+$optDefinition = "t:p:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -188,29 +188,33 @@ $tasksLine .= ' task:clean4GitCheckin'
 $tasksLine .= 'task:execute' . ' ';
 
 
-$tasksLine .= ' task:exchangeAll_licenseLines'
-    . ' /licenseText = "GNU General Public License version 2 or later"'
-//    . ' /s='
-    . ' ';
-$tasksLine .= 'task:execute' . ' ';
+//$tasksLine .= ' task:exchangeAll_licenseLines'
+//    . ' /licenseText = "GNU General Public License version 2 or later"'
+////    . ' /s='
+//    . ' ';
+//$tasksLine .= 'task:execute' . ' ';
+//
+//$tasksLine .= ' task:exchangeAll_actCopyrightYearLines'
+////    . ' /s='
+//    . ' ';
+//$tasksLine .= 'task:execute' . ' ';
+//
+//$tasksLine .= ' task:exchangeAll_linkLines'
+////    . ' /s='
+//    . ' ';
+//$tasksLine .= 'task:execute' . ' ';
+//
+//$tasksLine .= ' task:exchangeAll_packages'
+////    . ' /s='
+//    . ' ';
+//$tasksLine .= 'task:execute' . ' ';
+//
+//$tasksLine .= ' task:exchangeAll_subPackageLines'
+////    . ' /s='
+//    . ' ';
+//$tasksLine .= 'task:execute' . ' ';
 
-$tasksLine .= ' task:exchangeAll_actCopyrightYearLines'
-//    . ' /s='
-    . ' ';
-$tasksLine .= 'task:execute' . ' ';
-
-$tasksLine .= ' task:exchangeAll_linkLines'
-//    . ' /s='
-    . ' ';
-$tasksLine .= 'task:execute' . ' ';
-
-$tasksLine .= ' task:exchangeAll_packages'
-//    . ' /s='
-    . ' ';
-$tasksLine .= 'task:execute' . ' ';
-
-$tasksLine .= ' task:exchangeAll_subPackageLines'
-//    . ' /s='
+$tasksLine = ' task:exchangeAll_fileHeaders'
     . ' ';
 $tasksLine .= 'task:execute' . ' ';
 
@@ -240,13 +244,13 @@ $tasksLine .= 'task:execute' . ' ';
 //$tasksLine .= 'task:execute' . ' ';
 
 $tasksLine .= ' task:increaseVersionId'
-    . ' /type=component'
+//    . ' /type=component'
     . ' /srcRoot="./../../RSGallery2_J4/'
     //    . ' /isNoRecursion=true'
     . ' /name=rsgallery2'
     . ' /version=major|minor|patch|dev'
     . ' /s='
-. ' ';
+    . ' ';
 $tasksLine .= 'task:execute' . ' ';
 
 

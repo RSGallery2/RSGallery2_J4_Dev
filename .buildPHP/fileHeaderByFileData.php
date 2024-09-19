@@ -1,4 +1,5 @@
 <?php
+// ToDo: Init write to log file with actual name
 
 namespace FileHeader;
 
@@ -14,25 +15,62 @@ use task\task;
 Class fileHeaderByFile
 ================================================================================*/
 
+/**
+ * Upgrade complete header in given file
+ *   * Will add missing lines
+ *   * Will keep author lines and similar from file
+ *   * will force license to standard value from code
+ *
+ * ??? ToDo: Call with property values in task option ???
+ * To force the exchange of a single line use fileHeaderByFileLine
+ */
 class fileHeaderByFileData extends fileHeaderData
 {
-
-    //
-    public fileHeaderData $oByFile;
-
     public string $fileName;
 
-    /**
-     * @var string array
-     */
-    public $originalLines = [];
+    /** * @var string array */
+    public $fileHeaderLines = [];
+
+    /** * @var string array */
+    public $newHeaderLines = [];
+
+    /** * @var string array */
+    public $preFileLines = [];
+    /** * @var string array */
+    public $postFileLines = [];
+
+    public fileHeaderData $oForceHeader;
 
     public bool $isValid = false;
 
-    public int $idxFirstLine = 0;
-    public int $idxLastLine = 0;
-
     public task $task;
+
+    //--- flags ----------------------------------
+
+    public bool $isForceStdPackage = false;
+    public bool $isForceStdSubpackage = false;
+    public bool $isForceStdActCopyright = false;
+    public bool $isForceStdSinceCopyright = false;
+    public bool $isForceStdCopyrightToday = false;
+    public bool $isForceStdLicense = false;
+    public bool $isForceStdAuthor = false;
+
+    public bool $isForcePackage = false;
+    public bool $isForceSubpackage = false;
+    public bool $isForceActCopyright = false;
+    public bool $isForceSinceCopyright = false;
+    public bool $isForceCopyright = false;
+    public bool $isForceLicense = false;
+    public bool $isForceAuthor = false;
+
+    public string $valueForcePackage = "";
+    public string $valueForceSubpackage = "";
+    public string $valueForceActCopyright = "";
+    public string $valueForceSinceCopyright = "";
+    public string $valueForceCopyright = "";
+    public string $valueForceLicense = "";
+    public string $valueForceAuthor = "";
+
 
     /*--------------------------------------------------------------------
     construction
@@ -42,232 +80,187 @@ class fileHeaderByFileData extends fileHeaderData
     {
         parent::__construct();
 
-        // dummy
-        $this->oByFile = new fileHeaderData();
+        // 
+        $this->oForceHeader = new fileHeaderData();
 
         $this->fileName = $srcFile;
+
+        $this->initFlags();
     }
 
 
     /*--------------------------------------------------------------------
-    exchangeLicense
+    importFileData
     --------------------------------------------------------------------*/
 
-    function exchangeLicense(string $fileName = "")
+    private function initFlags()
     {
-        $hasError = 0;
+        $this->isForceStdPackage = false;
+        $this->isForceStdSubpackage = false;
+        $this->isForceStdActCopyright = false;
+        $this->isForceStdSinceCopyright = false;
+        $this->isForceStdCopyrightToday = false;
+        $this->isForceStdLicense = false;
+        $this->isForceStdAuthor = false;
 
-        try {
-            print('*********************************************************' . "\r\n");
-            print('exchangeLicense' . "\r\n");
-            print ("FileName in: " . $fileName . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+        $this->isForcePackage = false;
+        $this->isForceSubpackage = false;
+        $this->isForceActCopyright = false;
+        $this->isForceSinceCopyright = false;
+        $this->isForceCopyright = false;
+        $this->isForceLicense = false;
+        $this->isForceAuthor = false;
 
-            if (!empty ($fileName)) {
-                $this->fileName = $fileName;
-            } else {
-                $fileName = $this->fileName;
-            }
-            print ("FileName use: " . $fileName . "\r\n");
-
-            $lines       = file($fileName);
-            $outLines    = [];
-            $isExchanged = false;
-            $licenseLine = $this->headerFormat('license', $this->license);
-
-            foreach ($lines as $line) {
-                if ($isExchanged) {
-                    $outLines [] = $line;
-                } else {
-                    //  * @license     GNU General Public License version 2 or la ....
-                    if (str_contains($line, '@license')) {
-                        if ($line != $licenseLine) {
-                            $outLines [] = $licenseLine;
-                            $isExchanged = true;
-                        } else {
-                            // line already fixed , no file write
-                            break;
-                        }
-                    } else {
-                        $outLines [] = $line;
-                    }
-                }
-            }
-
-            // write to file
-            if ($isExchanged == true) {
-                $isSaved = file_put_contents($fileName, $outLines);
-            }
-        } catch (Exception $e) {
-            echo 'Message: ' . $e->getMessage() . "\r\n";
-            $hasError = -101;
-        }
-
-        print('exit exchangeLicense: ' . $hasError . "\r\n");
-
-        return $hasError;
+        $this->valueForcePackage = "";
+        $this->valueForceSubpackage = "";
+        $this->valueForceActCopyright = "";
+        $this->valueForceSinceCopyright = "";
+        $this->valueForceCopyright = "";
+        $this->valueForceLicense = "";
+        $this->valueForceAuthor = "";
     }
 
-
-    /*--------------------------------------------------------------------
-    exchangeActCopyrightYear
-    --------------------------------------------------------------------*/
-
-    function exchangeActCopyrightYear(string $fileName = "", string $toYear = '')
+    public function assignTask(task $task): int
     {
         $hasError = 0;
 
-        try {
-            print('*********************************************************' . "\r\n");
-            print('exchangeActCopyrightYear' . "\r\n");
-            print ("FileName in: " . $fileName . "\r\n");
-            print ("Up to year in: " . $toYear . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+        $this->task = $task;
 
-            if (!empty ($fileName)) {
-                $this->fileName = $fileName;
-            } else {
-                $fileName = $this->fileName;
-            }
-            print ("FileName use: " . $fileName . "\r\n");
+//        // If needed :
+//        switch (strtolower($task->name)) {
+//            case 'upgradeHeader':
+//            ....
+//          break;
 
-            if (empty ($toYear)) {
-                $date_format = 'Y';
-                $toYear      = date($date_format);
-            }
-            print ("Up to year use: " . $toYear . "\r\n");
+        $options = $task->options;
 
+        foreach ($options->options as $option) {
 
-            $lines       = file($fileName);
-            $outLines    = [];
-            $isExchanged = false;
+            switch (strtolower($option->name)) {
 
-            foreach ($lines as $line) {
-                if ($isExchanged) {
-                    $outLines [] = $line;
-                } else {
-                    //   * @copyright (c)  2020-2022 Team
-                    if (str_contains($line, '@copyright')) {
-                        //  * @copyright (c)  2020-2022 Team
-                        // $outLine = preg_replace('/(.*\d+\-)(.* ?)(.*)/',
-                        $copyrightLine = preg_replace(
-                            '/(.* \d+-)(\d+)(.*)/',
-                            '${1}' . $toYear . '${3}',
-                            $line,
-                        );
-
-                        if ($line != $copyrightLine) {
-                            $outLines [] = $copyrightLine;
-                            $isExchanged = true;
-                        } else {
-                            // line already fixed, no file write
-                            break;
-                        }
-                    } else {
-                        $outLines [] = $line;
-                    }
-                }
-            }
-
-            // write to file
-            if ($isExchanged == true) {
-                $isSaved = file_put_contents($fileName, $outLines);
-            }
-        } catch (Exception $e) {
-            echo 'Message: ' . $e->getMessage() . "\r\n";
-            $hasError = -101;
-        }
-
-        print('exit exchangeActCopyrightYear: ' . $hasError . "\r\n");
-
-        return $hasError;
-    }
-
-    /*--------------------------------------------------------------------
-    extractHeaderFromFile
-    --------------------------------------------------------------------*/
-
-    function extractHeaderFromFile(string $fileName = ""): int
-    {
-        $hasError = 0;
-
-        try {
-            print('*********************************************************' . "\r\n");
-            print('extractFileHeader' . "\r\n");
-            print ("FileName in: " . $fileName . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
-
-            if (!empty ($fileName)) {
-                $this->fileName = $fileName;
-            } else {
-                $fileName = $this->fileName;
-            }
-            print ("FileName use: " . $fileName . "\r\n");
-
-            $lines = file($fileName);
-
-            $headerLines   = [];
-            $originalLines = [];
-            $this->isValid = false;
-
-            $isHasStart = false;
-            $isHasEnd   = false;
-            $isValid    = false;
-
-            $idx          = 0;
-            $idxFirstLine = 0;
-            $idxLastLine  = 0;
-            $maxIdx       = 30;
-
-            foreach ($lines as $line) {
-                if (str_starts_with(trim($line), '/**')) {
-                    $isHasStart   = true;
-                    $idxFirstLine = $idx;
-                }
-
-                if ($isHasStart) {
-                    // keep original
-                    $originalLines [] = $line;
-
-                    $headerLines [] = $line;
-
-                    if (str_contains($line, '@package')) {
-                        $isValid = true;
-                    }
-                }
-
-                // exit on valid section  (containing @package)
-                if (str_contains(trim($line), ' */')) {
-                    // comment before comment ?
-                    if (!$isValid) {
-                        $isHasStart  = false;
-                        $headerLines = [];
-                    } else {
-                        // valid section
-                        $idxLastLine = $idx;
-                        $isHasEnd    = true;
-                        break;
-                    }
-                }
-
-                $idx++;
-                //$idxLastLine = $idx;
-
-                // must be within first lines
-                if ($idx > $maxIdx) {
+                case 'filename':
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                    $this->fileName = $option->value;
                     break;
-                }
-            } // for lines n section
 
-            $this->originalLines = $originalLines;
+//				case 'X force...':
+//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					break;
+//
+//				case 'Y use...':
+//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					break;
+//
+//				case 'Z':
+//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+//					break;
 
-            if ($isHasEnd) {
-                $this->extractHeaderFromFileLines($headerLines);
-                $this->isValid = true;
+                default:
+                    print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
+            } // switch
 
-                $this->idxFirstLine = $idxFirstLine;
-                $this->idxLastLine  = $idxLastLine;
+        }
+
+
+        return $hasError;
+    }
+
+    public function execute(): int
+    {
+        $hasError = 0;
+        $task = $this->task;
+
+        // single lines exchange will write complete header lines
+
+        switch (strtolower($task->name)) {
+            case 'upgradeheader':
+                print ('Execute task: ' . $task->name . "\r\n");
+
+                $this->upgradeHeader($this->fileName);
+                break;
+
+//
+//            case 'X':
+//                print ('Execute task: ' . $task->name . "\r\n");
+//
+//
+//                break;
+//
+//            case 'Y':
+//                print ('Execute task: ' . $task->name . "\r\n");
+//
+//
+//                break;
+//
+//            case 'Y':
+//                print ('Execute task: ' . $task->name . "\r\n");
+//
+//
+//                break;
+
+            default:
+                print ('!!! Task not executed: ' . $task->name . '!!!' . "\r\n");
+
+                break;
+        }
+
+        return $hasError;
+    }
+
+    public function upgradeHeader(string $srcPathFileName): int
+    {
+        $hasError = 0;
+
+        $isChanged = false;
+
+        // read header
+        $this->importFileData($srcPathFileName);
+
+        // exchange user replacements
+
+        $this->replaceStandardHeaderLines();
+        $this->replaceForcedHeaderLines();
+
+        // compare new against file lines
+
+        $isChanged = $this->compareHeaderLines();
+
+        //  write back if changed
+        if ($isChanged && $this->isValid) {
+
+            $hasError = $this->writeFileByHeader($srcPathFileName);
+
+        }
+
+        return $hasError;
+    }
+
+    function importFileData(string $fileName = ""): int
+    {
+        $hasError = 0;
+        $isValid = false;
+        $this->isValid = false;
+
+        try {
+            print('*********************************************************' . "\r\n");
+            print('importFileData' . "\r\n");
+            print ("FileName in: " . $fileName . "\r\n");
+            print('---------------------------------------------------------' . "\r\n");
+
+            // sepearate lines to section header-, pre-, post-lines
+            $this->importLines($fileName);
+
+            $headerCount = count($this->fileHeaderLines);
+
+            if (0 < $headerCount && $headerCount < 20) {
+
+                $this->extractHeaderValuesFromLines($this->fileHeaderLines);
+
             }
+
+            // Check for ' * @ ....
+            $this->isValid = $this->check4ValidHeaderLines($this->fileHeaderLines);
+
 
             // todo: print ("headerLines: " . $headerLines . "\r\n");
             // ToDo: print result
@@ -281,187 +274,244 @@ class fileHeaderByFileData extends fileHeaderData
         return $hasError;
     }
 
-    /*--------------------------------------------------------------------
-    extractHeaderFromFileLines
-    --------------------------------------------------------------------*/
+    // ToDo: valid ... ? additional checks ? .....
 
-    function extractHeaderFromFileLines(array $lines = [])
+    /**
+     * @param string $fileName
+     * @return void
+     */
+    public function importLines(string $fileName): void
     {
-        $hasError = 0;
+        if (!empty ($fileName)) {
+            $this->fileName = $fileName;
+        } else {
+            $fileName = $this->fileName;
+        }
+        print ("FileName use: " . $fileName . "\r\n");
 
-        $this->additionalLines = [];
+        $lines = file($fileName);
 
-        try {
-            print('*********************************************************' . "\r\n");
-            print('extractHeaderFromFileLines' . "\r\n");
-            print ("lines in: " . count($lines) . "\r\n");
-            print('---------------------------------------------------------' . "\r\n");
+        //--- import and sort lines ----------------------------------------
 
-            // ToDo: Init write to log file with actual name
-            foreach ($lines as $line) {
-                [$name, $value] = $this->extractHeaderLine($line);
+        $preFileLines = [];
+        $postFileLines = [];
 
-                if (!empty ($name)) {
-                    switch ($name) {
-                        case 'package':
-                            $this->package = $value;
-                            break;
-                        case 'subpackage':
-                            $this->subpackage = $value;
-                            break;
-                        case 'copyright':
-                            $this->copyright = $value;
-                            break;
-                        case 'license':
-                            $this->license = $value;
-                            break;
-                        case 'author':
-                            $this->author = $value;
-                            break;
-                        case 'link':
-                            $this->link = $value;
-                            break;
+        $headerLines = [];
+//            $originalLines = [];
 
-                        default:
-                            $this->additionalLines [] = $line;
 
-                            break;
+        $isHasStart = false;
+        $isHasEnd = false;
+
+        $idxFirstLine = 0;
+        $idxLastLine = 0;
+
+        foreach ($lines as $line) {
+
+            //--- pre lines ---------------------------
+
+            // pre lines include without /** line */
+            if ($isHasStart == false) {
+
+                // start comment
+                if (!str_starts_with(trim($line), '/**')) {
+                    // first lines
+                    $preFileLines [] = $line;
+
+                } else {
+
+                    // header lines start line
+                    $isHasStart = true;
+                    $headerLines [] = $line;
+
+                    $this->preFileLines = $preFileLines;
+                }
+
+            } else {
+
+                //--- post lines ---------------------------
+
+                if ($isHasEnd) {
+                    $postFileLines [] = $line;
+
+                } else {
+
+                    //--- pure header lines ---------------------------
+
+                    $headerLines [] = $line;
+
+                    // end comment
+                    if (str_contains(trim($line), '*/')) {
+
+                        $isHasEnd = true;
+                        $this->fileHeaderLines = $headerLines;
+
+                    } else {
+
                     }
                 }
-            } // for lines n section
+            }
 
-//            // ToDo: Write to log file with actual name
-//            print ('!!! additional header line found: "' . $name . '" !!!' . "\r\n");
-//            if (count ($this->adittionalLines)) {
-//
-//            }
+        } // for lines in file
+
+        // keep lines
+        $this->postFileLines = $postFileLines;
+
+        return;
+    }
+
+    private function check4ValidHeaderLines(array|string $headerLines): bool
+    {
+        $isValid = false;
+
+        foreach ($headerLines as $line) {
+
+            // Check for ' * @ ....
+            if (str_contains($line, ' * @')) {
+                $isValid = true;
+                break;
+            }
+        }
+
+        return $isValid;
+    }
+
+    private function replaceStandardHeaderLines(): void
+    {
+        $standardHeader = new fileHeaderData();
+
+        if ($this->isForceStdPackage) {
+            $this->package = $standardHeader->package;
+        }
+
+        if ($this->isForceStdSubpackage) {
+            $this->package = $standardHeader->package;
+        }
+
+        if ($this->isForceStdActCopyright) {
+            // ToDo: update actual ...
+            $this->copyright = $standardHeader->copyright;
+        }
+
+        if ($this->isForceStdSinceCopyright) {
+            // ToDo: update actual ...
+            $this->copyright = $standardHeader->copyright;
+        }
+
+        if ($this->isForceStdCopyrightToday) {
+            // ToDo: update actual ...
+            $this->copyright = $standardHeader->copyright;
+        }
+
+        if ($this->isForceStdLicense) {
+            $this->license = $standardHeader->license;
+        }
+
+        if ($this->isForceStdAuthor) {
+            $this->author = $standardHeader->author;
+        }
+
+    }
+
+    private function replaceForcedHeaderLines(): void
+    {
+
+
+        if ($this->isForcePackage) {
+            $this->package = $this->valueForcePackage;
+        }
+
+        if ($this->isForceSubpackage) {
+            $this->package = $this->valueForceSubpackage;
+        }
+
+        if ($this->isForceActCopyright) {
+            // ToDo: update actual ...
+            // $this->copyright = $this->valueForceCopyright;
+        }
+
+        if ($this->isForceSinceCopyright) {
+            // ToDo: update actual ...
+            $this->copyright = $this->valueForceCopyright;
+        }
+
+        if ($this->isForceCopyright) {
+            // ToDo: update actual ...
+            $this->copyright = $this->valueForceCopyright;
+        }
+
+        if ($this->isForceLicense) {
+            $this->license = $this->valueForceLicense;
+        }
+
+        if ($this->isForceAuthor) {
+            $this->author = $this->valueForceAuthor;
+        }
+
+    }
+
+    private function compareHeaderLines(): bool
+    {
+        // create actual header lines
+        $this->newHeaderLines = $this->headerLines();
+
+        $isChanged = $this->newHeaderLines <=> $this->fileHeaderLines;
+
+        return $isChanged;
+    }
+
+    private function writeFileByHeader(string $fileName): bool
+    {
+        $isSaved = false;
+
+        try {
+            if (!empty ($fileName)) {
+                $this->fileName = $fileName;
+            } else {
+                $fileName = $this->fileName;
+            }
+            print ("FileName use: " . $fileName . "\r\n");
+
+
+            $outLines = [];
+
+            //--- pre lines ---------------------------
+
+            foreach ($this->preFileLines as $line) {
+                $outLines [] = $line;
+            }
+
+            //--- changed header lines ---------------------------
+
+            $headerLines = $this->newHeaderLines;
+            if (count($headerLines) == 0) {
+                $headerLines = $this->headerText();
+            }
+
+            foreach ($headerLines as $line) {
+                $outLines [] = $line;
+            }
+
+            //--- post lines ---------------------------
+
+            foreach ($this->postFileLines as $line) {
+                $outLines [] = $line;
+            }
+
+            $isSaved = file_put_contents($fileName, $outLines);
+
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
-        print('exit extractFileHeader: ' . $hasError . "\r\n");
-
-        return $hasError;
+        return $isSaved;
     }
-
-    private function extractHeaderLine(mixed $line)
-    {
-        $name  = '';
-        $value = '';
-
-        //  * @copyright (c) 2005-2024 RSGallery2 Team
-        $atIdx = strpos($line, '@');
-        if (!empty($atIdx)) {
-            $blankIdx = strpos($line, ' ', $atIdx + 1);
-
-            $name  = substr($line, $atIdx + 1, $blankIdx - $atIdx - 1);
-            $name  = trim($name);
-            $value = substr($line, $blankIdx + 1);
-            $value = trim($value);
-        }
-
-        return [$name, $value];
-    }
-
-
-    public function assignTask(task $task)
-    {
-        $this->task = $task;
-
-//        $options = $task->options;
-//
-//        foreach ($options->options as $option) {
-//
-//            switch (strtolower($option->name)) {
-//
-//                case 'srcroot':
-//                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-//                    $this->srcRoot = $option->value;
-//                    break;
-
-    }
-
-    public function execute()
-    {
-        $task = $this->task;
-        switch (strtolower($task->name)) {
-            case 'exchangepackage':
-                print ('Execute task: ' . $task->name . "\r\n");
-
-
-                break;
-
-            case 'exchangesubpackage':
-                print ('Execute task: ' . $task->name . "\r\n");
-
-
-                break;
-
-            case 'exchangelicense':
-                print ('Execute task: ' . $task->name . "\r\n");
-
-                $options  = $task->options;
-                $fileName = $options->getOption('fileName');
-                $this->exchangeLicense($fileName);
-                break;
-
-            case 'exchangeActCopyrightYear':
-                print ('Execute task: ' . $task->name . "\r\n");
-
-
-
-
-
-
-
-
-
-
-
-                $options       = $task->options;
-                $fileName      = $options->getOption('fileName');
-                $copyrightDate = $options->getOption('copyrightDate');
-
-                $this->exchangeActCopyrightYear($fileName, $copyrightDate);
-                break;
-
-            case 'exchangeauthor':
-                print ('Execute task: ' . $task->name . "\r\n");
-
-
-                break;
-
-            case 'exchangersglink':
-                print ('Execute task: ' . $task->name . "\r\n");
-
-
-                break;
-
-            case 'X':
-                print ('Execute task: ' . $task->name . "\r\n");
-
-
-                break;
-
-            case 'Y':
-                print ('Execute task: ' . $task->name . "\r\n");
-
-
-                break;
-
-            default:
-                print ('!!! Task not executed: ' . $task->name . '!!!' . "\r\n");
-
-                break;
-        }
-    }
-
 
     public function byFileText()
     {
         $OutTxt = "";
-        $OutTxt = "------------------------------------------" . "\r\n";
+        $OutTxt .= "------------------------------------------" . "\r\n";
         $OutTxt .= "--- fileHeaderByFile ---" . "\r\n";
 
         $OutTxt .= ">>> --- result ----------------" . "\r\n";
@@ -471,19 +521,12 @@ class fileHeaderByFileData extends fileHeaderData
         $OutTxt .= ">>> --- file data ----------------" . "\r\n";
 
         $OutTxt .= "fileName: " . $this->fileName . "\r\n";
-        $OutTxt .= $this->oByFile->text();
 
         $OutTxt .= ">>> --- file lines ----------------" . "\r\n";
 
         $OutTxt .= "fileName: " . $this->fileName . "\r\n";
 
         return $OutTxt;
-    }
-
-    public function replaceHeader(string $srcPathFileName)
-    {
-        yyyy
-
     }
 
 } // fileHeaderByFile

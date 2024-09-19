@@ -42,23 +42,9 @@ class options
 //        // print('exit __construct: ' . $hasError . "\r\n");
     }
 
-    public function clear(): void
-    {
-        $this->options = [];
-    }
-
     public function count(): int
     {
         return (count($this->options));
-    }
-
-
-    public function addOption(option $option): void
-    {
-        if (!empty ($option->name)) {
-            // $this->options [$option->name] = $option;
-            $this->options [] = $option;
-        }
     }
 
     public function getOption(string $name, bool $isIgnoreCase = false): string
@@ -82,10 +68,6 @@ class options
         return ($value);
     }
 
-    /*--------------------------------------------------------------------
-    extractOptionsFromString
-    --------------------------------------------------------------------*/
-
     public function extractOptionsFromString($inOptionsString = ""): options
     {
         $this->clear();
@@ -99,7 +81,7 @@ class options
 
                 // first find '=' then check for '"' .
                 $idxEqual = strpos($optionsString, "=");
-                $idxEnd   = strpos($optionsString, " ");
+                $idxEnd = strpos($optionsString, " ");
 
                 // last option in string
                 if ($idxEnd == false) {
@@ -145,6 +127,15 @@ class options
         return $this;
     }
 
+    public function clear(): void
+    {
+        $this->options = [];
+    }
+
+    /*--------------------------------------------------------------------
+    extractOptionsFromString
+    --------------------------------------------------------------------*/
+
     private function hasOptionChar(string $inOptionsString)
     {
         $isOption = false;
@@ -164,17 +155,13 @@ class options
         return $isOption;
     }
 
-    public function text4Line(): string
+    public function addOption(option $option): void
     {
-        $OutTxt = ""; // . "\r\n";
-
-        foreach ($this->options as $option) {
-            $OutTxt .= " " . $option->text4Line();
+        if (!empty ($option->name)) {
+            // $this->options [$option->name] = $option;
+            $this->options [] = $option;
         }
-
-        return $OutTxt;
     }
-
 
     public function text(): string
     {
@@ -183,6 +170,17 @@ class options
 
         foreach ($this->options as $option) {
             $OutTxt .= "   " . $option->text4Line() . "\r\n";
+        }
+
+        return $OutTxt;
+    }
+
+    public function text4Line(): string
+    {
+        $OutTxt = ""; // . "\r\n";
+
+        foreach ($this->options as $option) {
+            $OutTxt .= " " . $option->text4Line();
         }
 
         return $OutTxt;

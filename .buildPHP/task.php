@@ -33,16 +33,16 @@ class task
         $this->clear();
     }
 
-    public function __construct1(string $name, options $options)
-    {
-        $this->name    = $name;
-        $this->options = $options;
-    }
-
     public function clear(): void
     {
-        $this->name    = '';
+        $this->name = '';
         $this->options = new options();
+    }
+
+    public function __construct1(string $name, options $options)
+    {
+        $this->name = $name;
+        $this->options = $options;
     }
 
     public function extractTaskFromString($tasksString = ""): task
@@ -52,7 +52,7 @@ class task
         try {
             $tasksString = Trim($tasksString);
 
-            $taskName    = '';
+            $taskName = '';
             $taskOptions = new options;
 
             // 'task01name /option1 /option2=xxx /option3="01teststring"'
@@ -63,13 +63,13 @@ class task
                 $taskName = substr($tasksString, 5);
             } else {
                 // name with options (task:exchangeActCopyrightYear /fileName=".../src/Model/GalleryTreeModel.php" /copyrightDate=1999)
-                $taskName      = substr($tasksString, 5, $idx - 5);
+                $taskName = substr($tasksString, 5, $idx - 5);
                 $optionsString = substr($tasksString, $idx + 1);
 
                 $taskOptions = (new options())->extractOptionsFromString($optionsString);
             }
 
-            $this->name    = $taskName;
+            $this->name = $taskName;
             $this->options = $taskOptions;
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";

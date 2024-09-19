@@ -8,7 +8,6 @@ require_once "./exchangeAll_fileHeaders.php";
 // use \DateTime;
 
 use task\task;
-
 use function commandLine\argsAndOptions;
 use function commandLine\print_end;
 use function commandLine\print_header;
@@ -28,7 +27,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition    = "s:a:h12345";
+$optDefinition = "s:a:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -62,10 +61,8 @@ variables
 $tasksLine = ' task:exchangeAll_fileHeaders'
     . ' /srcRoot="./../../RSGallery2_J4"'
 //    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
-    . ' /isNoRecursion=true'
-//    . ' /srcRoot="./../../RSGallery2_J4"'
-    . ' '
-    . ' /authorText = ""'//    . ' /s='
+//    . ' /isNoRecursion=true'
+// ToDo:    . ' /authorText = ""'//    . ' /s='
 ;
 
 //$srcRoot = './../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop';

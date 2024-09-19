@@ -9,7 +9,6 @@ require_once "./fileHeaderByFileLine.php";
 // use DateTime;
 
 use task\task;
-
 use function commandLine\argsAndOptions;
 use function commandLine\print_end;
 use function commandLine\print_header;
@@ -26,7 +25,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition    = "f:t:h12345";
+$optDefinition = "f:t:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -43,7 +42,7 @@ variables
 $srcfile = '';
 // $srcfile = "./../../RSGallery2_J4/administrator/components/com_rsgallery2/src/Model/GalleryTreeModel.php";
 
-$taskLine  = '';
+$taskLine = '';
 $tasksLine = ' task:exchangeLicense'
     . ' /fileName="./../../RSGallery2_J4/administrator/components/com_rsgallery2/src/Model/GalleryTreeModel.php"';
 //$tasksLine = ' task:exchangeActCopyrightYear'

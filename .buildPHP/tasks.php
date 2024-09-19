@@ -26,23 +26,9 @@ class tasks
     public
     function __construct(
         $tasks = [],
-    ) {
+    )
+    {
         $this->tasks = $tasks;
-    }
-
-
-    public function addTask(task $task): void
-    {
-        if (!empty ($task->name)) {
-            // $this->tasks [$task->name] = $task;
-            $this->tasks [] = $task;
-        }
-    }
-
-
-    public function clear(): void
-    {
-        $this->tasks = [];
     }
 
     public function count(): int
@@ -50,7 +36,6 @@ class tasks
         return (count($this->tasks));
     }
 
-    // extract multiple tasks from string
     public function extractTasksFromString($tasksLine = ""): tasks
     {
         $this->clear();
@@ -64,7 +49,7 @@ class tasks
             if ($tasksLine != '') {
                 while ($this->isTaskStart($tasksLine)) {
                     $idxStart = strpos($tasksLine, ":");
-                    $idxNext  = strpos($tasksLine, "task:", $idxStart + 1);
+                    $idxNext = strpos($tasksLine, "task:", $idxStart + 1);
 
                     // last task
                     if ($idxNext == false) {
@@ -93,7 +78,38 @@ class tasks
         return $this;
     }
 
+    public function clear(): void
+    {
+        $this->tasks = [];
+    }
+
+    // extract multiple tasks from string
+
+    private function isTaskStart(string $tasksLine)
+    {
+        $isTask = false;
+
+        $tasksLine = Trim($tasksLine);
+        $checkPart = strtolower(substr($tasksLine, 0, 5));
+
+        // /option1 /option2=xxx /option3="01teststring"
+        if ($checkPart == 'task:') {
+            $isTask = true;
+        }
+
+        return $isTask;
+    }
+
     // ToDo: A task may have more attributes like *.ext to
+
+    public function addTask(task $task): void
+    {
+        if (!empty ($task->name)) {
+            // $this->tasks [$task->name] = $task;
+            $this->tasks [] = $task;
+        }
+    }
+
     public function extractTasksFromFile(string $taskFile): tasks
     {
         print('*********************************************************' . "\r\n");
@@ -104,7 +120,7 @@ class tasks
 
         try {
             $content = file_get_contents('data.txt'); //Get the file
-            $lines   = explode("\n", $content); //Split the file by each line
+            $lines = explode("\n", $content); //Split the file by each line
 
             foreach ($lines as $line) {
                 $line = trim($line);
@@ -128,7 +144,6 @@ class tasks
         return $this;
     }
 
-
     public function text4Line(): string
     {
         $OutTxt = "";
@@ -142,7 +157,6 @@ class tasks
         return $OutTxt;
     }
 
-
     public function text(): string
     {
         $OutTxt = "--- Tasks: ---" . "\r\n";
@@ -154,21 +168,6 @@ class tasks
         }
 
         return $OutTxt;
-    }
-
-    private function isTaskStart(string $tasksLine)
-    {
-        $isTask = false;
-
-        $tasksLine = Trim($tasksLine);
-        $checkPart = strtolower(substr($tasksLine, 0, 5));
-
-        // /option1 /option2=xxx /option3="01teststring"
-        if ($checkPart == 'task:') {
-            $isTask = true;
-        }
-
-        return $isTask;
     }
 
 
