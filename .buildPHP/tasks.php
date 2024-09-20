@@ -39,7 +39,13 @@ class tasks
     public function extractTasksFromString($tasksLine = ""): tasks
     {
         $this->clear();
+        $this->addTasksFromString($tasksLine);
 
+        return $this;
+    }
+
+    public function addTasksFromString($tasksLine = ""): tasks
+    {
         try {
             //        $tasks = "task:task00"
             //            . 'task:task01 /option1 /option2=xxx /option3="01teststring"'
