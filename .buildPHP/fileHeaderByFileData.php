@@ -51,7 +51,7 @@ class fileHeaderByFileData extends fileHeaderData
     public bool $isForceStdSubpackage = false;
     public bool $isForceStdActCopyright = false;
     public bool $isForceStdSinceCopyright = false;
-    public bool $isForceStdCopyrightToday = false;
+    public bool $isForceSinceCopyrightToToday = false;
     public bool $isForceStdLicense = false;
     public bool $isForceStdAuthor = false;
 
@@ -59,7 +59,7 @@ class fileHeaderByFileData extends fileHeaderData
     public bool $isForceSubpackage = false;
     public bool $isForceActCopyright = false;
     public bool $isForceSinceCopyright = false;
-    public bool $isForceCopyright = false;
+    public bool $isForceActCopyrightToToday = false;
     public bool $isForceLicense = false;
     public bool $isForceAuthor = false;
 
@@ -93,13 +93,13 @@ class fileHeaderByFileData extends fileHeaderData
     importFileData
     --------------------------------------------------------------------*/
 
-    private function initFlags()
+    private function initFlags():void
     {
         $this->isForceStdPackage = false;
         $this->isForceStdSubpackage = false;
         $this->isForceStdActCopyright = false;
         $this->isForceStdSinceCopyright = false;
-        $this->isForceStdCopyrightToday = false;
+        $this->isForceSinceCopyrightToToday = false;
         $this->isForceStdLicense = false;
         $this->isForceStdAuthor = false;
 
@@ -107,7 +107,7 @@ class fileHeaderByFileData extends fileHeaderData
         $this->isForceSubpackage = false;
         $this->isForceActCopyright = false;
         $this->isForceSinceCopyright = false;
-        $this->isForceCopyright = false;
+        $this->isForceActCopyrightToToday = false;
         $this->isForceLicense = false;
         $this->isForceAuthor = false;
 
@@ -211,8 +211,6 @@ class fileHeaderByFileData extends fileHeaderData
     {
         $hasError = 0;
 
-        $isChanged = false;
-
         // read header
         $this->importFileData($srcPathFileName);
 
@@ -303,9 +301,6 @@ class fileHeaderByFileData extends fileHeaderData
         $isHasStart = false;
         $isHasEnd = false;
 
-        $idxFirstLine = 0;
-        $idxLastLine = 0;
-
         foreach ($lines as $line) {
 
             //--- pre lines ---------------------------
@@ -346,8 +341,6 @@ class fileHeaderByFileData extends fileHeaderData
                         $isHasEnd = true;
                         $this->fileHeaderLines = $headerLines;
 
-                    } else {
-
                     }
                 }
             }
@@ -385,22 +378,17 @@ class fileHeaderByFileData extends fileHeaderData
         }
 
         if ($this->isForceStdSubpackage) {
-            $this->package = $standardHeader->package;
+            $this->subpackage = $standardHeader->subpackage;
         }
 
         if ($this->isForceStdActCopyright) {
             // ToDo: update actual ...
-            $this->copyright = $standardHeader->copyright;
+            $this->actCopyrightDate = $standardHeader->actCopyrightDate;
         }
 
         if ($this->isForceStdSinceCopyright) {
             // ToDo: update actual ...
-            $this->copyright = $standardHeader->copyright;
-        }
-
-        if ($this->isForceStdCopyrightToday) {
-            // ToDo: update actual ...
-            $this->copyright = $standardHeader->copyright;
+            $this->sinceCopyrightDate = $standardHeader->sinceCopyrightDate;
         }
 
         if ($this->isForceStdLicense) {
@@ -415,8 +403,6 @@ class fileHeaderByFileData extends fileHeaderData
 
     private function replaceForcedHeaderLines(): void
     {
-
-
         if ($this->isForcePackage) {
             $this->package = $this->valueForcePackage;
         }
@@ -426,18 +412,19 @@ class fileHeaderByFileData extends fileHeaderData
         }
 
         if ($this->isForceActCopyright) {
-            // ToDo: update actual ...
-            // $this->copyright = $this->valueForceCopyright;
+            $this->actCopyrightDate = $this->valueForceCopyright;
+        }
+
+        if ($this->isForceSinceCopyrightToToday) {
+            $this->sinceCopyrightDate = $this->yearToday;
         }
 
         if ($this->isForceSinceCopyright) {
-            // ToDo: update actual ...
-            $this->copyright = $this->valueForceCopyright;
+            $this->sinceCopyrightDate = $this->valueForceCopyright;
         }
 
-        if ($this->isForceCopyright) {
-            // ToDo: update actual ...
-            $this->copyright = $this->valueForceCopyright;
+        if ($this->isForceActCopyrightToToday) {
+            $this->actCopyrightDate = $this->yearToday;
         }
 
         if ($this->isForceLicense) {

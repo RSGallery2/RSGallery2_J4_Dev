@@ -129,6 +129,7 @@ class fileHeaderByFileLine extends fileHeaderData
 
         // assign standard
         $packageLine = $this->headerFormat('package', $this->package);
+
         return $packageLine;
     }
 
@@ -214,6 +215,7 @@ class fileHeaderByFileLine extends fileHeaderData
 
         // assign standard
         $subPackageLine = $this->headerFormat('subpackage', $this->subpackage);
+
         return $subPackageLine;
     }
 
@@ -355,6 +357,7 @@ class fileHeaderByFileLine extends fileHeaderData
 
         // assign standard
         $LinkLine = $this->headerFormat('link', $this->link);
+
         return $LinkLine;
     }
 
@@ -527,6 +530,7 @@ class fileHeaderByFileLine extends fileHeaderData
 
         // assign standard
         $licenseLine = $this->headerFormat('license', $this->license);
+
         return $licenseLine;
     }
 
@@ -597,21 +601,19 @@ class fileHeaderByFileLine extends fileHeaderData
 
     /**
      * @param mixed $line
-     * @param string $toYear
+     * @param string $year
      * @return string
      */
-    public function replaceActCopyrightLine(mixed $line, string $toYear): string
+    public function replaceActCopyrightLine(mixed $line, string $year): string
     {
-        $oldValue = $this->scan4CopyrightHeaderInLine($line);
+        [$this->sinceCopyrightDate, $this->actCopyrightDate] =
+            $this->scan4CopyrightHeaderInLine($line);
 
-        //  * @copyright (c)  2020-2022 Team
-        // value: 2020-2022 Rsgallery2 Team
-        $newValue = preg_replace(
-            '/(.*\d+-)(\d+)(.*)/',
-            '${1}' . $toYear . '${3}',
-            $oldValue,
-        );
-        $copyrightLine = $this->headerFormat('copyright  (c)', $newValue);
+        $this->actCopyrightDate = $year;
+
+        $copyrightLine = $this->headerFormatCopyright(
+            $this->sinceCopyrightDate, $this->actCopyrightDate);
+
         return $copyrightLine;
     }
 
@@ -691,17 +693,14 @@ class fileHeaderByFileLine extends fileHeaderData
      */
     public function replaceSinceCopyrightLine(mixed $line, string $sinceYear): string
     {
-        $oldValue = $this->scan4CopyrightHeaderInLine($line);
+        [$this->sinceCopyrightDate, $this->actCopyrightDate] =
+            $this->scan4CopyrightHeaderInLine($line);
 
-        //  * @copyright (c)  2020-2022 Rsgallery2 Team
-        // value: 2020-2022 Rsgallery2 Team
-        // $outLine = preg_replace('/(.*\d+\-)(.* ?)(.*)/',
-        $newValue = preg_replace(
-            '/(\d+)(-\d+.*)/',
-            $sinceYear . '${2}',
-            $oldValue,
-        );
-        $copyrightLine = $this->headerFormat('copyright  (c)', $newValue);
+        $this->sinceCopyrightDate = $sinceYear;
+
+        $copyrightLine = $this->headerFormatCopyright(
+            $this->sinceCopyrightDate, $this->actCopyrightDate);
+
         return $copyrightLine;
     }
 

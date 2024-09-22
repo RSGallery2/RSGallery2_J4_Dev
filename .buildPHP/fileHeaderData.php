@@ -14,12 +14,15 @@ use Exception;
 
 class fileHeaderData
 {
-    const CONSTANT = 'constant value';
-
     const PACKAGE = "RSGallery2";
     const SUBPACKAGE = "com_rsgallery2";
+
+    const COPYRIGHT_PRE_HEADER  = "copyright  (c)";
     // 2019 start of J!4 version
     const SINCE_COPYRIGHT_DATE = "2019";
+
+    const POST_COPYRIGHT_AUTHOR  = "RSGallery2 Team";
+
     const LICENSE = "GNU General Public License version 2 or later";
     //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
     const AUTHOR = "RSGallery2 Team <team2@rsgallery2.org>";
@@ -37,7 +40,7 @@ class fileHeaderData
     private string $copyrightPreHeader; // = "copyright  (c)";
     public string $actCopyrightDate; // = "2024";
     public string $sinceCopyrightDate; // = "2019";
-    private string $postCopyrightAuthor; // = "RSGallery2 team";
+    private string $postCopyrightAuthor; // = "RSGallery2 Team";
     
     public string $yearToday = "????";
 
@@ -87,22 +90,22 @@ class fileHeaderData
 
         $this->package = self::PACKAGE;
         $this->subpackage = self::SUBPACKAGE;
+
+        $this->copyrightPreHeader = self::COPYRIGHT_PRE_HEADER;
         // 2019 start of J!4 version
         $this->actCopyrightDate = $yearToday;
         $this->sinceCopyrightDate = self::SINCE_COPYRIGHT_DATE;
         $this->yearToday = $yearToday;
+        $this->postCopyrightAuthor = self::POST_COPYRIGHT_AUTHOR;
+
         $this->license = self::LICENSE;
         $this->author = self::AUTHOR;
         $this->link = self::LINK;
-
-        // $this->addition = "RSGallery is Free Software";
-        // $this->since = ""; see constManifest.php
-        // $this->$version = ""; see constManifest.php
     }
 
     function useActual4SinceDate () {
 
-        $this->sinceCopyrightDate  = $this->actCopyrightDate;
+        $this->sinceCopyrightDate  = $this->yearToday;
 
     }
 
@@ -129,7 +132,8 @@ class fileHeaderData
 
                 if (!empty ($name)) {
                     if ($name == 'copyright') {
-                        [$this->actCopyrightDate, $this->sinceCopyrightDate] =
+                        // extract dates from line
+                        [$this->sinceCopyrightDate, $this->actCopyrightDate] =
                             $this->scan4CopyrightHeaderInLine($line);
                     } else {
                         $value = $this->scan4HeaderValueInLine($name, $line);
@@ -312,7 +316,7 @@ class fileHeaderData
 
         $headerLine = str_pad(" * @" . $this->copyrightPreHeader, $padCount, " ", STR_PAD_RIGHT);
         $headerLine .= $sinceCopyrightDate . '-' . $actCopyrightDate;
-        $headerLine .= $this->postCopyrightAuthor;
+        $headerLine .= ' ' . $this->postCopyrightAuthor;
 
         $headerLine = rtrim($headerLine) . "\r\n";
 
