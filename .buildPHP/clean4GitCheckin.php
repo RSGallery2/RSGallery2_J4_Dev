@@ -20,11 +20,11 @@ class clean4GitCheckin implements executeTasksInterface
 {
 
     public string $srcRoot = "";
+    private bool $isNoRecursion = false;
     /**
      * @var fileNamesList
      */
     public fileNamesList $fileNamesList;
-    private bool $isNoRecursion = false;
 
 
     /*--------------------------------------------------------------------

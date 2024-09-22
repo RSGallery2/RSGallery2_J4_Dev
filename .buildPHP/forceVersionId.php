@@ -27,7 +27,8 @@ class forceVersionId implements executeTasksInterface
      */
     public fileNamesList $fileNamesList;
     private string $srcRoot = '';
-    private string $name = '';
+    private bool $isNoRecursion = false;
+    public readonly string $name;
 
     // internal
     private string $componentVersion = '';

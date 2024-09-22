@@ -19,12 +19,14 @@ Class increaseVersionId
 class increaseVersionId implements executeTasksInterface
 {
 
+    public readonly string $name;
+
     /**
      * @var fileNamesList
      */
     public fileNamesList $fileNamesList;
     private string $srcRoot = '';
-    private string $name = '';
+    private bool $isNoRecursion = false;
 
     // internal
     private string $componentVersion = '';

@@ -140,7 +140,7 @@ class doBuildTasks
                     //--- let the task run -------------------------
 
                     case 'execute':
-                        print ('>>> Call execute task:  >>>' . "\r\n");
+                        print ('>>> Call execute task: "' . $this->actTask->name . '"  >>>' . "\r\n");
 
                         // ToDo: dummy task
 //                        if (empty ($this->actTask)){
@@ -167,6 +167,8 @@ class doBuildTasks
                         $this->actTask = $this->createTask($filenamesList, $textTask);
                         $filenamesList->execute();
 
+                        print ('createFilenamesList count: ' . count ($this->fileNamesList->fileNames) . "\r\n");
+
                         $this->fileNamesList = $filenamesList;
 
                         break;
@@ -182,6 +184,8 @@ class doBuildTasks
                         if (empty($this->fileNamesList)) {
                             $this->fileNamesList = new fileNamesList ();
                         }
+
+                        print ('add2FilenamesList count: ' . count ($filenamesList->fileNamesList->fileNames) . "\r\n");
 
                         $this->fileNamesList->addFilenames($filenamesList->fileNames);
                         break;
@@ -294,7 +298,7 @@ class doBuildTasks
 
     private function createTask(executeTasksInterface $execTask, task $textTask): executeTasksInterface
     {
-        print ('Assign task: ' . $textTask->name);
+        print ('Assign task: ' . $textTask->name . "\r\n");
 
         $execTask->assignTask($textTask);
 

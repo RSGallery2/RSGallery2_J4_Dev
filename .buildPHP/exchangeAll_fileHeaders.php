@@ -26,6 +26,7 @@ class exchangeAll_fileHeaders implements executeTasksInterface
      */
     public fileNamesList $fileNamesList;
     private bool $isNoRecursion = false;
+    public readonly string $name;
 
 
     /*--------------------------------------------------------------------

@@ -26,17 +26,8 @@ class fileHeaderByFileLine extends fileHeaderData
 
     public string $fileName;
 
-    /**
-     * @var string array
-     */
-    public $originalLines = [];
-
-    public bool $isValid = false;
-
-    public int $idxFirstLine = 0;
-    public int $idxLastLine = 0;
-
     public task $task;
+    public readonly string $name;
 
     /*--------------------------------------------------------------------
     construction
@@ -57,7 +48,7 @@ class fileHeaderByFileLine extends fileHeaderData
     exchangePackage
     --------------------------------------------------------------------*/
 
-    function exchangePackage(string $fileName = "")
+    function exchangePackage(string $fileName = ""):int
     {
         $hasError = 0;
 
@@ -134,7 +125,7 @@ class fileHeaderByFileLine extends fileHeaderData
     }
 
     /*--------------------------------------------------------------------
-    insertSubPackage
+    exchangeSubPackage
     --------------------------------------------------------------------*/
 
     function exchangeSubPackage(string $fileName = "")
@@ -380,6 +371,7 @@ class fileHeaderByFileLine extends fileHeaderData
 //                    $this->srcRoot = $option->value;
 //                    break;
 
+        return 0;
     }
 
     public function execute(): int
@@ -458,6 +450,8 @@ class fileHeaderByFileLine extends fileHeaderData
 
                 break;
         }
+
+        return 0;
     }
 
     function exchangeLicense(string $fileName = "")

@@ -19,7 +19,7 @@ class forceCreationDate implements executeTasksInterface
 {
 
     private string $srcRoot = '';
-    private string $name = '';
+    public readonly string $name;
 
     private string $creationDate;
 

@@ -44,6 +44,7 @@ class fileHeaderByFileData extends fileHeaderData
     public bool $isValid = false;
 
     public task $task;
+    public readonly string $name;
 
     //--- flags ----------------------------------
 

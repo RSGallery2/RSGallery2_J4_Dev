@@ -41,7 +41,7 @@ class buildRelease implements executeTasksInterface
     private string $srcRoot = '';
     private bool $isNoRecursion = false;
     private string $buildDir = '';
-    private string $name = '';
+    public readonly string $name;
     private string $extension = '';
 
     private string $componentVersion = '5.0.12.4';
