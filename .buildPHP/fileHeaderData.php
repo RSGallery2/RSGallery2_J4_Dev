@@ -10,16 +10,36 @@ namespace FileHeader;
 Class fileHeader
 ================================================================================*/
 
+use Exception;
+
 class fileHeaderData
 {
+    const CONSTANT = 'constant value';
+
+    const PACKAGE = "RSGallery2";
+    const SUBPACKAGE = "com_rsgallery2";
+    // 2019 start of J!4 version
+    const SINCE_COPYRIGHT_DATE = "2019";
+    const LICENSE = "GNU General Public License version 2 or later";
+    //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
+    const AUTHOR = "RSGallery2 Team <team2@rsgallery2.org>";
+    const LINK = "https://www.rsgallery2.org";
+
 
     //
-    public string $package = "RSGallery2";
+    public string $package; // = "RSGallery2";
     //
-    public string $subpackage = "com_rsgallery2";
-    //
-    public string $copyright = "2016-2024 RSGallery2 Team";
-    public string $copyrightToday = "2024-2024 RSGallery2 Team";
+    public string $subpackage; // = "com_rsgallery2";
+
+    // copyright
+    // " * @copyright  (c)  2003-2024 RSGallery2 Team"
+
+    private string $copyrightPreHeader; // = "copyright  (c)";
+    public string $actCopyrightDate; // = "2024";
+    public string $sinceCopyrightDate; // = "2019";
+    private string $postCopyrightAuthor; // = "RSGallery2 team";
+    
+    public string $yearToday = "????";
 
     //public string $license = "GNU General Public License version 3 or later";
     public string $license = "GNU General Public License version 2 or later";
@@ -45,7 +65,7 @@ class fileHeaderData
      */
     public $additionalLines = [];
 
-    // adjust lengt of 'name' before value
+    // adjust length of 'name' before value
     private int $padCount = 20; // By 'subpackage' name length
     // private int $padCountCopyright = 15; // By 'subpackage' name length
 
@@ -63,24 +83,30 @@ class fileHeaderData
     {
         // $date_format        = 'Ymd';
         $date_format = 'Y';
-        $copyrightDate = date($date_format);
+        $yearToday = date($date_format);
 
-        $this->package = "RSGallery2";
-        $this->subpackage = "com_rsgallery2";
-        $this->copyright = "2016-2024 RSGallery2 Team";
-        $this->copyrightToday = $copyrightDate . "-" . $copyrightDate . " RSGallery2 Team";
-        $this->license = "GNU General Public License version 2 or later";
-        //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
-        $this->author = "RSGallery2 Team <team2@rsgallery2.org>";
-        $this->link = "https://www.rsgallery2.org";
+        $this->package = self::PACKAGE;
+        $this->subpackage = self::SUBPACKAGE;
+        // 2019 start of J!4 version
+        $this->actCopyrightDate = $yearToday;
+        $this->sinceCopyrightDate = self::SINCE_COPYRIGHT_DATE;
+        $this->yearToday = $yearToday;
+        $this->license = self::LICENSE;
+        $this->author = self::AUTHOR;
+        $this->link = self::LINK;
 
         // $this->addition = "RSGallery is Free Software";
         // $this->since = ""; see constManifest.php
         // $this->$version = ""; see constManifest.php
+    }
+
+    function useActual4SinceDate () {
+
+        $this->sinceCopyrightDate  = $this->actCopyrightDate;
 
     }
 
-    /*--------------------------------------------------------------------
+/*--------------------------------------------------------------------
     extractNameFromHeaderLine
     --------------------------------------------------------------------*/
 
@@ -103,36 +129,34 @@ class fileHeaderData
 
                 if (!empty ($name)) {
                     if ($name == 'copyright') {
-                        $value = $this->scan4CopyrightHeaderInLine($line);
+                        [$this->actCopyrightDate, $this->sinceCopyrightDate] =
+                            $this->scan4CopyrightHeaderInLine($line);
                     } else {
                         $value = $this->scan4HeaderValueInLine($name, $line);
-                    }
 
-                    switch ($name) {
-                        case 'package':
-                            $this->package = $value;
-                            break;
-                        case 'subpackage':
-                            $this->subpackage = $value;
-                            break;
-                        case 'copyright':
-                            $this->copyright = $value;
-                            break;
-                        case 'license':
-                            $this->license = $value;
-                            break;
-                        case 'author':
-                            $this->author = $value;
-                            break;
-                        case 'link':
-                            $this->link = $value;
-                            break;
+                        switch ($name) {
+                            case 'package':
+                                $this->package = $value;
+                                break;
+                            case 'subpackage':
+                                $this->subpackage = $value;
+                                break;
+                            case 'license':
+                                $this->license = $value;
+                                break;
+                            case 'author':
+                                $this->author = $value;
+                                break;
+                            case 'link':
+                                $this->link = $value;
+                                break;
 
-                        default:
-                            if (trim($line) != '') {
-                                $this->additionalLines [] = $line;
-                            }
-                            break;
+                            default:
+                                if (trim($line) != '') {
+                                    $this->additionalLines [] = $line;
+                                }
+                                break;
+                        }
                     }
                 } else {
                     if (trim($line) != '') {
@@ -161,12 +185,14 @@ class fileHeaderData
     extractHeaderValuesFromLines
     --------------------------------------------------------------------*/
 
+    // '(c)' of copyright will be ignored here
     private function extractNameFromHeaderLine(string $line)
     {
         $name = '';
         $behind = '';
 
         //  * @copyright (c) 2005-2024 RSGallery2 Team
+        //  * @subpackage      com_rsgallery2
         $atIdx = strpos($line, '@');
         if (!empty($atIdx)) {
             $blankIdx = strpos($line, ' ', $atIdx + 1);
@@ -183,17 +209,29 @@ class fileHeaderData
     public function scan4CopyrightHeaderInLine(string $line)
     {
         // fall back
-        $value = $this->copyrightToday;
+        $sinceCopyrightDate = "2016";
+        $actCopyrightDate = "2024";
+
+        $value = $this->yearToday;
 
         //   * @copyright (c)  2020-2022 Team
         $idx = strpos($line, '(c)');
         if ($idx !== false) {
             $idx += 1 + strlen('(c)');
 
-            $value = trim(substr($line, $idx));
+            //$valuePart = trim(substr($line, $idx));
+            // preg_match_all('/\d+/', $valuePart, $matches);
+            preg_match_all('/\d+/', $line, $matches);
+
+            $finds = $matches [0];
+            if (count ($finds) > 2)
+            {
+                $sinceCopyrightDate = $finds[0];
+                $actCopyrightDate = $finds[1];
+            }
         }
 
-        return $value;
+        return [$sinceCopyrightDate, $actCopyrightDate];
     }
 
     public function scan4HeaderValueInLine(string $name, string $line): string
@@ -216,11 +254,16 @@ class fileHeaderData
         $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt .= "--- fileHeader ---" . "\r\n";
 
-        $OutTxt .= "copyright: " . $this->copyright . "\r\n";
-        $OutTxt .= "creationDateToday: " . $this->copyrightToday . "\r\n";
-        $OutTxt .= "author: " . $this->author . "\r\n";
-        $OutTxt .= "license: " . $this->license . "\r\n";
-        $OutTxt .= "package: " . $this->package . "\r\n";
+        $OutTxt .= "/**" . "\r\n";
+
+        $OutTxt .= $this->headerFormat('package', $this->package);
+        $OutTxt .= $this->headerFormat('subpackage', $this->subpackage);
+        $OutTxt .= $this->headerFormat('author', $this->author);
+        $OutTxt .= $this->headerFormatCopyright(
+            $this->sinceCopyrightDate, $this->actCopyrightDate);
+        $OutTxt .= $this->headerFormat('license', $this->license);
+
+        $OutTxt .= " */" . "\r\n";
 
         return $OutTxt;
     }
@@ -235,7 +278,8 @@ class fileHeaderData
             $outLines[] = $this->headerFormat('package', $this->package);
             $outLines[] = $this->headerFormat('subpackage', $this->subpackage);
             $outLines[] = $this->headerFormat('author', $this->author);
-            $outLines[] = $this->headerFormat('copyright  (c)', $this->copyright);
+            $outLines[] = $this->headerFormatCopyright(
+                $this->sinceCopyrightDate, $this->actCopyrightDate);
             $outLines[] = $this->headerFormat('license', $this->license);
 
             $outLines[] = " */" . "\r\n";
@@ -248,13 +292,27 @@ class fileHeaderData
         return $outLines;
     }
 
-    public function headerFormat($name, $value) // , int $padCount
+    public function headerFormat($name, $value): string // , int $padCount
     {
         // copyright begins earlier
         $padCount = $this->padCount;
 
         $headerLine = str_pad(" * @" . $name, $padCount, " ", STR_PAD_RIGHT);
         $headerLine .= $value;
+
+        $headerLine = rtrim($headerLine) . "\r\n";
+
+        return $headerLine;
+    }
+
+    public function headerFormatCopyright($sinceCopyrightDate, $actCopyrightDate): string // , int $padCount
+    {
+        // copyright begins earlier
+        $padCount = $this->padCount;
+
+        $headerLine = str_pad(" * @" . $this->copyrightPreHeader, $padCount, " ", STR_PAD_RIGHT);
+        $headerLine .= $sinceCopyrightDate . '-' . $actCopyrightDate;
+        $headerLine .= $this->postCopyrightAuthor;
 
         $headerLine = rtrim($headerLine) . "\r\n";
 
@@ -277,16 +335,11 @@ class fileHeaderData
         $OutTxt .= $this->headerFormat('package', $this->package);
         $OutTxt .= $this->headerFormat('subpackage', $this->subpackage);
         $OutTxt .= $this->headerFormat('author', $this->author);
-        $OutTxt .= $this->headerFormat('copyright  (c)', $this->copyright);
+        $OutTxt .= $this->headerFormatCopyright(
+            $this->sinceCopyrightDate, $this->actCopyrightDate);
         $OutTxt .= $this->headerFormat('license', $this->license);
 
 //       $OutTxt .= $this->headerFormat('link', $this->link);
-
-//        $OutTxt .= $this->headerFormat('', $this->license);
-//        $OutTxt .= $this->headerFormat('license', $this->license);
-//        $OutTxt .= $this->headerFormat('license', $this->license);
-//        $OutTxt .= $this->headerFormat('license', $this->license);
-
 
         $OutTxt .= " */" . "\r\n";
 

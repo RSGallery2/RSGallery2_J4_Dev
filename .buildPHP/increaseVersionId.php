@@ -184,6 +184,7 @@ class increaseVersionId implements executeTasksInterface
                 } else {
                     // 	<version>5.0.12.4</version>
                     if (str_contains($line, '<version>')) {
+                        // ToDo: preg_match ...
                         $actVersion = preg_replace(
                             '/.*<version>(.*)<\/version>.*/',
                             '${1}',
@@ -192,7 +193,7 @@ class increaseVersionId implements executeTasksInterface
                         $newVersion = $this->increaseVersion($actVersion);
                         // exchange for new version
                         $outLine = preg_replace(
-                            '/(.*>?)(.*)(<.*)/',
+                            '/(.*<version>)(.*)(<\/version>.*)/',
                             '${1}' . $newVersion . '${3}',
                             $line,
                         );
