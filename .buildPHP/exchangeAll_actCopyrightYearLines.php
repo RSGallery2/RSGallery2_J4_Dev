@@ -3,11 +3,13 @@
 namespace exchangeAll_actCopyrightYear;
 
 require_once "./iExecTask.php";
+require_once "./baseExecuteTasks.php";
 require_once "./fileHeaderByFileLine.php";
 
 
 // use \DateTime;
 use Exception;
+use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use FileHeader\fileHeaderByFileLine;
 use FileNamesList\fileNamesList;
@@ -17,22 +19,19 @@ use task\task;
 Class exchangeAll_actCopyrightYear
 ================================================================================*/
 
-class exchangeAll_actCopyrightYearLines implements executeTasksInterface
+class exchangeAll_actCopyrightYearLines extends baseExecuteTasks
+    implements executeTasksInterface
 {
-
-    public string $srcRoot = "";
-    private bool $isNoRecursion = false;
     public string $yearText = "";
     /**
      * @var fileNamesList
      */
-    public fileNamesList $fileNamesList;
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-    public function __construct($srcRoot = "", $yearText = "")
+    public function __construct($srcRoot = "", $isNoRecursion=false, $yearText = "")
     {
         $hasError = 0;
         try {
@@ -41,10 +40,10 @@ class exchangeAll_actCopyrightYearLines implements executeTasksInterface
 //            print ("yearText: " . $yearText . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-            $this->srcRoot = $srcRoot;
+            parent::__construct ($srcRoot = "", $isNoRecursion=false);
+
             $this->yearText = $yearText;
 
-            $this->fileNamesList = new fileNamesList();
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;

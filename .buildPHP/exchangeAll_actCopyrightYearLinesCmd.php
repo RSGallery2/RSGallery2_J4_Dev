@@ -52,6 +52,7 @@ $tasksLine = ' task:exchangeAll_actCopyrightYear'
 //$srcRoot = './../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop';
 //$srcRoot = './../../RSGallery2_J4';
 $srcRoot = '';
+$isNoRecursion = true;
 
 //$licenseText = "GNU General Public License version 2 or later;";
 //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
@@ -109,7 +110,7 @@ $task = new task();
 $task->extractTaskFromString($tasksLine);
 
 
-$oExchangeAllActCopyright = new exchangeAll_actCopyrightYearLines($srcRoot, $yearText);
+$oExchangeAllActCopyright = new exchangeAll_actCopyrightYearLines($srcRoot, $isNoRecursion, $yearText);
 
 $hasError = $oExchangeAllActCopyright->assignTask($task);
 if ($hasError) {

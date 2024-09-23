@@ -3,11 +3,13 @@
 namespace exchangeAll_licenseLines;
 
 require_once "./iExecTask.php";
+require_once "./baseExecuteTasks.php";
 require_once "./fileHeaderByFileLine.php";
 
 
 // use \DateTime;
 use Exception;
+use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use FileHeader\fileHeaderByFileLine;
 use FileNamesList\fileNamesList;
@@ -17,17 +19,10 @@ use task\task;
 Class exchangeAllLicenses
 ================================================================================*/
 
-class exchangeAll_licenseLines implements executeTasksInterface
+class exchangeAll_licenseLines extends baseExecuteTasks
+    implements executeTasksInterface
 {
-
-    public string $srcRoot = "";
     public string $licenseText = "";
-    /**
-     * @var fileNamesList
-     */
-    public fileNamesList $fileNamesList;
-    private bool $isNoRecursion = false;
-
 
     /*--------------------------------------------------------------------
     construction
@@ -42,10 +37,10 @@ class exchangeAll_licenseLines implements executeTasksInterface
 //            print ("licenseText: " . $licenseText . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-            $this->srcRoot = $srcRoot;
+            parent::__construct ($srcRoot = "", $isNoRecursion=false);
+
             $this->licenseText = $licenseText;
 
-            $this->fileNamesList = new fileNamesList();
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;

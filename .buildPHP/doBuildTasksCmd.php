@@ -161,8 +161,8 @@ $tasksLine .= "task:add2FilenamesList"
 //   . ' /includeFolder="./Administrator'
     . ' ';
 
-$tasksLine .= "task:printFilenamesList"
-    . ' ';
+//$tasksLine .= "task:printFilenamesList"
+//    . ' ';
 
 $collectedTasks->addTasksFromString($tasksLine);
 $collectedTasks->addTasksFromString('task:execute');
