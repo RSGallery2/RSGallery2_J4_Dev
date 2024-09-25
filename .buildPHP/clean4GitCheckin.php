@@ -3,6 +3,8 @@
 namespace clean4GitCheckin;
 
 require_once "./iExecTask.php";
+require_once "./baseExecuteTasks.php";
+
 require_once "./fileHeaderByFileLine.php";
 
 

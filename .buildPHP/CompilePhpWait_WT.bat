@@ -1,12 +1,12 @@
 @ECHO OFF
 REM Compiles given *.php file 
 
-php --version
+"C:\Program Files\php82\php.exe" --version
 
 REM echo.
 echo --- %1
-echo --- php -l compileall %1
-php -l  %1
+echo --- "C:\Program Files\php82\php.exe" -l compileall %1
+"C:\Program Files\php82\php.exe" -l  %1
 if errorlevel 1 Call :ErrAtRegSvr %1
 echo done
 
@@ -24,7 +24,7 @@ REM	@ECHO OFF
 	PAUSE
 
 	echo    * %1
-	php.exe -l  %1
+	"C:\Program Files\php82\php.exe".exe -l  %1
 	
 	if errorlevel 1 goto :ErrAtRegSvr
 	

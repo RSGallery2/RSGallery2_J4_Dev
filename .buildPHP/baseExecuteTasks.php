@@ -31,7 +31,7 @@ class baseExecuteTasks
 //            print('---------------------------------------------------------' . "\r\n");
 
             $this->srcRoot = $srcRoot;
-            $this->srcRoot = $srcRoot;
+            $this->isNoRecursion = $isNoRecursion;
 
             $this->fileNamesList = new fileNamesList();
         } catch (Exception $e) {
@@ -41,6 +41,10 @@ class baseExecuteTasks
         // print('exit __construct: ' . $hasError . "\r\n");
     }
 
-
+    // TODO: Exe for forceVersionIdAll ...  -> instead
+    public function assignFilesNames(fileNamesList $fileNamesList)
+    {
+        $this->fileNamesList = $fileNamesList;
+    }
 
 }

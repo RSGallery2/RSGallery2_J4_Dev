@@ -1,22 +1,22 @@
 @ECHO OFF
-REM Compiles given *.php file 
+REM Compiles all *.php file in directory
 
-php --version
+"C:\Program Files\php82\php.exe" --version
 
-REM echo.
-echo --- %1
-echo --- php -l compileall %1
-php -l  %1
-if errorlevel 1 Call :ErrAtRegSvr %1
-echo done
-
+for /f %%f in ('dir /b *.php') do ( 
+	REM echo.
+	echo --- "%%f"
+	"C:\Program Files\php82\php.exe" -l  %%f >nul
+	if errorlevel 1 Call :ErrAtRegSvr %%f
+	
+)
 REM --- exit ----------------------
 goto :EOF
 
 REM ------------------------------------------
 REM Print an error message
 :ErrAtRegSvr
-REM	@ECHO OFF
+	@ECHO OFF
 	Echo.
 	ECHO !!! Please fix error at %1" !!!
 	ECHO %time%
@@ -24,7 +24,7 @@ REM	@ECHO OFF
 	PAUSE
 
 	echo    * %1
-	php.exe -l  %1
+	"C:\Program Files\php82\php.exe" -l  %1
 	
 	if errorlevel 1 goto :ErrAtRegSvr
 	

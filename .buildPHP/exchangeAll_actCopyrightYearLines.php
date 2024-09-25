@@ -40,7 +40,7 @@ class exchangeAll_actCopyrightYearLines extends baseExecuteTasks
 //            print ("yearText: " . $yearText . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-            parent::__construct ($srcRoot = "", $isNoRecursion=false);
+            parent::__construct ($srcRoot, $isNoRecursion);
 
             $this->yearText = $yearText;
 
@@ -84,6 +84,8 @@ class exchangeAll_actCopyrightYearLines extends baseExecuteTasks
 
         foreach ($options->options as $option) {
             switch (strtolower($option->name)) {
+
+                // ToDo: handle 'srcroot' and 'isnorecursion' in base class
                 case 'srcroot':
                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->srcRoot = $option->value;

@@ -3,10 +3,12 @@
 namespace forceVersionId;
 
 require_once "./iExecTask.php";
+require_once "./baseExecuteTasks.php";
 
 // use \DateTime;
 
 use Exception;
+use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use FileNamesList\fileNamesList;
 use task\task;
@@ -19,19 +21,12 @@ use task\task;
 Class forceVersionId
 ================================================================================*/
 
-class forceVersionId implements executeTasksInterface
+class forceVersionId  extends baseExecuteTasks
+    implements executeTasksInterface
 {
-
-    /**
-     * @var fileNamesList
-     */
-    public fileNamesList $fileNamesList;
-    private string $srcRoot = '';
-    private bool $isNoRecursion = false;
-    public readonly string $name;
-
     // internal
     private string $componentVersion = '';
+    private string $componentName = '';
     private string $manifestPathFileName = '';
 
 
@@ -41,7 +36,9 @@ class forceVersionId implements executeTasksInterface
 
     // ToDo: a lot of parameters ....
 
-    public function __construct($srcFile = "", $dstFile = "")
+    public function __construct($srcRoot = "", $isNoRecursion=false,
+                                $componentName = '',
+                                $componentVersion="1.2.3.444")
     {
         $hasError = 0;
         try {
@@ -51,10 +48,11 @@ class forceVersionId implements executeTasksInterface
 ////            print ("dstFile: " . $dstFile . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-//            $this->srcFile = $srcFile;
-//            $this->dstFile = $dstFile;
+            parent::__construct ($srcRoot, $isNoRecursion);
 
-            $this->fileNamesList = new fileNamesList();
+            $this->componentName = $componentName;
+            $this->componentVersion = $componentVersion;
+
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
@@ -81,7 +79,7 @@ class forceVersionId implements executeTasksInterface
 
                 case 'name':
                     print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->name = $option->value;
+                    $this->componentName = $option->value;
                     break;
 
                 case 'version':
@@ -143,7 +141,7 @@ class forceVersionId implements executeTasksInterface
     private function manifestPathFileName(): string
     {
         if ($this->manifestPathFileName == '') {
-            $this->manifestPathFileName = $this->srcRoot . '/' . $this->name . '.xml';
+            $this->manifestPathFileName = $this->srcRoot . '/' . $this->componentName . '.xml';
         }
 
         return $this->manifestPathFileName;
@@ -232,11 +230,5 @@ class forceVersionId implements executeTasksInterface
         return $OutTxt;
     }
 
-
-    // TODO: Exe for forceVersionIdAll ...  -> instead
-    public function assignFilesNames(fileNamesList $fileNamesList)
-    {
-        $this->fileNamesList = $fileNamesList;
-    }
 
 } // forceVersionId

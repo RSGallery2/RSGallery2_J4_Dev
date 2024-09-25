@@ -1,12 +1,12 @@
 @ECHO OFF
-REM Compiles all *.py file in directory
+REM Compiles all *.php file in directory
 
 php --version
 
-for /f %%f in ('dir /b *.py') do ( 
+for /f %%f in ('dir /b *.php') do ( 
 	REM echo.
-	echo --- %%f
-	php -l  %%f
+	echo --- "%%f"
+	php -l  %%f >nul
 	if errorlevel 1 Call :ErrAtRegSvr %%f
 	
 )
