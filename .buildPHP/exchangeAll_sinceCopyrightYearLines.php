@@ -12,6 +12,7 @@ require_once "./fileHeaderByFileLine.php";
 
 // use \DateTime;
 use Exception;
+use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use FileHeader\fileHeaderByFileLine;
 use FileNamesList\fileNamesList;
@@ -21,23 +22,16 @@ use task\task;
 Class exchangeAll_sinceCopyrightYear
 ================================================================================*/
 
-class exchangeAll_sinceCopyrightYearLines implements executeTasksInterface
+class exchangeAll_sinceCopyrightYearLines extends baseExecuteTasks
+    implements executeTasksInterface
 {
-
-    public string $srcRoot = "";
     public string $yearText = "";
-    /**
-     * @var fileNamesList
-     */
-    public fileNamesList $fileNamesList;
-    private bool $isNoRecursion = false;
-
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-    public function __construct($srcRoot = "", $yearText = "")
+    public function __construct($srcRoot = "", $isNoRecursion = false, $yearText = "")
     {
         $hasError = 0;
 
@@ -47,10 +41,10 @@ class exchangeAll_sinceCopyrightYearLines implements executeTasksInterface
 //            print ("yearText: " . $yearText . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-            $this->srcRoot = $srcRoot;
+            parent::__construct ($srcRoot = "", $isNoRecursion=false);
+
             $this->yearText = $yearText;
 
-            $this->fileNamesList = new fileNamesList();
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;

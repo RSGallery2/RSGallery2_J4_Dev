@@ -10,6 +10,7 @@ require_once "./fileHeaderByFileData.php";
 
 // use \DateTime;
 use Exception;
+use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use FileHeader\fileHeaderByFileData;
 use FileNamesList\fileNamesList;
@@ -19,23 +20,15 @@ use task\task;
 Class exchangeAll_fileHeaders
 ================================================================================*/
 
-class exchangeAll_fileHeaders implements executeTasksInterface
+class exchangeAll_fileHeaders extends baseExecuteTasks
+    implements executeTasksInterface
 {
-
-    public string $srcRoot = "";
-    /**
-     * @var fileNamesList
-     */
-    public fileNamesList $fileNamesList;
-    private bool $isNoRecursion = false;
-    public readonly string $name;
-
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-    public function __construct($srcRoot = "")
+    public function __construct($srcRoot = "", $isNoRecursion = false)
     {
         $hasError = 0;
         try {
@@ -43,9 +36,8 @@ class exchangeAll_fileHeaders implements executeTasksInterface
 //            print ("srcRoot: " . $srcRoot . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-            $this->srcRoot = $srcRoot;
+            parent::__construct ($srcRoot, $isNoRecursion);
 
-            $this->fileNamesList = new fileNamesList();
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;

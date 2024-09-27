@@ -5,8 +5,6 @@ namespace forceVersionId;
 require_once "./iExecTask.php";
 require_once "./baseExecuteTasks.php";
 
-// use \DateTime;
-
 use Exception;
 use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
@@ -21,7 +19,7 @@ use task\task;
 Class forceVersionId
 ================================================================================*/
 
-class forceVersionId  extends baseExecuteTasks
+class forceVersionId extends baseExecuteTasks
     implements executeTasksInterface
 {
     // internal
@@ -29,14 +27,14 @@ class forceVersionId  extends baseExecuteTasks
     private string $componentName = '';
     private string $manifestPathFileName = '';
 
-
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
     // ToDo: a lot of parameters ....
 
-    public function __construct($srcRoot = "", $isNoRecursion=false,
+    public function __construct($srcRoot = "",
+                                $isNoRecursion=false,
                                 $componentName = '',
                                 $componentVersion="1.2.3.444")
     {

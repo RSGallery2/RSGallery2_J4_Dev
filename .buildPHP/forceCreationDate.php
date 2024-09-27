@@ -8,6 +8,7 @@ require_once "./baseExecuteTasks.php";
 // use \DateTime;
 
 use Exception;
+use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use FileNamesList\fileNamesList;
 use task\task;
@@ -16,24 +17,21 @@ use task\task;
 Class forceCreationDate
 ================================================================================*/
 
-class forceCreationDate implements executeTasksInterface
+class forceCreationDate extends baseExecuteTasks
+    implements executeTasksInterface
 {
-
-    private string $srcRoot = '';
-    public readonly string $name;
 
     private string $creationDate;
 
     // internal
     private string $manifestPathFileName = '';
 
-
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
     // ToDo: a lot of parameters ....
-    public function __construct($srcFile = "", $dstFile = "")
+    public function __construct($srcFile = "", $isNoRecursion = false, $dstFile = "")
     {
         $hasError = 0;
         try {
@@ -43,12 +41,12 @@ class forceCreationDate implements executeTasksInterface
 ////            print ("dstFile: " . $dstFile . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-//            $this->srcFile = $srcFile;
-//            $this->dstFile = $dstFile;
+            parent::__construct ($srcRoot = "", $isNoRecursion=false);
 
             // $date_format        = 'Ymd';
             $date_format = 'd.m.Y';
             $this->creationDate = date($date_format);
+
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;

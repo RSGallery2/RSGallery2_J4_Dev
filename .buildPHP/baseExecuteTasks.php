@@ -10,7 +10,8 @@ class baseExecuteTasks
     public string $name = '????';
 
     public string $srcRoot = "";
-    private bool $isNoRecursion = false;
+
+    public bool $isNoRecursion = false;
 
     /**
      * @var fileNamesList
@@ -34,6 +35,7 @@ class baseExecuteTasks
             $this->isNoRecursion = $isNoRecursion;
 
             $this->fileNamesList = new fileNamesList();
+
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;

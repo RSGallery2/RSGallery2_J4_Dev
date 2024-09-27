@@ -7,9 +7,8 @@ require_once "./baseExecuteTasks.php";
 
 require_once "./fileHeaderByFileLine.php";
 
-
-// use \DateTime;
 use Exception;
+use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use FileHeader\fileHeaderByFileLine;
 use FileNamesList\fileNamesList;
@@ -19,23 +18,19 @@ use task\task;
 Class exchangeAll_authorLines
 ================================================================================*/
 
-class exchangeAll_authorLines implements executeTasksInterface
+class exchangeAll_authorLines extends baseExecuteTasks
+    implements executeTasksInterface
 {
-
-    public string $srcRoot = "";
+    //
     public string $authorText = "";
-    /**
-     * @var fileNamesList
-     */
-    public fileNamesList $fileNamesList;
-    private bool $isNoRecursion = false;
-
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-    public function __construct($srcRoot = "", $authorText = "")
+    public function __construct($srcRoot = "",
+                                $isNoRecursion=false,
+                                $authorText = "")
     {
         $hasError = 0;
         try {
@@ -44,10 +39,10 @@ class exchangeAll_authorLines implements executeTasksInterface
 //            print ("authorText: " . $authorText . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-            $this->srcRoot = $srcRoot;
+            parent::__construct ($srcRoot, $isNoRecursion);
+
             $this->authorText = $authorText;
 
-            $this->fileNamesList = new fileNamesList();
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;

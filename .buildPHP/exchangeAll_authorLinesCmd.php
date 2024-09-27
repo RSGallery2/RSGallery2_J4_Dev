@@ -74,6 +74,7 @@ $srcRoot = '';
 //$authorText = "GNU General Public author version 2 or later;";
 //$this->author = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
 $authorText = '';
+$isNoRecursion = false;
 
 foreach ($options as $idx => $option) {
     print ("idx: " . $idx . "\r\n");
@@ -126,7 +127,8 @@ $start = print_header($options, $inArgs);
 $task = new task();
 $task->extractTaskFromString($tasksLine);
 
-$oExchangeAll_authorLines = new exchangeAll_authorLines($srcRoot, $authorText);
+$oExchangeAll_authorLines = new exchangeAll_authorLines($srcRoot,
+    $isNoRecursion, $authorText);
 
 $hasError = $oExchangeAll_authorLines->assignTask($task);
 if ($hasError) {

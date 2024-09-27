@@ -52,6 +52,7 @@ $tasksLine = ' task:exchangeAlllinks'
 //$srcRoot = './../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop';
 //$srcRoot = './../../RSGallery2_J4';
 $srcRoot = '';
+$isNoRecursion = false;
 
 //$linkText = "GNU General Public link version 2 or later;";
 //$this->link = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
@@ -104,7 +105,7 @@ $start = print_header($options, $inArgs);
 $task = new task();
 $task->extractTaskFromString($tasksLine);
 
-$oExchangeAlllinks = new exchangeAll_linkLines($srcRoot, $linkText);
+$oExchangeAlllinks = new exchangeAll_linkLines($srcRoot, $isNoRecursion, $linkText);
 
 $hasError = $oExchangeAlllinks->assignTask($task);
 if ($hasError) {

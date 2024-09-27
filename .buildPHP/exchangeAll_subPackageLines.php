@@ -10,6 +10,7 @@ require_once "./fileHeaderByFileLine.php";
 
 // use \DateTime;
 use Exception;
+use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use FileHeader\fileHeaderByFileLine;
 use FileNamesList\fileNamesList;
@@ -19,23 +20,16 @@ use task\task;
 Class exchangeAll_subPackageLines
 ================================================================================*/
 
-class exchangeAll_subPackageLines implements executeTasksInterface
+class exchangeAll_subPackageLines extends baseExecuteTasks
+    implements executeTasksInterface
 {
-
-    public string $srcRoot = "";
     public string $subpackageText = "";
-    /**
-     * @var fileNamesList
-     */
-    public fileNamesList $fileNamesList;
-    private bool $isNoRecursion = false;
-
 
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
-    public function __construct($srcRoot = "", $subpackageText = "")
+    public function __construct($srcRoot = "", $isNoRecursion = false, $subpackageText = "")
     {
         $hasError = 0;
         try {
@@ -44,17 +38,16 @@ class exchangeAll_subPackageLines implements executeTasksInterface
 //            print ("subpackageText: " . $subpackageText . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-            $this->srcRoot = $srcRoot;
+            parent::__construct ($srcRoot = "", $isNoRecursion=false);
+
             $this->subpackageText = $subpackageText;
 
-            $this->fileNamesList = new fileNamesList();
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
         // print('exit __construct: ' . $hasError . "\r\n");
     }
-
 
     public function text(): string
     {

@@ -8,6 +8,7 @@ require_once "./baseExecuteTasks.php";
 // use \DateTime;
 
 use Exception;
+use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use FileNamesList\fileNamesList;
 use task\task;
@@ -17,18 +18,9 @@ use task\task;
 Class increaseVersionId
 ================================================================================*/
 
-class increaseVersionId implements executeTasksInterface
+class increaseVersionId extends baseExecuteTasks
+    implements executeTasksInterface
 {
-
-    public readonly string $name;
-
-    /**
-     * @var fileNamesList
-     */
-    public fileNamesList $fileNamesList;
-    private string $srcRoot = '';
-    private bool $isNoRecursion = false;
-
     // internal
     private string $componentVersion = '';
     private string $manifestPathFileName = '';
@@ -44,7 +36,14 @@ class increaseVersionId implements executeTasksInterface
     private $isIncreaseMinor;
     private $isIncreaseDev;
 
-    public function __construct($srcFile = "", $dstFile = "")
+    private string $componentName = '';
+
+
+    // !!! ToDo: see force version id for finishing this ...  !!!
+
+    public function __construct($srcRoot = "",
+                                $isNoRecursion=false,
+                                $componentName = '')
     {
         $hasError = 0;
         try {
@@ -54,10 +53,10 @@ class increaseVersionId implements executeTasksInterface
 ////            print ("dstFile: " . $dstFile . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-//            $this->srcFile = $srcFile;
-//            $this->dstFile = $dstFile;
+            parent::__construct ($srcRoot, $isNoRecursion);
 
-            $this->fileNamesList = new fileNamesList();
+            $this->componentName = $componentName;
+
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
