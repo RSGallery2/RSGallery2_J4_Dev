@@ -69,11 +69,6 @@ class exchangeAll_licenseLines extends baseExecuteTasks
     }
 
 
-    public function assignFilesNames(fileNamesList $fileNamesList)
-    {
-        $this->fileNamesList = $fileNamesList;
-    }
-
     // Task name with options
     public function assignTask(task $task): int
     {

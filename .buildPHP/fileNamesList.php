@@ -10,6 +10,7 @@ require_once "./folderName.php";
 
 //use \DateTime;
 use Exception;
+use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use FileName\fithFileName;
 use FolderName\fithFolderName;
@@ -24,11 +25,9 @@ use task\task;
 Class FileNamesList
 ================================================================================*/
 
-class fileNamesList implements executeTasksInterface
+class fileNamesList extends baseExecuteTasks
+    implements executeTasksInterface
 {
-
-    /** @var fithFileName[] $fileNames */
-    public array $fileNames;
 
     public string $srcRoot = "";
     private bool $isIncludeExt = false;
@@ -44,7 +43,6 @@ class fileNamesList implements executeTasksInterface
     /** @var string [] */
     private array $excludeFolderList;
 
-    private bool $isNoRecursion = false;
     private bool $isWriteListToFile = false;
 
     private string $listFileName = "";

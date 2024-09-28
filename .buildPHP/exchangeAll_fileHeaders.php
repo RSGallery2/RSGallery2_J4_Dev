@@ -66,11 +66,6 @@ class exchangeAll_fileHeaders extends baseExecuteTasks
     }
 
 
-    public function assignFilesNames(fileNamesList $fileNamesList)
-    {
-        $this->fileNamesList = $fileNamesList;
-    }
-
     // Task name with options
     public function assignTask(task $task): int
     {

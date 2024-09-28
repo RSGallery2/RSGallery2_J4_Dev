@@ -10,6 +10,7 @@ require_once "./fileHeaderByFileLine.php";
 
 // use \DateTime;
 use Exception;
+use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use FileNamesList\fileNamesList;
 use task\task;
@@ -18,16 +19,9 @@ use task\task;
 Class clean4GitCheckin
 ================================================================================*/
 
-class clean4GitCheckin implements executeTasksInterface
+class clean4GitCheckin extends baseExecuteTasks
+    implements executeTasksInterface
 {
-
-    public string $srcRoot = "";
-    private bool $isNoRecursion = false;
-    /**
-     * @var fileNamesList
-     */
-    public fileNamesList $fileNamesList;
-
 
     /*--------------------------------------------------------------------
     construction
@@ -69,11 +63,6 @@ class clean4GitCheckin implements executeTasksInterface
         return $OutTxt;
     }
 
-
-    public function assignFilesNames(fileNamesList $fileNamesList)
-    {
-        $this->fileNamesList = $fileNamesList;
-    }
 
     // Task name with options
     public function assignTask(task $task): int

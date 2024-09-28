@@ -71,12 +71,6 @@ class exchangeAll_actCopyrightYearLines extends baseExecuteTasks
         return $OutTxt;
     }
 
-
-    public function assignFilesNames(fileNamesList $fileNamesList)
-    {
-        $this->fileNamesList = $fileNamesList;
-    }
-
     // Task name with options
     public function assignTask(task $task): int
     {

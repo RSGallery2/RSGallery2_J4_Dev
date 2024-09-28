@@ -30,17 +30,9 @@ $HELP_MSG = <<<EOT
 Class buildRelease
 ================================================================================*/
 
-class buildRelease implements executeTasksInterface
+class buildRelease extends baseExecuteTasks
+    implements executeTasksInterface
 {
-
-    /**
-     * @var fileNamesList
-     */
-    // public fileNamesList $fileNamesList;
-
-    // Options
-    private string $srcRoot = '';
-    private bool $isNoRecursion = false;
     private string $buildDir = '';
     public readonly string $name;
     private string $extension = '';
@@ -78,16 +70,6 @@ class buildRelease implements executeTasksInterface
             $hasError = -101;
         }
         // print('exit __construct: ' . $hasError . "\r\n");
-    }
-
-    // List of filenames to use
-    public function assignFilesNames(fileNamesList $fileNamesList)
-    {
-        // ($path, $includeExt, $excludeExt, $isNoRecursion, $writeListToFile);
-        // $this->fileNamesList = $fileNamesList;
-        // not used ? $this->fileNamesList = $fileNamesList;
-
-
     }
 
     // Task name with options

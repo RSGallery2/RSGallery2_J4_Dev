@@ -289,11 +289,5 @@ class increaseVersionId extends baseExecuteTasks
     }
 
 
-    // TODO: Exe for forceVersionIdAll ...  -> instead
-    public function assignFilesNames(fileNamesList $fileNamesList)
-    {
-        $this->fileNamesList = $fileNamesList;
-    }
-
 } // increaseVersionId
 
