@@ -14,6 +14,7 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
 use task\task;
+use VersionId\versionId;
 use ZipArchive;
 
 $HELP_MSG = <<<EOT
@@ -37,8 +38,7 @@ class buildRelease extends baseExecuteTasks
     public readonly string $name;
     private string $extension = '';
 
-    private string $componentVersion = '5.0.12.4';
-
+    private versionId $versionId;
 
     // internal
     private string $manifestPathFileName = '';
@@ -80,14 +80,18 @@ class buildRelease extends baseExecuteTasks
         $options = $task->options;
 
         foreach ($options->options as $option) {
+
             $isBaseOption = assignBaseOption($option);
-            if (!$isBaseOption) {
+            $isVersionOption = assignVersionOption($option);
+
+            if (!$isBaseOption && !$isVersionOption) {
                 switch (strtolower($option->name)) {
                     case 'builddir':
                         print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                         $this->buildDir = $option->value;
                         break;
 
+                    // component name
                     case 'name':
                         print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                         $this->name = $option->value;
@@ -101,11 +105,6 @@ class buildRelease extends baseExecuteTasks
                     case 'type':
                         print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                         $this->componentType = $option->value;
-                        break;
-
-                    case 'version':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->componentVersion = $option->value;
                         break;
 
 //				case 'X':
@@ -188,18 +187,14 @@ class buildRelease extends baseExecuteTasks
     private function buildComponent()
     {
         //--------------------------------------------------------------------
-        // date in manifest file
+        // data in manifest file
         //--------------------------------------------------------------------
 
         $manifestPathFileName = $this->manifestPathFileName();
         print ("manifestPathFileName: " . $manifestPathFileName . "\r\n");
 
-        // ToDo: external parameter;
-        $date_format = 'Y.m.d';
-        $dateText = date($date_format);
-
-        $this->exchangeDateInManifestFile($manifestPathFileName, $dateText);
-
+        $this->exchangeDataInManifestFile($manifestPathFileName);
+        
         //--------------------------------------------------------------------
         // destination temp folder
         //--------------------------------------------------------------------
@@ -275,14 +270,51 @@ class buildRelease extends baseExecuteTasks
         return $this->manifestPathFileName;
     }
 
-    private function exchangeDateInManifestFile(string $manifestFileName, string $strDate)
-    {
+    private function exchangeDataInManifestFile(string $manifestPathFileName) {
+
         $isSaved = false;
 
         try {
-            $lines = file($manifestFileName);
-            $outLines = [];
-            $isExchanged = false;
+            $lines = file($manifestPathFileName);
+
+            //--- actual date ------------------------------------
+
+            [$isExchanged, $dateLines] = $this->exchangeDateInManifestFile($manifestPathFileName, $lines);
+
+            //--- actual date ------------------------------------
+
+
+
+
+
+
+            //--- write to file -----------------------------------------------
+
+            $outLines = $lines;
+            
+            //$isSaved = File::write($manifestFileName, $fileLines);
+       //     $isSaved = file_put_contents($manifestFileName, $outLines);
+
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+
+        return $isSaved;
+    }
+
+
+
+    private function exchangeDateInManifestFile(string $manifestFileName, array $lines)
+    {
+        $isExchanged = false;
+        $outLines = [];
+
+        try {
+
+            // ToDo: external parameter;
+            $date_format = 'Y.m.d';
+            $dateText = date($date_format);
 
             foreach ($lines as $line) {
                 if ($isExchanged) {
@@ -292,7 +324,7 @@ class buildRelease extends baseExecuteTasks
                     if (str_contains($line, '<creationDate>')) {
                         $outLine = preg_replace(
                             '/(.*<creationDate>)(.+)(<\/creationDate.*)/i',
-                            '${1}' . $strDate . '${3}',
+                            '${1}' . $dateText . '${3}',
                             $line,
                         );
                         $outLines [] = $outLine;
@@ -304,29 +336,12 @@ class buildRelease extends baseExecuteTasks
                 }
             }
 
-//            // prepare one string
-//            $fileLines = implode("\n", $outLines);
-//
-//            // write to file
-//            //$isSaved = File::write($manifestFileName, $fileLines);
-//	        $isSaved = file_put_contents($manifestFileName, $fileLines);
-
-//            // prepare one string
-//            $fileLines = implode("", $outLines);
-//
-//            // write to file
-//            //$isSaved = File::write($manifestFileName, $fileLines);
-//	        $isSaved = file_put_contents($manifestFileName, $fileLines);
-
-            // write to file
-            //$isSaved = File::write($manifestFileName, $fileLines);
-            $isSaved = file_put_contents($manifestFileName, $outLines);
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
-        return $isSaved;
+        return [$isExchanged, $outLines];
     }
 
     private function xcopyElement(string $name, string $srcRoot, string $dstRoot)

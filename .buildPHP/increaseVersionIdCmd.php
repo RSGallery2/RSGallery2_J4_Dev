@@ -50,7 +50,7 @@ $tasksLine = ' task:increaseVersionId'
 //    . ' /isIncreaseMajor'
 //    . ' /isIncreaseMinor'
 //    . ' /isIncreasePatch'
-    . ' /isIncreaseDev';
+    . ' /isIncreaseBuild';
 
 foreach ($options as $idx => $option) {
     print ("idx: " . $idx . "\r\n");

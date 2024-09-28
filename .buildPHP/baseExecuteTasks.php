@@ -2,6 +2,7 @@
 
 namespace ExecuteTasks;
 
+use Exception;
 use FileNamesList\fileNamesList;
 use option\option;
 
@@ -28,7 +29,6 @@ class baseExecuteTasks
 
     public function __construct(string $srcRoot = "", bool $isNoRecursion = false)
     {
-        $hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
 //            print ("srcRoot: " . $srcRoot . "\r\n");
@@ -41,13 +41,12 @@ class baseExecuteTasks
             $this->fileNamesList = new fileNamesList();
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
-            $hasError = -101;
         }
         // print('exit __construct: ' . $hasError . "\r\n");
     }
 
     // TODO: check all extends to remove doble function
-    public function assignFilesNames(fileNamesList $fileNamesList)
+    public function assignFilesNames(fileNamesList $fileNamesList):void
     {
         $this->fileNamesList = $fileNamesList;
     }

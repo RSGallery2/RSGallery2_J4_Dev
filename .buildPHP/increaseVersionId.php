@@ -12,6 +12,7 @@ use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use FileNamesList\fileNamesList;
 use task\task;
+use VersionId\versionId;
 
 
 /*================================================================================
@@ -30,11 +31,7 @@ class increaseVersionId extends baseExecuteTasks
     construction
     --------------------------------------------------------------------*/
 
-    // ToDo: a lot of parameters ....
-    private $isIncreaseMajor;
-    private $isIncreasePatch;
-    private $isIncreaseMinor;
-    private $isIncreaseDev;
+    private versionId $versionId;
 
     private string $componentName = '';
 
@@ -72,37 +69,15 @@ class increaseVersionId extends baseExecuteTasks
         $options = $task->options;
 
         foreach ($options->options as $option) {
+
             $isBaseOption = assignBaseOption($option);
-            if (!$isBaseOption) {
+            $isVersionOption = $this->versionId->assignVersionOption($option);
+
+            if (!$isBaseOption && !$isVersionOption) {
                 switch (strtolower($option->name)) {
                     case 'name':
                         print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                         $this->name = $option->value;
-                        break;
-
-                    case 'version':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->componentVersion = $option->value;
-                        break;
-
-                    case 'isincreasemajor':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->isIncreaseMajor = true;
-                        break;
-
-                    case 'isincreaseminor':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->isIncreaseMinor = true;
-                        break;
-
-                    case 'isincreasepatch':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->isIncreasePatch = true;
-                        break;
-
-                    case 'isincreasedev':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->isIncreaseDev = true;
                         break;
 
                     default:
@@ -187,7 +162,14 @@ class increaseVersionId extends baseExecuteTasks
                             '${1}',
                             trim($line),
                         );
-                        $newVersion = $this->increaseVersion($actVersion);
+
+                        //--- update version -----------------------------------
+
+                        // $newVersion = $this->increaseVersion($actVersion);
+                        $this->versionId->inVersionId = $actVersion;
+                        $this->versionId->update();
+                        $newVersion = $this->versionId->outVersionId;
+
                         // exchange for new version
                         $outLine = preg_replace(
                             '/(.*<version>)(.*)(<\/version>.*)/',
@@ -227,37 +209,6 @@ class increaseVersionId extends baseExecuteTasks
         }
 
         return $isSaved;
-    }
-
-    private function increaseVersion(string $actVersion)
-    {
-        $newVersion = $actVersion;
-
-        $parts = explode('.', $actVersion);
-
-        // standard is 3 parts. optional 4th dev part
-        if (count($parts) > 2) {
-            if ($this->isIncreaseMajor) {
-                $major = intval($parts[0]);
-                $parts[0] = strval($major + 1);
-            }
-            if ($this->isIncreaseMinor) {
-                $minor = intval($parts[1]);
-                $parts[1] = strval($minor + 1);
-            }
-            if ($this->isIncreasePatch) {
-                $patch = intval($parts[2]);
-                $parts[2] = strval($patch + 1);
-            }
-            if ($this->isIncreaseDev) {
-                $dev = intval($parts[3]);
-                $parts[3] = strval($dev + 1);
-            }
-
-            $newVersion = implode('.', $parts);
-        }
-
-        return $newVersion;
     }
 
     public function executeFile(string $filePathName): int // $isChanged
