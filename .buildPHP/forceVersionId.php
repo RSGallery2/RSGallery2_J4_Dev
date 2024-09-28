@@ -61,35 +61,30 @@ class forceVersionId extends baseExecuteTasks
     // Task name with options
     public function assignTask(task $task): int
     {
+        $this->taskName = $task->name;
+
         $options = $task->options;
 
         foreach ($options->options as $option) {
-            switch (strtolower($option->name)) {
-                case 'srcroot':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->srcRoot = $option->value;
-                    break;
+            $isBaseOption = assignBaseOption($option);
+            if (!$isBaseOption) {
+                switch (strtolower($option->name)) {
+                    case 'name':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->componentName = $option->value;
+                        break;
 
-                case 'isnorecursion':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->isNoRecursion = boolval($option->value);
-                    break;
+                    case 'version':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->componentVersion = $option->value;
+                        break;
 
-                case 'name':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->componentName = $option->value;
-                    break;
+                    default:
+                        print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
+                } // switch
 
-                case 'version':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->componentVersion = $option->value;
-                    break;
-
-                default:
-                    print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
-            } // switch
-
-            // $OutTxt .= $task->text() . "\r\n";
+                // $OutTxt .= $task->text() . "\r\n";
+            }
         }
 
         return 0;

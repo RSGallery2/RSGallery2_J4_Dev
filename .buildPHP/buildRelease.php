@@ -93,44 +93,38 @@ class buildRelease implements executeTasksInterface
     // Task name with options
     public function assignTask(task $task): int
     {
+        $this->taskName = $task->name;
+
         $options = $task->options;
 
         foreach ($options->options as $option) {
-            switch (strtolower($option->name)) {
-                case 'srcroot':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->srcRoot = $option->value;
-                    break;
+            $isBaseOption = assignBaseOption($option);
+            if (!$isBaseOption) {
+                switch (strtolower($option->name)) {
+                    case 'builddir':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->buildDir = $option->value;
+                        break;
 
-                case 'isnorecursion':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->isNoRecursion = boolval($option->value);
-                    break;
+                    case 'name':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->name = $option->value;
+                        break;
 
-                case 'builddir':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->buildDir = $option->value;
-                    break;
+                    case 'extension':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->extension = $option->value;
+                        break;
 
-                case 'name':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->name = $option->value;
-                    break;
+                    case 'type':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->componentType = $option->value;
+                        break;
 
-                case 'extension':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->extension = $option->value;
-                    break;
-
-                case 'type':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->componentType = $option->value;
-                    break;
-
-                case 'version':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->componentVersion = $option->value;
-                    break;
+                    case 'version':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->componentVersion = $option->value;
+                        break;
 
 //				case 'X':
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
@@ -144,11 +138,12 @@ class buildRelease implements executeTasksInterface
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 
-                default:
-                    print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
-            } // switch
+                    default:
+                        print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
+                } // switch
 
-            // $OutTxt .= $task->text() . "\r\n";
+                // $OutTxt .= $task->text() . "\r\n";
+            }
         }
 
         return 0;

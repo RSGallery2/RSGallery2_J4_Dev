@@ -67,55 +67,50 @@ class increaseVersionId extends baseExecuteTasks
     // Task name with options
     public function assignTask(task $task): int
     {
+        $this->taskName = $task->name;
+
         $options = $task->options;
 
         foreach ($options->options as $option) {
-            switch (strtolower($option->name)) {
-                case 'srcroot':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->srcRoot = $option->value;
-                    break;
+            $isBaseOption = assignBaseOption($option);
+            if (!$isBaseOption) {
+                switch (strtolower($option->name)) {
+                    case 'name':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->name = $option->value;
+                        break;
 
-                case 'isnorecursion':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->isNoRecursion = boolval($option->value);
-                    break;
+                    case 'version':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->componentVersion = $option->value;
+                        break;
 
-                case 'name':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->name = $option->value;
-                    break;
+                    case 'isincreasemajor':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->isIncreaseMajor = true;
+                        break;
 
-                case 'version':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->componentVersion = $option->value;
-                    break;
+                    case 'isincreaseminor':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->isIncreaseMinor = true;
+                        break;
 
-                case 'isincreasemajor':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->isIncreaseMajor = true;
-                    break;
+                    case 'isincreasepatch':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->isIncreasePatch = true;
+                        break;
 
-                case 'isincreaseminor':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->isIncreaseMinor = true;
-                    break;
+                    case 'isincreasedev':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->isIncreaseDev = true;
+                        break;
 
-                case 'isincreasepatch':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->isIncreasePatch = true;
-                    break;
+                    default:
+                        print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
+                } // switch
 
-                case 'isincreasedev':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->isIncreaseDev = true;
-                    break;
-
-                default:
-                    print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
-            } // switch
-
-            // $OutTxt .= $task->text() . "\r\n";
+                // $OutTxt .= $task->text() . "\r\n";
+            }
         }
 
         return 0;

@@ -127,22 +127,19 @@ class fileHeaderByFileData extends fileHeaderData
 
         $this->task = $task;
 
-//        // If needed :
-//        switch (strtolower($task->name)) {
-//            case 'upgradeHeader':
-//            ....
-//          break;
+        $this->taskName = $task->name;
 
         $options = $task->options;
 
         foreach ($options->options as $option) {
 
-            switch (strtolower($option->name)) {
-
-                case 'filename':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->fileName = $option->value;
-                    break;
+            $isBaseOption = assignBaseOption($option);
+            if (!$isBaseOption) {
+                switch (strtolower($option->name)) {
+                    case 'filename':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->fileName = $option->value;
+                        break;
 
 //				case 'X force...':
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
@@ -156,10 +153,10 @@ class fileHeaderByFileData extends fileHeaderData
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 
-                default:
-                    print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
-            } // switch
-
+                    default:
+                        print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
+                } // switch
+            }
         }
 
 

@@ -360,15 +360,17 @@ class fileHeaderByFileLine extends fileHeaderData
     {
         $this->task = $task;
 
+        $this->taskName = $task->name;
+
 //        $options = $task->options;
 //
 //        foreach ($options->options as $option) {
 //
 //            switch (strtolower($option->name)) {
 //
-//                case 'srcroot':
+//                case '???':
 //                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-//                    $this->srcRoot = $option->value;
+//                    $this->??? = $option->value;
 //                    break;
 
         return 0;

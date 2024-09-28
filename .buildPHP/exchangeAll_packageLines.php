@@ -78,24 +78,18 @@ class exchangeAll_packages extends baseExecuteTasks
     // Task name with options
     public function assignTask(task $task): int
     {
+        $this->taskName = $task->name;
+
         $options = $task->options;
 
         foreach ($options->options as $option) {
-            switch (strtolower($option->name)) {
-                case 'srcroot':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->srcRoot = $option->value;
-                    break;
-
-                case 'isnorecursion':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->isNoRecursion = boolval($option->value);
-                    break;
-
-                case 'packagetext':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->packageText = $option->value;
-                    break;
+            $isBaseOption = assignBaseOption($option);
+            if (!$isBaseOption) {
+                switch (strtolower($option->name)) {
+                    case 'packagetext':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->packageText = $option->value;
+                        break;
 
 //				case 'X':
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
@@ -109,11 +103,12 @@ class exchangeAll_packages extends baseExecuteTasks
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 
-                default:
-                    print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
-            } // switch
+                    default:
+                        print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
+                } // switch
 
-            // $OutTxt .= $task->text() . "\r\n";
+                // $OutTxt .= $task->text() . "\r\n";
+            }
         }
 
         return 0;
