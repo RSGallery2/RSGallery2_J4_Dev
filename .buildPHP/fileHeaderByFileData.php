@@ -154,7 +154,7 @@ class fileHeaderByFileData extends fileHeaderData
 //					break;
 
                     default:
-                        print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
+                        print ('!!! error: required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
                 } // switch
             }
         }

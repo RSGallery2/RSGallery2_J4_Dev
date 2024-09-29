@@ -81,7 +81,7 @@ class increaseVersionId extends baseExecuteTasks
                         break;
 
                     default:
-                        print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
+                        print ('!!! error: required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
                 } // switch
 
                 // $OutTxt .= $task->text() . "\r\n";
@@ -94,7 +94,7 @@ class increaseVersionId extends baseExecuteTasks
     public function execute(): int // $hasError
     {
         print('*********************************************************' . "\r\n");
-        print ("Execute increaseVersionId : " . "\r\n");
+        print ("Execute increaseVersionId: " . "\r\n");
         print('---------------------------------------------------------' . "\r\n");
 
         $hasError = $this->exchangeVersionId();

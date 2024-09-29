@@ -99,7 +99,7 @@ class exchangeAll_packages extends baseExecuteTasks
 //					break;
 
                     default:
-                        print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
+                        print ('!!! error: required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
                 } // switch
 
                 // $OutTxt .= $task->text() . "\r\n";

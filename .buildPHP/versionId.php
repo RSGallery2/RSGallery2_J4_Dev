@@ -213,7 +213,24 @@ class versionId {
     }
 
 
+    public function text(): string
+    {
+        $OutTxt = "------------------------------------------" . "\r\n";
+        $OutTxt .= "--- versionId ---" . "\r\n";
 
+
+        $OutTxt .= "Not defined yet " . "\r\n";
+
+        /**
+         * $OutTxt .= "fileName: " . $this->fileName . "\r\n";
+         * $OutTxt .= "fileExtension: " . $this->fileExtension . "\r\n";
+         * $OutTxt .= "fileBaseName: " . $this->fileBaseName . "\r\n";
+         * $OutTxt .= "filePath: " . $this->filePath . "\r\n";
+         * $OutTxt .= "srcPathFileName: " . $this->srcPathFileName . "\r\n";
+         * /**/
+
+        return $OutTxt;
+    }
 
 
 }

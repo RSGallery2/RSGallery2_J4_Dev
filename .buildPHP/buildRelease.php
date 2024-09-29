@@ -91,12 +91,13 @@ class buildRelease extends baseExecuteTasks
                         $this->buildDir = $option->value;
                         break;
 
-                    // component name
-                    case 'name':
+                    // component name like rsgallery2
+                    case 'componentname':
                         print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                         $this->name = $option->value;
                         break;
 
+                    // extension (<element> name like RSGallery2
                     case 'extension':
                         print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                         $this->extension = $option->value;
@@ -120,7 +121,7 @@ class buildRelease extends baseExecuteTasks
 //					break;
 
                     default:
-                        print ('!!! error required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
+                        print ('!!! error: required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
                 } // switch
 
                 // $OutTxt .= $task->text() . "\r\n";
@@ -172,16 +173,6 @@ class buildRelease extends baseExecuteTasks
         }
 
         return $this->componentType;
-    }
-
-    private function detectCompTypeFromFile(string $manifestPathFileName)
-    {
-        $componentType = 'component';
-
-        // ToDo: read file for version
-
-
-        return $componentType;
     }
 
     private function buildComponent()
