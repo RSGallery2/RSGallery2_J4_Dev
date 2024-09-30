@@ -123,47 +123,43 @@ class manifestFile extends baseExecuteTasks
                     break;
 
                 case 'creationDate':
-                    $this->componentName = $this->extractContent($line);
+                    $this->creationDate = $this->extractContent($line);
                     break;
 
                 case 'author':
-                    $this->extractE($line);
+                    $this->author = $this->extractContent($line);
                     break;
 
                 case 'authorEmail':
-                    $this->extractE($line);
+                    $this->authorEmail = $this->extractContent($line);
                     break;
 
                 case 'authorUrl':
-                    $this->extractE($line);
+                    $this->authorUrl = $this->extractContent($line);
                     break;
 
                 case 'copyright':
-                    $this->extractE($line);
+                    $this->copyright = $this->extractContent($line);
                     break;
 
                 case 'license':
-                    $this->extractE($line);
+                    $this->license = $this->extractContent($line);
                     break;
 
                 case 'version':
-                    $this->extractE($line);
+                    $this->version = $this->extractContent($line);
                     break;
 
                 case 'description':
-                    $this->extractE($line);
+                    $this->description = $this->extractContent($line);
                     break;
 
                 case 'element':
-                    $this->extractE($line);
-                    break;
-
-                case '':
-                    $this->extractE($line);
+                    $this->element = $this->extractContent($line);
                     break;
 
                 case 'namespace':
-                    $this->extractE($line);
+                    $this->namespace = $this->extractContent($line);
                     break;
                 default:
                     throw new \Exception('Unexpected value');
@@ -195,40 +191,37 @@ class manifestFile extends baseExecuteTasks
         $headerLines[] = $this->createHeaderLineExtension ();
 
 //                case 'name':
-        $headerLines[] = $this->createHeaderLine($this->name);
+        $headerLines[] = $this->createHeaderLine($this->name, $this->componentName);
 
 //                case 'creationDate':
-        $headerLines[] = $this->createHeaderLine($this->name);
+        $headerLines[] = $this->createHeaderLine($this->name, $this->creationDate);
 
 //                case 'author':
-        $headerLines[] = $this->createHeaderLine($this->name);
+        $headerLines[] = $this->createHeaderLine($this->name, $this->author);
 
 //                case 'authorEmail':
-        $headerLines[] = $this->createHeaderLine($this->name);
+        $headerLines[] = $this->createHeaderLine($this->name, $this->authorEmail);
 
 //                case 'authorUrl':
-        $headerLines[] = $this->createHeaderLine($this->name);
+        $headerLines[] = $this->createHeaderLine($this->name, $this->authorUrl);
 
 //                case 'copyright':
-        $headerLines[] = $this->createHeaderLine($this->name);
+        $headerLines[] = $this->createHeaderLine($this->name, $this->copyright);
 
 //                case 'license':
-        $headerLines[] = $this->createHeaderLine($this->name);
+        $headerLines[] = $this->createHeaderLine($this->name, $this->license);
 
 //                case 'version':
-        $headerLines[] = $this->createHeaderLine($this->name);
+        $headerLines[] = $this->createHeaderLine($this->name, $this->version);
 
 //                case 'description':
-        $headerLines[] = $this->createHeaderLine($this->name);
+        $headerLines[] = $this->createHeaderLine($this->name, $this->description);
 
 //                case 'element':
-        $headerLines[] = $this->createHeaderLine($this->name);
-
-//                case '':
-        $headerLines[] = $this->createHeaderLine($this->name);
+        $headerLines[] = $this->createHeaderLine($this->name, $this->element);
 
 //                case 'namespace':
-        $headerLines[] = $this->createHeaderLine($this->name);
+        $headerLines[] = $this->createHeaderLine($this->name, $this->namespace);
 
         $this->headerLines = $headerLines;
 
