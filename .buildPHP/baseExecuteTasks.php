@@ -46,9 +46,10 @@ class baseExecuteTasks
     }
 
     // TODO: check all extends to remove doble function
-    public function assignFilesNames(fileNamesList $fileNamesList):void
+    public function assignFilesNames(fileNamesList $fileNamesList): int
     {
         $this->fileNamesList = $fileNamesList;
+        return 0;
     }
 
     // Task name with options

@@ -2,6 +2,9 @@
 
 namespace ManifestFile;
 
+require_once "./iExecTask.php";
+require_once "./baseExecuteTasks.php";
+
 use Exception;
 use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
@@ -11,7 +14,7 @@ class manifestFile extends baseExecuteTasks
     implements executeTasksInterface
 {
     // internal
-    private string $manifestPathFileName = '';
+    public string $manifestPathFileName = '';
 //    public string $componentName = '';
 //    public string $extension = '';
 //    // com, plg, mod
@@ -49,14 +52,9 @@ class manifestFile extends baseExecuteTasks
             $this->manifestPathFileName = $manifestPathFileName;
 
             if (is_file($manifestPathFileName)) {
-//                [$componentName, $extension, $type] =;
-//
-//                $this->componentName = $componentName;
-//                $this->extension     = $extension;
-//                $this->type          = $type;
-
-
+                $this->readFile();
             }
+
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;

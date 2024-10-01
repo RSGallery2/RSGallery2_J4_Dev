@@ -102,14 +102,26 @@ $start = print_header($options, $inArgs);
 $task = new task();
 $task->extractTaskFromString($tasksLine);
 
-$oForceVersionId = new forceVersionId();
+$oForceVersionId = new manifestFile();
 
+// just options
 $hasError = $oForceVersionId->assignTask($task);
 if ($hasError) {
     print ("Error on function assignTask:" . $hasError);
 }
+
+//if (!$hasError) {
+//    $hasError = $oForceVersionId->execute();
+//    if ($hasError) {
+//        print ("Error on function execute:" . $hasError);
+//    }
+//}
+//
 if (!$hasError) {
-    $hasError = $oForceVersionId->execute();
+    $manifestPathFileName = $oForceVersionId->manifestPathFileName;
+    $outManifestPathFileName = $manifestPathFileName + '.bak';
+
+    $hasError = $oForceVersionId->writeFile($outManifestPathFileName);
     if ($hasError) {
         print ("Error on function execute:" . $hasError);
     }

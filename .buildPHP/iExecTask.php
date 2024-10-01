@@ -18,7 +18,7 @@ interface executeTasksInterface
 interface executeTasksInterface
 {
     // List of filenames to use
-    public function assignFilesNames(fileNamesList $fileNamesList);
+    public function assignFilesNames(fileNamesList $fileNamesList): int;
 
     // Task with options
     public function assignTask(task $task): int;
