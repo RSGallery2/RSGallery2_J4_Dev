@@ -62,7 +62,7 @@ class forceCreationDate extends baseExecuteTasks
         $options = $task->options;
 
         foreach ($options->options as $option) {
-            $isBaseOption = assignBaseOption($option);
+            $isBaseOption = $this->assignBaseOption($option);
             if (!$isBaseOption) {
                 switch (strtolower($option->name)) {
                     case 'name':

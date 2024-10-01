@@ -70,7 +70,7 @@ class increaseVersionId extends baseExecuteTasks
 
         foreach ($options->options as $option) {
 
-            $isBaseOption = assignBaseOption($option);
+            $isBaseOption = $this->assignBaseOption($option);
             $isVersionOption = $this->versionId->assignVersionOption($option);
 
             if (!$isBaseOption && !$isVersionOption) {
