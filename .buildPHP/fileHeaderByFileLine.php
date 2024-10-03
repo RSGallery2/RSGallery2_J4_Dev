@@ -212,7 +212,7 @@ class fileHeaderByFileLine extends fileHeaderData
 
 
     /*--------------------------------------------------------------------
-    exchangeActCopyrightYear
+    insertSubPackage
     --------------------------------------------------------------------*/
 
     function insertSubPackage(string $fileName = "")
@@ -221,7 +221,7 @@ class fileHeaderByFileLine extends fileHeaderData
 
         try {
             print('*********************************************************' . "\r\n");
-            print('exchangeSubPackage' . "\r\n");
+            print('insertSubPackage' . "\r\n");
             print ("FileName in: " . $fileName . "\r\n");
             print('---------------------------------------------------------' . "\r\n");
 
@@ -273,7 +273,7 @@ class fileHeaderByFileLine extends fileHeaderData
     }
 
     /*--------------------------------------------------------------------
-    exchangeSinceCopyrightYear
+    exchangeLink
     --------------------------------------------------------------------*/
 
     function exchangeLink(string $fileName = "")

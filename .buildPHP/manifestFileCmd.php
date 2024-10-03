@@ -44,12 +44,11 @@ variables
 --------------------------------------------*/
 
 $tasksLine = ' task:ManifestFile'
-//    . ' /srcRoot="./../../RSGallery2_J4"'
     . ' /manifestFile="./../../RSGallery2_J4/rsgallery2.xml"'
-//    . ' /isNoRecursion=true'
+//    . ' /srcRoot="./../../RSGallery2_J4"'
 //    . ' /componentname=rsgallery2'
 //    . ' /manifestFile'
-    . ' /forceVersion="5.0.12.4"'
+//   . ' /forceVersion="5.0.12.4"'
     . ' /isBuildRelease'
 ;
 

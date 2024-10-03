@@ -10,6 +10,7 @@ require_once "./task.php";
 
 use Exception;
 use FileNamesList\fileNamesList;
+use ManifestFile\manifestFile;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
@@ -36,7 +37,7 @@ class buildRelease extends baseExecuteTasks
 {
     private string $buildDir = '';
     public readonly string $name;
-    private string $extension = '';
+    //private string $extension = '';
 
     private versionId $versionId;
 
@@ -53,13 +54,15 @@ class buildRelease extends baseExecuteTasks
     --------------------------------------------------------------------*/
 
     // ToDo: a lot of parameters ....
-    public function __construct($srcFile = "", $dstFile = "")
+    public function __construct($srcRoot = "")
     {
         $hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
 //            print ("Construct buildRelease: " . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
+
+            parent::__construct($srcRoot, false);
 
 //            $this->srcFile = $srcFile;
 //            $this->dstFile = $dstFile;
@@ -261,29 +264,52 @@ class buildRelease extends baseExecuteTasks
         return $this->manifestPathFileName;
     }
 
+    /**
+     * @param   string  $manifestPathFileName
+     *
+     * @return false
+     */
     private function exchangeDataInManifestFile(string $manifestPathFileName) {
 
         $isSaved = false;
 
         try {
-            $lines = file($manifestPathFileName);
+            // read
+            $manifestFile = new manifestFile();
 
-            //--- actual date ------------------------------------
+            //--- read file -----------------------------------------------
 
-            [$isExchanged, $dateLines] = $this->exchangeDateInManifestFile($manifestPathFileName, $lines);
+            $manifestFile->readFile($manifestPathFileName);
 
-            //--- actual date ------------------------------------
+            //--- set flags -----------------------------------------------
 
+            // $manifestFile->isUpdateCreationDate = false;
+            $manifestFile->isUpdateCreationDate = true;
 
+            // $manifestFile->versionId->isBuildRelease = false;
+            $manifestFile->versionId->isBuildRelease = true;
 
+            // $manifestFile->versionId->isIncreaseMajor = false;
+            // $manifestFile->versionId->isIncreaseMajor = true;
 
+            // $manifestFile->versionId->isIncreaseMinor = false;
+            // $manifestFile->versionId->isIncreaseMinor = true;
 
+            // $manifestFile->versionId->isIncreasePatch = false;
+            // $manifestFile->versionId->isIncreasePatch = true;
+
+            // $manifestFile->versionId->isIncreaseBuild = false;
+            // $manifestFile->versionId->isIncreaseBuild = true;
+
+            //--- update data -----------------------------------------------
+
+            $manifestFile->execute();
 
             //--- write to file -----------------------------------------------
 
-            $outLines = $lines;
-            
-            //$isSaved = File::write($manifestFileName, $fileLines);
+            $isSaved = $manifestFile->writeFile();
+
+            //$isSaved = File::write($manifestFileName, $fileLines);;
        //     $isSaved = file_put_contents($manifestFileName, $outLines);
 
         } catch (Exception $e) {
@@ -296,44 +322,44 @@ class buildRelease extends baseExecuteTasks
 
 
 
-    private function exchangeDateInManifestFile(string $manifestFileName, array $lines)
-    {
-        $isExchanged = false;
-        $outLines = [];
-
-        try {
-
-            // ToDo: external parameter;
-            $date_format = 'Y.m.d';
-            $dateText = date($date_format);
-
-            foreach ($lines as $line) {
-                if ($isExchanged) {
-                    $outLines [] = $line;
-                } else {
-                    // <creationDate>31. May. 2024</creationDate>
-                    if (str_contains($line, '<creationDate>')) {
-                        $outLine = preg_replace(
-                            '/(.*<creationDate>)(.+)(<\/creationDate.*)/i',
-                            '${1}' . $dateText . '${3}',
-                            $line,
-                        );
-                        $outLines [] = $outLine;
-
-                        $isExchanged = true;
-                    } else {
-                        $outLines [] = $line;
-                    }
-                }
-            }
-
-        } catch (Exception $e) {
-            echo 'Message: ' . $e->getMessage() . "\r\n";
-            $hasError = -101;
-        }
-
-        return [$isExchanged, $outLines];
-    }
+//    private function exchangeDateInManifestFile(string $manifestFileName, array $lines)
+//    {
+//        $isExchanged = false;
+//        $outLines = [];
+//
+//        try {
+//
+//            // ToDo: external parameter;
+//            $date_format = 'Y.m.d';
+//            $dateText = date($date_format);
+//
+//            foreach ($lines as $line) {
+//                if ($isExchanged) {
+//                    $outLines [] = $line;
+//                } else {
+//                    // <creationDate>31. May. 2024</creationDate>
+//                    if (str_contains($line, '<creationDate>')) {
+//                        $outLine = preg_replace(
+//                            '/(.*<creationDate>)(.+)(<\/creationDate.*)/i',
+//                            '${1}' . $dateText . '${3}',
+//                            $line,
+//                        );
+//                        $outLines [] = $outLine;
+//
+//                        $isExchanged = true;
+//                    } else {
+//                        $outLines [] = $line;
+//                    }
+//                }
+//            }
+//
+//        } catch (Exception $e) {
+//            echo 'Message: ' . $e->getMessage() . "\r\n";
+//            $hasError = -101;
+//        }
+//
+//        return [$isExchanged, $outLines];
+//    }
 
     private function xcopyElement(string $name, string $srcRoot, string $dstRoot)
     {

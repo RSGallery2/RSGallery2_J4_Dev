@@ -1,6 +1,6 @@
 <?php
 
-namespace VersionId;
+namespace CopyrightText;
 
 use option\option;
 
@@ -8,11 +8,11 @@ use option\option;
  * Sem-Version with additional build number
  *
  */
-class versionId {
+class copyrightText {
 
     //
-    public string $inVersionId='';
-    public string $outVersionId='';
+    public string $inCopyrightText='';
+    public string $outCopyrightText='';
 
     //--- tasks ---------------------------------
 
@@ -21,11 +21,17 @@ class versionId {
     public bool $isIncreasePatch = false; // release
     public bool $isIncreaseBuild = false;
 
-    public string $forceVersionId;
-    public bool $isForceVersion = false;
+    public string $actCopyright = '';
+    public string $sinceCopyright = '';
 
-    // release will increase minor and reset revision and build counter
-    public bool $isBuildRelease = false;
+    // to actual year
+    public bool $isUpdateAct = false;
+
+    public bool $isAssignAct = false;
+    public string $forceAct = '';
+
+    public bool $isAssignSince = false;
+    public string $forceSince = '';
 
     // fix will increase revision and reset build counter
     public bool $isBuildFix = false;
@@ -38,10 +44,10 @@ class versionId {
     --------------------------------------------------------------------*/
 
     // ToDo: a lot of parameters ....
-    public function __construct($versionId = "") {
+    public function __construct($copyrightText = "") {
 
-        $this->inVersionId = $versionId;
-        $this->outVersionId = $versionId;
+        $this->inCopyrightText = $copyrightText;
+        $this->outCopyrightText = $copyrightText;
 
     }
 
@@ -57,14 +63,14 @@ class versionId {
         $this->isIncreaseBuild = $isIncreaseBuild;
     }
 
-    public static function id_2_numbers ($versionId = ' . . . ') //: [number,number, number, number]
+    public static function id_2_numbers ($copyrightText = ' . . . ') //: [number,number, number, number]
     {
         $major = 0;
         $minor = 0;
         $patch = 0;
         $build = 0;
 
-        $parts = explode('.', $versionId);
+        $parts = explode('.', $copyrightText);
 
         $count = count($parts);
 
@@ -78,17 +84,17 @@ class versionId {
 
     public static function numbers_2_id ($major=0, $minor=0, $patch=0, $build=0) : string
     {
-        $versionId = strval($major) . '.' . strval($minor) . '.' . strval($patch) . '.' . strval($build);
+        $copyrightText = strval($major) . '.' . strval($minor) . '.' . strval($patch) . '.' . strval($build);
 
-        return $versionId;
+        return $copyrightText;
     }
 
     // leave out build
     public static function numbers_2_id_release ($major=0, $minor=0, $patch=0, $build=0) : string
     {
-        $versionId = strval($major) . '.' . strval($minor) . '.' . strval($patch);
+        $copyrightText = strval($major) . '.' . strval($minor) . '.' . strval($patch);
 
-        return $versionId;
+        return $copyrightText;
     }
 
 
@@ -97,11 +103,11 @@ class versionId {
         // force
         if ($this->isForceVersion) {
 
-            $this->outVersionId = $this->forceVersionId;
+            $this->outCopyrightText = $this->forceCopyrightText;
 
         } else {
 
-            [$major, $minor, $patch, $build] = self::id_2_numbers($this->inVersionId);
+            [$major, $minor, $patch, $build] = self::id_2_numbers($this->inCopyrightText);
 
             // pre flags
 
@@ -109,7 +115,7 @@ class versionId {
             if ($this->isBuildFix) {
                 $patch++;
                 $build = 0;
-                $this->outVersionId = self::numbers_2_id($major, $minor, $patch, $build);
+                $this->outCopyrightText = self::numbers_2_id($major, $minor, $patch, $build);
             }
             else
             {
@@ -118,7 +124,7 @@ class versionId {
                     $minor++;
                     $patch = 0;
                     $build = 0;
-                    $this->outVersionId = self::numbers_2_id_release($major, $minor, $patch, $build);
+                    $this->outCopyrightText = self::numbers_2_id_release($major, $minor, $patch, $build);
                 }
                 else {
 
@@ -145,13 +151,13 @@ class versionId {
                         $build = 0;
                     }
 
-                    $this->outVersionId = self::numbers_2_id($major, $minor, $patch, $build);
+                    $this->outCopyrightText = self::numbers_2_id($major, $minor, $patch, $build);
                 }
             }
 
         }
 
-        return $this->outVersionId;
+        return $this->outCopyrightText;
     }
 
     // Task name with options
@@ -164,7 +170,7 @@ class versionId {
 
             case 'forceversion':
                 print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                $this->forceVersionId = $option->value;
+                $this->forceCopyrightText = $option->value;
                 $this->isForceVersion = true;
                 $isVersionOption  = true;
                 break;
@@ -218,7 +224,7 @@ class versionId {
     public function text(): string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- versionId ---" . "\r\n";
+        $OutTxt .= "--- copyrightText ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";

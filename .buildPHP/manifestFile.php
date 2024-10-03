@@ -41,7 +41,7 @@ class manifestFile extends baseExecuteTasks
     private string $copyright = '';
     private string $license = '';
     //private string $version = '';
-    private versionId $versionId;
+    public versionId $versionId;
     private string $description = '';
     // Name of extension for user like RSGallery2
     private string $element = '';
@@ -51,7 +51,7 @@ class manifestFile extends baseExecuteTasks
 
     // copyright-, version- classes have their own
 
-    private bool $isUseActualDate;
+    public bool $isUpdateCreationDate = true;
 //    private bool $isUseActualYear;
 
     public function __construct(
@@ -349,6 +349,11 @@ class manifestFile extends baseExecuteTasks
                         $this->method = $option->value;
                         break;
 
+                    case 'isupdatecreationdate':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->isUpdateCreationDate = $option->value;
+                        break;
+
                     default:
                         print ('!!! error: required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
                 } // switch
@@ -373,9 +378,12 @@ class manifestFile extends baseExecuteTasks
         // update manifest file name
         // $this->baseComponentName();
 
-        // ToDo: Check versionId changes from outside
+        //  Apply versionId changes from outside
         $this->versionId->update();
 
+        if ($this->isUpdateCreationDate) {
+            $this->updateCreationDate();
+        }
 
         return $hasError;
     }
@@ -462,19 +470,23 @@ class manifestFile extends baseExecuteTasks
         return $isSaved;
     }
 
-    public function extractVersionId (){
-
-
-    }
-
-    public function exchangeVersionId (){
-
-
-    }
-
+//    public function extractVersionId (){
+//
+//
+//    }
+//
+//    public function exchangeVersionId (){
+//
+//
+//    }
+//
     public function updateCreationDate (){
 
+        // $date = "20240824";
+        $date_format = 'Y.m.d';
+        $date = date($date_format);
 
+        $this->creationDate = $date;
     }
 
 
@@ -616,10 +628,11 @@ class manifestFile extends baseExecuteTasks
                     }
                 }
 
-            } else {
-                // read part if exists or in next lines ...
-                // section starts
             }
+//            else {
+//                // read part if exists or in next lines ...
+//                // section starts
+//            }
         }
 
         return [$type, $method];
