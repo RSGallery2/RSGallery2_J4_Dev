@@ -2,13 +2,15 @@
 
 namespace ManifestFile;
 
-require_once "./iExecTask.php";
 require_once "./baseExecuteTasks.php";
+require_once "./iExecTask.php";
+require_once "./versionId.php";
 
 use Exception;
 use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use task\task;
+use VersionId\versionId;
 
 class manifestFile extends baseExecuteTasks
     implements executeTasksInterface
@@ -23,7 +25,9 @@ class manifestFile extends baseExecuteTasks
 
     private array $headerLines;
     private array $otherLines;
-    private array $outHeaderLines;
+    private array $outLines;
+
+    private string $xmlLine;
 
     //--- line data -------------------------
 
@@ -36,11 +40,19 @@ class manifestFile extends baseExecuteTasks
     private string $authorUrl = '';
     private string $copyright = '';
     private string $license = '';
-    private string $version = '';
+    //private string $version = '';
+    private versionId $versionId;
     private string $description = '';
+    // Name of extension for user like RSGallery2
     private string $element = '';
     private string $namespace = '';
 
+    //--- manifest flags ---------------------------------------
+
+    // copyright-, version- classes have their own
+
+    private bool $isUseActualDate;
+//    private bool $isUseActualYear;
 
     public function __construct(
         $srcRoot = "",
@@ -55,9 +67,12 @@ class manifestFile extends baseExecuteTasks
                 $this->readFile();
             }
 
+            $this->versionId = new versionId();
+            // Standard: may be overwritten later
+            $this->versionId->isIncreaseBuild = true;
+
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
-            $hasError = -101;
         }
         // print('exit __construct: ' . $hasError . "\r\n");
     }
@@ -92,76 +107,100 @@ class manifestFile extends baseExecuteTasks
     {
         $isHeaderLine = false;
 
-        /**
-         * <extension type="component" method="upgrade">
-         * <name>com_rsgallery2</name>
-         * <creationDate>2024.09.13</creationDate>
-         * <author>RSGallery2 Team</author>
-         * <authorEmail>team2@rsgallery2.org</authorEmail>
-         * <authorUrl>https://www.rsgallery2.org</authorUrl>
-         * <copyright>(c) 2005-2024 RSGallery2 Team</copyright>
-         * <license>GNU General Public License version 2 or later;</license>
-         * <version>5.0.12.5</version>
-         * <description>COM_RSGALLERY2_XML_DESCRIPTION</description>
-         * <element>RSGallery2</element>
-         * <namespace path="src">Rsgallery2\Component\Rsgallery2</namespace>
-         */
+        try {
+            /**
+             * <extension type="component" method="upgrade">
+             * <name>com_rsgallery2</name>
+             * <creationDate>2024.09.13</creationDate>
+             * <author>RSGallery2 Team</author>
+             * <authorEmail>team2@rsgallery2.org</authorEmail>
+             * <authorUrl>https://www.rsgallery2.org</authorUrl>
+             * <copyright>(c) 2005-2024 RSGallery2 Team</copyright>
+             * <license>GNU General Public License version 2 or later;</license>
+             * <version>5.0.12.5</version>
+             * <description>COM_RSGALLERY2_XML_DESCRIPTION</description>
+             * <element>RSGallery2</element>
+             * <namespace path="src">Rsgallery2\Component\Rsgallery2</namespace>
+             */
 
-        $itemName = $this->itemName($line);
+            $itemName = $this->itemName($line);
 
-        // first section read -> (actually) exit
-        if ($itemName != '') {
-            switch ($itemName) {
-                case 'extension':
-                    [$this->type, $this->method] = $this->extractExtension($line);
-                    break;
+            // first section read -> (actually) exit
+            if ($itemName != '') {
+                switch ($itemName) {
+                    case 'extension':
+                        [$this->type, $this->method] = $this->extractExtension($line);
+                        $isHeaderLine = true;
+                        break;
 
-                case 'name':
-                    $this->componentName = $this->extractContent($line);
-                    break;
+                    case 'name':
+                        $this->componentName = $this->extractContent($line);
+                        $isHeaderLine = true;
+                        break;
 
-                case 'creationDate':
-                    $this->creationDate = $this->extractContent($line);
-                    break;
+                    case 'creationDate':
+                        $this->creationDate = $this->extractContent($line);
+                        $isHeaderLine = true;
+                        break;
 
-                case 'author':
-                    $this->author = $this->extractContent($line);
-                    break;
+                    case 'author':
+                        $this->author = $this->extractContent($line);
+                        $isHeaderLine = true;
+                        break;
 
-                case 'authorEmail':
-                    $this->authorEmail = $this->extractContent($line);
-                    break;
+                    case 'authorEmail':
+                        $this->authorEmail = $this->extractContent($line);
+                        $isHeaderLine = true;
+                        break;
 
-                case 'authorUrl':
-                    $this->authorUrl = $this->extractContent($line);
-                    break;
+                    case 'authorUrl':
+                        $this->authorUrl = $this->extractContent($line);
+                        $isHeaderLine = true;
+                        break;
 
-                case 'copyright':
-                    $this->copyright = $this->extractContent($line);
-                    break;
+                    case 'copyright':
+                        $this->copyright = $this->extractContent($line);
+                        $isHeaderLine = true;
+                        break;
 
-                case 'license':
-                    $this->license = $this->extractContent($line);
-                    break;
+                    case 'license':
+                        $this->license = $this->extractContent($line);
+                        $isHeaderLine = true;
+                        break;
 
-                case 'version':
-                    $this->version = $this->extractContent($line);
-                    break;
+                    case 'version':
+                        $this->versionId->inVersionId = $this->extractContent($line);
+                        $isHeaderLine = true;
+                        break;
 
-                case 'description':
-                    $this->description = $this->extractContent($line);
-                    break;
+                    case 'description':
+                        $this->description = $this->extractContent($line);
+                        $isHeaderLine = true;
+                        break;
 
-                case 'element':
-                    $this->element = $this->extractContent($line);
-                    break;
+                    case 'element':
+                        $this->element = $this->extractContent($line);
+                        $isHeaderLine = true;
+                        break;
 
-                case 'namespace':
-                    $this->namespace = $this->extractContent($line);
-                    break;
-                default:
-                    throw new \Exception('Unexpected value');
+                    case 'namespace':
+                        // $this->namespace = $this->extractContent($line);
+                        $this->namespace = trim($line);
+                        $isHeaderLine = true;
+                        break;
+
+                    case '?xml':
+                        $this->xmlLine = trim($line);
+                        $isHeaderLine = true;
+                        break;
+
+                    default:
+                        throw new \Exception('Unexpected value: "' . $itemName . '"');
+                }
             }
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
+            $hasError = -101;
         }
 
         return $isHeaderLine;
@@ -186,40 +225,48 @@ class manifestFile extends baseExecuteTasks
          * <namespace path="src">Rsgallery2\Component\Rsgallery2</namespace>
          */
 
-        $headerLines[] = $this->createHeaderLineExtension ();
+        // <?xml version="1.0" encoding="utf-8" ? >
+        $headerLines[] = $this->xmlLine . "\r\n";
+
+        // <extension type="component" method="upgrade">
+        $headerLines[] = $this->createHeaderLineExtension () . "\r\n";
 
 //                case 'name':
-        $headerLines[] = $this->createHeaderLine($this->name, $this->componentName);
+        $headerLines[] = $this->createHeaderLine('name', $this->componentName) . "\r\n";
 
 //                case 'creationDate':
-        $headerLines[] = $this->createHeaderLine($this->name, $this->creationDate);
+        $headerLines[] = $this->createHeaderLine('creationDate', $this->creationDate) . "\r\n";
 
 //                case 'author':
-        $headerLines[] = $this->createHeaderLine($this->name, $this->author);
+        $headerLines[] = $this->createHeaderLine('author', $this->author) . "\r\n";
 
 //                case 'authorEmail':
-        $headerLines[] = $this->createHeaderLine($this->name, $this->authorEmail);
+        $headerLines[] = $this->createHeaderLine('authorEmail', $this->authorEmail) . "\r\n";
 
 //                case 'authorUrl':
-        $headerLines[] = $this->createHeaderLine($this->name, $this->authorUrl);
+        $headerLines[] = $this->createHeaderLine('authorUrl', $this->authorUrl) . "\r\n";
 
 //                case 'copyright':
-        $headerLines[] = $this->createHeaderLine($this->name, $this->copyright);
+        $headerLines[] = $this->createHeaderLine('copyright', $this->copyright) . "\r\n";
 
 //                case 'license':
-        $headerLines[] = $this->createHeaderLine($this->name, $this->license);
+        $headerLines[] = $this->createHeaderLine('license', $this->license) . "\r\n";
 
 //                case 'version':
-        $headerLines[] = $this->createHeaderLine($this->name, $this->version);
+        if ($this->versionId->outVersionId == '') {
+            $this->versionId->outVersionId = $this->versionId->inVersionId;
+        }
+        $headerLines[] = $this->createHeaderLine('version', $this->versionId->outVersionId) . "\r\n";
 
 //                case 'description':
-        $headerLines[] = $this->createHeaderLine($this->name, $this->description);
+        $headerLines[] = $this->createHeaderLine('description', $this->description) . "\r\n";
 
 //                case 'element':
-        $headerLines[] = $this->createHeaderLine($this->name, $this->element);
+        $headerLines[] = $this->createHeaderLine('element', $this->element) . "\r\n";
 
 //                case 'namespace':
-        $headerLines[] = $this->createHeaderLine($this->name, $this->namespace);
+        // $headerLines[] = $this->createHeaderLine('namespace', $this->namespace) . "\r\n";
+        $headerLines[] = '    ' . $this->namespace . "\r\n";
 
         $this->headerLines = $headerLines;
 
@@ -245,11 +292,15 @@ class manifestFile extends baseExecuteTasks
 
     private function baseComponentName(): string
     {
-        if ($this->baseComponentName == '') {
-            $this->baseComponentName = substr($this->componentName, 4);
-        }
+//        if ($this->baseComponentName == '') {
+//            $this->baseComponentName = substr($this->componentName, 4);
+//        }
+//
+//        return $this->baseComponentName;
 
-        return $this->baseComponentName;
+        $baseComponentName = substr($this->componentName, 4);
+
+        return $baseComponentName;
     }
 
     // Task name with options
@@ -268,7 +319,7 @@ class manifestFile extends baseExecuteTasks
                 switch (strtolower($option->name)) {
 
                     // manifestFile
-                    case 'manifestFile':
+                    case 'manifestfile':
                         print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                         $this->manifestPathFileName = $option->value;
                         break;
@@ -279,16 +330,23 @@ class manifestFile extends baseExecuteTasks
                         $this->componentName = $option->value;
                         break;
 
-                    // extension (<element> name like RSGallery2
-                    case 'extension':
+                    // element: name like RSGallery2
+                    case 'element':
                         print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->extension = $option->value;
+                        $this->element = $option->value;
                         break;
 
-                    // com / mod / plg
+                    // component / module / plugin
                     case 'type':
                         print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->componentType = $option->value;
+                        $this->type = $option->value;
+                        break;
+
+                    // ToDo: if needed
+                    //  method="upgrade">
+                    case 'method':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->method = $option->value;
                         break;
 
                     default:
@@ -313,7 +371,11 @@ class manifestFile extends baseExecuteTasks
         // $hasError = $this->exchangeVersionId();
 
         // update manifest file name
-        $this->baseComponentName();
+        // $this->baseComponentName();
+
+        // ToDo: Check versionId changes from outside
+        $this->versionId->update();
+
 
         return $hasError;
     }
@@ -333,38 +395,37 @@ class manifestFile extends baseExecuteTasks
 
             if ($filePathName != '') {
                 // save in class
-                $this->manifestFileName = $filePathName;
+                $this->manifestPathFileName = $filePathName;
             }
 
-            $manifestFileName = $this->manifestFileName();
+            $manifestFileName = $this->manifestPathFileName;
 
-            $inLines = file($manifestFileName);
+            if (is_file($manifestFileName)) {
+                $inLines = file($manifestFileName);
 
-            $headerLines = [];
-            $otherLines = [];
+                $headerLines = [];
+                $otherLines  = [];
 
-            $isHeaderLine = true;
+                $isHeaderLine = true;
 
-            foreach ($inLines as $line) {
-
-                if ( $isHeaderLine ) {
-
-                    $isHeaderLine = $this->assignHeaderLine ($line);
-                    if ( $isHeaderLine ) {
-                        $headerLines[] = $line;
+                foreach ($inLines as $line) {
+                    if ($isHeaderLine) {
+                        $isHeaderLine = $this->assignHeaderLine($line);
+                        if ($isHeaderLine) {
+                            $headerLines[] = $line;
+                        } else {
+                            $otherLines[] = $line;
+                        }
                     } else {
                         $otherLines[] = $line;
                     }
-                } else {
-                    $otherLines[] = $line;
                 }
+
+                $this->headerLines = $headerLines;
+                $this->otherLines  = $otherLines;
+
+                $isRead = true;
             }
-
-            $this->headerLines = $headerLines;
-            $this->otherLines = $otherLines;
-
-            $isRead = True;
-
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
@@ -381,14 +442,14 @@ class manifestFile extends baseExecuteTasks
 
             if ($filePathName != '') {
                 // save in class
-                $this->manifestFileName = $filePathName;
+                $this->manifestPathFileName = $filePathName;
             }
-            $manifestFileName = $this->manifestFileName();
+            $manifestFileName = $this->manifestPathFileName;
 
             // build header from variables
-            createHeaderLines();
+            $this->createHeaderLines();
 
-            $this->outlines = array_merge ($this->headerLines, $this->otherLines);
+            $this->outLines = array_merge ($this->headerLines, $this->otherLines);
 
             file_put_contents($manifestFileName, $this->outLines);
             $isSaved = True;
@@ -437,22 +498,46 @@ class manifestFile extends baseExecuteTasks
         return $OutTxt;
     }
 
-    private function itemName(mixed $line) {
+    private function itemName(string $line) {
 
         $name = '';
 
+        // is xml element
         $idxStart = strpos($line, '<');
 
         if ($idxStart !== false) {
-            $idxEnd = strpos($line, '>', $idxStart);
-            if ($idxEnd !== false) {
-                $name = substr($line, $idxStart + 1, $idxEnd - 1);
-            }
+            // xml flag
+            // <?xml version="1.0" encoding="utf-8" ? >
+            if (str_contains($line, '<?xml')) {
+                $name = '?xml';
+            } else {
 
-            // if blank in name use first part
-            $idxSpace = strpos($name, ' ');
-            if ($idxSpace !== false) {
-                $name = substr($name, $idxSpace - 1);
+                // standard form <element>value</element> contains '</'
+                // <name>com_rsgallery2</name>
+                $idxStandard = strpos($line, '</');
+                if ($idxStandard !== false) {
+
+                    $idxEnd = strpos($line, '>', $idxStart+1);
+                    if ($idxEnd !== false) {
+                        $name = substr($line, $idxStart + 1, $idxEnd - $idxStart-1);
+                    }
+
+                    // <namespace path="src">Rsgallery2\Component\Rsgallery2</namespace>
+                    // if blank in name use first part
+                    $idxSpace = strpos($name, ' ');
+                    if ($idxSpace !== false) {
+                        $name = substr($name, 0,$idxSpace);
+                    }
+
+                } else {
+                    // <extension type="component" method="upgrade">
+                    // if blank in name use first part
+                    $idxSpace = strpos($line, ' ',$idxStart+1);
+                    if ($idxSpace !== false) {
+                        // $name = substr($name, 0,$idxSpace - 1);
+                        $name = substr($line, $idxStart + 1, $idxSpace - 1);
+                    }
+                }
             }
         }
 
@@ -460,33 +545,93 @@ class manifestFile extends baseExecuteTasks
     }
 
 
-        private function extractContent(mixed $line) {
+        private function extractContent(string $line) : string
+        {
             $name = '';
 
-            $idxStart = strpos($line, '<');
+            // <element>value</element> contains -> standard form
+
+            $idxStart = strpos($line, '>');
 
             if ($idxStart !== false) {
 
-                $idxEnd = strpos($line, '>', $idxStart);
+                $idxEnd = strpos($line, '<', $idxStart + 1);
                 if ($idxEnd !== false) {
 
-                    $name = substr($line, $idxStart+1, $idxEnd-1);
+                    $name = substr($line, $idxStart +1, $idxEnd - $idxStart -1);
                 }
 
-                // if blank in name use first part
-                $idxSpace =strpos($name, ' ');
-                if ($idxSpace !== false) {
+//                // if blank in name use first part
+//                $idxSpace =strpos($name, ' ');
+//                if ($idxSpace !== false) {
+//
+//                    $name = substr($name, $idxSpace-1);
+//
+//                }
+            }
 
-                    $name = substr($name, $idxSpace-1);
+            return $name;
+        }
 
+    private function extractExtension(string $inLine) {
+
+        $type = '???';
+        $method = '???';
+
+        // <extension type="component" method="upgrade">
+        $line = trim($inLine);
+
+        if (str_starts_with($line, '<extension')) {
+
+            // ToDo: on multiple lines ???
+            // In one line ?
+            if (str_contains($line, '>')) {
+
+                //--- type ----------------------------------
+
+                $idxType= strpos($line, 'type=');
+                if ($idxType !== false) {
+                    $idxStart = strpos($line, '"', $idxType + 4);
+
+                    if ($idxStart !== false) {
+                        $idxEnd = strpos($line, '"', $idxStart+1);
+                        if ($idxEnd !== false) {
+                            $type = substr($line, $idxStart + 1, $idxEnd - $idxStart - 1);
+                        }
+                    }
                 }
 
-                return $name;
+                //--- method ----------------------------------
+
+                $idxMethod= strpos($line, 'method=');
+                if ($idxMethod !== false) {
+
+                    $idxStart = strpos($line, '"', $idxMethod +7);
+
+                    if ($idxStart !== false) {
+                        $idxEnd = strpos($line, '"', $idxStart + 1);
+                        if ($idxEnd !== false) {
+                            $method = substr($line, $idxStart + 1, $idxEnd - $idxStart - 1);
+                        }
+                    }
+                }
+
+            } else {
+                // read part if exists or in next lines ...
+                // section starts
             }
         }
 
-    private function extractExtension(mixed $line) {
-        
+        return [$type, $method];
+    }
+
+    private function createHeaderLineExtension(): string {
+
+        // <extension type="component" method="upgrade">
+        // "    <name>com_rsgallery2</name>"
+        $line = '<extension type="' . $this->type . '" method="' . $this->method . '">';
+
+        return $line;
     }
 
 }

@@ -2,8 +2,9 @@
 
 namespace increaseVersionId;
 
-require_once "./iExecTask.php";
 require_once "./baseExecuteTasks.php";
+require_once "./iExecTask.php";
+require_once "./versionId.php";
 
 // use \DateTime;
 
@@ -53,10 +54,11 @@ class increaseVersionId extends baseExecuteTasks
             parent::__construct ($srcRoot, $isNoRecursion);
 
             $this->componentName = $componentName;
+            $this->versionId = new versionId();
 
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
-            $hasError = -101;
+//            $hasError = -101;
         }
         // print('exit __construct: ' . $hasError . "\r\n");
     }

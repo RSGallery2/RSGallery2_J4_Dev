@@ -45,11 +45,13 @@ variables
 
 $tasksLine = ' task:ManifestFile'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
-    . ' /manifestFile="./../../RSGallery2_J4/rsgallery2"'
+    . ' /manifestFile="./../../RSGallery2_J4/rsgallery2.xml"'
 //    . ' /isNoRecursion=true'
-    . ' /name=rsgallery2'
+//    . ' /componentname=rsgallery2'
 //    . ' /manifestFile'
-    . ' /version="5.0.12.4"';
+    . ' /forceVersion="5.0.12.4"'
+    . ' /isBuildRelease'
+;
 
 foreach ($options as $idx => $option) {
     print ("idx: " . $idx . "\r\n");
@@ -118,12 +120,26 @@ if ($hasError) {
 //}
 //
 if (!$hasError) {
-    $manifestPathFileName = $oForceVersionId->manifestPathFileName;
-    $outManifestPathFileName = $manifestPathFileName + '.bak';
+    $hasError = ! $oForceVersionId->readFile();
+    if ($hasError) {
+        print ("Error on function readFile:" . $hasError);
+    }
+}
 
-    $hasError = $oForceVersionId->writeFile($outManifestPathFileName);
+if (!$hasError) {
+    $hasError = $oForceVersionId->execute();
     if ($hasError) {
         print ("Error on function execute:" . $hasError);
+    }
+}
+
+if (!$hasError) {
+    $manifestPathFileName = $oForceVersionId->manifestPathFileName;
+    $outManifestPathFileName = $manifestPathFileName . '.bak';
+
+    $hasError = ! $oForceVersionId->writeFile($outManifestPathFileName);
+    if ($hasError) {
+        print ("Error on function writeFile:" . $hasError);
     }
 }
 

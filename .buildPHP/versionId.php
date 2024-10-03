@@ -11,8 +11,8 @@ use option\option;
 class versionId {
 
     //
-    public string $inVersionId;
-    public string $outVersionId;
+    public string $inVersionId='';
+    public string $outVersionId='';
 
     //--- tasks ---------------------------------
 
@@ -69,8 +69,8 @@ class versionId {
 
         if ($count > 0) { $major = intval($parts[0]); }
         if ($count > 1) { $minor = intval($parts[1]); }
-        if ($count > 2) { $major = intval($parts[2]); }
-        if ($count > 3) { $major = intval($parts[3]); }
+        if ($count > 2) { $patch = intval($parts[2]); }
+        if ($count > 3) { $build = intval($parts[3]); }
 
         return [$major, $minor, $patch, $build];
     }
@@ -161,9 +161,10 @@ class versionId {
         switch (strtolower($option->name)) {
             //--- Version flags -------------------------------------------------------------
 
-            case 'forceVersion':
+            case 'forceversion':
                 print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                 $this->forceVersionId = $option->value;
+                $this->isForceVersion = true;
                 $isVersionOption  = true;
                 break;
 
