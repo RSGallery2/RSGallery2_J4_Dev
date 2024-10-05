@@ -3,14 +3,20 @@
 namespace ManifestFile;
 
 require_once "./baseExecuteTasks.php";
+require_once "./copyrightText.php";
 require_once "./iExecTask.php";
 require_once "./versionId.php";
 
+use CopyrightText\copyrightText;
 use Exception;
 use ExecuteTasks\baseExecuteTasks;
 use ExecuteTasks\executeTasksInterface;
 use task\task;
 use VersionId\versionId;
+
+/*================================================================================
+Class manifestFile
+================================================================================*/
 
 class manifestFile extends baseExecuteTasks
     implements executeTasksInterface
@@ -38,7 +44,7 @@ class manifestFile extends baseExecuteTasks
     private string $author = '';
     private string $authorEmail = '';
     private string $authorUrl = '';
-    private string $copyright = '';
+    private copyrightText $copyright;
     private string $license = '';
     //private string $version = '';
     public versionId $versionId;
@@ -49,7 +55,7 @@ class manifestFile extends baseExecuteTasks
 
     //--- manifest flags ---------------------------------------
 
-    // copyright-, version- classes have their own
+    // copyright-, version-classes have their own
 
     public bool $isUpdateCreationDate = true;
 //    private bool $isUseActualYear;
@@ -70,6 +76,9 @@ class manifestFile extends baseExecuteTasks
             $this->versionId = new versionId();
             // Standard: may be overwritten later
             $this->versionId->isIncreaseBuild = true;
+
+            $this->copyright = new copyrightText();
+
 
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
@@ -159,7 +168,8 @@ class manifestFile extends baseExecuteTasks
                         break;
 
                     case 'copyright':
-                        $this->copyright = $this->extractContent($line);
+                        $copyrightText = $this->extractContent($line);
+                        $this->copyright = new copyrightText($copyrightText);
                         $isHeaderLine = true;
                         break;
 
@@ -195,7 +205,8 @@ class manifestFile extends baseExecuteTasks
                         break;
 
                     default:
-                        throw new \Exception('Unexpected value: "' . $itemName . '"');
+                        print ('!!! Unexpected header item name: "' . $itemName . '" !!!');
+                        throw new Exception('!!! Unexpected header item name: "' . $itemName . '" !!!');
                 }
             }
         } catch (Exception $e) {
@@ -247,7 +258,7 @@ class manifestFile extends baseExecuteTasks
         $headerLines[] = $this->createHeaderLine('authorUrl', $this->authorUrl) . "\r\n";
 
 //                case 'copyright':
-        $headerLines[] = $this->createHeaderLine('copyright', $this->copyright) . "\r\n";
+        $headerLines[] = $this->createHeaderLine('copyright', $this->copyright->formatCopyrightManifest()) . "\r\n";
 
 //                case 'license':
         $headerLines[] = $this->createHeaderLine('license', $this->license) . "\r\n";
@@ -487,6 +498,9 @@ class manifestFile extends baseExecuteTasks
         $date = date($date_format);
 
         $this->creationDate = $date;
+
+        $this->copyright->setActCopyright2Today();
+
     }
 
 

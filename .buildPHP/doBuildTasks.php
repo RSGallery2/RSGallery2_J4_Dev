@@ -280,8 +280,8 @@ class doBuildTasks
 //                        break;
 //
                     default:
-                        print ('!!! Execute unknown task: ' . $textTask->name . ' !!!');
-                        throw new Exception('!!! Execute unknown task: ' . $textTask->name . ' !!!');
+                        print ('!!! Execute unknown task: "' . $textTask->name . '" !!!');
+                        throw new Exception('!!! Execute unknown task: "' . $textTask->name . '" !!!');
                 } // switch
 
                 // $OutTxt .= $task->text() . "\r\n";

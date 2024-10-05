@@ -289,8 +289,9 @@ class buildRelease extends baseExecuteTasks
             // $manifestFile->versionId->isBuildRelease = false;
             $manifestFile->versionId->isBuildRelease = true;
 
-            // $manifestFile->versionId->isIncreaseMajor = false;
-            // $manifestFile->versionId->isIncreaseMajor = true;
+            // No tasks actual
+            // $manifestFile->copyright->isUpdateCopyright = false;
+            // $manifestFile->versionId->isUpdateCopyright = true;
 
             // $manifestFile->versionId->isIncreaseMinor = false;
             // $manifestFile->versionId->isIncreaseMinor = true;

@@ -7,6 +7,7 @@ require_once "./fileHeaderData.php";
 //use \DateTime;
 // use DateTime;
 
+use CopyrightText\copyrightText;
 use Exception;
 use task\task;
 
@@ -360,8 +361,6 @@ class fileHeaderByFileLine extends fileHeaderData
     {
         $this->task = $task;
 
-        $this->taskName = $task->name;
-
 //        $options = $task->options;
 //
 //        foreach ($options->options as $option) {
@@ -600,15 +599,12 @@ class fileHeaderByFileLine extends fileHeaderData
      * @param string $year
      * @return string
      */
-    public function replaceActCopyrightLine(mixed $line, string $year): string
+    public function replaceActCopyrightLine(string $line, string $year): string
     {
-        [$this->sinceCopyrightDate, $this->actCopyrightDate] =
-            $this->scan4CopyrightHeaderInLine($line);
+        $this->copyright = new copyrightText($line);
+        $this->copyright->actCopyrightDate = $year;
 
-        $this->actCopyrightDate = $year;
-
-        $copyrightLine = $this->headerFormatCopyright(
-            $this->sinceCopyrightDate, $this->actCopyrightDate);
+        $copyrightLine = $this->headerFormatCopyright();
 
         return $copyrightLine;
     }
@@ -687,15 +683,12 @@ class fileHeaderByFileLine extends fileHeaderData
      * @param string $sinceYear
      * @return string
      */
-    public function replaceSinceCopyrightLine(mixed $line, string $sinceYear): string
+    public function replaceSinceCopyrightLine(string $line, string $year): string
     {
-        [$this->sinceCopyrightDate, $this->actCopyrightDate] =
-            $this->scan4CopyrightHeaderInLine($line);
+        $this->copyright = new copyrightText($line);
+        $this->copyright->sinceCopyrightDate = $year;
 
-        $this->sinceCopyrightDate = $sinceYear;
-
-        $copyrightLine = $this->headerFormatCopyright(
-            $this->sinceCopyrightDate, $this->actCopyrightDate);
+        $copyrightLine = $this->headerFormatCopyright();
 
         return $copyrightLine;
     }

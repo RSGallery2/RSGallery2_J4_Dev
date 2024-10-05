@@ -2,32 +2,24 @@
 
 namespace FileHeader;
 
-//use \DateTime;
-// use DateTime;
+require_once "./copyrightText.php";
 
+use CopyrightText\copyrightText;
+use Exception;
 
 /*================================================================================
-Class fileHeader
+Class fileHeader data
 ================================================================================*/
-
-use Exception;
 
 class fileHeaderData
 {
     const PACKAGE = "RSGallery2";
     const SUBPACKAGE = "com_rsgallery2";
 
-    const COPYRIGHT_PRE_HEADER  = "copyright  (c)";
-    // 2019 start of J!4 version
-    const SINCE_COPYRIGHT_DATE = "2019";
-
-    const POST_COPYRIGHT_AUTHOR  = "RSGallery2 Team";
-
     const LICENSE = "GNU General Public License version 2 or later";
     //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
     const AUTHOR = "RSGallery2 Team <team2@rsgallery2.org>";
     const LINK = "https://www.rsgallery2.org";
-
 
     //
     public string $package; // = "RSGallery2";
@@ -36,13 +28,9 @@ class fileHeaderData
 
     // copyright
     // " * @copyright  (c)  2003-2024 RSGallery2 Team"
+    public copyrightText $copyright;
 
-    private string $copyrightPreHeader; // = "copyright  (c)";
-    public string $actCopyrightDate; // = "2024";
-    public string $sinceCopyrightDate; // = "2019";
-    private string $postCopyrightAuthor; // = "RSGallery2 Team";
-    
-    public string $yearToday = "????";
+//    public string $yearToday = "????";
 
     //public string $license = "GNU General Public License version 3 or later";
     public string $license = "GNU General Public License version 2 or later";
@@ -82,31 +70,19 @@ class fileHeaderData
         $this->init();
     }
 
-    public function init()
+    public function init() : void
     {
-        // $date_format        = 'Ymd';
-        $date_format = 'Y';
-        $yearToday = date($date_format);
+//        $date_format = 'Y';
+//        $this->yearToday = date($date_format);
 
         $this->package = self::PACKAGE;
         $this->subpackage = self::SUBPACKAGE;
 
-        $this->copyrightPreHeader = self::COPYRIGHT_PRE_HEADER;
-        // 2019 start of J!4 version
-        $this->actCopyrightDate = $yearToday;
-        $this->sinceCopyrightDate = self::SINCE_COPYRIGHT_DATE;
-        $this->yearToday = $yearToday;
-        $this->postCopyrightAuthor = self::POST_COPYRIGHT_AUTHOR;
-
         $this->license = self::LICENSE;
         $this->author = self::AUTHOR;
         $this->link = self::LINK;
-    }
 
-    function useActual4SinceDate () {
-
-        $this->sinceCopyrightDate  = $this->yearToday;
-
+        $this->copyright = new copyrightText();
     }
 
 /*--------------------------------------------------------------------
@@ -132,9 +108,10 @@ class fileHeaderData
 
                 if (!empty ($name)) {
                     if ($name == 'copyright') {
-                        // extract dates from line
-                        [$this->sinceCopyrightDate, $this->actCopyrightDate] =
-                            $this->scan4CopyrightHeaderInLine($line);
+//                        // extract dates from line
+//                        [$this->sinceCopyrightDate, $this->actCopyrightDate] =
+//                            $this->scan4CopyrightHeaderInLine($line);
+                        $this->copyright = new copyrightText($line);
                     } else {
                         $value = $this->scan4HeaderValueInLine($name, $line);
 
@@ -190,7 +167,7 @@ class fileHeaderData
     --------------------------------------------------------------------*/
 
     // '(c)' of copyright will be ignored here
-    private function extractNameFromHeaderLine(string $line)
+    private function extractNameFromHeaderLine(string $line) : array
     {
         $name = '';
         $behind = '';
@@ -208,34 +185,6 @@ class fileHeaderData
         }
 
         return [$name, $behind];
-    }
-
-    public function scan4CopyrightHeaderInLine(string $line)
-    {
-        // fall back
-        $sinceCopyrightDate = "2016";
-        $actCopyrightDate = "2024";
-
-        $value = $this->yearToday;
-
-        //   * @copyright (c)  2020-2022 Team
-        $idx = strpos($line, '(c)');
-        if ($idx !== false) {
-            $idx += 1 + strlen('(c)');
-
-            //$valuePart = trim(substr($line, $idx));
-            // preg_match_all('/\d+/', $valuePart, $matches);
-            preg_match_all('/\d+/', $line, $matches);
-
-            $finds = $matches [0];
-            if (count ($finds) > 2)
-            {
-                $sinceCopyrightDate = $finds[0];
-                $actCopyrightDate = $finds[1];
-            }
-        }
-
-        return [$sinceCopyrightDate, $actCopyrightDate];
     }
 
     public function scan4HeaderValueInLine(string $name, string $line): string
@@ -263,8 +212,7 @@ class fileHeaderData
         $OutTxt .= $this->headerFormat('package', $this->package);
         $OutTxt .= $this->headerFormat('subpackage', $this->subpackage);
         $OutTxt .= $this->headerFormat('author', $this->author);
-        $OutTxt .= $this->headerFormatCopyright(
-            $this->sinceCopyrightDate, $this->actCopyrightDate);
+        $OutTxt .= $this->headerFormatCopyright();
         $OutTxt .= $this->headerFormat('license', $this->license);
 
         $OutTxt .= " */" . "\r\n";
@@ -282,15 +230,13 @@ class fileHeaderData
             $outLines[] = $this->headerFormat('package', $this->package);
             $outLines[] = $this->headerFormat('subpackage', $this->subpackage);
             $outLines[] = $this->headerFormat('author', $this->author);
-            $outLines[] = $this->headerFormatCopyright(
-                $this->sinceCopyrightDate, $this->actCopyrightDate);
+            $outLines[] = $this->headerFormatCopyright();
             $outLines[] = $this->headerFormat('license', $this->license);
 
             $outLines[] = " */" . "\r\n";
 
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
-            $hasError = -101;
         }
 
         return $outLines;
@@ -309,15 +255,16 @@ class fileHeaderData
         return $headerLine;
     }
 
-    public function headerFormatCopyright($sinceCopyrightDate, $actCopyrightDate): string // , int $padCount
+    public function headerFormatCopyright(): string // , int $padCount
     {
         // copyright begins earlier
-        $padCount = $this->padCount;
+//        $padCount = $this->padCount;
+//
+//        $headerLine = str_pad(" * @" . $this->copyrightPreHeader, $padCount, " ", STR_PAD_RIGHT);
+//        $headerLine .= $sinceCopyrightDate . '-' . $actCopyrightDate;
+//        $headerLine .= ' ' . $this->postCopyrightAuthor;
 
-        $headerLine = str_pad(" * @" . $this->copyrightPreHeader, $padCount, " ", STR_PAD_RIGHT);
-        $headerLine .= $sinceCopyrightDate . '-' . $actCopyrightDate;
-        $headerLine .= ' ' . $this->postCopyrightAuthor;
-
+        $headerLine = $this->copyright->formatCopyrightPhp($this->padCount);
         $headerLine = rtrim($headerLine) . "\r\n";
 
         return $headerLine;
@@ -331,7 +278,15 @@ class fileHeaderData
         return $headerLocal !== $headerExtern;
     }
 
-    public function headerText()
+    public function isDifferentByString(string $externHeaderAsString): bool
+    {
+        $headerLocal = $this->headerText();
+        $headerExtern = $externHeaderAsString;
+
+        return $headerLocal !== $headerExtern;
+    }
+
+    public function headerText() : string
     {
         $OutTxt = "";
         $OutTxt .= "/**" . "\r\n";
@@ -339,8 +294,7 @@ class fileHeaderData
         $OutTxt .= $this->headerFormat('package', $this->package);
         $OutTxt .= $this->headerFormat('subpackage', $this->subpackage);
         $OutTxt .= $this->headerFormat('author', $this->author);
-        $OutTxt .= $this->headerFormatCopyright(
-            $this->sinceCopyrightDate, $this->actCopyrightDate);
+        $OutTxt .= $this->headerFormatCopyright();
         $OutTxt .= $this->headerFormat('license', $this->license);
 
 //       $OutTxt .= $this->headerFormat('link', $this->link);
@@ -348,14 +302,6 @@ class fileHeaderData
         $OutTxt .= " */" . "\r\n";
 
         return $OutTxt;
-    }
-
-    public function isDifferentByString(string $externHeaderAsString): bool
-    {
-        $headerLocal = $this->headerText();
-        $headerExtern = $externHeaderAsString;
-
-        return $headerLocal !== $headerExtern;
     }
 
 } // fileHeader

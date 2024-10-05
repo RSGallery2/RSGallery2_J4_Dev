@@ -2,42 +2,30 @@
 
 namespace CopyrightText;
 
-use option\option;
-
 /**
- * Sem-Version with additional build number
- *
+ * container for inner copyright line like "(c) 2005-2024 RSGallery2 Team"
+ * used in
+ * manifest file:
+ *    <copyright>(c) 2005-2024 RSGallery2 Team</copyright>
+ * *.php
+ *    @copyright   (c) 2003-2024 RSGallery2 Team
  */
 class copyrightText {
 
-    //
-    public string $inCopyrightText='';
-    public string $outCopyrightText='';
+    const COPYRIGHT_PRE_MANIFEST_FILE = "(c)";
+    const COPYRIGHT_PRE_PHP_FILE = "copyright  (c)";
+    // 2019 start of J!4 version
+    const SINCE_COPYRIGHT_DATE = "2019";
 
-    //--- tasks ---------------------------------
+    const POST_COPYRIGHT_AUTHOR  = "RSGallery2 Team";
 
-    public bool $isIncreaseMajor = false;
-    public bool $isIncreaseMinor = false;
-    public bool $isIncreasePatch = false; // release
-    public bool $isIncreaseBuild = false;
 
-    public string $actCopyright = '';
-    public string $sinceCopyright = '';
+    public string $copyrightPrePhp; // = "copyright  (c)" | "(c)";
+    public string $copyrightPreManifest; // "(c)";
+    public string $actCopyrightDate; // = "2024";
+    public string $sinceCopyrightDate; // = "2019";
+    private string $postCopyrightAuthor; // = "RSGallery2 Team";
 
-    // to actual year
-    public bool $isUpdateAct = false;
-
-    public bool $isAssignAct = false;
-    public string $forceAct = '';
-
-    public bool $isAssignSince = false;
-    public string $forceSince = '';
-
-    // fix will increase revision and reset build counter
-    public bool $isBuildFix = false;
-
-    // ToDo: Semantic $isRc  $isAlpha, $isBeta : pre release number for RC, Alpa ...
-    //  1.0.0-alpha.1 1.0.0-beta.11 1.0.0-rc.1
 
     /*--------------------------------------------------------------------
     construction
@@ -46,178 +34,149 @@ class copyrightText {
     // ToDo: a lot of parameters ....
     public function __construct($copyrightText = "") {
 
-        $this->inCopyrightText = $copyrightText;
-        $this->outCopyrightText = $copyrightText;
+        $this->init();
 
+        if (!empty($copyrightText)) {
+            $this->scan4CopyrightInLine ($copyrightText);
+        }
     }
 
-
-    public function setFlags(bool $isIncreaseMajor = false,
-        bool $isIncreaseMinor = false,
-        bool $isIncreasePatch = false, // release
-        bool $isIncreaseBuild = false) : void
+    public function init() : void
     {
-        $this->isIncreaseMajor = $isIncreaseMajor;
-        $this->isIncreaseMinor = $isIncreaseMinor;
-        $this->isIncreasePatch = $isIncreasePatch; // release
-        $this->isIncreaseBuild = $isIncreaseBuild;
+        $this->setActCopyright2Today ();
+
+        // 2019 start of J!4 version
+        $this->sinceCopyrightDate = self::SINCE_COPYRIGHT_DATE;
+        $this->postCopyrightAuthor = self::POST_COPYRIGHT_AUTHOR;
+
+        $this->copyrightPrePhp = self::COPYRIGHT_PRE_PHP_FILE;
+        $this->copyrightPreManifest = self::COPYRIGHT_PRE_MANIFEST_FILE;
     }
 
-    public static function id_2_numbers ($copyrightText = ' . . . ') //: [number,number, number, number]
+//    function useActual4SinceDate () {
+//
+//        $this->sinceCopyrightDate  = $this->actCopyrightDate;
+//
+//    }
+
+    public function setActCopyright2Today ()  : void {
+
+        // $date_format        = 'Ymd';
+        $date_format = 'Y';
+        $yearToday = date($date_format);
+
+        $this->actCopyrightDate = $yearToday;
+
+    }
+
+    public function setSinceCopyright2Today ()  : void {
+
+        // $date_format        = 'Ymd';
+        $date_format = 'Y';
+        $yearToday = date($date_format);
+
+        $this->actCopyrightDate = $yearToday;
+
+    }
+
+
+    public function setActCopyright (string $year)  : void {
+
+        $this->actCopyrightDate = $year;
+
+    }
+
+    public function setSinceCopyright (string $year) : void {
+
+        $this->actCopyrightDate = $year;
+
+    }
+
+    public function scan4CopyrightInLine(string $line) : array
     {
-        $major = 0;
-        $minor = 0;
-        $patch = 0;
-        $build = 0;
+        // fall back, preset result
 
-        $parts = explode('.', $copyrightText);
+        $this->init();
 
-        $count = count($parts);
+        //   * @copyright (c)  2020-2022 RSGallery2 Team
+        $idx = strpos($line, '(c)');
+        if ($idx !== false) {
+            //$valuePart = trim(substr($line, $idx));
+            // preg_match_all('/\d+/', $valuePart, $matches);
+            preg_match_all('/\d+/', $line, $matches);
 
-        if ($count > 0) { $major = intval($parts[0]); }
-        if ($count > 1) { $minor = intval($parts[1]); }
-        if ($count > 2) { $patch = intval($parts[2]); }
-        if ($count > 3) { $build = intval($parts[3]); }
-
-        return [$major, $minor, $patch, $build];
-    }
-
-    public static function numbers_2_id ($major=0, $minor=0, $patch=0, $build=0) : string
-    {
-        $copyrightText = strval($major) . '.' . strval($minor) . '.' . strval($patch) . '.' . strval($build);
-
-        return $copyrightText;
-    }
-
-    // leave out build
-    public static function numbers_2_id_release ($major=0, $minor=0, $patch=0, $build=0) : string
-    {
-        $copyrightText = strval($major) . '.' . strval($minor) . '.' . strval($patch);
-
-        return $copyrightText;
-    }
-
-
-    public function update() : string {
-
-        // force
-        if ($this->isForceVersion) {
-
-            $this->outCopyrightText = $this->forceCopyrightText;
-
+            $finds = $matches [0];
+            if (count ($finds) > 2)
+            {
+                $this->sinceCopyrightDate = $finds[0];
+                $this->actCopyrightDate = $finds[1];
+            }
         } else {
 
-            [$major, $minor, $patch, $build] = self::id_2_numbers($this->inCopyrightText);
-
-            // pre flags
-
-            // increase revision and reset build counter
-            if ($this->isBuildFix) {
-                $patch++;
-                $build = 0;
-                $this->outCopyrightText = self::numbers_2_id($major, $minor, $patch, $build);
-            }
-            else
-            {
-                // increase minor and reset revision and build counter
-                if ($this->isBuildRelease) {
-                    $minor++;
-                    $patch = 0;
-                    $build = 0;
-                    $this->outCopyrightText = self::numbers_2_id_release($major, $minor, $patch, $build);
-                }
-                else {
-
-                    // increase by flags (lower counter will be reset to '0'
-
-                    if ($this->isIncreaseBuild) {
-                        $build ++;
-                    }
-
-                    if ($this->isIncreasePatch) {
-                        $patch ++;
-                        $build = 0;
-                    }
-                    if ($this->isIncreaseMinor) {
-                        $minor ++;
-                        $patch = 0;
-                        $build = 0;
-                    }
-
-                    if ($this->isIncreaseMajor) {
-                        $major ++ ;
-                        $minor = 0;
-                        $patch = 0;
-                        $build = 0;
-                    }
-
-                    $this->outCopyrightText = self::numbers_2_id($major, $minor, $patch, $build);
-                }
-            }
-
+            print ('!!! Unexpected copyright line: "' . $line . '" !!!');
+            throw new \Exception('!!! Unexpected copyright line: "' . $line . '" !!!');
         }
 
-        return $this->outCopyrightText;
+        return [$this->sinceCopyrightDate, $this->actCopyrightDate];
+        // return [$this->actCopyrightDate, $this->sinceCopyrightDate];
     }
 
-    // Task name with options
-    public function assignVersionOption(option $option): bool
+
+    //  = "(c)";
+    // = "copyright  (c)";
+    public function formatCopyrightPhp($padCount, $sinceCopyrightDate='', $actCopyrightDate=''): string // , int $padCount
     {
-        $isVersionOption = false;
+        //--- data source --------------------------------
 
-        switch (strtolower($option->name)) {
-            //--- Version flags -------------------------------------------------------------
+        // from extern or intern
+        if (empty($sinceCopyrightDate)) {
+            $sinceCopyrightDate = $this->sinceCopyrightDate;
+        } else {
+            $this->sinceCopyrightDate = $sinceCopyrightDate;
+        }
 
-            case 'forceversion':
-                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                $this->forceCopyrightText = $option->value;
-                $this->isForceVersion = true;
-                $isVersionOption  = true;
-                break;
+        if (empty($actCopyrightDate)) {
+            $actCopyrightDate = $this->actCopyrightDate;
+        } else {
+            $this->actCopyrightDate = $actCopyrightDate;
+        }
 
-            case 'isincreasemajor':
-                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                $this->isIncreaseMajor = true;
-                $isVersionOption  = true;
-                break;
+        //--- format text --------------------------------
 
-            case 'isincreaseminor':
-                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                $this->isIncreaseMinor = true;
-                $isVersionOption  = true;
-                break;
+        // copyright begins earlier
+        // $padCount = $this->padCount;
 
-            case 'isincreasepatch':
-                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                $this->isIncreasePatch = true;
-                $isVersionOption  = true;
-                break;
+        $copyrightLine = str_pad(" * @" . $this->copyrightPrePhp, $padCount, " ", STR_PAD_RIGHT);
+        $copyrightLine .= $sinceCopyrightDate . '-' . $actCopyrightDate;
+        $copyrightLine .= ' ' . $this->postCopyrightAuthor;
 
-            case 'isincreasebuild':
-                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                $this->isIncreaseBuild = true;
-                $isVersionOption  = true;
-                break;
+        return rtrim($copyrightLine);
+    }
 
-            case '$isbuildelease':
-                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                $this->isBuildRelease = $option->value;
-                $isVersionOption  = true;
-                break;
+    public function formatCopyrightManifest($sinceCopyrightDate='', $actCopyrightDate=''): string
+    {
+        //--- data source --------------------------------
 
-            case '$isBuildFix':
-                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                $this->isBuildFix = $option->value;
-                $isVersionOption  = true;
-                break;
+        // from extern or intern
+        if (empty($sinceCopyrightDate)) {
+            $sinceCopyrightDate = $this->sinceCopyrightDate;
+        } else {
+            $this->sinceCopyrightDate = $sinceCopyrightDate;
+        }
 
-//				case 'X':
-//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-//					break;
+        if (empty($actCopyrightDate)) {
+            $actCopyrightDate = $this->actCopyrightDate;
+        } else {
+            $this->actCopyrightDate = $actCopyrightDate;
+        }
 
-        } // switch
+        //--- format text --------------------------------
 
-        return $isVersionOption;
+        $copyrightLine = $this->copyrightPreManifest
+            . ' ' . $sinceCopyrightDate . '-' . $actCopyrightDate
+            . ' ' . $this->postCopyrightAuthor;
+
+        return rtrim($copyrightLine);
     }
 
 
