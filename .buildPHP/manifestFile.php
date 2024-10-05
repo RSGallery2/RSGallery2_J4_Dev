@@ -37,7 +37,7 @@ class manifestFile extends baseExecuteTasks
 
     //--- line data -------------------------
 
-    private string $type = '';
+    public string $type = '';
     private string $method = '';
     private string $componentName = '';
     private string $creationDate = '';
@@ -74,8 +74,7 @@ class manifestFile extends baseExecuteTasks
             }
 
             $this->versionId = new versionId();
-            // Standard: may be overwritten later
-            $this->versionId->isIncreaseBuild = true;
+            $this->initVersionId ();
 
             $this->copyright = new copyrightText();
 
@@ -85,6 +84,13 @@ class manifestFile extends baseExecuteTasks
         }
         // print('exit __construct: ' . $hasError . "\r\n");
     }
+
+    public function initVersionId () {
+        // Standard: may be overwritten later
+        $this->versionId->isIncreaseBuild = true;
+    }
+
+
 
 //    public function __construct2($srcRoot = "",
 //        $manifestPathFileName = '',
@@ -444,6 +450,10 @@ class manifestFile extends baseExecuteTasks
                 $this->otherLines  = $otherLines;
 
                 $isRead = true;
+            } else {
+
+                
+
             }
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
@@ -453,7 +463,7 @@ class manifestFile extends baseExecuteTasks
         return $isRead;
     }
 
-    public function writeFile(string $filePathName): int
+    public function writeFile(string $filePathName=''): int
     {
         $isSaved = false;
 
@@ -573,7 +583,7 @@ class manifestFile extends baseExecuteTasks
 
         private function extractContent(string $line) : string
         {
-            $name = '';
+            $value = '';
 
             // <element>value</element> contains -> standard form
 
@@ -584,19 +594,19 @@ class manifestFile extends baseExecuteTasks
                 $idxEnd = strpos($line, '<', $idxStart + 1);
                 if ($idxEnd !== false) {
 
-                    $name = substr($line, $idxStart +1, $idxEnd - $idxStart -1);
+                    $value = substr($line, $idxStart +1, $idxEnd - $idxStart -1);
                 }
 
-//                // if blank in name use first part
-//                $idxSpace =strpos($name, ' ');
+//                // if blank in value use first part
+//                $idxSpace =strpos($value, ' ');
 //                if ($idxSpace !== false) {
 //
-//                    $name = substr($name, $idxSpace-1);
+//                    $value = substr($value, $idxSpace-1);
 //
 //                }
             }
 
-            return $name;
+            return $value;
         }
 
     private function extractExtension(string $inLine) {
