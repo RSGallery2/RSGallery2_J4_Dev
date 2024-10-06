@@ -58,6 +58,8 @@ $tasksLine = ' task:buildRelease'
     // each creation of package will increase the build number
 //    . ' /isIncrementVersion_build = false'
     . ' /isIncrementVersion_build = true'
+//    . ' /isBuildRelease = true'
+//    . ' /isBuildFix = true'
 
     // release will increase minor and reset revision and build counter
 //    . ' /isBuildRelease = true'

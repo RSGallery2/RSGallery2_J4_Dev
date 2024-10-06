@@ -50,7 +50,7 @@ class manifestFile extends baseExecuteTasks
     public versionId $versionId;
     private string $description = '';
     // Name of extension for user like RSGallery2
-    private string $element = '';
+    public string $element = '';
     private string $namespace = '';
 
     //--- manifest flags ---------------------------------------
@@ -59,6 +59,8 @@ class manifestFile extends baseExecuteTasks
 
     public bool $isUpdateCreationDate = true;
 //    private bool $isUseActualYear;
+    public bool $isIncrementVersion_build = true;
+
 
     public function __construct(
         $srcRoot = "",
@@ -348,6 +350,7 @@ class manifestFile extends baseExecuteTasks
                         break;
 
                     // element: name like RSGallery2
+                    case 'extension':
                     case 'element':
                         print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                         $this->element = $option->value;
@@ -369,6 +372,11 @@ class manifestFile extends baseExecuteTasks
                     case 'isupdatecreationdate':
                         print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                         $this->isUpdateCreationDate = $option->value;
+                        break;
+
+                    case 'isincrementversion_build':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->isIncrementVersion_build = $option->value;
                         break;
 
                     default:
@@ -394,6 +402,11 @@ class manifestFile extends baseExecuteTasks
 
         // update manifest file name
         // $this->baseComponentName();
+
+        if ($this->isIncrementVersion_build) {
+
+            $this->versionId->isIncreaseBuild = true;
+        }
 
         //  Apply versionId changes from outside
         $this->versionId->update();

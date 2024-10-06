@@ -121,6 +121,7 @@ class buildRelease extends baseExecuteTasks
 //                        break;
 
                     // extension (<element> name like RSGallery2
+                    case 'element':
                     case 'extension':
                         print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                         $this->element = $option->value;
@@ -268,6 +269,13 @@ class buildRelease extends baseExecuteTasks
             $this->xcopyElement('index.html', $srcRoot, $tmpFolder);
 
             //--------------------------------------------------------------------
+            // changelog to root
+            //--------------------------------------------------------------------
+
+            $changelogPathFileName = $this->srcRoot . '/administrator/components/com_rsgallery2/';
+            $this->xcopyElement('changelog.xml', $changelogPathFileName, $tmpFolder);
+
+            //--------------------------------------------------------------------
             // zip to destination
             //--------------------------------------------------------------------
 
@@ -345,6 +353,9 @@ class buildRelease extends baseExecuteTasks
                     $manifestFile->versionId->isBuildRelease = true;
                 }
 
+                if ($this->element != '') {
+                    $manifestFile->element = $this->element;
+                }
                 // No tasks actual
                 // $manifestFile->copyright->isUpdateCopyright = false;
                 // $manifestFile->copyright->isUpdateCopyright = true;

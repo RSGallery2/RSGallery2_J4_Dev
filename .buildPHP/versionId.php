@@ -199,7 +199,7 @@ class versionId {
                 $isVersionOption  = true;
                 break;
 
-            case '$isBuildFix':
+            case '$isbuildfix':
                 print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                 $this->isBuildFix = $option->value;
                 $isVersionOption  = true;
