@@ -4,7 +4,7 @@ REM
 CLS
 
 Set CmdArgs=
-ECHO PHP original.php
+ECHO PHP fileNamesList.bat
 
 REM Source path
 Call :AddNextArg -p "..\..\RSGallery2_J4"
@@ -26,9 +26,9 @@ REM return sub object with exluded/included files
 REM add command line
 REM Call :AddNextArg %*
 
-files with extension
+REM files with extension
 
-files matching regex
+REM files matching regex
 
 
 
