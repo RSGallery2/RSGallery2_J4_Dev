@@ -88,19 +88,25 @@ class task
         $this->clear();
 
         try {
-            $content = file_get_contents('data.txt'); //Get the file
+            $content = file_get_contents($taskFile); //Get the file
             $lines = explode("\n", $content); //Split the file by each line
+            $taskLine = '';
 
             foreach ($lines as $line) {
+
                 $line = trim($line);
 
                 // ToDo use before each ? "/*" comments like lang manager
 
                 // ignore comments
                 if (!str_starts_with($line, '//')) {
-                    $this->extractTaskFromString(Trim($line));
+                    // add into one line
+                    $taskLine .= ' ' . $line;
                 }
+
             }
+
+            $this->extractTaskFromString($taskLine);
             // print ($this->tasksText ());
 
         } catch (Exception $e) {

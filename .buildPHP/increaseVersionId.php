@@ -159,6 +159,7 @@ class increaseVersionId extends baseExecuteTasks
                 } else {
                     // 	<version>5.0.12.4</version>
                     if (str_contains($line, '<version>')) {
+
                         // ToDo: preg_match ...
                         $actVersion = preg_replace(
                             '/.*<version>(.*)<\/version>.*/',
