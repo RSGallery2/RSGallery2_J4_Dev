@@ -1,32 +1,33 @@
 @ECHO OFF
-REM FileNamesList.batbuildDevelop.bat
+REM buildDevelop.bat
 REM 
 CLS
 
-REM Organise Path for calling
-set ExePath=.\
-if exist %ExePath%\WdbCommander.exe goto :EndExePath
-prompt
+REM Path for calling
+set ExePath=C:\Program Files\php82\
+REM ECHO ExePath: "%ExePath%"
 
-set ExePath=..\exe\
-if exist %ExePath%\WdbCommander.exe goto :EndExePath
-prompt
-
-set ExePath=%WWM500TOOLS%\WdbCommander
-
-:EndExePath
-
-
-
+if exist "%ExePath%php.exe" (
+    REM path known (WT)
+    ECHO ExePath: "%ExePath%"
+) else (
+    REM Direct call
+    ECHO PHP in path variable
+    set ExePath=
+)
 
 REM "C:\Program Files\php82\php.exe" --version
-php.exe --version
+"%ExePath%php.exe" --version
+ECHO.
 
 REM echo.
-echo --- "C:\Program Files\php82\php.exe" ./buildRelease.php /t buildDevelop.tsk %1
+echo --- "%ExePath%php.exe" ./buildRelease.php /t buildDevelop.tsk %1
 REM "C:\Program Files\php82\php.exe" f:\Entwickl\rsgallery2\RSGallery2_J4_Dev\.buildPHP\buildRelease.php /t buildDevelop.tsk %1
 REM "C:\Program Files\php82\php.exe" ./buildRelease.php /t buildDevelop.tsk %1
-php.exe -f "./buildRelease.php" -- /t=buildDevelop.tsk %1
+REM "%ExePath%php.exe" -f "./buildReleaseCmd.php" -- /t=buildDevelop.tsk %1
+"%ExePath%php.exe" increaseVersionIdCmd.php
+
+goto :EOF
 
 
 

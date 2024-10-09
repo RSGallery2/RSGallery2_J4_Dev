@@ -27,7 +27,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:d:h12345";
+$optDefinition = "t:f:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -52,17 +52,21 @@ $tasksLine = ' task:increaseVersionId'
 //    . ' /isIncreasePatch'
     . ' /isIncreaseBuild';
 
+// $taskFile = "";
+$taskFile="./increaseVersionId.tsk";
+$tasksLine = "";
+
 foreach ($options as $idx => $option) {
     print ("idx: " . $idx . "\r\n");
     print ("option: " . $option . "\r\n");
 
     switch ($idx) {
-        case 's':
-            $srcFile = $option;
+        case 't':
+            $tasksLine = $option;
             break;
 
-        case 'd':
-            $dstFile = $option;
+        case 'f':
+            $taskFile = $option;
             break;
 
         case "h":
@@ -95,13 +99,28 @@ foreach ($options as $idx => $option) {
     }
 }
 
-//--- call function ---------------------------------
+/*--------------------------------------------------
+   call function
+--------------------------------------------------*/
 
 // for start / end diff
 $start = print_header($options, $inArgs);
 
+//--- assign task line ------------------------------
+
 $task = new task();
-$task->extractTaskFromString($tasksLine);
+if ($taskFile != "") {
+    $hasError = $task->extractTasksFromFile($taskFile);
+    if (!empty ($hasError)) {
+        print ("Error on function extractTasksFromFile:" . $hasError
+            . ' path: ' . $taskFile);
+    }
+} else {
+    // Single task
+    $task->extractTaskFromString($tasksLine);
+}
+
+//--- execute class tasks ------------------------------
 
 $oIncreaseVersionId = new increaseVersionId();
 

@@ -27,6 +27,7 @@ class increaseVersionId extends baseExecuteTasks
     private string $componentVersion = '';
     private string $manifestPathFileName = '';
 
+    private string $name = '';
 
     /*--------------------------------------------------------------------
     construction

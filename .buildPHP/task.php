@@ -79,6 +79,38 @@ class task
         return $this;
     }
 
+    public function extractTaskFromFile(string $taskFile): task
+    {
+        print('*********************************************************' . "\r\n");
+        print ("extractTasksFromFile: " . $taskFile . "\r\n");
+        print('---------------------------------------------------------' . "\r\n");
+
+        $this->clear();
+
+        try {
+            $content = file_get_contents('data.txt'); //Get the file
+            $lines = explode("\n", $content); //Split the file by each line
+
+            foreach ($lines as $line) {
+                $line = trim($line);
+
+                // ToDo use before each ? "/*" comments like lang manager
+
+                // ignore comments
+                if (!str_starts_with($line, '//')) {
+                    $this->extractTaskFromString(Trim($line));
+                }
+            }
+            // print ($this->tasksText ());
+
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+
+        return $this;
+    }
+
 
     public function addOption(option $option)
     {

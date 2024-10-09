@@ -26,7 +26,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:d:h12345";
+$optDefinition = "t:f:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -49,17 +49,22 @@ $tasksLine = ' task:forceCreationDate'
 //    . ' /date="22. Feb. 2022"'
 ;
 
+// $taskFile = "";
+$taskFile="./forceCreationDate.tsk";
+$taskLine = "";
+
+
 foreach ($options as $idx => $option) {
     print ("idx: " . $idx . "\r\n");
     print ("option: " . $option . "\r\n");
 
     switch ($idx) {
-        case 's':
-            $srcFile = $option;
+        case 't':
+            $taskLine = $option;
             break;
 
-        case 'd':
-            $dstFile = $option;
+        case 'f':
+            $taskFile = $option;
             break;
 
         case "h":
@@ -93,6 +98,8 @@ foreach ($options as $idx => $option) {
 }
 
 //--- call function ---------------------------------
+
+yyy $taskFile ....;
 
 // for start / end diff
 $start = print_header($options, $inArgs);

@@ -25,7 +25,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "t:h12345";
+$optDefinition = "t:f:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -80,7 +80,7 @@ $basePath = "..\\..\\RSGallery2_J4";
 
 // $taskFile = "";
 $taskFile="./buildDevelop.tsk";
-$taskLine = "";
+$tasksLine = "";
 
 foreach ($options as $idx => $option) {
     print ("idx: " . $idx . "\r\n");
@@ -88,7 +88,7 @@ foreach ($options as $idx => $option) {
 
     switch ($idx) {
         case 't':
-            $taskLine = $option;
+            $tasksLine = $option;
             break;
 
         case 'f':
@@ -125,22 +125,27 @@ foreach ($options as $idx => $option) {
     }
 }
 
-//--- call function ---------------------------------
+/*--------------------------------------------------
+   call function
+--------------------------------------------------*/
 
 // for start / end diff
 $start = print_header($options, $inArgs);
 
-$task = new task();
+//--- assign task line ------------------------------
 
+$task = new task();
 if ($taskFile != "") {
     $hasError = $task->extractTasksFromFile($taskFile);
     if (!empty ($hasError)) {
         print ("Error on function extractTasksFromFile:" . $hasError
-            . ' path: ' . $basePath);
+            . ' path: ' . $taskFile);
     }
 } else {
 	$task->extractTaskFromString($tasksLine);
 }
+
+//--- execute class tasks ------------------------------
 
 $oBuildRelease = new buildRelease();
 
