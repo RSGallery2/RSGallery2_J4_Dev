@@ -187,7 +187,8 @@ class manifestFile extends baseExecuteTasks
                         break;
 
                     case 'version':
-                        $this->versionId->inVersionId = $this->extractContent($line);
+                        // $this->versionId->inVersionId = $this->extractContent($line);
+                        $inVersionId = $this->versionId->scan4VersionIdInLine($line);
                         $isHeaderLine = true;
                         break;
 
@@ -275,7 +276,8 @@ class manifestFile extends baseExecuteTasks
         if ($this->versionId->outVersionId == '') {
             $this->versionId->outVersionId = $this->versionId->inVersionId;
         }
-        $headerLines[] = $this->createHeaderLine('version', $this->versionId->outVersionId) . "\r\n";
+        // $headerLines[] = $this->createHeaderLine('version', $this->versionId->outVersionId) . "\r\n";
+        $headerLines[] = $this->versionId->formatVersionIdManifest () . "\r\n";
 
 //                case 'description':
         $headerLines[] = $this->createHeaderLine('description', $this->description) . "\r\n";
@@ -594,21 +596,21 @@ class manifestFile extends baseExecuteTasks
     }
 
 
-        private function extractContent(string $line) : string
-        {
-            $value = '';
+    private function extractContent(string $line) : string
+    {
+        $value = '';
 
-            // <element>value</element> contains -> standard form
+        // <element>value</element> contains -> standard form
 
-            $idxStart = strpos($line, '>');
+        $idxStart = strpos($line, '>');
 
-            if ($idxStart !== false) {
+        if ($idxStart !== false) {
 
-                $idxEnd = strpos($line, '<', $idxStart + 1);
-                if ($idxEnd !== false) {
+            $idxEnd = strpos($line, '<', $idxStart + 1);
+            if ($idxEnd !== false) {
 
-                    $value = substr($line, $idxStart +1, $idxEnd - $idxStart -1);
-                }
+                $value = substr($line, $idxStart +1, $idxEnd - $idxStart -1);
+            }
 
 //                // if blank in value use first part
 //                $idxSpace =strpos($value, ' ');
@@ -617,10 +619,10 @@ class manifestFile extends baseExecuteTasks
 //                    $value = substr($value, $idxSpace-1);
 //
 //                }
-            }
-
-            return $value;
         }
+
+        return $value;
+    }
 
     private function extractExtension(string $inLine) {
 

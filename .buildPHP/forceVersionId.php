@@ -155,11 +155,16 @@ class forceVersionId extends baseExecuteTasks
                 } else {
                     // 	<version>5.0.12.4</version>
                     if (str_contains($line, '<version>')) {
-                        $outLine = preg_replace(
-                            '/(.*>?)(.*)(<.*)/',
-                            '${1}' . $strVersion . '${3}',
-                            $line,
-                        );
+
+                        //--- assign version -----------------------------------
+
+                        $this->versionId->outVersionId = $strVersion;
+
+                        //--- version line -----------------------------------
+
+                        $outLine = $this->versionId->formatVersionIdManifest () . "\r\n";
+
+                        //--- keep line -----------------------------------
 
                         $outLines [] = $outLine;
 

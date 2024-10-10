@@ -21,11 +21,11 @@ REM "C:\Program Files\php82\php.exe" --version
 ECHO.
 
 REM echo.
-echo --- "%ExePath%php.exe" ./increaseVersionId.php /t increaseVersionId.tsk %1
+echo --- "%ExePath%php.exe" ./increaseVersionIdCmd.php -f increaseVersionId_Patch.tsk %1
 REM "C:\Program Files\php82\php.exe" f:\Entwickl\rsgallery2\RSGallery2_J4_Dev\.buildPHP\increaseVersionId.php /t increaseVersionId.tsk %1
 REM "C:\Program Files\php82\php.exe" ./increaseVersionId.php /t increaseVersionId.tsk %1
 REM "%ExePath%php.exe" -f "./increaseVersionIdCmd.php" -- /t=increaseVersionId.tsk %1
-"%ExePath%php.exe" increaseVersionIdCmd.php
+"%ExePath%php.exe" increaseVersionIdCmd.php -f increaseVersionId_Patch.tsk %1
 
 goto :EOF
 

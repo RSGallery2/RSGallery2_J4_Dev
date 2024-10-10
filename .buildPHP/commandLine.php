@@ -71,9 +71,9 @@ function argsAndOptions($argv, string $optDefinition, bool $isPrintArguments): a
 
     //--- extract options ---------------------------------
 
-    if ($isPrintArguments) {
-        $options = getopt($optDefinition, []);
+    $options = getopt($optDefinition, []);
 
+    if ($isPrintArguments) {
         if (!empty ($inArgs)) {
             print ("--- in options ---" . "\r\n");
             var_dump($options);

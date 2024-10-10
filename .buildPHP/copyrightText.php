@@ -94,6 +94,8 @@ class copyrightText {
 
     public function scan4CopyrightInLine(string $line) : array
     {
+        // ToDo: try, catch
+
         // fall back, preset result
 
         $this->init();
@@ -126,6 +128,8 @@ class copyrightText {
     // = "copyright  (c)";
     public function formatCopyrightPhp($padCount, $sinceCopyrightDate='', $actCopyrightDate=''): string // , int $padCount
     {
+        // ToDo: try, catch
+
         //--- data source --------------------------------
 
         // from extern or intern
@@ -155,6 +159,8 @@ class copyrightText {
 
     public function formatCopyrightManifest($sinceCopyrightDate='', $actCopyrightDate=''): string
     {
+        // ToDo: try, catch
+
         //--- data source --------------------------------
 
         // from extern or intern

@@ -160,26 +160,20 @@ class increaseVersionId extends baseExecuteTasks
                     // 	<version>5.0.12.4</version>
                     if (str_contains($line, '<version>')) {
 
-                        // ToDo: preg_match ...
-                        $actVersion = preg_replace(
-                            '/.*<version>(.*)<\/version>.*/',
-                            '${1}',
-                            trim($line),
-                        );
+                        //--- retrieve version -----------------------------------
+
+                        $inVersionId = $this->versionId->scan4VersionIdInLine($line);
 
                         //--- update version -----------------------------------
 
-                        // $newVersion = $this->increaseVersion($actVersion);
-                        $this->versionId->inVersionId = $actVersion;
+                        // exchange for new version id
                         $this->versionId->update();
-                        $newVersion = $this->versionId->outVersionId;
 
-                        // exchange for new version
-                        $outLine = preg_replace(
-                            '/(.*<version>)(.*)(<\/version>.*)/',
-                            '${1}' . $newVersion . '${3}',
-                            $line,
-                        );
+                        //--- version line -----------------------------------
+
+                        $outLine = $this->versionId->formatVersionIdManifest () . "\r\n";
+
+                        //--- keep line -----------------------------------
 
                         $outLines [] = $outLine;
 

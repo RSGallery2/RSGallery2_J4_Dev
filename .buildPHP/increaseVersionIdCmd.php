@@ -29,6 +29,7 @@ main (used from command line)
 
 $optDefinition = "t:f:h12345";
 $isPrintArguments = false;
+//$isPrintArguments = true;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
 
@@ -66,6 +67,7 @@ foreach ($options as $idx => $option) {
             break;
 
         case 'f':
+            print ('->/f option: "' . $option . '"');
             $taskFile = $option;
             break;
 

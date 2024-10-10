@@ -45,6 +45,15 @@ class versionId {
 
     }
 
+    public function init() : void
+    {
+        // on read of line
+
+        $this->inVersionId = '';
+        $this->outVersionId = '';
+    }
+
+
 
     public function setFlags(bool $isIncreaseMajor = false,
         bool $isIncreaseMinor = false,
@@ -212,6 +221,72 @@ class versionId {
         } // switch
 
         return $isVersionOption;
+    }
+
+    public function scan4VersionIdInLine(string $line) : array
+    {
+        // ToDo: try, catch
+
+        $this->init();
+
+        // ....<version>5.0.12.5</version>
+        if (str_contains($line, '<version>')) {
+
+//            // ? use preg_match ...
+//            $inVersionId = preg_replace(
+//                '/.*<version>(.*)<\/version>.*/',
+//                '${1}',
+//                trim($line),
+//            );
+//
+//            $this->inVersionId = $inVersionId;
+
+            // <element>value</element> contains -> standard form
+
+            $idxStart = strpos($line, '>');
+
+            if ($idxStart !== false) {
+                $idxEnd = strpos($line, '<', $idxStart + 1);
+                if ($idxEnd !== false) {
+                    $inVersionId = substr($line, $idxStart + 1, $idxEnd - $idxStart - 1);
+                }
+
+                $this->inVersionId = $inVersionId;
+            }
+
+        } else {
+
+            print ('!!! Unexpected copyright line: "' . $line . '" !!!');
+            throw new \Exception('!!! Unexpected copyright line: "' . $line . '" !!!');
+        }
+
+        return [$this->inVersionId];
+        // return [$this->actCopyrightDate, $this->sinceCopyrightDate];
+    }
+
+    public function formatVersionIdManifest($outVersionId=''): string
+    {
+        // ToDo: try, catch
+
+        //--- data source --------------------------------
+
+        // from extern or intern
+        if (empty($sinceCopyrightDate)) {
+            $outVersionId = $this->outVersionId;
+        } else {
+            $this->outVersionId = $outVersionId;
+        }
+
+        //--- format text --------------------------------
+
+        // ....<version>5.0.12.5</version>
+
+        $versionIdLine = '    '
+            . '<version>'
+            . $outVersionId
+            . '</version>';
+
+        return $versionIdLine;
     }
 
 
