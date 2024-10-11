@@ -1,5 +1,5 @@
 @ECHO OFF
-REM increaseVersionId_Patch.bat
+REM build_fix.bat
 REM 
 CLS
 
@@ -21,8 +21,8 @@ REM "C:\Program Files\php82\php.exe" --version
 ECHO.
 
 REM echo.
-echo --- "%ExePath%php.exe" ./increaseVersionIdCmd.php -f increaseVersionId_Patch.tsk %1
-"%ExePath%php.exe" increaseVersionIdCmd.php -f increaseVersionId_Patch.tsk %1
+echo --- "%ExePath%php.exe" ./buildRelease.php -f build_fix.tsk %1
+"%ExePath%php.exe" buildRelease.php -f build_fix.tsk %1
 
 goto :EOF
 

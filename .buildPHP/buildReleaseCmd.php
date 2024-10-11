@@ -55,13 +55,12 @@ $tasksLine = ' task:buildRelease'
 //    . ' /isIncrementVersion_major = true'
 //    . ' /isIncrementVersion_minor = true'
 //    . ' /isIncrementVersion_revision = true'
-    // each creation of package will increase the build number
+// each creation of package will increase the build number
 //    . ' /isIncrementVersion_build = false'
     . ' /isIncrementVersion_build = true'
 //    . ' /isBuildRelease = true'
 //    . ' /isBuildFix = true'
-
-    // release will increase minor and reset revision and build counter
+//    release will increase minor and reset revision and build counter
 //    . ' /isBuildRelease = true'
 
     // fix will increase revision and reset build counter

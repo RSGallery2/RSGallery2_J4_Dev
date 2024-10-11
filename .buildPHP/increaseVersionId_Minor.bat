@@ -1,5 +1,5 @@
 @ECHO OFF
-REM increaseVersionId.bat
+REM increaseVersionId_Minor.bat
 REM 
 CLS
 
@@ -22,23 +22,9 @@ ECHO.
 
 REM echo.
 echo --- "%ExePath%php.exe" ./increaseVersionIdCmd.php -f increaseVersionId_Minor.tsk %1
-REM "C:\Program Files\php82\php.exe" f:\Entwickl\rsgallery2\RSGallery2_J4_Dev\.buildPHP\increaseVersionId.php /t increaseVersionId.tsk %1
-REM "C:\Program Files\php82\php.exe" ./increaseVersionId.php /t increaseVersionId.tsk %1
-REM "%ExePath%php.exe" -f "./increaseVersionIdCmd.php" -- /t=increaseVersionId.tsk %1
 "%ExePath%php.exe" increaseVersionIdCmd.php -f increaseVersionId_Minor.tsk %1
 
 goto :EOF
-
-
-
-ECHO.
-ECHO ------------------------------------------------------------------------------
-ECHO Start cmd:
-ECHO.
-ECHO php.exe -f "./FileNamesList.php" --  %CmdArgs% %*
-php.exe -f "./FileNamesList.php" --  %CmdArgs% %*
-
-GOTO :EOF
 
 REM ------------------------------------------
 REM Adds given argument to the already known command arguments
