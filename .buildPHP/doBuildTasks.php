@@ -140,7 +140,9 @@ class doBuildTasks
                     //--- let the task run -------------------------
 
                     case 'execute':
-                        print ('>>> Call execute task: "' . $this->actTask->name . '"  >>>' . "\r\n");
+                        print ('>>> Call execute task: "'
+                            // . $this->actTask->name
+                        . '"  >>>' . "\r\n");
 
                         // ToDo: dummy task
 //                        if (empty ($this->actTask)){
