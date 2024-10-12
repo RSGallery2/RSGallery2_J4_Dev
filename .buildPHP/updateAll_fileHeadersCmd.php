@@ -27,7 +27,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:a:h12345";
+$optDefinition = "t:f:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -42,8 +42,10 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-//// idea: own task for filenames
-//$filesTaskLine = "task:createFilenamesList"
+$tasksLine = ' task:updateAll_fileHeaders'
+    . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+//    . ' /isNoRecursion=true'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
 //    . ' /isNoRecursion=true'
 ////    . ' /isCrawlSilent=false' default true ToDo:
@@ -55,35 +57,64 @@ variables
 ////    . ' /excludeFiles="./../../RSGallery2_J4/.gitignore ./../../RSGallery2_J4/LICENSE.txt /../../RSGallery2_J4/README.md ./../../RSGallery2_J4/index.html "'
 ////   . ' /includeFolder="./Administrator'
 ////   . ' /includeFolder="./Administrator'
+//    . ' /fileName="./../../RSGallery2_J4/administrator/components/com_rsgallery2/src/Model/GalleryTreeModel.php"'
+//    . ' /copyrightDate=1999'
+//    . ' /package        = "RSGallery2";
+//    . ' /subpackage     = "com_rsgallery2";
+//    . ' /actCopyright      = "2024";
+//    . ' /sinceCopyright      = "2016";
+//    . ' /copyrightToday = $copyrightDate . "-" . $copyrightDate . " RSGallery2 Team";
+//    . ' /license        = "GNU General Public License version 2 or later";
+//        //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
+//    . ' /author = "RSGallery2 Team <team2@rsgallery2.org>";
+//    . ' /link   = "https://www.rsgallery2.org";
+//
+//    . ' /isForceStdPackage        = "RSGallery2";
+//    . ' /isForceStdSubpackage     = "com_rsgallery2";
+//    . ' /isForceStdActCopyright      = "2024";
+//    . ' /isForceStdSinceCopyright      = "2016";
+//    . ' /isForceSinceCopyrightToToday = $copyrightDate . "-" . $copyrightDate . " RSGallery2 Team";
+//    . ' /isForceStdLicense        = "GNU General Public License version 2 or later";
+//    . ' /isForceStdAuthor = "RSGallery2 Team <team2@rsgallery2.org>";
+//    . ' /isForceStdlink   = "https://www.rsgallery2.org";
+//
+//    . ' /isForcePackage        = "RSGallery2";
+//    . ' /isForceSubpackage     = "com_rsgallery2";
+//    . ' /isForceActCopyright      = "2024";
+//    . ' /isForceSinceCopyright      = "2016";
+//    . ' /isForceActCopyrightToToday = $copyrightDate . "-" . $copyrightDate . " RSGallery2 Team";
+//    . ' /isForcelicense        = "GNU General Public License version 2 or later";
+//    . ' /isForceAuthor = "RSGallery2 Team <team2@rsgallery2.org>";
+//    . ' /isForcelink   = "https://www.rsgallery2.org";
+//
+//    . ' /isKeepStdPackage        = "RSGallery2";
+//    . ' /isKeepStdSubpackage     = "com_rsgallery2";
+//    . ' /isKeepStdActCopyright      = "2024";
+//    . ' /isKeepStdSinceCopyright      = "2016";
+//    . ' /isKeepStdcopyrightToday = $copyrightDate . "-" . $copyrightDate . " RSGallery2 Team";
+//    . ' /isKeepStdlicense        = "GNU General Public License version 2 or later";
+//    . ' /isKeepStdAuthor = "RSGallery2 Team <team2@rsgallery2.org>";
+//    . ' /isKeepStdlink   = "https://www.rsgallery2.org";
+//
 //    . ' ';
 
-
-$tasksLine = ' task:updateAll_fileHeaders'
-    . ' /srcRoot="./../../RSGallery2_J4"'
-//    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
-//    . ' /isNoRecursion=true'
-// ToDo:    . ' /authorText = ""'//    . ' /s='
 ;
 
-//$srcRoot = './../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop';
-//$srcRoot = './../../RSGallery2_J4';
-$srcRoot = '';
-
-//$authorText = "GNU General Public author version 2 or later;";
-//$this->author = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
-$authorText = '';
+// $taskFile = "";
+$taskFile="./updateAll_fileHeaders.tsk";
+$tasksLine = "";
 
 foreach ($options as $idx => $option) {
     print ("idx: " . $idx . "\r\n");
     print ("option: " . $option . "\r\n");
 
     switch ($idx) {
-        case 's':
-            $srcRoot = $option;
+        case 't':
+            $tasksLine = $option;
             break;
 
-        case 'a':
-            $authorText = $option;
+        case 'f':
+            $taskFile = $option;
             break;
 
         case "h":
@@ -116,15 +147,29 @@ foreach ($options as $idx => $option) {
     }
 }
 
-//--- call function ---------------------------------
+/*--------------------------------------------------
+   call function
+--------------------------------------------------*/
 
 // for start / end diff
 $start = print_header($options, $inArgs);
 
-$task = new task();
-$task->extractTaskFromString($tasksLine);
+//--- assign task line ------------------------------
 
-$oUpdateAll_fileHeaders = new updateAll_fileHeaders($srcRoot, $authorText);
+$task = new task();
+if ($taskFile != "") {
+    $task->extractTaskFromFile($taskFile);
+//    if (!empty ($hasError)) {
+//        print ("Error on function extractTasksFromFile:" . $hasError
+//            . ' path: ' . $taskFile);
+//    }
+} else {
+    $task->extractTaskFromString($tasksLine);
+}
+
+//--- execute class tasks ------------------------------
+
+$oUpdateAll_fileHeaders = new updateAll_fileHeaders();
 
 $hasError = $oUpdateAll_fileHeaders->assignTask($task);
 if ($hasError) {

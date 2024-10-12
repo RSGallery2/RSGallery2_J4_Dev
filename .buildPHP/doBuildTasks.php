@@ -113,8 +113,8 @@ class doBuildTasks
 
     public function extractTasksFromString(mixed $tasksLine)
     {
-        $task = new tasks();
-        $this->assignTasks($task->extractTasksFromString($tasksLine));
+        $tasks = new tasks();
+        $this->assignTasks($tasks->extractTasksFromString($tasksLine));
     }
 
     public function assignTasks(tasks $tasks)
@@ -342,8 +342,8 @@ class doBuildTasks
 
     public function extractTasksFromFile(mixed $taskFile)
     {
-        $task = new tasks();
-        $this->assignTasks($task->extractTasksFromFile($taskFile));
+        $tasks = new tasks();
+        $this->assignTasks($tasks->extractTasksFromFile($taskFile));
     }
 
 

@@ -26,6 +26,8 @@ class copyrightText {
     public string $sinceCopyrightDate; // = "2019";
     private string $postCopyrightAuthor; // = "RSGallery2 Team";
 
+    private string $yearToday;
+
 
     /*--------------------------------------------------------------------
     construction
@@ -66,6 +68,7 @@ class copyrightText {
         $yearToday = date($date_format);
 
         $this->actCopyrightDate = $yearToday;
+        $this->yearToday = $yearToday;
 
     }
 

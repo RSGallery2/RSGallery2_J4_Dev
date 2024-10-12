@@ -28,14 +28,12 @@ class updateAll_fileHeaders extends baseExecuteTasks
     public fileHeaderByFileData $fileHeaderByFileData;
 
 
-
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
 
     public function __construct($srcRoot = "", $isNoRecursion = false)
     {
-        $hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
 //            print ("srcRoot: " . $srcRoot . "\r\n");
@@ -51,9 +49,8 @@ class updateAll_fileHeaders extends baseExecuteTasks
 
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
-            $hasError = -101;
         }
-        // print('exit __construct: ' . $hasError . "\r\n");
+
     }
 
 
@@ -87,9 +84,12 @@ class updateAll_fileHeaders extends baseExecuteTasks
         foreach ($options->options as $option) {
 
             $isBaseOption = $this->assignBaseOption($option);
-            $this->fileHeaderByFileData->assignFileHeaderOption ();
-
             if (!$isBaseOption) {
+                $isFileHeaderOption = $this->fileHeaderByFileData->assignOption($option);
+            }
+
+            if ( ! $isBaseOption && ! $isFileHeaderOption) {
+
                 switch (strtolower($option->name)) {
 //				case 'X':
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
@@ -145,7 +145,7 @@ class updateAll_fileHeaders extends baseExecuteTasks
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
-            $fileHeaderByFileData->upgradeHeader($fileName->srcPathFileName);
+            $this->fileHeaderByFileData->upgradeHeader($fileName->srcPathFileName);
         }
 
         return (0);

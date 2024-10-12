@@ -135,11 +135,11 @@ $start = print_header($options, $inArgs);
 
 $task = new task();
 if ($taskFile != "") {
-    $hasError = $task->extractTasksFromFile($taskFile);
-    if (!empty ($hasError)) {
-        print ("Error on function extractTasksFromFile:" . $hasError
-            . ' path: ' . $taskFile);
-    }
+    $task->extractTaskFromFile($taskFile);
+//    if (!empty ($hasError)) {
+//        print ("Error on function extractTasksFromFile:" . $hasError
+//            . ' path: ' . $taskFile);
+//    }
 } else {
 	$task->extractTaskFromString($tasksLine);
 }
