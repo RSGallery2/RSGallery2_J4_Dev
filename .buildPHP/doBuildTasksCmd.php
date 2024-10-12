@@ -234,7 +234,7 @@ $collectedTasks->addTasksFromString('task:execute');
 //$collectedTasks->addTasksFromString($tasksLine);
 //$collectedTasks->addTasksFromString('task:execute');
 
-$tasksLine = ' task:exchangeAll_fileHeaders'
+$tasksLine = ' task:updateAll_fileHeaders'
     . ' ';
 $collectedTasks->addTasksFromString($tasksLine);
 $collectedTasks->addTasksFromString('task:execute');

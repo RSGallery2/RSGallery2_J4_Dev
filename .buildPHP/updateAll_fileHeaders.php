@@ -1,6 +1,6 @@
 <?php
 
-namespace exchangeAll_fileHeaders;
+namespace updateAll_fileHeaders;
 
 require_once "./iExecTask.php";
 require_once "./baseExecuteTasks.php";
@@ -17,12 +17,17 @@ use FileNamesList\fileNamesList;
 use task\task;
 
 /*================================================================================
-Class exchangeAll_fileHeaders
+Class updateAll_fileHeaders
 ================================================================================*/
 
-class exchangeAll_fileHeaders extends baseExecuteTasks
+class updateAll_fileHeaders extends baseExecuteTasks
     implements executeTasksInterface
 {
+    //--- use file header author task ----------------------
+
+    public fileHeaderByFileData $fileHeaderByFileData;
+
+
 
     /*--------------------------------------------------------------------
     construction
@@ -38,6 +43,12 @@ class exchangeAll_fileHeaders extends baseExecuteTasks
 
             parent::__construct ($srcRoot, $isNoRecursion);
 
+            //--- use file header author task ----------------------
+
+            $this->fileHeaderByFileData = new fileHeaderByFileData();
+
+
+
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
@@ -49,7 +60,7 @@ class exchangeAll_fileHeaders extends baseExecuteTasks
     public function text(): string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- exchangeAll_fileHeaders ---" . "\r\n";
+        $OutTxt .= "--- updateAll_fileHeaders ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";
@@ -74,7 +85,10 @@ class exchangeAll_fileHeaders extends baseExecuteTasks
         $options = $task->options;
 
         foreach ($options->options as $option) {
+
             $isBaseOption = $this->assignBaseOption($option);
+            $this->fileHeaderByFileData->assignFileHeaderOption ();
+
             if (!$isBaseOption) {
                 switch (strtolower($option->name)) {
 //				case 'X':
@@ -115,21 +129,18 @@ class exchangeAll_fileHeaders extends baseExecuteTasks
     {
         //--- collect files ---------------------------------------
 
-        // files not set already use local file nam+es task
+        // files not set already use local file names task
         if (count($this->fileNamesList->fileNames) == 0) {
             $fileNamesList = new fileNamesList ($this->srcRoot, 'php ts',
                 '', $this->isNoRecursion);
             $this->fileNamesList = $fileNamesList;
 
             $fileNamesList->scan4Filenames();
-        } else {
-            // use given files
-            // $fileNamesList = $this->fileNamesList;
         }
-
-        //--- use file header author task ----------------------
-
-        $fileHeaderByFileData = new fileHeaderByFileData();
+//        else {
+//            // use given files
+//            // $fileNamesList = $this->fileNamesList;
+//        }
 
         //--- iterate over all files -------------------------------------
 
@@ -139,5 +150,5 @@ class exchangeAll_fileHeaders extends baseExecuteTasks
 
         return (0);
     }
-} // exchangeAll_fileHeaders
+} // updateAll_fileHeaders
 

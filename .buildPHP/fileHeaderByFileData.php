@@ -76,6 +76,7 @@ class fileHeaderByFileData extends fileHeaderData
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
+    private string $isUpdateCreationDate;
 
     public function __construct($srcFile = "")
     {
@@ -96,6 +97,8 @@ class fileHeaderByFileData extends fileHeaderData
 
     private function initFlags():void
     {
+        $this->isUpdateCreationDate = true;
+
         $this->isForceStdPackage = false;
         $this->isForceStdSubpackage = false;
         $this->isForceStdActCopyright = false;
@@ -131,15 +134,124 @@ class fileHeaderByFileData extends fileHeaderData
 
         $options = $task->options;
 
-        foreach ($options->options as $option) {
+        // ToDo: flags copyright
 
+        // ToDo: Extract assignOption on all assignTask
+        foreach ($options->options as $option) {
             $isBaseOption = $this->assignBaseOption($option);
             if (!$isBaseOption) {
-                switch (strtolower($option->name)) {
-                    case 'filename':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->fileName = $option->value;
-                        break;
+                $this->assignOption($option);//, $task->name);
+            }
+        }
+
+        return $hasError;
+    }
+
+    /**
+     * @param   \options\options  $options
+     * @param   task              $task
+     *
+     * @return void
+     */
+    // ToDo: Extract assignOption on all assignTask
+    public function assignOption(\option\option $option): bool
+    {
+        switch (strtolower($option->name)) {
+            case 'filename':
+                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                $this->fileName = $option->value;
+                break;
+
+            case 'isupdatecreationdate':
+                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                $this->isUpdateCreationDate = $option->value;
+                break;
+
+yyy to lower            case 'isForceStdPackage':
+                $this->isForceStdPackage = $option->value;
+                break;
+
+            case 'isForceStdSubpackage':
+                $this->isForceStdSubpackage = $option->value;
+                break;
+
+            case 'isForceStdActCopyright':
+                $this->isForceStdActCopyright = $option->value;
+                break;
+
+            case 'isForceStdSinceCopyright':
+                $this->isForceStdSinceCopyright = $option->value;
+                break;
+
+            case 'isForceSinceCopyrightToToday':
+                $this->isForceSinceCopyrightToToday = $option->value;
+                break;
+
+            case 'isForceStdLicense':
+                $this->isForceStdLicense = $option->value;
+                break;
+
+            case 'isForceStdAuthor':
+                $this->isForceStdAuthor = $option->value;
+                break;
+
+
+            case 'isForcePackage':
+                $this->isForcePackage = $option->value;
+                break;
+
+            case 'isForceSubpackage':
+                $this->isForceSubpackage = $option->value;
+                break;
+
+            case 'isForceActCopyright':
+                $this->isForceActCopyright = $option->value;
+                break;
+
+            case 'isForceSinceCopyright':
+                $this->isForceSinceCopyright = $option->value;
+                break;
+
+            case ''isForceActCopyrightToToday:
+                $this->isForceActCopyrightToToday = $option->value;
+                break;
+
+            case 'isForceLicense':
+                $this->isForceLicense = $option->value;
+                break;
+
+            case 'isForceAuthor':
+                $this->isForceAuthor = $option->value;
+                break;
+
+
+            case 'valueForcePackage':
+                $this->valueForcePackage = $option->value;
+                break;
+
+            case 'valueForceSubpackage':
+                $this->valueForceSubpackage = $option->value;
+                break;
+
+            case 'valueForceActCopyright':
+                $this->valueForceActCopyright = $option->value;
+                break;
+
+            case 'valueForceSinceCopyright':
+                $this->valueForceSinceCopyright = $option->value;
+                break;
+
+            case 'valueForceCopyright':
+                $this->valueForceCopyright = $option->value;
+                break;
+
+            case 'valueForceLicense':
+                $this->valueForceLicense = $option->value;
+                break;
+
+            case 'valueForceAuthor':
+                $this->valueForceAuthor = $option->value;
+                break;
 
 //				case 'X force...':
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
@@ -153,14 +265,10 @@ class fileHeaderByFileData extends fileHeaderData
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
 
-                    default:
-                        print ('!!! error: required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
-                } // switch
-            }
-        }
+        } // switch
 
 
-        return $hasError;
+
     }
 
     public function execute(): int
@@ -401,6 +509,12 @@ class fileHeaderByFileData extends fileHeaderData
 
     private function replaceForcedHeaderLines(): void
     {
+        // see also isForceActCopyrightToToday
+        if ($this->isUpdateCreationDate) {
+            $this->actCopyrightDate = $this->yearToday;
+        }
+
+
         if ($this->isForcePackage) {
             $this->package = $this->valueForcePackage;
         }

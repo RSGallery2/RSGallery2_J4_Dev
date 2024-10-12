@@ -8,7 +8,7 @@ require_once "./buildRelease.php";
 require_once "./clean4GitCheckin.php";
 require_once "./exchangeAll_actCopyrightYearLines.php";
 require_once "./exchangeAll_authorLines.php";
-require_once "./exchangeAll_fileHeaders.php";
+require_once "./updateAll_fileHeaders.php";
 require_once "./exchangeAll_licenseLines.php";
 require_once "./exchangeAll_linkLines.php";
 require_once "./exchangeAll_packageLines.php";
@@ -28,7 +28,7 @@ use clean4GitCheckin\clean4GitCheckin;
 use Exception;
 use exchangeAll_actCopyrightYear\exchangeAll_actCopyrightYearLines;
 use exchangeAll_authorLines\exchangeAll_authorLines;
-use exchangeAll_fileHeaders\exchangeAll_fileHeaders;
+use updateAll_fileHeaders\updateAll_fileHeaders;
 use exchangeAll_licenseLines\exchangeAll_licenseLines;
 use exchangeAll_linkLines\exchangeAll_linkLines;
 use exchangeAll_packageLines\exchangeAll_packages;
@@ -266,8 +266,8 @@ class doBuildTasks
                         $this->actTask = $this->createTask(new buildRelease (), $textTask);
                         break;
 
-                    case 'exchangeall_fileheaders':
-                        $this->actTask = $this->createTask(new exchangeAll_fileHeaders (), $textTask);
+                    case 'updateAll_fileHeaders':
+                        $this->actTask = $this->createTask(new updateAll_fileHeaders (), $textTask);
                         break;
 
 //                    case 'X':

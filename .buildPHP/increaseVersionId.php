@@ -151,10 +151,11 @@ class increaseVersionId extends baseExecuteTasks
         try {
             $lines = file($manifestFileName);
             $outLines = [];
+            $isLineFound = false;
             $isExchanged = false;
 
             foreach ($lines as $line) {
-                if ($isExchanged) {
+                if ($isLineFound) {
                     $outLines [] = $line;
                 } else {
                     // 	<version>5.0.12.4</version>
@@ -177,7 +178,11 @@ class increaseVersionId extends baseExecuteTasks
 
                         $outLines [] = $outLine;
 
-                        $isExchanged = true;
+                        // ToDo: update other similar PHPs
+                        $isLineFound = true;
+                        if ($line != $outLines) {
+                            $isExchanged = true;
+                        }
                     } else {
                         $outLines [] = $line;
                     }
@@ -200,7 +205,9 @@ class increaseVersionId extends baseExecuteTasks
 
             // write to file
             //$isSaved = File::write($manifestFileName, $fileLines);
-            $isSaved = file_put_contents($manifestFileName, $outLines);
+            if ($isExchanged) {
+                $isSaved     = file_put_contents($manifestFileName, $outLines);
+            }
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;

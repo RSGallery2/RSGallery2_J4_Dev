@@ -1,9 +1,9 @@
 <?php
 
-namespace exchangeAll_fileHeaders;
+namespace updateAll_fileHeaders;
 
 require_once "./commandLine.php";
-require_once "./exchangeAll_fileHeaders.php";
+require_once "./updateAll_fileHeaders.php";
 
 // use \DateTime;
 
@@ -15,7 +15,7 @@ use function commandLine\print_header;
 
 $HELP_MSG = <<<EOT
     >>>
-    class exchangeAll_fileHeaders
+    class updateAll_fileHeaders
     
     Reads file, exchanges one 'author' line 
     Standard replace text is defined in class fileHeaderData
@@ -58,7 +58,7 @@ variables
 //    . ' ';
 
 
-$tasksLine = ' task:exchangeAll_fileHeaders'
+$tasksLine = ' task:updateAll_fileHeaders'
     . ' /srcRoot="./../../RSGallery2_J4"'
 //    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
 //    . ' /isNoRecursion=true'
@@ -124,20 +124,20 @@ $start = print_header($options, $inArgs);
 $task = new task();
 $task->extractTaskFromString($tasksLine);
 
-$oexchangeAll_fileHeaders = new exchangeAll_fileHeaders($srcRoot, $authorText);
+$oUpdateAll_fileHeaders = new updateAll_fileHeaders($srcRoot, $authorText);
 
-$hasError = $oexchangeAll_fileHeaders->assignTask($task);
+$hasError = $oUpdateAll_fileHeaders->assignTask($task);
 if ($hasError) {
     print ("Error on function assignTask:" . $hasError);
 }
 if (!$hasError) {
-    $hasError = $oexchangeAll_fileHeaders->execute();
+    $hasError = $oUpdateAll_fileHeaders->execute();
     if ($hasError) {
         print ("Error on function execute:" . $hasError);
     }
 }
 
-print ($oexchangeAll_fileHeaders->text() . "\r\n");
+print ($oUpdateAll_fileHeaders->text() . "\r\n");
 
 print_end($start);
 
