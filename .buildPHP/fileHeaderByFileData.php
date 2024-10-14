@@ -29,7 +29,7 @@ class fileHeaderByFileData extends fileHeaderData
     public string $fileName;
 
     /** * @var string array */
-    public [] $fileHeaderLines = [];
+    public array $fileHeaderLines = [];
 
     /** * @var string array */
     public array $newHeaderLines = [];
@@ -50,6 +50,7 @@ class fileHeaderByFileData extends fileHeaderData
 
     // ToDo: copyright flags: Set and use in copyright text with execute
 
+    // --- Std value ------
     public bool $isForceStdPackage = false;
     public bool $isForceStdSubpackage = false;
     public bool $isForceStdActCopyright = false;
@@ -58,6 +59,7 @@ class fileHeaderByFileData extends fileHeaderData
     public bool $isForceStdLicense = false;
     public bool $isForceStdAuthor = false;
 
+    // --- Force value ------
     public bool $isForcePackage = false;
     public bool $isForceSubpackage = false;
     public bool $isForceActCopyright = false;
@@ -66,6 +68,7 @@ class fileHeaderByFileData extends fileHeaderData
     public bool $isForceLicense = false;
     public bool $isForceAuthor = false;
 
+    // --- Value to be used on force ------
     public string $valueForcePackage = "";
     public string $valueForceSubpackage = "";
     public string $valueForceActCopyright = "";

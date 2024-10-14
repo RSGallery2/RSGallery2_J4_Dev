@@ -5,9 +5,8 @@ $tasksLine = ' task:updateAll_fileHeaders'
 //    . ' /srcRoot="./../../RSGallery2_J4"'
 //    . ' /isNoRecursion=true'
 ////    . ' /isCrawlSilent=false' default true ToDo:
-//    . ' /includeExt="php"'
-////    . ' /includeExt="xmp"'
-////    . ' /includeExt="xmp"'
+    . ' /includeExt="php"'
+////    . ' /includeExt="xml"'
 ////    . ' /includeExt="ini"'
 ////    . ' /includeFiles="???"'
 ////    . ' /excludeFiles="./../../RSGallery2_J4/.gitignore ./../../RSGallery2_J4/LICENSE.txt /../../RSGallery2_J4/README.md ./../../RSGallery2_J4/index.html "'
@@ -24,7 +23,17 @@ $tasksLine = ' task:updateAll_fileHeaders'
 //        //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
 //    . ' /author = "RSGallery2 Team <team2@rsgallery2.org>";
 //    . ' /link   = "https://www.rsgallery2.org";
+
+// --- Std value -------------------
+    . ' /isForceStdPackage        = true;
+    . ' /isForceStdSubpackage     = true;
+//    . ' /isForceStdActCopyright      = true;
+//    . ' /isForceStdSinceCopyright      = true;
+//    . ' /isForceSinceCopyrightToToday = true;
+//    . ' /isForceStdLicense        = true;
+//    . ' /isForceStdAuthor = true;
 //
+// --- Force value -----------------
 //    . ' /isForceStdPackage        = "RSGallery2";
 //    . ' /isForceStdSubpackage     = "com_rsgallery2";
 //    . ' /isForceStdActCopyright      = "2024";
@@ -34,22 +43,13 @@ $tasksLine = ' task:updateAll_fileHeaders'
 //    . ' /isForceStdAuthor = "RSGallery2 Team <team2@rsgallery2.org>";
 //    . ' /isForceStdlink   = "https://www.rsgallery2.org";
 //
-//    . ' /isForcePackage        = "RSGallery2";
-//    . ' /isForceSubpackage     = "com_rsgallery2";
-//    . ' /isForceActCopyright      = "2024";
-//    . ' /isForceSinceCopyright      = "2016";
-//    . ' /isForceActCopyrightToToday = $copyrightDate . "-" . $copyrightDate . " RSGallery2 Team";
-//    . ' /isForcelicense        = "GNU General Public License version 2 or later";
-//    . ' /isForceAuthor = "RSGallery2 Team <team2@rsgallery2.org>";
-//    . ' /isForcelink   = "https://www.rsgallery2.org";
-//
-//    . ' /isKeepStdPackage        = "RSGallery2";
-//    . ' /isKeepStdSubpackage     = "com_rsgallery2";
-//    . ' /isKeepStdActCopyright      = "2024";
-//    . ' /isKeepStdSinceCopyright      = "2016";
-//    . ' /isKeepStdcopyrightToday = $copyrightDate . "-" . $copyrightDate . " RSGallery2 Team";
-//    . ' /isKeepStdlicense        = "GNU General Public License version 2 or later";
-//    . ' /isKeepStdAuthor = "RSGallery2 Team <team2@rsgallery2.org>";
-//    . ' /isKeepStdlink   = "https://www.rsgallery2.org";
+// --- Value to be used on force ------
+//    . ' //valueForcePackage        = "RSGallery2";
+//    . ' //valueForceSubpackage     = "com_rsgallery2";
+//    . ' //valueForceActCopyright      = "2024";
+//    . ' //valueForceSinceCopyright      = "2016";
+//    . ' //valueForceCopyrightToday = $copyrightDate . "-" . $copyrightDate . " RSGallery2 Team";
+//    . ' //valueForceLicense        = "GNU General Public License version 2 or later";
+//    . ' //valueForceAuthor = "RSGallery2 Team <team2@rsgallery2.org>";
 //
 //    . ' ';
