@@ -27,7 +27,6 @@ class updateAll_fileHeaders extends baseExecuteTasks
 
     public fileHeaderByFileData $fileHeaderByFileData;
 
-
     /*--------------------------------------------------------------------
     construction
     --------------------------------------------------------------------*/
