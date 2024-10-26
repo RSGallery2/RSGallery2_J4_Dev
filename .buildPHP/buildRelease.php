@@ -82,6 +82,8 @@ class buildRelease extends baseExecuteTasks
             // to keep flags
             $this->versionId = new versionId();
 
+            $this->element = "";
+
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
@@ -356,6 +358,7 @@ class buildRelease extends baseExecuteTasks
                 if ($this->element != '') {
                     $manifestFile->element = $this->element;
                 }
+
                 // No tasks actual
                 // $manifestFile->copyright->isUpdateCopyright = false;
                 // $manifestFile->copyright->isUpdateCopyright = true;
@@ -542,11 +545,19 @@ class buildRelease extends baseExecuteTasks
 
         $componentType = 'component';
 
-        // is file already read
-        if ($this->manifestFile->type != '') {
+        $isLocal = false;
+        if ( ! empty($this->manifestFile)) {
 
-            $componentType = $this->manifestFile->type;
-        } else {
+            if ($this->manifestFile->type != '') {
+                $componentType = $this->manifestFile->type;
+                $isLocal       = true;
+            }
+
+        }
+
+        //
+        if ( ! $isLocal) {
+
             // read file
             if (is_file($manifestPathFileName)) {
 

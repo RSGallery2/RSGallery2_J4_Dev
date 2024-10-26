@@ -78,7 +78,7 @@ $basePath = "..\\..\\RSGallery2_J4";
 
 
 // $taskFile = "";
-$taskFile="./buildDevelop.tsk";
+$taskFile="./build_Develop.tsk";
 $tasksLine = "";
 
 foreach ($options as $idx => $option) {
