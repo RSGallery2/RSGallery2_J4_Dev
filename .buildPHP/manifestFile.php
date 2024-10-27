@@ -311,6 +311,7 @@ class manifestFile extends baseExecuteTasks
         return $manifestPathFileName;
     }
 
+
     private function baseComponentName(): string
     {
 //        if ($this->baseComponentName == '') {
@@ -337,54 +338,8 @@ class manifestFile extends baseExecuteTasks
             $isVersionOption = $this->versionId->assignVersionOption($option);
 
             if (!$isBaseOption && !$isVersionOption) {
-                switch (strtolower($option->name)) {
 
-                    // manifestFile
-                    case 'manifestfile':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->manifestPathFileName = $option->value;
-                        break;
-
-                    // component name like com_rsgallery2
-                    case 'componentname':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->componentName = $option->value;
-                        break;
-
-                    // element: name like RSGallery2
-                    case 'extension':
-                    case 'element':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->element = $option->value;
-                        break;
-
-                    // component / module / plugin
-                    case 'type':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->type = $option->value;
-                        break;
-
-                    // ToDo: if needed
-                    //  method="upgrade">
-                    case 'method':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->method = $option->value;
-                        break;
-
-                    case 'isupdatecreationdate':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->isUpdateCreationDate = $option->value;
-                        break;
-
-                    case 'isincrementversion_build':
-                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                        $this->isIncrementVersion_build = $option->value;
-                        break;
-
-                    default:
-                        print ('!!! error: required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
-                } // switch
-
+                $this->assignManifestOption($option, $task->name);
                 // $OutTxt .= $task->text() . "\r\n";
             }
         }
@@ -392,6 +347,71 @@ class manifestFile extends baseExecuteTasks
         return 0;
     }
 
+    /**
+     *
+     * @param   mixed  $option
+     * @param   task   $task
+     *
+     * @return void
+     */
+    public function assignManifestOption(mixed $option): bool
+    {
+        $isManifestOption = false;
+
+        switch (strtolower($option->name)) {
+            // manifestFile
+            case 'manifestfile':
+                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                $this->manifestPathFileName = $option->value;
+                $isManifestOption  = true;
+                break;
+
+            // component name like com_rsgallery2
+            case 'componentname':
+                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                $this->componentName = $option->value;
+                $isManifestOption  = true;
+                break;
+
+            // element: name like RSGallery2
+            case 'extension':
+            case 'element':
+                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                $this->element = $option->value;
+                $isManifestOption  = true;
+                break;
+
+            // component / module / plugin
+            case 'type':
+                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                $this->type = $option->value;
+                $isManifestOption  = true;
+                break;
+
+            // ToDo: if needed
+            //  method="upgrade">
+            case 'method':
+                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                $this->method = $option->value;
+                $isManifestOption  = true;
+                break;
+
+            case 'isupdatecreationdate':
+                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                $this->isUpdateCreationDate = $option->value;
+                $isManifestOption  = true;
+                break;
+
+            case 'isincrementversion_build':
+                print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                $this->isIncrementVersion_build = $option->value;
+                $isManifestOption  = true;
+                break;
+
+        } // switch
+
+        return $isManifestOption;
+    }
 
     public function execute(): int // $hasError
     {
@@ -440,6 +460,8 @@ class manifestFile extends baseExecuteTasks
 
             $manifestFileName = $this->manifestPathFileName;
 
+            // ToDo: on xml over more lines -> better read xml objects
+
             if (is_file($manifestFileName)) {
                 $inLines = file($manifestFileName);
 
@@ -465,11 +487,11 @@ class manifestFile extends baseExecuteTasks
                 $this->otherLines  = $otherLines;
 
                 $isRead = true;
-            } else {
-
-                
-
             }
+//            else {
+//
+//            }
+
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;

@@ -55,15 +55,16 @@ $tasksLine = ' task:buildRelease'
 //    . ' /isIncrementVersion_major = true'
 //    . ' /isIncrementVersion_minor = true'
 //    . ' /isIncrementVersion_revision = true'
-// each creation of package will increase the build number
+//    build release is like fix ? and clean up things
+//    . ' /isBuildRelease = true'
+//    . ' /isBuildRelease = false'
+//    each creation of package will increase the build number
 //    . ' /isIncrementVersion_build = false'
     . ' /isIncrementVersion_build = true'
-//    . ' /isBuildRelease = true'
+//    fix will increase revision and reset build counter
 //    . ' /isBuildFix = true'
 //    release will increase minor and reset revision and build counter
 //    . ' /isBuildRelease = true'
-
-    // fix will increase revision and reset build counter
 //    . ' /isBuildFix = true'
 
 // name.xml ?    . '/manifestFile='
@@ -77,9 +78,9 @@ $tasksLine = ' task:buildRelease'
 $basePath = "..\\..\\RSGallery2_J4";
 
 
-// $taskFile = "";
-$taskFile="./build_Develop.tsk";
-$tasksLine = "";
+//// $taskFile = "";
+//$taskFile="./build_Develop.tsk";
+//$tasksLine = "";
 
 foreach ($options as $idx => $option) {
     print ("idx: " . $idx . "\r\n");

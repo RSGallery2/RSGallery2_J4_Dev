@@ -81,6 +81,7 @@ class buildRelease extends baseExecuteTasks
 
             // to keep flags
             $this->versionId = new versionId();
+            $this->manifestFile = new manifestFile();
 
             $this->element = "";
 
@@ -102,8 +103,10 @@ class buildRelease extends baseExecuteTasks
 
             $isBaseOption = $this->assignBaseOption($option);
             $isVersionOption = $this->versionId->assignVersionOption($option);
+            $isManifestOption = $this->manifestFile->assignManifestOption($option);
 
-            if (!$isBaseOption && !$isVersionOption) {
+//            if (!$isBaseOption && !$isVersionOption && !$isManifestOption) {
+
                 switch (strtolower($option->name)) {
                     case 'builddir':
                         print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
@@ -156,7 +159,7 @@ class buildRelease extends baseExecuteTasks
                 } // switch
 
                 // $OutTxt .= $task->text() . "\r\n";
-            }
+            //}
         }
 
         return 0;
@@ -333,7 +336,10 @@ class buildRelease extends baseExecuteTasks
 
         $isSaved = false;
 
-        $manifestFile = new manifestFile();
+        // Done in constructor
+        // $manifestFile = new manifestFile();
+        // keep flags
+        $manifestFile = $this->manifestFile;
 
         try {
             // read
