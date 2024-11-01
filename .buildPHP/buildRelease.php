@@ -102,8 +102,12 @@ class buildRelease extends baseExecuteTasks
         foreach ($options->options as $option) {
 
             $isBaseOption = $this->assignBaseOption($option);
-            $isVersionOption = $this->versionId->assignVersionOption($option);
-            $isManifestOption = $this->manifestFile->assignManifestOption($option);
+
+            // base options are already handled
+            if (!$isBaseOption) {
+                $isVersionOption = $this->versionId->assignVersionOption($option);
+                $isManifestOption = $this->manifestFile->assignManifestOption($option);
+            }
 
 //            if (!$isBaseOption && !$isVersionOption && !$isManifestOption) {
 

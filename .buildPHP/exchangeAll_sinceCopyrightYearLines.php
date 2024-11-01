@@ -81,6 +81,7 @@ class exchangeAll_sinceCopyrightYearLines extends baseExecuteTasks
         $options = $task->options;
 
         foreach ($options->options as $option) {
+
             $isBaseOption = $this->assignBaseOption($option);
             if (!$isBaseOption) {
                 switch (strtolower($option->name)) {

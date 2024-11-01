@@ -83,6 +83,8 @@ class updateAll_fileHeaders extends baseExecuteTasks
         foreach ($options->options as $option) {
 
             $isBaseOption = $this->assignBaseOption($option);
+
+            // base options are already handled
             if (!$isBaseOption) {
                 $isFileHeaderOption = $this->fileHeaderByFileData->assignOption($option);
             }

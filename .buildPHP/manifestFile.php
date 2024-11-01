@@ -335,7 +335,11 @@ class manifestFile extends baseExecuteTasks
         foreach ($options->options as $option) {
 
             $isBaseOption = $this->assignBaseOption($option);
-            $isVersionOption = $this->versionId->assignVersionOption($option);
+
+            // base options are already handled
+            if (!$isBaseOption) {
+                $isVersionOption = $this->versionId->assignVersionOption($option);
+            }
 
             if (!$isBaseOption && !$isVersionOption) {
 
