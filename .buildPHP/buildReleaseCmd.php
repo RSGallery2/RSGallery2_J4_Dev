@@ -78,7 +78,7 @@ $tasksLine = ' task:buildRelease'
 $basePath = "..\\..\\RSGallery2_J4";
 
 
-//// $taskFile = "";
+$taskFile = "";
 //$taskFile="./build_Develop.tsk";
 //$tasksLine = "";
 
