@@ -27,7 +27,7 @@ class clean4GitCheckin extends baseExecuteTasks
     construction
     --------------------------------------------------------------------*/
 
-    public function __construct($srcRoot = "")
+    public function __construct($srcRoot = "", $isNoRecursion)
     {
         $hasError = 0;
         try {
@@ -36,9 +36,9 @@ class clean4GitCheckin extends baseExecuteTasks
 //            print ("linkText: " . $linkText . "\r\n");
 //            print('---------------------------------------------------------' . "\r\n");
 
-            $this->srcRoot = $srcRoot;
+            parent::__construct ($srcRoot, $isNoRecursion);
 
-            $this->fileNamesList = new fileNamesList();
+//            $this->fileNamesList = new fileNamesList();
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
@@ -76,10 +76,12 @@ class clean4GitCheckin extends baseExecuteTasks
             $isBaseOption = $this->assignBaseOption($option);
             if (!$isBaseOption) {
                 switch (strtolower($option->name)) {
-//				case 'X':
+
+// ? separate class ?
+//				case 'cleanlines': // trim / no tabs
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
-//
+
 //				case 'Y':
 //					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
 //					break;
@@ -133,6 +135,8 @@ class clean4GitCheckin extends baseExecuteTasks
 
         return (0);
     }
+
+
 
     private function trimFile(string $fileName): bool
     {

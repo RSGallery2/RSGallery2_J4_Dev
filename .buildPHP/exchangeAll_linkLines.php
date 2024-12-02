@@ -23,7 +23,6 @@ Class exchangeAlllinks
 class exchangeAll_linkLines extends baseExecuteTasks
     implements executeTasksInterface
 {
-
     public string $linkText = "";
 
     /*--------------------------------------------------------------------
