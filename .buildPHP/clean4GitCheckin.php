@@ -27,9 +27,8 @@ class clean4GitCheckin extends baseExecuteTasks
     construction
     --------------------------------------------------------------------*/
 
-    public function __construct($srcRoot = "", $isNoRecursion)
+    public function __construct($srcRoot = "", $isNoRecursion = False)
     {
-        $hasError = 0;
         try {
 //            print('*********************************************************' . "\r\n");
 //            print ("srcRoot: " . $srcRoot . "\r\n");
@@ -41,7 +40,6 @@ class clean4GitCheckin extends baseExecuteTasks
 //            $this->fileNamesList = new fileNamesList();
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
-            $hasError = -101;
         }
         // print('exit __construct: ' . $hasError . "\r\n");
     }
@@ -130,7 +128,7 @@ class clean4GitCheckin extends baseExecuteTasks
         //--- iterate over all files -------------------------------------
 
         foreach ($this->fileNamesList->fileNames as $fileName) {
-            $this->trimFile($fileName->srcPathFileName);
+            $this->beautifyFile($fileName->srcPathFileName);
         }
 
         return (0);
@@ -138,14 +136,37 @@ class clean4GitCheckin extends baseExecuteTasks
 
 
 
-    private function trimFile(string $fileName): bool
+    private function beautifyFile(string $fileName): bool
     {
         $isExchanged = false;
 
         try {
-            $lines = file($fileName);
-            $outLines = [];
+            $outLines = file($fileName);
 
+            [$outLines, $isExchanged] = $this->trimLines($outLines, $isExchanged);
+            [$outLines, $isExchanged] = $this->tab2spacesLines($outLines, $isExchanged);
+
+            // write to file
+            if ($isExchanged == true) {
+                $isSaved = file_put_contents($fileName, $outLines);
+            }
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+
+        return $isExchanged;
+    }/**
+ * @param false|array $lines
+ * @param bool $isExchanged
+ * @param array $outLines
+ * @return array
+ */
+    public function trimLines(false|array $lines, bool $isExchanged): array
+    {
+        $outLines = [];
+
+        try {
             // all lines
             foreach ($lines as $line) {
                 if ($isExchanged) {
@@ -159,17 +180,39 @@ class clean4GitCheckin extends baseExecuteTasks
                     }
                 }
             }
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
 
-            // write to file
-            if ($isExchanged == true) {
-                $isSaved = file_put_contents($fileName, $outLines);
+        return [$outLines, $isExchanged];
+    }
+
+    private function tab2spacesLines(false|array $lines, mixed $isExchanged)
+    {
+        $outLines = [];
+        $tabReplace = "    ";
+
+        try {
+            // all lines
+            foreach ($lines as $line) {
+                if ($isExchanged) {
+                    $outLines [] = str_replace("\t", $tabReplace, $line);;
+                } else {
+                    $trimmed = str_replace("\t", $tabReplace, $line);
+                    $outLines [] = $trimmed;
+
+                    if (strlen($trimmed) < strlen($line)) {
+                        $isExchanged = true;
+                    }
+                }
             }
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
             $hasError = -101;
         }
 
-        return $isExchanged;
+        return [$outLines, $isExchanged];
     }
 
 } // clean4GitCheckin
