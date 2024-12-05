@@ -87,7 +87,7 @@ class fileHeaderByFileData extends fileHeaderData
     {
         parent::__construct();
 
-        // 
+        //
         $this->oForceHeader = new fileHeaderData();
 
         $this->fileName = $srcFile;
@@ -141,7 +141,7 @@ class fileHeaderByFileData extends fileHeaderData
 
         // ToDo: Extract assignOption on all assignTask
         foreach ($options->options as $option) {
-            
+
 //            $isBaseOption = $this->assignBaseOption($option);
 //            if (!$isBaseOption) {
                 $this->assignOption($option);//, $task->name);
@@ -161,7 +161,7 @@ class fileHeaderByFileData extends fileHeaderData
     public function assignOption(\option\option $option): bool
     {
         $isDefinedOption = false;
-        
+
         switch (strtolower($option->name)) {
             case 'filename':
                 print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
@@ -282,17 +282,17 @@ class fileHeaderByFileData extends fileHeaderData
                 $isDefinedOption  = true;
                 break;
 
-//				case 'X force...':
-//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-//					break;
+//                case 'X force...':
+//                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+//                    break;
 //
-//				case 'Y use...':
-//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-//					break;
+//                case 'Y use...':
+//                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+//                    break;
 //
-//				case 'Z':
-//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-//					break;
+//                case 'Z':
+//                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+//                    break;
 
         } // switch
 

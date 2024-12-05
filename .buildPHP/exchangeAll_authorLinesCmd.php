@@ -16,8 +16,8 @@ use function commandLine\print_header;
 $HELP_MSG = <<<EOT
     >>>
     class exchangeAll_authorLines
-    
-    Reads file, exchanges one 'author' line 
+
+    Reads file, exchanges one 'author' line
     Standard replace text is defined in class fileHeaderData
     <<<
     EOT;

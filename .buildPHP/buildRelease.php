@@ -22,9 +22,9 @@ use ZipArchive;
 $HELP_MSG = <<<EOT
     >>>
     class buildRelease
-    
+
     ToDo: option commands , example
-    
+
     <<<
     EOT;
 
@@ -141,22 +141,22 @@ class buildRelease extends baseExecuteTasks
                         $this->componentType = $option->value;
                         break;
 
-				case 'isincrementversion_build':
-					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                case 'isincrementversion_build':
+                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
                     $this->isIncrementVersion_build = $option->value;
-					break;
+                    break;
 
-//				case 'X':
-//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-//					break;
+//                case 'X':
+//                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+//                    break;
 //
-//				case 'Y':
-//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-//					break;
+//                case 'Y':
+//                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+//                    break;
 //
-//				case 'Z':
-//					print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-//					break;
+//                case 'Z':
+//                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+//                    break;
 
                     default:
                         print ('!!! error: required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
@@ -226,7 +226,7 @@ class buildRelease extends baseExecuteTasks
         print ("manifestPathFileName: " . $manifestPathFileName . "\r\n");
 
         $isChanged = $this->exchangeDataInManifestFile($manifestPathFileName);
-        
+
         //--------------------------------------------------------------------
         // destination temp folder
         //--------------------------------------------------------------------
@@ -237,8 +237,8 @@ class buildRelease extends baseExecuteTasks
             print ('dstRoot: "' . $dstRoot . '"' . "\r\n");
             $tmpFolder = $this->buildDir . '/tmp';
             print ('temp folder(1): "' . $tmpFolder . '"' . "\r\n");
-//		$tmpFolder = realpath($tmpFolder);
-//		print ('temp folder(2): "' .  $tmpFolder . '"' . "\r\n");
+//        $tmpFolder = realpath($tmpFolder);
+//        print ('temp folder(2): "' .  $tmpFolder . '"' . "\r\n");
 
             // create .packages folder
             if (!is_dir($dstRoot)) {

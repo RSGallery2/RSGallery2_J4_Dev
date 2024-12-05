@@ -46,7 +46,7 @@ $LeaveOut_05 = true;
 variables
 --------------------------------------------*/
 
-// ToDo: Test it manually  
+// ToDo: Test it manually
 // $srcFolder = "./";
 $srcFolder = "..\\.buildPHP\\";
 

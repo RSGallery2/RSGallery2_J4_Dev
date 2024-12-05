@@ -12,10 +12,10 @@ use function commandLine\print_header;
 
 $HELP_MSG = <<<EOT
     >>>
-    doBuildTasks class 
-    
+    doBuildTasks class
+
     ToDo: option commands , example
-    
+
     <<<
     EOT;
 

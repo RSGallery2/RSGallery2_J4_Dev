@@ -17,9 +17,9 @@ use function commandLine\print_header;
 $HELP_MSG = <<<EOT
     >>>
     class forceVersionId
-    
+
     ToDo: option commands , example
-    
+
     <<<
     EOT;
 

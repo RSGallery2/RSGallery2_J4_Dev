@@ -17,10 +17,10 @@ use function commandLine\print_header;
 $HELP_MSG = <<<EOT
     >>>
     class exchangeAll_sinceCopyrightYear
-    
+
     Reads file, exchanges one 'copyright' line for 'since'' year part (first year in line)
     Standard replace text is ??? year
-    
+
     ToDo: extract year from git log each ..
     ToDo: create twin file with new name appended so it is easy to decide to use it .. ...
     <<<

@@ -16,7 +16,7 @@ use function commandLine\print_header;
 $HELP_MSG = <<<EOT
     >>>
     class exchangeAll_actCopyrightYear
-    
+
     Reads file, exchanges one 'copyright' line for actual year part (second year in line)
     Standard replace text is actual year
     <<<

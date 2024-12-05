@@ -16,8 +16,8 @@ use function commandLine\print_header;
 $HELP_MSG = <<<EOT
     >>>
     class exchangeAll_subPackageLines
-    
-    Reads file, exchanges one 'subpackage' line 
+
+    Reads file, exchanges one 'subpackage' line
     Standard replace text is defined in class fileHeaderData
     <<<
     EOT;

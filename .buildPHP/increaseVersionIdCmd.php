@@ -16,9 +16,9 @@ use function commandLine\print_header;
 $HELP_MSG = <<<EOT
     >>>
     class increaseVersionId
-    
+
     ToDo: option commands , example
-    
+
     <<<
     EOT;
 

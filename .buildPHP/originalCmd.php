@@ -15,9 +15,9 @@ use function commandLine\print_header;
 $HELP_MSG = <<<EOT
     >>>
     class XXX
-    
+
     ToDo: option commands , example
-    
+
     <<<
     EOT;
 

@@ -1,11 +1,11 @@
-Jobs to be done 
+Jobs to be done
 
 todos:
 -------------
 - clean4GitCheckinCmd / clean4GitCheckin -> create functionality
-- forceCreationDateCmd -> yyyy ? 
+- forceCreationDateCmd -> yyyy ?
 - Check all bats for function
 - all classes: function text
-- 
-- 
-- 
+-
+-
+-

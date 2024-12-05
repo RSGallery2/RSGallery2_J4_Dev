@@ -15,9 +15,9 @@ use function commandLine\print_header;
 $HELP_MSG = <<<EOT
     >>>
     class fileDateTime
-    
+
     ToDo: option commands , example
-    
+
     <<<
     EOT;
 
@@ -90,47 +90,47 @@ $isPrintArguments = false;
 //
 //foreach ($options as $idx => $option)
 //{
-//	print ("idx: " . $idx . "\r\n");
-//	print ("option: " . $option . "\r\n");
+//    print ("idx: " . $idx . "\r\n");
+//    print ("option: " . $option . "\r\n");
 //
-//	switch ($idx)
-//	{
-//		case 's':
-//			$srcFile = $option;
-//			break;
+//    switch ($idx)
+//    {
+//        case 's':
+//            $srcFile = $option;
+//            break;
 //
-//		case 'd':
-//			$dstFile = $option;
-//			break;
+//        case 'd':
+//            $dstFile = $option;
+//            break;
 //
-//		case "h":
-//			exit($HELP_MSG);
+//        case "h":
+//            exit($HELP_MSG);
 //
-//		case "1":
-//			$LeaveOut_01 = true;
-//			print("LeaveOut_01");
-//			break;
-//		case "2":
-//			$LeaveOut_02 = true;
-//			print("LeaveOut__02");
-//			break;
-//		case "3":
-//			$LeaveOut_03 = true;
-//			print("LeaveOut__03");
-//			break;
-//		case "4":
-//			$LeaveOut_04 = true;
-//			print("LeaveOut__04");
-//			break;
-//		case "5":
-//			$LeaveOut_05 = true;
-//			print("LeaveOut__05");
-//			break;
+//        case "1":
+//            $LeaveOut_01 = true;
+//            print("LeaveOut_01");
+//            break;
+//        case "2":
+//            $LeaveOut_02 = true;
+//            print("LeaveOut__02");
+//            break;
+//        case "3":
+//            $LeaveOut_03 = true;
+//            print("LeaveOut__03");
+//            break;
+//        case "4":
+//            $LeaveOut_04 = true;
+//            print("LeaveOut__04");
+//            break;
+//        case "5":
+//            $LeaveOut_05 = true;
+//            print("LeaveOut__05");
+//            break;
 //
-//		default:
-//			print("Option not supported '" . $option . "'");
-//			break;
-//	}
+//        default:
+//            print("Option not supported '" . $option . "'");
+//            break;
+//    }
 //
 //}
 

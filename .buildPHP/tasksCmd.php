@@ -14,7 +14,7 @@ use function commandLine\print_header;
 $HELP_MSG = <<<EOT
     >>>
     class tasks
-    
+
     <<<
     EOT;
 

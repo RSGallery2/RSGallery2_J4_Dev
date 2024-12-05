@@ -15,9 +15,9 @@ use function commandLine\print_header;
 $HELP_MSG = <<<EOT
     >>>
     class buildRelease
-    
+
     ToDo: option commands , example
-    
+
     <<<
     EOT;
 
@@ -142,7 +142,7 @@ if ($taskFile != "") {
 //            . ' path: ' . $taskFile);
 //    }
 } else {
-	$task->extractTaskFromString($tasksLine);
+    $task->extractTaskFromString($tasksLine);
 }
 
 //--- execute class tasks ------------------------------

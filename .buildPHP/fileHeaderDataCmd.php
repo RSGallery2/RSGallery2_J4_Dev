@@ -13,8 +13,8 @@ use function commandLine\print_header;
 
 $HELP_MSG = <<<EOT
     >>>
-    fileHeader class 
-    
+    fileHeader class
+
     <<<
     EOT;
 

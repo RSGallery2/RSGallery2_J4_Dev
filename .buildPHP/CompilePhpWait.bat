@@ -1,5 +1,5 @@
 @ECHO OFF
-REM Compiles given *.php file 
+REM Compiles given *.php file
 
 php --version
 
@@ -16,18 +16,18 @@ goto :EOF
 REM ------------------------------------------
 REM Print an error message
 :ErrAtRegSvr
-REM	@ECHO OFF
-	Echo.
-	ECHO !!! Please fix error at %1" !!!
-	ECHO %time%
-	Echo.
-	PAUSE
+REM    @ECHO OFF
+    Echo.
+    ECHO !!! Please fix error at %1" !!!
+    ECHO %time%
+    Echo.
+    PAUSE
 
-	echo    * %1
-	php.exe -l  %1
-	
-	if errorlevel 1 goto :ErrAtRegSvr
-	
+    echo    * %1
+    php.exe -l  %1
+
+    if errorlevel 1 goto :ErrAtRegSvr
+
 REM @ECHO ON
 goto :EOF
 

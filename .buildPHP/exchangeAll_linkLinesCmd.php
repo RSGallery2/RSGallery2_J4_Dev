@@ -16,8 +16,8 @@ use function commandLine\print_header;
 $HELP_MSG = <<<EOT
     >>>
     class exchangeAllLinkLines
-    
-    Reads file, exchanges one 'links' line 
+
+    Reads file, exchanges one 'links' line
     Standard replace text is defined in class fileHeaderData
     <<<
     EOT;
