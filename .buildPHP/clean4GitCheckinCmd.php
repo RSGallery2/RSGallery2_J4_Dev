@@ -16,7 +16,7 @@ use function commandLine\print_header;
 $HELP_MSG = <<<EOT
     >>>
     class clean4GitCheckin
-    
+
     Reads file, trims each line and writes result back on change
     <<<
     EOT;
@@ -42,10 +42,13 @@ variables
 --------------------------------------------*/
 
 $tasksLine = ' task:clean4GitCheckin'
-    . ' /srcRoot="./../../RSGallery2_J4"'
+//    . ' /srcRoot="./../../RSGallery2_J4"'
 //    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
 //    . ' /isNoRecursion=true'
 //    . ' /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop"'
+// -> self
+    . ' /srcRoot="./"'
+    . ' /isNoRecursion=true'
 ;
 
 //$srcRoot = './../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop';
