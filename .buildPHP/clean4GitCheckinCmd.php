@@ -26,7 +26,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:d:h12345";
+$optDefinition = "t:f:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -51,6 +51,9 @@ $tasksLine = ' task:clean4GitCheckin'
     . ' /isNoRecursion=true'
 ;
 
+ToDo: file list restriction: no BMP ...
+
+
 //$srcRoot = './../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop';
 //$srcRoot = './../../RSGallery2_J4';
 $srcRoot = '';
@@ -64,8 +67,12 @@ foreach ($options as $idx => $option) {
     print ("option: " . $option . "\r\n");
 
     switch ($idx) {
-        case 's':
-            $srcRoot = $option;
+        case 't':
+            $tasksLine = $option;
+            break;
+
+        case 'f':
+            $taskFile = $option;
             break;
 
         case "h":
@@ -98,15 +105,26 @@ foreach ($options as $idx => $option) {
     }
 }
 
-//--- call function ---------------------------------
+/*--------------------------------------------------
+   call function
+--------------------------------------------------*/
 
 // for start / end diff
 $start = print_header($options, $inArgs);
 
 $task = new task();
-$task->extractTaskFromString($tasksLine);
 
-$oClean4GitCheckin = new clean4GitCheckin($srcRoot, $linkText);
+if ($taskFile != "") {
+    $task->extractTaskFromFile($taskFile);
+//    if (!empty ($hasError)) {
+//        print ("Error on function extractTasksFromFile:" . $hasError
+//            . ' path: ' . $taskFile);
+//    }
+} else {
+    $task->extractTaskFromString($tasksLine);
+}
+
+$oClean4GitCheckin = new clean4GitCheckin();
 
 $hasError = $oClean4GitCheckin->assignTask($task);
 if ($hasError) {

@@ -2,29 +2,32 @@
 REM cleanUp4Checkin.bat
 REM Task to do before check in like remove space at the end of lines
 CLS
-
-Set CmdArgs=
 ECHO PHP cleanUp4CheckinCmd.php
+ECHO.
 
-REM source file
-REM Call :AddNextArg -s "./original.php"
+REM Path for calling
+set ExePath=C:\Program Files\php82\
+REM ECHO ExePath: "%ExePath%"
 
-REM destination file
-REM Call :AddNextArg -d "./original.php"
+if exist "%ExePath%php.exe" (
+    REM path known (WT)
+    ECHO ExePath: "%ExePath%"
+) else (
+    REM Direct call
+    ECHO PHP in path variable
+    set ExePath=
+)
 
-
-REM Source path
-Call :AddNextArg -s "..\..\RSGallery2_J4"
-
-REM add command line
-REM Call :AddNextArg %*
+REM "C:\Program Files\php82\php.exe" --version
+REM "%ExePath%php.exe" --version
+REM ECHO.
 
 ECHO.
 ECHO ------------------------------------------------------------------------------
 ECHO Start cmd:
 ECHO.
-ECHO php.exe -f "./clean4CheckinCmd.php" --  %CmdArgs% %*
-php.exe -f "./clean4CheckinCmd.php" --  %CmdArgs% %*
+echo --- "%ExePath%php.exe" clean4GitCheckinCmd.php -f clean4Checkin.tsk %1
+"%ExePath%php.exe" clean4GitCheckinCmd.php -f clean4Checkin.tsk %1
 
 GOTO :EOF
 
