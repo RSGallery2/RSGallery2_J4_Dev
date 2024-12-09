@@ -72,14 +72,16 @@ $tasksLine = ' task:buildRelease'
 //    . '/s='
 //    . '/s='
 ;
+$tasksLine="";
 
 // ToDo: option release date option releasefiledate
 
 $basePath = "..\\..\\RSGallery2_J4";
 
 
-$taskFile = "";
+//$taskFile="./build_fix.tsk";
 //$taskFile="./build_Develop.tsk";
+$taskFile="./build_release.tsk";
 //$tasksLine = "";
 
 foreach ($options as $idx => $option) {

@@ -110,6 +110,7 @@ class buildRelease extends baseExecuteTasks
             }
 
 //            if (!$isBaseOption && !$isVersionOption && !$isManifestOption) {
+            if (!$isBaseOption) {
 
                 switch (strtolower($option->name)) {
                     case 'builddir':
@@ -141,29 +142,29 @@ class buildRelease extends baseExecuteTasks
                         $this->componentType = $option->value;
                         break;
 
-                case 'isincrementversion_build':
-                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-                    $this->isIncrementVersion_build = $option->value;
-                    break;
+                    case 'isincrementversion_build':
+                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+                        $this->isIncrementVersion_build = $option->value;
+                        break;
 
-//                case 'X':
-//                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-//                    break;
+//                    case 'X':
+//                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+//                        break;
 //
-//                case 'Y':
-//                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-//                    break;
+//                    case 'Y':
+//                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+//                        break;
 //
-//                case 'Z':
-//                    print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
-//                    break;
+//                    case 'Z':
+//                        print ('     option: ' . $option->name . ' ' . $option->value . "\r\n");
+//                        break;
 
                     default:
                         print ('!!! error: required option is not supported: ' . $task->name . '.' . $option->name . ' !!!' . "\r\n");
                 } // switch
 
                 // $OutTxt .= $task->text() . "\r\n";
-            //}
+            }
         }
 
         return 0;
@@ -176,8 +177,6 @@ class buildRelease extends baseExecuteTasks
         print('---------------------------------------------------------' . "\r\n");
 
         $componentType = $this->componentType();
-
-        // $componentVersion =  $this->componentVersion ();
 
         switch (strtolower($componentType)) {
             case 'component':
@@ -198,13 +197,14 @@ class buildRelease extends baseExecuteTasks
                 break;
 
             default:
-                print ('Default componentType: ' . $componentType);
+                print ('!!! Default componentType: ' . $componentType . ', No build done !!!' );
         } // switch
+
 
         return (0);
     }
 
-    private function componentType()
+    private function componentType() : string
     {
         if ($this->componentType == '') {
 
@@ -659,13 +659,18 @@ function zipItRelative($rootPath, $zipFilename)
 
         if (!$file->isDir()) {
             // Add current file to archive
+            print ('.');
+
             $zip->addFile($filePath, $relativePath);
         } else {
             if ($relativePath !== false) {
+                print ('>');
                 $zip->addEmptyDir($relativePath);
             }
         }
     }
+
+    print ( "\r\n" . 'exit zipping' . "\r\n");
 
     // Zip archive will be created only after closing object
     $zip->close();
