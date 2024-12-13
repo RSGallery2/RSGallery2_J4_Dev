@@ -2,6 +2,8 @@
 REM increaseVersionId_Patch.bat
 REM
 CLS
+ECHO PHP increaseVersionId_Patch.php
+ECHO.
 
 REM Path for calling
 set ExePath=C:\Program Files\php82\
@@ -17,14 +19,17 @@ if exist "%ExePath%php.exe" (
 )
 
 REM "C:\Program Files\php82\php.exe" --version
-"%ExePath%php.exe" --version
-ECHO.
+REM "%ExePath%php.exe" --version
+REM ECHO.
 
-REM echo.
+ECHO.
+ECHO ------------------------------------------------------------------------------
+ECHO Start cmd:
+ECHO.
 echo --- "%ExePath%php.exe" ./increaseVersionIdCmd.php -f increaseVersionId_Patch.tsk %1
 "%ExePath%php.exe" increaseVersionIdCmd.php -f increaseVersionId_Patch.tsk %1
 
-goto :EOF
+GOTO :EOF
 
 REM ------------------------------------------
 REM Adds given argument to the already known command arguments
@@ -33,3 +38,4 @@ REM Adds given argument to the already known command arguments
     Set CmdArgs=%CmdArgs% %NextArg%
     ECHO  '%NextArg%'
 GOTO :EOF
+
