@@ -277,6 +277,16 @@ class buildRelease extends baseExecuteTasks
             $this->xcopyElement('LICENSE.txt', $srcRoot, $tmpFolder);
             $this->xcopyElement('index.html', $srcRoot, $tmpFolder);
 
+//            // Do copy the double rsgallery2.xml
+//            $adminFolder = $tmpFolder . '/administrator/components/com_rsgallery2';
+//            $this->xcopyElement('rsgallery2.xml', $srcRoot, $adminFolder);
+
+            // remove pkg_rsgallery2.xml.tmp
+            $packagesTmpFile = $tmpFolder . '/administrator/manifests/packages/pkg_rsgallery2.xml.tmp';
+            if (file_exists($packagesTmpFile)) {
+                unlink($packagesTmpFile);
+            }
+
             //--------------------------------------------------------------------
             // changelog to root
             //--------------------------------------------------------------------

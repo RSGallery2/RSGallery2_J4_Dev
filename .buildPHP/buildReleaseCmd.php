@@ -80,8 +80,8 @@ $basePath = "..\\..\\RSGallery2_J4";
 
 
 //$taskFile="./build_fix.tsk";
-//$taskFile="./build_Develop.tsk";
-$taskFile="./build_release.tsk";
+$taskFile="./build_Develop.tsk";
+//$taskFile="./build_release.tsk";
 //$tasksLine = "";
 
 foreach ($options as $idx => $option) {

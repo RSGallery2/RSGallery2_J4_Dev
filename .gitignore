@@ -4,6 +4,7 @@
 .build/Translations/.idea/
 
 .packages/
+.packages_zip/
 
 .test/BackupRestore/.idea/
 .test/RSG2_Backup/

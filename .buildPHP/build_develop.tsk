@@ -7,7 +7,6 @@ task:buildRelease
 // /sitePath=
 // /mediaPath=
  /name=com_rsgallery2
- /componentname=rsgallery2
  /extension=RSGallery2
 // /version=5.0.12.4
 // /isForceVersion=false

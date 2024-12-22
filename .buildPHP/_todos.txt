@@ -2,6 +2,8 @@ Jobs to be done
 
 todos:
 -------------
+_ ? Update changelog ?
+
 - clean4GitCheckinCmd / clean4GitCheckin -> create functionality
 - forceCreationDateCmd -> yyyy ?
 - Check all bats for function
