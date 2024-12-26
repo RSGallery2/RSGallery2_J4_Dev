@@ -110,7 +110,7 @@ class buildRelease extends baseExecuteTasks
             }
 
 //            if (!$isBaseOption && !$isVersionOption && !$isManifestOption) {
-            if (!$isBaseOption) {
+            if (!$isBaseOption && !$isVersionOption) {
 
                 switch (strtolower($option->name)) {
                     case 'builddir':

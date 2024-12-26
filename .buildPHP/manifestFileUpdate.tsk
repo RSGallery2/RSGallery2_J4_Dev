@@ -6,17 +6,17 @@ task:ManifestFile
 // /forceVersion="5.0.12.4"
 // /version=5.0.12.4
 // /isForceVersion=false
-// /isIncrementVersion_major = true
-// /isIncrementVersion_minor = true
-// /isIncrementVersion_revision = true
+// /isIncrementVersion_major=true
+// /isIncrementVersion_minor=true
+// /isIncrementVersion_revision=true
 //    build release is like fix ? and clean up things
-// /isBuildRelease = true
-// /isBuildRelease = false
+// /isBuildRelease=true
+// /isBuildRelease=false
 //    each creation of package will increase the build number
-// /isIncrementVersion_build = false
-// /isIncrementVersion_build = true
+// /isIncrementVersion_build=false
+// /isIncrementVersion_build=true
 //    fix will increase revision and reset build counter
-// /isBuildFix = true
+// /isBuildFix=true
 //    release will increase minor and reset revision and build counter
- /isBuildRelease = true
-// /isBuildFix = true
+ /isBuildRelease=true
+// /isBuildFix=true

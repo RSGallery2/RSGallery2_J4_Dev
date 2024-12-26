@@ -79,8 +79,8 @@ $tasksLine="";
 $basePath = "..\\..\\RSGallery2_J4";
 
 
-//$taskFile="./build_fix.tsk";
-$taskFile="./build_Develop.tsk";
+$taskFile="./build_fix.tsk";
+//$taskFile="./build_Develop.tsk";
 //$taskFile="./build_release.tsk";
 //$tasksLine = "";
 

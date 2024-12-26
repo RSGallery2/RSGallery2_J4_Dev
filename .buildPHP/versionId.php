@@ -119,6 +119,7 @@ class versionId {
                 $patch++;
                 $build = 0;
                 $this->outVersionId = self::numbers_2_id($major, $minor, $patch, $build);
+                print ("isBuildFix (patch++): " . $this->outVersionId) . "\r\n";
             }
             else
             {
@@ -128,6 +129,7 @@ class versionId {
                     $patch = 0;
                     $build = 0;
                     $this->outVersionId = self::numbers_2_id_release($major, $minor, $patch, $build);
+                    print ("isBuildRelease (minor++): " . $this->outVersionId) . "\r\n";
                 }
                 else {
 
@@ -135,16 +137,19 @@ class versionId {
 
                     if ($this->isIncreaseBuild) {
                         $build ++;
+                        print ("isIncreaseBuild (build++): " . $build . " ");
                     }
 
                     if ($this->isIncreasePatch) {
                         $patch ++;
                         $build = 0;
+                        print ("isIncreasePatch (patch++): " . $patch . " ");
                     }
                     if ($this->isIncreaseMinor) {
                         $minor ++;
                         $patch = 0;
                         $build = 0;
+                        print ("isIncreaseMinor (patch++): " . $minor . " ");
                     }
 
                     if ($this->isIncreaseMajor) {
@@ -152,9 +157,11 @@ class versionId {
                         $minor = 0;
                         $patch = 0;
                         $build = 0;
+                        print ("isIncreaseMajor (major++): " . $major . " ");
                     }
 
                     $this->outVersionId = self::numbers_2_id($major, $minor, $patch, $build);
+                    print ($this->outVersionId) . "\r\n";
                 }
             }
 
