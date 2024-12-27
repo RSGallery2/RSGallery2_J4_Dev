@@ -18,6 +18,5 @@ task:buildRelease
 // /isIncreaseBuild=true
 // /isBuildFix=true
 //    release will increase minor and reset revision and build counter
- /isBuildRelease=true
-//    fix will increase revision and reset build counter
-// /isBuildFix=true
+// /isBuildRelease=true
+ /isIncreaseBuild=true

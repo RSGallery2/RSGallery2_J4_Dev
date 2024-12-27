@@ -263,12 +263,11 @@ class versionId {
 
         } else {
 
-            print ('!!! Unexpected copyright line: "' . $line . '" !!!');
-            throw new \Exception('!!! Unexpected copyright line: "' . $line . '" !!!');
+            print ('!!! Unexpected <version> line: "' . $line . '" !!!');
+            throw new \Exception('!!! Unexpected <version> line: "' . $line . '" !!!');
         }
 
         return [$this->inVersionId];
-        // return [$this->actCopyrightDate, $this->sinceCopyrightDate];
     }
 
     public function formatVersionIdManifest($outVersionId=''): string

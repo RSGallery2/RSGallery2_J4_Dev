@@ -53,6 +53,9 @@ class manifestFile extends baseExecuteTasks
     public string $element = '';
     private string $namespace = '';
 
+    public string $scriptFile; // </scriptfile>install_langman4dev.php</scriptfile>
+
+
     //--- manifest flags ---------------------------------------
 
     // copyright-, version-classes have their own
@@ -473,16 +476,30 @@ class manifestFile extends baseExecuteTasks
                 $otherLines  = [];
 
                 $isHeaderLine = true;
+                $isScriptFound = false;
 
                 foreach ($inLines as $line) {
                     if ($isHeaderLine) {
+
+                        //--- header lines -------------------------------
+
                         $isHeaderLine = $this->assignHeaderLine($line);
                         if ($isHeaderLine) {
                             $headerLines[] = $line;
                         } else {
+                            // End of header lines
                             $otherLines[] = $line;
                         }
                     } else {
+
+                        //--- later lines -------------------------------
+
+                        // assign install script
+                        if (! $isScriptFound) {
+
+                            $isScriptFound = $this->checkforScriptfile($line);
+                        }
+
                         $otherLines[] = $line;
                     }
                 }
@@ -710,6 +727,27 @@ class manifestFile extends baseExecuteTasks
         $line = '<extension type="' . $this->type . '" method="' . $this->method . '">';
 
         return $line;
+    }
+
+    private function checkforScriptfile(mixed $line) : bool
+    {
+        $isScriptLine = false;
+
+        try {
+            $itemName = $this->itemName($line);
+
+            if ($itemName == 'scriptfile') {
+
+                $isScriptLine = true;
+
+                $this->scriptFile =  $this->extractContent($line);
+            }
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage() . "\r\n";
+            $hasError = -101;
+        }
+
+        return $isScriptLine;
     }
 
 }

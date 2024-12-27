@@ -27,7 +27,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "s:y:h12345";
+$optDefinition = "f:t:s:y:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -48,6 +48,7 @@ $tasksLine = ' task:exchangeAll_actCopyrightYear'
     . ' /isNoRecursion=true'
     . ' /yearText="1984"'//    . ' /s='
 ;
+$tasksLine="";
 
 //$srcRoot = './../../RSGallery2_J4/administrator/components/com_rsgallery2/tmpl/develop';
 //$srcRoot = './../../RSGallery2_J4';
@@ -58,17 +59,27 @@ $isNoRecursion = true;
 //$this->license = "http://www.gnu.org/copyleft/gpl.html GNU/GPL";
 $yearText = '';
 
+//$taskFile="./exchangeAll_actCopyrightYearLines.tsk";
+//$taskFile="./build_Develop.tsk";
+//$taskFile="./build_release.tsk";
+$taskFile = "";
+$taskFile = '../../J_LangMan4ExtDevProject/.buildPHP/exchangeAll_actCopyrightYearLines.tsk';
+
 foreach ($options as $idx => $option) {
     print ("idx: " . $idx . "\r\n");
     print ("option: " . $option . "\r\n");
 
     switch ($idx) {
-        case 's':
-            $srcRoot = $option;
+        case 't':
+            $tasksLine = $option;
             break;
 
-        case 'y':
-            $yearText = $option;
+        case 'f':
+            $taskFile = $option;
+            break;
+
+        case 's':
+            $srcRoot = $option;
             break;
 
         case "h":
@@ -101,16 +112,30 @@ foreach ($options as $idx => $option) {
     }
 }
 
-//--- call function ---------------------------------
+/*--------------------------------------------------
+   call function
+--------------------------------------------------*/
 
 // for start / end diff
 $start = print_header($options, $inArgs);
 
+//--- assign task line ------------------------------
+
 $task = new task();
-$task->extractTaskFromString($tasksLine);
+if ($taskFile != "") {
+    $task->extractTaskFromFile($taskFile);
+//    if (!empty ($hasError)) {
+//        print ("Error on function extractTasksFromFile:" . $hasError
+//            . ' path: ' . $taskFile);
+//    }
+} else {
+    $task->extractTaskFromString($tasksLine);
+}
 
+//--- execute class tasks ------------------------------
 
-$oExchangeAllActCopyright = new exchangeAll_actCopyrightYearLines($srcRoot, $isNoRecursion, $yearText);
+// $oExchangeAllActCopyright = new exchangeAll_actCopyrightYearLines($srcRoot, $isNoRecursion, $yearText);
+$oExchangeAllActCopyright = new exchangeAll_actCopyrightYearLines();
 
 $hasError = $oExchangeAllActCopyright->assignTask($task);
 if ($hasError) {

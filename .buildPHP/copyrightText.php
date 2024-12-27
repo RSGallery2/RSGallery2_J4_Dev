@@ -104,7 +104,7 @@ class copyrightText {
         $this->init();
 
         //   * @copyright (c)  2020-2022 RSGallery2 Team
-        $idx = strpos($line, '(c)');
+        $idx = stripos($line, '(c)');
         if ($idx !== false) {
             //$valuePart = trim(substr($line, $idx));
             // preg_match_all('/\d+/', $valuePart, $matches);
@@ -115,6 +115,14 @@ class copyrightText {
             {
                 $this->sinceCopyrightDate = $finds[0];
                 $this->actCopyrightDate = $finds[1];
+
+                // author from line is last part
+                $pieces = explode($this->actCopyrightDate, $line);
+                $count = count($pieces);
+                if ($count > 0) {
+                    $this->postCopyrightAuthor = trim($pieces[$count-1]);
+                }
+
             }
         } else {
 
