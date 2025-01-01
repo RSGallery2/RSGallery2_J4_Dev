@@ -287,6 +287,12 @@ class buildRelease extends baseExecuteTasks
                 unlink($packagesTmpFile);
             }
 
+            // remove Sorted_J3.x.ini.txt (big list of old translations
+            $sortedIniFile = $tmpFolder . '/administrator/components/com_rsgallery2/language/en-GB/Sorted_J3.x.ini.txt';
+            if (file_exists($packagesTmpFile)) {
+                unlink($packagesTmpFile);
+            }
+
             //--------------------------------------------------------------------
             // changelog to root
             //--------------------------------------------------------------------
