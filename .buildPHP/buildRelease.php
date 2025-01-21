@@ -222,6 +222,7 @@ class buildRelease extends baseExecuteTasks
         // data in manifest file
         //--------------------------------------------------------------------
 
+        $bareName = $this->shortExtensionName();
         $manifestPathFileName = $this->manifestPathFileName();
         print ("manifestPathFileName: " . $manifestPathFileName . "\r\n");
 
@@ -242,7 +243,7 @@ class buildRelease extends baseExecuteTasks
 
             // create .packages folder
             if (!is_dir($dstRoot)) {
-                print ('Create dir: "' . $dstRoot . '"' . "\r\n");
+                print ('create dir: "' . $dstRoot . '"' . "\r\n");
                 mkdir($dstRoot, 0777, true);
 
                 exit(556);
@@ -268,12 +269,34 @@ class buildRelease extends baseExecuteTasks
 
             $srcRoot = realpath($this->srcRoot);
 
-            $this->xcopyElement('administrator', $srcRoot, $tmpFolder);
-            $this->xcopyElement('components', $srcRoot, $tmpFolder);
-            $this->xcopyElement('media', $srcRoot, $tmpFolder);
+            // folder administrator exists
+            if (file_exists($srcRoot . "/" . 'administrator')) {
+            	$this->xcopyElement('administrator', $srcRoot, $tmpFolder);
+			}
+            // folder components exists
+            if (file_exists($srcRoot . "/" . 'components')) {
+                $this->xcopyElement('components', $srcRoot, $tmpFolder);
+            }
+            // folder media exists
+            if (file_exists($srcRoot . "/" . 'media')) {
+                $this->xcopyElement('media', $srcRoot, $tmpFolder);
+            }
+            // modules
+            if (file_exists($srcRoot . "/" . 'modules')) {
+//                $this->xcopyElement('modules', $srcRoot, $tmpFolder);
+            }
+            // plugins
+            if (file_exists($srcRoot . "/" . 'plugins')) {
+//                $this->xcopyElement('plugins', $srcRoot, $tmpFolder);
+            }
 
-            $this->xcopyElement('rsgallery2.xml', $srcRoot, $tmpFolder);
-            $this->xcopyElement('install_rsg2.php', $srcRoot, $tmpFolder);
+//            $this->xcopyElement('rsgallery2.xml', $srcRoot, $tmpFolder);
+//            $this->xcopyElement('install_rsg2.php', $srcRoot, $tmpFolder);
+            // manifest file like 'rsgallery2.xml'
+            $this->xcopyElement($bareName . '.xml', $srcRoot, $tmpFolder);
+            // install script like 'install_rsg2.php'
+            $this->xcopyElement($this->manifestFile->scriptFile, $srcRoot, $tmpFolder);
+
             $this->xcopyElement('LICENSE.txt', $srcRoot, $tmpFolder);
             $this->xcopyElement('index.html', $srcRoot, $tmpFolder);
 
@@ -330,6 +353,7 @@ class buildRelease extends baseExecuteTasks
         return $this->manifestPathFileName;
     }
 
+    // ToDo: move/create also in to manifest.php file ?
     private function shortExtensionName(): string
     {
         $name = $this->name;
@@ -464,7 +488,13 @@ class buildRelease extends baseExecuteTasks
                 mkdir($dstPath);
                 xcopy($srcPath, $dstPath);
             } else {
-                copy($srcPath, $dstPath);
+                if (is_file($srcPath)) {
+                    copy($srcPath, $dstPath);
+                } else {
+
+                    print ("%%% warning path / file could not be copied: " . $srcPath . "\r\n");
+
+                }
             }
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage() . "\r\n";
