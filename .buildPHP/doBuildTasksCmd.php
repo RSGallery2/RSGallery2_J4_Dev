@@ -19,7 +19,7 @@ $HELP_MSG = <<<EOT
     <<<
     EOT;
 
-
+// ToDo: make Task:execute implizit $collectedTasks->addTasksFromString('task:execute'); Where should task auto executet ?
 /*================================================================================
 main (used from command line)
 ================================================================================*/
@@ -370,6 +370,7 @@ if ($taskFile != "") {
         print ("Error on function extractTasksFromFile:" . $hasError
             . ' path: ' . $basePath);
     }
+
 } else {
     if ($collectedTasks->count() > 0) {
         $oDoBuildTasks->assignTasks($collectedTasks);
@@ -383,8 +384,6 @@ if ($taskFile != "") {
 }
 
 print ($oDoBuildTasks->tasksText());
-
-// exit (234);
 
 //--- execute tasks ---------------------------------
 
