@@ -17,8 +17,8 @@ from jConfigFile import jConfigFile
 
 HELP_MSG = """
 Exports dump of RSG2 tables from given database 
-Seperate file for J3x and j4x tables
-Configuration and pathes will be taken from configuration.php of referenced joomla installation
+Separate file for J3x and j4x tables
+Configuration and paths will be taken from configuration.php of referenced joomla installation
 
 usage: Rsg2TablesBackup.py d database -u user -p password -f dumpPathFileName -m mySqlPath [-h]
 	-p joomlaPath Path to joomla installation without last folder
@@ -281,11 +281,11 @@ class Rsg2TablesBackup:
 
 ##-------------------------------------------------------------------------------
 
-        def dummyFunction():
-            print('    >>> Enter dummyFunction: ')
-
-            # print ('       XXX: "' + XXX + '"')
-            print('    >>> Exit dummyFunction: ')
+        # def dummyFunction():
+        #     print('    >>> Enter dummyFunction: ')
+        #
+        #     # print ('       XXX: "' + XXX + '"')
+        #     print('    >>> Exit dummyFunction: ')
 
 
 # ================================================================================

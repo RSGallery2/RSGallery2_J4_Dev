@@ -211,7 +211,7 @@ class jConfigFile:
             print('!!! Exception: "' + str(ex) + '" !!!')
             print(traceback.format_exc())
 
-        print ('       intValue: "' + intValue + '"')
+        print ('       intValue: "' + str(intValue) + '"')
         print('    >>> Exit asInt: ')
         return intValue
 
@@ -239,7 +239,7 @@ class jConfigFile:
             print('!!! Exception: "' + str(ex) + '" !!!')
             print(traceback.format_exc())
 
-        print ('       floatValue: "' + floatValue + '"')
+        print ('       floatValue: "' + str(floatValue) + '"')
         print('    >>> Exit asFloat: ')
         return floatValue
 
