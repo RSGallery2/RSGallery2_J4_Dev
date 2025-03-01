@@ -303,8 +303,11 @@ $collectedTasks->addTasksFromString($tasksLine);
 $collectedTasks->addTasksFromString('task:execute');
 
 
+//========================================================
+
 $basePath = "..\\..\\RSGallery2_J4";
 
+//--- build_develop.tsk --------------------------------
 $taskFile = "";
 // $taskFile="./taskFile.cmd";
 

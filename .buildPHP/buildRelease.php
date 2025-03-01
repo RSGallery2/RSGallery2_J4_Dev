@@ -43,6 +43,7 @@ class buildRelease extends baseExecuteTasks
 
     // internal
     private string $manifestPathFileName = '';
+    private string $manifestAdminPathFileName = '';
 
     private string $componentType = '';
 
@@ -54,7 +55,7 @@ class buildRelease extends baseExecuteTasks
     // 'rsgallery2' ??? com_rsgallery2'
     private string $name;
 
-    private bool $isIncrementVersion_build = true;
+    private bool $isIncrementVersion_build = false;
 
     private manifestfile $manifestFile;
 
@@ -222,11 +223,19 @@ class buildRelease extends baseExecuteTasks
         // data in manifest file
         //--------------------------------------------------------------------
 
+        //--- update date and version --------------------------------------
+
         $bareName = $this->shortExtensionName();
         $manifestPathFileName = $this->manifestPathFileName();
         print ("manifestPathFileName: " . $manifestPathFileName . "\r\n");
 
         $isChanged = $this->exchangeDataInManifestFile($manifestPathFileName);
+
+        //--- update second admin xml file --------------------------------------
+
+        $manifestAdminPathFileName = $this->manifestAdminPathFileName();
+        print("manifestAdminPathFileName: " . $manifestAdminPathFileName . "\r\n");
+        copy($manifestPathFileName, $manifestAdminPathFileName);
 
         //--------------------------------------------------------------------
         // destination temp folder
@@ -269,6 +278,8 @@ class buildRelease extends baseExecuteTasks
 
             $srcRoot = realpath($this->srcRoot);
 
+            // ToDo: Follow manifest file sections instead of ...
+
             // folder administrator exists
             if (file_exists($srcRoot . "/" . 'administrator')) {
             	$this->xcopyElement('administrator', $srcRoot, $tmpFolder);
@@ -276,6 +287,10 @@ class buildRelease extends baseExecuteTasks
             // folder components exists
             if (file_exists($srcRoot . "/" . 'components')) {
                 $this->xcopyElement('components', $srcRoot, $tmpFolder);
+            }
+            // folder api exists
+            if (file_exists($srcRoot . "/" . 'api')) {
+                $this->xcopyElement('api', $srcRoot, $tmpFolder);
             }
             // folder media exists
             if (file_exists($srcRoot . "/" . 'media')) {
@@ -290,8 +305,6 @@ class buildRelease extends baseExecuteTasks
 //                $this->xcopyElement('plugins', $srcRoot, $tmpFolder);
             }
 
-//            $this->xcopyElement('rsgallery2.xml', $srcRoot, $tmpFolder);
-//            $this->xcopyElement('install_rsg2.php', $srcRoot, $tmpFolder);
             // manifest file like 'rsgallery2.xml'
             $this->xcopyElement($bareName . '.xml', $srcRoot, $tmpFolder);
             // install script like 'install_rsg2.php'
@@ -353,6 +366,18 @@ class buildRelease extends baseExecuteTasks
         return $this->manifestPathFileName;
     }
 
+    private function manifestAdminPathFileName(): string
+    {
+        if ($this->manifestAdminPathFileName == '') {
+
+            $name = $this->shortExtensionName();
+
+            $this->manifestAdminPathFileName = $this->srcRoot . '/administrator/components/com_lang4dev/' . $name . '.xml';
+        }
+
+        return $this->manifestAdminPathFileName;
+    }
+
     // ToDo: move/create also in to manifest.php file ?
     private function shortExtensionName(): string
     {
@@ -403,6 +428,7 @@ class buildRelease extends baseExecuteTasks
                 if ($this->isIncrementVersion_build) {
                     // $manifestFile->versionId->isBuildRelease = false;
                     $manifestFile->versionId->isBuildRelease = true;
+                    print ("buildRelease: isBuildRelease: " .  $this->versionId->isBuildRelease  . "\r\n");
                 }
 
                 if ($this->element != '') {
@@ -486,7 +512,7 @@ class buildRelease extends baseExecuteTasks
 
             if (is_dir($srcPath)) {
                 mkdir($dstPath);
-                xcopy($srcPath, $dstPath);
+                xcopyDir($srcPath, $dstPath);
             } else {
                 if (is_file($srcPath)) {
                     copy($srcPath, $dstPath);
@@ -633,7 +659,7 @@ class buildRelease extends baseExecuteTasks
 //========================================================
 // ToDo: into folder lib
 
-function xcopy($src, $dest)
+function xcopyDir($src, $dest)
 {
     foreach (scandir($src) as $file) {
         if ($file == '.' || $file == '..') {
@@ -644,7 +670,7 @@ function xcopy($src, $dest)
         }
         if (is_dir($src . '/' . $file) && ($file != '.') && ($file != '..')) {
             mkdir($dest . '/' . $file);
-            xcopy($src . '/' . $file, $dest . '/' . $file);
+            xcopyDir($src . '/' . $file, $dest . '/' . $file);
         } else {
             copy($src . '/' . $file, $dest . '/' . $file);
         }
