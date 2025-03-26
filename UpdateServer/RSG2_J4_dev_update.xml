@@ -15,7 +15,7 @@
 		<maintainer>team@rsgallery2.org</maintainer>
 		<maintainerurl>rsgallery2.org</maintainerurl>
 		<targetplatform name="joomla" version="4.*|5.*"/>
-		<client>1</client>
+		<client>administrator</client>
 		<infourl>https://github.com/RSGallery2/RSGallery2_J4/releases/tag/Version_5.0.12_Beta</infourl>
 	</update>
 	<update>
@@ -33,7 +33,7 @@
 		<maintainer>team@rsgallery2.org</maintainer>
 		<maintainerurl>rsgallery2.org</maintainerurl>
 		<targetplatform name="joomla" version="4.*|5.*"/>
-		<client>1</client>
+		<client>administrator</client>
 		<infourl>https://github.com/RSGallery2/RSGallery2_J4/releases/tag/v5.0.1</infourl>
 	</update>
 </updates>
