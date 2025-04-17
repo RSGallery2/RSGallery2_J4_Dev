@@ -10,6 +10,11 @@
 .test/RSG2_Backup/
 .test/.idea 
 
+
+# org and temp files
+**/*.org.*
+**/*.tmp
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
