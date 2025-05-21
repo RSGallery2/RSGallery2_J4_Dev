@@ -1,0 +1,7 @@
+task:buildExtension
+/type=component
+/srcRoot="../../RSGallery2_J4"
+   // /isNoRecursion=true
+/buildDir="../../RSGallery2_J4_Dev/.packages"
+/name=com_rsgallery2
+/extension=Lang4Dev
