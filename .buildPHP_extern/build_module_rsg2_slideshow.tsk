@@ -1,0 +1,7 @@
+task:buildExtension
+/type=module
+/srcRoot="../../RSGallery2_J4/modules/mod_rsg2_slideshow"
+   // /isNoRecursion=true
+/buildDir="../../RSGallery2_J4_Dev/.packages"
+/name=mod_rsg2_slideshow
+/extension=rsg2_slideshow

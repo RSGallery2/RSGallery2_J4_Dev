@@ -1,7 +1,6 @@
 @ECHO OFF
-REM build.bat
-REM options file can be selected 
-REM d:develop, s:step, f:fix, r:release, m:major
+REM build_develop.bat
+REM
 CLS
 
 REM Path for calling
@@ -49,13 +48,14 @@ ECHO ----------------------------------------------
 ECHO.
 
 pushd  ..\..\buildExtension\src
+REM dir /one /b *.tsk
 ECHO Path: %cd% 
 
-echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build.tsk %1 %OptionFile%
-"%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build.tsk %1 %OptionFile%
+echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build_plugin_rsg2_console.tsk %1 %OptionFile%
+"%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build_plugin_rsg2_console.tsk %1 %OptionFile%
 popd
 
-GOTO :EOF
+goto :EOF
 
 REM ------------------------------------------
 REM Adds given argument to the already known command arguments

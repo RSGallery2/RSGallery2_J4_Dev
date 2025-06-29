@@ -1,0 +1,8 @@
+task:buildExtension
+/type=plugin
+/srcRoot="../../testjapi/plugins/webservices/testjapi"
+   // /isNoRecursion=true
+/buildDir="../../Testjapi/.packages"
+/name=plg_webservices_testjapi
+/extension=Testjapi
+/isBuildFix=true

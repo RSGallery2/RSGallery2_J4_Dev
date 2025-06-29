@@ -45,14 +45,15 @@ if %1A==-mA (
 	set OptionFile=-o options_version_tsk\build_major.opt
 )
 
+
 ECHO ----------------------------------------------
 ECHO.
 
 pushd  ..\..\buildExtension\src
 ECHO Path: %cd% 
 
-echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build.tsk %1 %OptionFile%
-"%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build.tsk %1 %OptionFile%
+echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ../../mod_jx_std_icons/.buildPHP/build.tsk %OptionFile%
+"%ExePath%php.exe" buildExtensionCmd.php -f ../../mod_jx_std_icons/.buildPHP/build.tsk %OptionFile%
 popd
 
 GOTO :EOF
@@ -64,3 +65,4 @@ REM Adds given argument to the already known command arguments
     Set CmdArgs=%CmdArgs% %NextArg%
     ECHO  '%NextArg%'
 GOTO :EOF
+

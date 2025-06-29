@@ -1,0 +1,7 @@
+task:buildExtension
+/type=plugin
+/srcRoot="../../RSGallery2_J4/plugins/console/rsg2_console"
+   // /isNoRecursion=true
+/buildDir="../../RSGallery2_J4_Dev/.packages"
+/name=plg_console_rsg2_console
+/extension=plg_console_rsg2_console
