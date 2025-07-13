@@ -1,0 +1,7 @@
+task:buildExtension
+/type=plugin
+/srcRoot="../../RSGallery2_J4/plugins/webservices/rsgallery2"
+   // /isNoRecursion=true
+/buildDir="../../RSGallery2_J4_Dev/.packages"
+/name=plg_webservices_rsgallery2
+/extension=plg_webservices_rsgallery2

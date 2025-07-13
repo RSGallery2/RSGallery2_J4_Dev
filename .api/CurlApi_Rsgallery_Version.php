@@ -3,7 +3,8 @@
 GET - Retrieve joomgallery overview
 
 https://manual.joomla.org/docs/general-concepts/webservices/
-
+https://joomla.stackexchange.com/questions/32218/joomla-4-api-question/32296#32296
+	
 */
 
 
@@ -16,18 +17,19 @@ if ( ! extension_loaded('curl')) {
 
 print '=== Started ============================' . "\n";
 
-// read rsg2 versiom
+// test write to j5x
 $url_root = 'http://127.0.0.1/joomgallery5x_dev/api/index.php/v1'; // 404 Not Found: The requested URL was not found on this server
-// $url = 'https://127.0.0.1/joomgallery5x_dev/api/index.php/v1'; // Failed to connect to 127.0.0.1 port 443 after 2021 ms: Couldn't connect to server
+// $url = 'https://127.0.0.1/joomla5x_dev/api/index.php/v1'; // Failed to connect to 127.0.0.1 port 443 after 2021 ms: Couldn't connect to server
 echo ('URL root:   ' . $url_root . "\n");
 
 // Before passing the HTTP METHOD to CURL
 $curl = curl_init($url_root);
 
-//j5x ???
+// ? j5x
 //$token = "c2hhMjU2Ojc3OTo3MDIxODdiNTE0N2NjMDY0ZjVlNGY3OTk5NmNiOWZhZTcxYWRkNWVmOWJjZDA0YjYxZTVjNWEwMmEwZTVkZmY5";
-// joomgallery5x
+// joomgallery_dev5
 $token = "c2hhMjU2OjI5MzphYTZhMTcwZTY2ODM1MTZhMmNiYzlkZDg0NjE5NzkxYTZkYThhNTJjODFhZTVkNWViYmZmMjljMmY2ZTQ4NGYz";
+
 
 //    curl_setopt($curl, CURLOPT_HEADER, false);
 // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -46,7 +48,7 @@ $headers = [
 ];
 
 // Add component options
-$url_option =  sprintf('%s/rsgallery2', $url_root);
+$url_option =  sprintf('%s/rsgallery2/version', $url_root);
 echo ('URL option: ' . $url_option . "\n");
 
 echo '=== Send ==================================' . "\n";
