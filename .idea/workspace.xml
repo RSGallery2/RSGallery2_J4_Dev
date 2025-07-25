@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="d024d989-b002-42c5-b5d1-da8ed47ceae2" name="Changes" comment="" />
+    <list default="true" id="d024d989-b002-42c5-b5d1-da8ed47ceae2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.api/CurlApi_Rsgallery_Overview.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.apiTests/CurlApi_Rsgallery_Overview.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.api/CurlApi_Rsgallery_Overview.php" beforeDir="false" afterPath="$PROJECT_DIR$/.apiTests/CurlApi_Rsgallery_Overview.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.api/CurlApi_Rsgallery_Version.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.apiTests/CurlApi_Rsgallery_Version.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.api/CurlApi_Rsgallery_Version.php" beforeDir="false" afterPath="$PROJECT_DIR$/.apiTests/CurlApi_Rsgallery_Version.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.api/joomgalleryOverview.json" beforeDir="false" afterPath="$PROJECT_DIR$/.apiTests/joomgalleryOverview.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.api/phpPath.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.apiTests/phpPath.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,10 +24,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="D:\xampp\php\php.exe" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="E:\wamp64\bin\php\php8.3.14\php.exe" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2lQveqKF6y0HWefOWydhhCHr04c" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -25,8 +36,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/Entwickl/2024/_gitHub/RSGallery2_J4_Dev/.buildPHP",
+    "last_opened_file_path": "D:/Entwickl/2025/_gitHub/RSGallery2_J4_Dev",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -34,8 +50,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-PS-242.21829.154" />
-        <option value="bundled-php-predefined-a98d8de5180a-4d9f4c849d09-com.jetbrains.php.sharedIndexes-PS-242.21829.154" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-PS-251.26927.60" />
+        <option value="bundled-php-predefined-a98d8de5180a-e5747d4f5a45-com.jetbrains.php.sharedIndexes-PS-251.26927.60" />
       </set>
     </attachedChunks>
   </component>
@@ -48,6 +64,7 @@
       <option name="presentableId" value="Default" />
       <updated>1725125214883</updated>
       <workItem from="1725125216302" duration="76000" />
+      <workItem from="1752919494170" duration="1072000" />
     </task>
     <servers />
   </component>
