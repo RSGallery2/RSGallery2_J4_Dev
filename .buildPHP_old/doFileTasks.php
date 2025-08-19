@@ -1,6 +1,6 @@
 <?php
 
-namespace DoBuildTasks;
+namespace DoFileTasks;
 
 require_once "./fileNamesList.php";
 require_once "./buildRelease.php";
@@ -49,7 +49,7 @@ use tasks\tasks;
 
 $HELP_MSG = <<<EOT
     >>>
-    doBuildTasks class
+    doFileTasks class
 
     ToDo: option commands , example
 
@@ -58,10 +58,10 @@ $HELP_MSG = <<<EOT
 
 
 /*================================================================================
-Class doBuildTasks
+Class doFileTasks
 ================================================================================*/
 
-class doBuildTasks
+class doFileTasks
 {
 
     /**
@@ -187,7 +187,7 @@ class doBuildTasks
                             $this->fileNamesList = new fileNamesList ();
                         }
 
-                        print ('add2FilenamesList count: ' . count ($filenamesList->fileNamesList->fileNames) . "\r\n");
+                        print ('add2FilenamesList count: ' . count ($filenamesList->fileNames) . "\r\n");
 
                         $this->fileNamesList->addFilenames($filenamesList->fileNames);
                         break;
@@ -319,7 +319,7 @@ class doBuildTasks
         // $OutTxt = "------------------------------------------" . "\r\n";
         $OutTxt = "";
 
-        $OutTxt .= "--- doBuildTasks: Tasks ---" . "\r\n";
+        $OutTxt .= "--- doFileTasks: Tasks ---" . "\r\n";
 
         // $OutTxt .= "Tasks count: " . $this->textTasks->count() . "\r\n";
 
@@ -331,7 +331,7 @@ class doBuildTasks
     public function text(): string
     {
         $OutTxt = "------------------------------------------" . "\r\n";
-        $OutTxt .= "--- doBuildTasks: class  ---" . "\r\n";
+        $OutTxt .= "--- doFileTasks: class  ---" . "\r\n";
 
 
         $OutTxt .= "Not defined yet " . "\r\n";
@@ -354,5 +354,5 @@ class doBuildTasks
     }
 
 
-} // doBuildTasks
+} // doFileTasks
 

@@ -1,5 +1,5 @@
 @ECHO OFF
-REM build_fix.bat
+REM updateAll_fileHeaders.bat
 REM
 CLS
 
@@ -18,16 +18,30 @@ if exist "%ExePath%php.exe" (
 
 REM "C:\Program Files\php82\php.exe" --version
 "%ExePath%php.exe" --version
+ECHO.
 
 ECHO ----------------------------------------------
 ECHO.
 
-pushd  ..\..\buildExtension\src
-REM dir /one /b *.tsk
+REM more otions 
+
+set OptionFile=
+
+REM if %1A==-dA (
+REM 	set OptionFile=-o options_version_tsk\build_develop.opt
+REM )
+
+
+ECHO ----------------------------------------------
+ECHO.
+
+pushd  ..\..\buildExtension\src\
 ECHO Path: %cd% 
 
-echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ../../testjapi/.buildPHP/build_plugin_webservices:fix.tsk %1
-"%ExePath%php.exe" buildExtensionCmd.php -f ../../testjapi/.buildPHP/build_plugin_webservices_fix.tsk %1
+
+REM echo.
+echo --- "%ExePath%php.exe" doFileTasksCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\updateAll_fileHeaders.tsk %OptionFile%
+"%ExePath%php.exe" doFileTasksCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\updateAll_fileHeaders.tsk %OptionFile%
 popd
 
 goto :EOF
@@ -39,4 +53,3 @@ REM Adds given argument to the already known command arguments
     Set CmdArgs=%CmdArgs% %NextArg%
     ECHO  '%NextArg%'
 GOTO :EOF
-

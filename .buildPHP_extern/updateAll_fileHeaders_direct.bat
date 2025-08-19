@@ -1,6 +1,8 @@
 @ECHO OFF
-REM updateAll_fileHeaders.bat
-REM standard calling over doFileTasksCmd.phpREM
+REM updateAll_fileHeaders_direct.bat 
+REM direct call of updateAll_fileHeadersCmd.php in subdirectory 
+REM not calling over doFileTasksCmd.php
+REM
 CLS
 
 REM Path for calling
@@ -40,8 +42,8 @@ ECHO Path: %cd%
 
 
 REM echo.
-echo --- "%ExePath%php.exe" doFileTasksCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\updateAll_fileHeaders.tsk %OptionFile%
-"%ExePath%php.exe" doFileTasksCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\updateAll_fileHeaders.tsk %OptionFile%
+echo --- "%ExePath%php.exe" updateAll_fileHeadersCmd.php -f ../../../RSGallery2_J4_Dev\.buildPHP_extern\updateAll_fileHeaders_direct.tsk %OptionFile%
+"%ExePath%php.exe" updateAll_fileHeadersCmd.php -f ../../../RSGallery2_J4_Dev\.buildPHP_extern\updateAll_fileHeaders_direct.tsk %OptionFile%
 popd
 
 goto :EOF

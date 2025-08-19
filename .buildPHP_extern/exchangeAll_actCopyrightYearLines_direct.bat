@@ -1,5 +1,7 @@
 @ECHO OFF
-REM build_fix.bat
+REM exchangeAll_actCopyrightYearLines.bat
+REM direct call of exchangeAll_actCopyrightYearLinesCmd.php in subdirectory 
+REM not calling over doFileTasksCmd.php
 REM
 CLS
 
@@ -20,9 +22,28 @@ REM "C:\Program Files\php82\php.exe" --version
 "%ExePath%php.exe" --version
 ECHO.
 
+ECHO ----------------------------------------------
+ECHO.
+
+REM more otions 
+
+set OptionFile=
+
+REM if %1A==-dA (
+REM 	set OptionFile=-o options_version_tsk\build_develop.opt
+REM )
+
+
+ECHO ----------------------------------------------
+ECHO.
+
+pushd  ..\..\buildExtension\src\fileHeaderLib
+ECHO Path: %cd% 
+
 REM echo.
-echo --- "%ExePath%php.exe" ./exchangeAll_actCopyrightYearLinesCmd.php -f exchangeAll_actCopyrightYearLines.tsk %1
+echo --- "%ExePath%php.exe" exchangeAll_actCopyrightYearLinesCmd.php -f ../../../RSGallery2_J4_Dev\.buildPHP_extern\exchangeAll_actCopyrightYearLines.tsk %1
 "%ExePath%php.exe" exchangeAll_actCopyrightYearLinesCmd.php -f exchangeAll_actCopyrightYearLines.tsk %1
+popd
 
 goto :EOF
 

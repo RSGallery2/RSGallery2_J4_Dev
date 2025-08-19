@@ -1,10 +1,10 @@
 @ECHO OFF
-REM build_release.bat
+REM build_develop.bat
 REM
 CLS
 
 REM Path for calling
-set ExePath=C:\Program Files\php82\
+set ExePath=e:\wamp64\bin\php\php8.4.5\
 REM ECHO ExePath: "%ExePath%"
 
 if exist "%ExePath%php.exe" (
@@ -16,13 +16,18 @@ if exist "%ExePath%php.exe" (
     set ExePath=
 )
 
-REM "C:\Program Files\php82\php.exe" --version
 "%ExePath%php.exe" --version
+
+ECHO ----------------------------------------------
 ECHO.
 
-REM echo.
-echo --- "%ExePath%php.exe" ./manifestFileCmd.php -f manifestFileUpdate.tsk %1
-"%ExePath%php.exe" manifestFileCmd.php -f manifestFileUpdate.tsk %1
+pushd  ..\..\buildExtension\src
+REM dir /one /b *.tsk
+ECHO Path: %cd% 
+
+echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ../../testjapi/.buildPHP/build_plugin_webservices_dev.tsk %1
+"%ExePath%php.exe" buildExtensionCmd.php -f ../../testjapi/.buildPHP/build_plugin_webservices.tsk_dev %1
+popd
 
 goto :EOF
 

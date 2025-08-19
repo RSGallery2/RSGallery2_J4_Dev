@@ -1,9 +1,9 @@
 <?php
 
-namespace DoBuildTasks;
+namespace DoFileTasks;
 
 require_once "./commandLine.php";
-require_once "./doBuildTasks.php";
+require_once "./doFileTasks.php";
 
 use tasks\tasks;
 use function commandLine\argsAndOptions;
@@ -12,7 +12,7 @@ use function commandLine\print_header;
 
 $HELP_MSG = <<<EOT
     >>>
-    doBuildTasks class
+    doFileTasks class
 
     ToDo: option commands , example
 
@@ -24,7 +24,7 @@ $HELP_MSG = <<<EOT
 main (used from command line)
 ================================================================================*/
 
-$optDefinition = "t:p:h12345";
+$optDefinition = "s:t:f:h12345";
 $isPrintArguments = false;
 
 [$inArgs, $options] = argsAndOptions($argv, $optDefinition, $isPrintArguments);
@@ -363,12 +363,21 @@ foreach ($options as $idx => $option) {
 // for start / end diff
 $start = print_header($options, $inArgs);
 
-$oDoBuildTasks = new doBuildTasks(); // $basePath, $tasksLine
+/*----------------------------------------------------------
+   collect tasks
+----------------------------------------------------------*/
+
+//--- create class object ---------------------------------
+
+$oDoFileTasks = new doFileTasks(); // $basePath, $tasksLine
+
+
+$hasError = 0;
 
 //--- extract tasks from string or file ---------------------------------
 
 if ($taskFile != "") {
-    $hasError = $oDoBuildTasks->extractTasksFromFile($taskFile);
+    $hasError = $oDoFileTasks->extractTasksFromFile($taskFile);
     if (!empty ($hasError)) {
         print ("Error on function extractTasksFromFile:" . $hasError
             . ' path: ' . $basePath);
@@ -376,9 +385,9 @@ if ($taskFile != "") {
 
 } else {
     if ($collectedTasks->count() > 0) {
-        $oDoBuildTasks->assignTasks($collectedTasks);
+        $oDoFileTasks->assignTasks($collectedTasks);
     } else {
-        $hasError = $oDoBuildTasks->extractTasksFromString($tasksLine);
+        $hasError = $oDoFileTasks->extractTasksFromString($tasksLine);
         if (!empty ($hasError)) {
             print ("Error on function extractTasksFromString:" . $hasError
                 . ' path: ' . $basePath);
@@ -386,15 +395,17 @@ if ($taskFile != "") {
     }
 }
 
-print ($oDoBuildTasks->tasksText());
+print ($oDoFileTasks->tasksText());
 
-//--- execute tasks ---------------------------------
+/*--------------------------------------------------
+   execute tasks
+--------------------------------------------------*/
 
 if (empty ($hasError)) {
 
 
     // create task classes, when task execute is issued the task does execute
-    $hasError = $oDoBuildTasks->applyTasks();
+    $hasError = $oDoFileTasks->applyTasks();
 
     if ($hasError) {
         print ("Error on function collectFiles:" . $hasError
@@ -403,7 +414,7 @@ if (empty ($hasError)) {
 }
 
 if (empty ($hasError)) {
-    print ($oDoBuildTasks->text() . "\r\n");
+    print ($oDoFileTasks->text() . "\r\n");
 }
 
 

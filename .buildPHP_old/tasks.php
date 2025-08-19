@@ -31,6 +31,11 @@ class tasks
         $this->tasks = $tasks;
     }
 
+    public function clear(): void
+    {
+        $this->tasks = [];
+    }
+
     public function count(): int
     {
         return (count($this->tasks));
@@ -84,11 +89,6 @@ class tasks
         return $this;
     }
 
-    public function clear(): void
-    {
-        $this->tasks = [];
-    }
-
     // extract multiple tasks from string
 
     private function isTaskStart(string $tasksLine)
@@ -98,7 +98,7 @@ class tasks
         $tasksLine = Trim($tasksLine);
         $checkPart = strtolower(substr($tasksLine, 0, 5));
 
-        // /option1 /option2=xxx /option3="01teststring"
+        // /option1 /option2=xxx /option3="01 test space string"
         if ($checkPart == 'task:') {
             $isTask = true;
         }
@@ -205,6 +205,10 @@ class tasks
         return $OutTxt;
     }
 
+
+    /*
+     * Multi line representation
+     */
     public function text(): string
     {
         $OutTxt = "--- Tasks: ---" . "\r\n";

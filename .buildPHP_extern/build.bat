@@ -17,7 +17,6 @@ if exist "%ExePath%php.exe" (
     set ExePath=
 )
 
-REM "C:\Program Files\php82\php.exe" --version
 "%ExePath%php.exe" --version
 
 ECHO ----------------------------------------------
@@ -51,8 +50,8 @@ ECHO.
 pushd  ..\..\buildExtension\src
 ECHO Path: %cd% 
 
-echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build.tsk %1 %OptionFile%
-"%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build.tsk %1 %OptionFile%
+echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build.tsk %OptionFile%
+"%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build.tsk %OptionFile%
 popd
 
 GOTO :EOF
