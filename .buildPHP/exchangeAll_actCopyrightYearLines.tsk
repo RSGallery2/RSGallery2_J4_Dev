@@ -3,4 +3,4 @@ task:exchangeAll_actCopyrightYearLines
 /srcRoot="./../../RSGallery2_J4"
    // /isNoRecursion=true
 /includeExt="php ts"
-   // excludeExt = "ini"
+   // excludeExt="ini"
