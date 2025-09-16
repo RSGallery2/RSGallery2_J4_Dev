@@ -50,8 +50,8 @@ ECHO.
 pushd  ..\..\buildExtension\src
 ECHO Path: %cd% 
 
-echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build.tsk %OptionFile%
-"%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build.tsk %OptionFile%
+echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP\build.tsk %OptionFile%
+"%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP\build.tsk %OptionFile%
 popd
 
 GOTO :EOF

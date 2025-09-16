@@ -41,7 +41,7 @@ pushd  ..\..\buildExtension\src\fileHeaderLib
 ECHO Path: %cd% 
 
 REM echo.
-echo --- "%ExePath%php.exe" exchangeAll_actCopyrightYearLinesCmd.php -f ../../../RSGallery2_J4_Dev\.buildPHP_extern\exchangeAll_actCopyrightYearLines.tsk %1
+echo --- "%ExePath%php.exe" exchangeAll_actCopyrightYearLinesCmd.php -f ../../../RSGallery2_J4_Dev\.buildPHP\exchangeAll_actCopyrightYearLines.tsk %1
 "%ExePath%php.exe" exchangeAll_actCopyrightYearLinesCmd.php -f exchangeAll_actCopyrightYearLines.tsk %1
 popd
 

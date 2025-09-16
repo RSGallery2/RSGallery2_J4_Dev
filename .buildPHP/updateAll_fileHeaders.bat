@@ -40,8 +40,8 @@ ECHO Path: %cd%
 
 
 REM echo.
-echo --- "%ExePath%php.exe" doFileTasksCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\updateAll_fileHeaders.tsk %OptionFile%
-"%ExePath%php.exe" doFileTasksCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\updateAll_fileHeaders.tsk %OptionFile%
+echo --- "%ExePath%php.exe" doFileTasksCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP\updateAll_fileHeaders.tsk %OptionFile%
+"%ExePath%php.exe" doFileTasksCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP\updateAll_fileHeaders.tsk %OptionFile%
 popd
 
 goto :EOF

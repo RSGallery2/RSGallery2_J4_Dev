@@ -50,8 +50,8 @@ pushd  ..\..\buildExtension\src
 REM dir /one /b *.tsk
 ECHO Path: %cd% 
 
-echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build_plugin_rsg2_webservice.tsk %1 %OptionFile%
-"%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP_extern\build_plugin_rsg2_webservice.tsk %1 %OptionFile%
+echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP\build_plugin_rsg2_webservice.tsk %1 %OptionFile%
+"%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev\.buildPHP\build_plugin_rsg2_webservice.tsk %1 %OptionFile%
 popd
 
 goto :EOF

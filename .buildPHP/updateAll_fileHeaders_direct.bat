@@ -42,8 +42,8 @@ ECHO Path: %cd%
 
 
 REM echo.
-echo --- "%ExePath%php.exe" updateAll_fileHeadersCmd.php -f ../../../RSGallery2_J4_Dev\.buildPHP_extern\updateAll_fileHeaders_direct.tsk %OptionFile%
-"%ExePath%php.exe" updateAll_fileHeadersCmd.php -f ../../../RSGallery2_J4_Dev\.buildPHP_extern\updateAll_fileHeaders_direct.tsk %OptionFile%
+echo --- "%ExePath%php.exe" updateAll_fileHeadersCmd.php -f ../../../RSGallery2_J4_Dev\.buildPHP\updateAll_fileHeaders_direct.tsk %OptionFile%
+"%ExePath%php.exe" updateAll_fileHeadersCmd.php -f ../../../RSGallery2_J4_Dev\.buildPHP\updateAll_fileHeaders_direct.tsk %OptionFile%
 popd
 
 goto :EOF
