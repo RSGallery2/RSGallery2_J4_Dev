@@ -6,6 +6,9 @@
 .packages/
 .packages_zip/
 
+.apiTests/curl_http_files/
+.apiTests/results/
+
 .test/BackupRestore/.idea/
 .test/RSG2_Backup/
 .test/.idea 

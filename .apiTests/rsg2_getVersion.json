@@ -1,0 +1,13 @@
+{
+    "links": {
+        "self": "http://127.0.0.1/joomla5x/api/index.php/v1/rsgallery2/version"
+    },
+    "data": {
+        "type": "version",
+        "id": "0",
+        "attributes": {
+            "version": "5.1.0.1",
+            "creationDate": "2025.09.09"
+        }
+    }
+}

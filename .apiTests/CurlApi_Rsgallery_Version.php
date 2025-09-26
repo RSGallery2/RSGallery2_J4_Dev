@@ -18,7 +18,7 @@ if ( ! extension_loaded('curl')) {
 print '=== Started ============================' . "\n";
 
 // test write to j5x
-$url_root = 'http://127.0.0.1/joomgallery5x_dev/api/index.php/v1'; // 404 Not Found: The requested URL was not found on this server
+$url_root = 'http://127.0.0.1/joomla5x/api/index.php/v1'; // 404 Not Found: The requested URL was not found on this server
 // $url = 'https://127.0.0.1/joomla5x_dev/api/index.php/v1'; // Failed to connect to 127.0.0.1 port 443 after 2021 ms: Couldn't connect to server
 echo ('URL root:   ' . $url_root . "\n");
 
@@ -28,7 +28,8 @@ $curl = curl_init($url_root);
 // ? j5x
 //$token = "c2hhMjU2Ojc3OTo3MDIxODdiNTE0N2NjMDY0ZjVlNGY3OTk5NmNiOWZhZTcxYWRkNWVmOWJjZDA0YjYxZTVjNWEwMmEwZTVkZmY5";
 // joomgallery_dev5
-$token = "c2hhMjU2OjI5MzphYTZhMTcwZTY2ODM1MTZhMmNiYzlkZDg0NjE5NzkxYTZkYThhNTJjODFhZTVkNWViYmZmMjljMmY2ZTQ4NGYz";
+//$token = "c2hhMjU2OjI5MzphYTZhMTcwZTY2ODM1MTZhMmNiYzlkZDg0NjE5NzkxYTZkYThhNTJjODFhZTVkNWViYmZmMjljMmY2ZTQ4NGYz";
+$token = "c2hhMjU2Ojc3OTo3MDIxODdiNTE0N2NjMDY0ZjVlNGY3OTk5NmNiOWZhZTcxYWRkNWVmOWJjZDA0YjYxZTVjNWEwMmEwZTVkZmY5";
 
 
 //    curl_setopt($curl, CURLOPT_HEADER, false);
@@ -141,9 +142,9 @@ echo '=== done ==================================' . "\n";
 //    );
 //
 //    // $url = "https://example.com/api/user/create";
-//    // http://127.0.0.1/joomgallery5x_dev/api/index.php/v1/joomgallery
+//    // http://127.0.0.1/joomla5x/api/index.php/v1/joomgallery
 //    $url = '(<span lang="en" dir="ltr" class="mw-content-ltr">http://127.0.0.1/joomla5</span>)/api/index.php/v1/joomgallery';
-//    $url = 'http://127.0.0.1/joomgallery5x_dev/api/index.php/v1/joomgallery';
+//    $url = 'http://127.0.0.1/joomla5x/api/index.php/v1/joomgallery';
 //
 //    $curl = curl_init($url);
 //    curl_setopt($curl, CURLOPT_HEADER, false);

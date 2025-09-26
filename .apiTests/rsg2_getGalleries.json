@@ -1,0 +1,290 @@
+{
+    "links": {
+        "self": "http://127.0.0.1/joomla5x/api/index.php/v1/rsgallery2/galleries"
+    },
+    "data": [
+        {
+            "type": "galleries",
+            "id": "1",
+            "attributes": {
+                "id": 1,
+                "name": "galleries root",
+                "alias": "groot",
+                "params": "",
+                "checked_out": 0,
+                "checked_out_time": null,
+                "created": "2024-08-02 20:02:16",
+                "created_by": 778,
+                "created_by_alias": "",
+                "modified": "2024-08-02 20:02:16",
+                "modified_by": 778,
+                "approved": 1,
+                "asset_id": 0,
+                "access": 0
+            }
+        },
+        {
+            "type": "galleries",
+            "id": "2",
+            "attributes": {
+                "id": 2,
+                "name": "love locks",
+                "alias": "love-locks",
+                "params": "{\"gallery_layout\":\"\",\"image\":\"\",\"image_alt\":\"\",\"images_column_arrangement\":\"1\",\"max_columns_in_images_view\":\"4\",\"images_row_arrangement\":\"2\",\"max_rows_in_images_view\":\"5\",\"max_thumbs_in_images_view\":\"20\",\"Layout of images (thumbs)\":\"layout02\",\"gallery_sort_order\":\"global\",\"voting_view\":\"global\",\"voting_vote\":\"global\"}",
+                "checked_out": 0,
+                "checked_out_time": "0000-00-00 00:00:00",
+                "created": "2024-10-05 16:07:47",
+                "created_by": 778,
+                "created_by_alias": "",
+                "modified": "2024-12-11 11:45:47",
+                "modified_by": 778,
+                "approved": 1,
+                "asset_id": 106,
+                "access": 1
+            }
+        },
+        {
+            "type": "galleries",
+            "id": "3",
+            "attributes": {
+                "id": 3,
+                "name": "bad dark style",
+                "alias": "bad-dark-style",
+                "params": "{\"gallery_layout\":\"\",\"image\":\"\",\"image_alt\":\"\",\"images_column_arrangement\":\"1\",\"max_columns_in_images_view\":\"4\",\"images_row_arrangement\":\"2\",\"max_rows_in_images_view\":\"5\",\"max_thumbs_in_images_view\":\"20\",\"Layout of images (thumbs)\":\"layout02\",\"gallery_sort_order\":\"global\",\"voting_view\":\"global\",\"voting_vote\":\"global\"}",
+                "checked_out": 0,
+                "checked_out_time": "0000-00-00 00:00:00",
+                "created": "2024-12-25 16:51:47",
+                "created_by": 778,
+                "created_by_alias": "",
+                "modified": "2024-12-25 16:51:47",
+                "modified_by": 778,
+                "approved": 1,
+                "asset_id": 134,
+                "access": 1
+            }
+        },
+        {
+            "type": "galleries",
+            "id": "4",
+            "attributes": {
+                "id": 4,
+                "name": "dummy gallery",
+                "alias": "dummy-gallery",
+                "params": "{\"gallery_layout\":\"\",\"image\":\"\",\"image_alt\":\"\",\"images_column_arrangement\":\"1\",\"max_columns_in_images_view\":\"4\",\"images_row_arrangement\":\"2\",\"max_rows_in_images_view\":\"5\",\"max_thumbs_in_images_view\":\"20\",\"Layout of images (thumbs)\":\"layout02\",\"gallery_sort_order\":\"global\",\"voting_view\":\"global\",\"voting_vote\":\"global\"}",
+                "checked_out": 0,
+                "checked_out_time": null,
+                "created": "2025-01-10 17:03:17",
+                "created_by": 778,
+                "created_by_alias": "",
+                "modified": "2025-01-10 17:03:17",
+                "modified_by": 778,
+                "approved": 1,
+                "asset_id": 195,
+                "access": 1
+            }
+        },
+        {
+            "type": "galleries",
+            "id": "5",
+            "attributes": {
+                "id": 5,
+                "name": "Die Langsamen",
+                "alias": "die-langsamen",
+                "params": "{\"gallery_layout\":\"\",\"image\":\"\",\"image_alt\":\"\",\"images_column_arrangement\":\"1\",\"max_columns_in_images_view\":\"4\",\"images_row_arrangement\":\"2\",\"max_rows_in_images_view\":\"5\",\"max_thumbs_in_images_view\":\"20\",\"Layout of images (thumbs)\":\"layout02\",\"gallery_sort_order\":\"global\",\"voting_view\":\"global\",\"voting_vote\":\"global\"}",
+                "checked_out": 0,
+                "checked_out_time": null,
+                "created": "2025-07-07 16:41:29",
+                "created_by": 778,
+                "created_by_alias": "",
+                "modified": "2025-07-07 16:41:29",
+                "modified_by": 778,
+                "approved": 1,
+                "asset_id": 271,
+                "access": 1
+            }
+        },
+        {
+            "type": "galleries",
+            "id": "6",
+            "attributes": {
+                "id": 6,
+                "name": "Apfel Lauf",
+                "alias": "apfel-lauf",
+                "params": "{\"gallery_layout\":\"\",\"image\":\"\",\"image_alt\":\"\",\"images_column_arrangement\":\"1\",\"max_columns_in_images_view\":\"4\",\"images_row_arrangement\":\"2\",\"max_rows_in_images_view\":\"5\",\"max_thumbs_in_images_view\":\"20\",\"Layout of images (thumbs)\":\"layout02\",\"gallery_sort_order\":\"global\",\"voting_view\":\"global\",\"voting_vote\":\"global\"}",
+                "checked_out": 0,
+                "checked_out_time": null,
+                "created": "2025-07-07 16:41:58",
+                "created_by": 778,
+                "created_by_alias": "",
+                "modified": "2025-07-07 16:41:58",
+                "modified_by": 778,
+                "approved": 1,
+                "asset_id": 272,
+                "access": 1
+            }
+        },
+        {
+            "type": "galleries",
+            "id": "7",
+            "attributes": {
+                "id": 7,
+                "name": "Coffee",
+                "alias": "coffee",
+                "params": "{\"gallery_layout\":\"\",\"image\":\"\",\"image_alt\":\"\",\"images_column_arrangement\":\"1\",\"max_columns_in_images_view\":\"4\",\"images_row_arrangement\":\"2\",\"max_rows_in_images_view\":\"5\",\"max_thumbs_in_images_view\":\"20\",\"Layout of images (thumbs)\":\"layout02\",\"gallery_sort_order\":\"global\",\"voting_view\":\"global\",\"voting_vote\":\"global\"}",
+                "checked_out": 0,
+                "checked_out_time": null,
+                "created": "2025-07-07 16:42:51",
+                "created_by": 778,
+                "created_by_alias": "",
+                "modified": "2025-07-07 16:42:51",
+                "modified_by": 778,
+                "approved": 1,
+                "asset_id": 273,
+                "access": 1
+            }
+        },
+        {
+            "type": "galleries",
+            "id": "8",
+            "attributes": {
+                "id": 8,
+                "name": "Allgemein",
+                "alias": "allgemein",
+                "params": "{\"gallery_layout\":\"\",\"image\":\"\",\"image_alt\":\"\",\"images_column_arrangement\":\"1\",\"max_columns_in_images_view\":\"4\",\"images_row_arrangement\":\"2\",\"max_rows_in_images_view\":\"5\",\"max_thumbs_in_images_view\":\"20\",\"Layout of images (thumbs)\":\"layout02\",\"gallery_sort_order\":\"global\",\"voting_view\":\"global\",\"voting_vote\":\"global\"}",
+                "checked_out": 0,
+                "checked_out_time": null,
+                "created": "2025-07-07 16:43:40",
+                "created_by": 778,
+                "created_by_alias": "",
+                "modified": "2025-07-07 16:43:40",
+                "modified_by": 778,
+                "approved": 1,
+                "asset_id": 274,
+                "access": 1
+            }
+        },
+        {
+            "type": "galleries",
+            "id": "9",
+            "attributes": {
+                "id": 9,
+                "name": "India",
+                "alias": "india",
+                "params": "{\"gallery_layout\":\"\",\"image\":\"\",\"image_alt\":\"\",\"images_column_arrangement\":\"1\",\"max_columns_in_images_view\":\"4\",\"images_row_arrangement\":\"2\",\"max_rows_in_images_view\":\"5\",\"max_thumbs_in_images_view\":\"20\",\"Layout of images (thumbs)\":\"layout02\",\"gallery_sort_order\":\"global\",\"voting_view\":\"global\",\"voting_vote\":\"global\"}",
+                "checked_out": 0,
+                "checked_out_time": null,
+                "created": "2025-07-07 16:43:53",
+                "created_by": 778,
+                "created_by_alias": "",
+                "modified": "2025-07-07 16:43:53",
+                "modified_by": 778,
+                "approved": 1,
+                "asset_id": 275,
+                "access": 1
+            }
+        },
+        {
+            "type": "galleries",
+            "id": "10",
+            "attributes": {
+                "id": 10,
+                "name": "Celine Yannick",
+                "alias": "celine-yannick",
+                "params": "{\"gallery_layout\":\"\",\"image\":\"\",\"image_alt\":\"\",\"images_column_arrangement\":\"1\",\"max_columns_in_images_view\":\"4\",\"images_row_arrangement\":\"2\",\"max_rows_in_images_view\":\"5\",\"max_thumbs_in_images_view\":\"20\",\"Layout of images (thumbs)\":\"layout02\",\"gallery_sort_order\":\"global\",\"voting_view\":\"global\",\"voting_vote\":\"global\"}",
+                "checked_out": 0,
+                "checked_out_time": null,
+                "created": "2025-07-07 16:44:09",
+                "created_by": 778,
+                "created_by_alias": "",
+                "modified": "2025-07-07 16:44:09",
+                "modified_by": 778,
+                "approved": 1,
+                "asset_id": 276,
+                "access": 1
+            }
+        },
+        {
+            "type": "galleries",
+            "id": "11",
+            "attributes": {
+                "id": 11,
+                "name": "By API",
+                "alias": "by-api",
+                "params": "{}",
+                "checked_out": 0,
+                "checked_out_time": null,
+                "created": "2025-07-23 15:50:40",
+                "created_by": 779,
+                "created_by_alias": "",
+                "modified": "2025-07-23 15:50:40",
+                "modified_by": 779,
+                "approved": 1,
+                "asset_id": 409,
+                "access": 1
+            }
+        },
+        {
+            "type": "galleries",
+            "id": "12",
+            "attributes": {
+                "id": 12,
+                "name": "Test new empty",
+                "alias": "test-new-empty",
+                "params": "{\"gallery_layout\":\"\",\"image\":\"\",\"image_alt\":\"\",\"images_column_arrangement\":\"1\",\"max_columns_in_images_view\":\"4\",\"images_row_arrangement\":\"2\",\"max_rows_in_images_view\":\"5\",\"max_thumbs_in_images_view\":\"20\",\"Layout of images (thumbs)\":\"layout02\",\"gallery_sort_order\":\"global\",\"voting_view\":\"global\",\"voting_vote\":\"global\"}",
+                "checked_out": 0,
+                "checked_out_time": null,
+                "created": "2025-07-23 15:53:17",
+                "created_by": 778,
+                "created_by_alias": "",
+                "modified": "2025-07-23 15:53:17",
+                "modified_by": 778,
+                "approved": 1,
+                "asset_id": 410,
+                "access": 1
+            }
+        },
+        {
+            "type": "galleries",
+            "id": "13",
+            "attributes": {
+                "id": 13,
+                "name": "By API 02",
+                "alias": "by-api-02",
+                "params": "{}",
+                "checked_out": 0,
+                "checked_out_time": null,
+                "created": "2025-07-23 16:20:33",
+                "created_by": 779,
+                "created_by_alias": "",
+                "modified": "2025-07-23 16:20:33",
+                "modified_by": 779,
+                "approved": 1,
+                "asset_id": 411,
+                "access": 1
+            }
+        },
+        {
+            "type": "galleries",
+            "id": "14",
+            "attributes": {
+                "id": 14,
+                "name": "By API 03",
+                "alias": "by-api-03",
+                "params": "{}",
+                "checked_out": 0,
+                "checked_out_time": null,
+                "created": "2025-07-23 16:24:51",
+                "created_by": 779,
+                "created_by_alias": "",
+                "modified": "2025-07-23 16:24:51",
+                "modified_by": 779,
+                "approved": 1,
+                "asset_id": 412,
+                "access": 1
+            }
+        }
+    ],
+    "meta": {
+        "total-pages": 1
+    }
+}

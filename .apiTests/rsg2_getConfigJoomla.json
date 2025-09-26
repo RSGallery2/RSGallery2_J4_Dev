@@ -1,0 +1,172 @@
+{
+    "links": {
+        "self": "http://127.0.0.1/joomla5x/api/index.php/v1/config/com_rsgallery2",
+        "next": "http://127.0.0.1/joomla5x/api/index.php/v1/config/com_rsgallery2?page%5Boffset%5D=20&page%5Blimit%5D=20",
+        "last": "http://127.0.0.1/joomla5x/api/index.php/v1/config/com_rsgallery2?page%5Boffset%5D=60&page%5Blimit%5D=20"
+    },
+    "data": [
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "ToDo_list_general": "0",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "sef_ids": 0,
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "ToDo_list_upload": "0",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "image_size": "800,600,400",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "thumb_size": "120",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "thumb_style": "0",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "jpegQuality": "80",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "allowedFileTypes": "jpg,jpeg,gif,png",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "keepOriginalImage": 1,
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "isPreSelectLatestGallery": 1,
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "ftp_path": "",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "imgPath_root": "/images/rsgallery2",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "useJ3xOldPaths": 0,
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "imgPath_original": "/images/rsgallery/original",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "imgPath_display": "/images/rsgallery/display",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "imgPath_thumb": "/images/rsgallery/thumb",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "image_width": "400",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "ToDo_list_galleries_view": "0",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "images_layout": "default",
+                "id": 274
+            }
+        },
+        {
+            "type": "component",
+            "id": "274",
+            "attributes": {
+                "galleries_column_arrangement": "1",
+                "id": 274
+            }
+        }
+    ],
+    "meta": {
+        "total-pages": 4
+    }
+}
