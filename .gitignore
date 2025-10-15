@@ -8,6 +8,7 @@
 
 .apiTests/curl_http_files/
 .apiTests/results/
+.apiTests/*.json
 
 .test/BackupRestore/.idea/
 .test/RSG2_Backup/
