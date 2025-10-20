@@ -1,5 +1,5 @@
 @ECHO OFF
-REM exchangeAll_actCopyrightYearLines.bat
+REM exchangeAll_sinceInFiles_site_RSG2.bat
 REM calling over doFileTasksCmd.php
 REM
 CLS
@@ -17,7 +17,7 @@ if exist "%ExePath%php.exe" (
     set ExePath=
 )
 
-REM "C:\Program Files\php82\php.exe" --version
+REM "%ExePath% --version
 "%ExePath%php.exe" --version
 ECHO.
 
@@ -39,9 +39,9 @@ ECHO.
 pushd  ..\..\buildExtension\src
 ECHO Path: %cd% 
 
-REM echo.
-echo --- "%ExePath%php.exe" doFileTasksCmd.php -f "../../RSGallery2_J4_Dev\.buildPHP\exchangeAll_actCopyrightYearLines.tsk" %1
-"%ExePath%php.exe" doFileTasksCmd.php -f "../../RSGallery2_J4_Dev\.buildPHP\exchangeAll_actCopyrightYearLines.tsk" %1
+echo --- "%ExePath%php.exe" doFileTasksCmd.php -f "../../RSGallery2_J4_Dev/.cleanPHP/exchangeAll_sinceInFiles_site_RSG2.tsk" %1
+"%ExePath%php.exe" doFileTasksCmd.php -f "../../RSGallery2_J4_Dev/.cleanPHP/exchangeAll_sinceInFiles_site_RSG2.tsk" %1
+                       
 popd
 
 goto :EOF
