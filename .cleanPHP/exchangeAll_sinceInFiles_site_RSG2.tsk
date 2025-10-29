@@ -1,7 +1,7 @@
 task:exchangeAll_sinceInFiles
 /callerProjectId=RSG2
    // /type=component
-   /srcRoot="./../../RSGallery2_J4"
+/srcRoot="./../../RSGallery2_J4"
    // /srcRoot="../../RSGallery2_J4/modules/mod_rsg2_slideshow"
    // /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/src/Helper"
    // /srcRoot="./../../RSGallery2_J4/administrator/components/com_rsgallery2/src/Field"

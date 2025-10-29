@@ -1,0 +1,7 @@
+task:indicateAll_MissingPreFuncCommentInFiles
+    // /callerProjectId=RSG2
+/srcRoot="./../../RSGallery2_J4"
+	// /isNoRecursion=true
+/includeExt="php"
+    // /fileName="../testData/sinceTestFile.php"
+/isLogOnly=true
