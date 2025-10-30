@@ -23,7 +23,7 @@ ECHO.
 ECHO ----------------------------------------------
 ECHO.
 
-REM more otions 
+REM more options 
 
 set OptionFile=
 

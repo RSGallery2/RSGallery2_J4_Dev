@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d024d989-b002-42c5-b5d1-da8ed47ceae2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.api/CurlApi_Rsgallery_Overview.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.apiTests/CurlApi_Rsgallery_Overview.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.api/CurlApi_Rsgallery_Overview.php" beforeDir="false" afterPath="$PROJECT_DIR$/.apiTests/CurlApi_Rsgallery_Overview.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.api/CurlApi_Rsgallery_Version.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.apiTests/CurlApi_Rsgallery_Version.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.api/CurlApi_Rsgallery_Version.php" beforeDir="false" afterPath="$PROJECT_DIR$/.apiTests/CurlApi_Rsgallery_Version.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.api/joomgalleryOverview.json" beforeDir="false" afterPath="$PROJECT_DIR$/.apiTests/joomgalleryOverview.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.api/phpPath.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.apiTests/phpPath.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildPHP/exchangeAll_actCopyrightYearLines.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.buildPHP/exchangeAll_actCopyrightYearLines.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildPHP/exchangeAll_actCopyrightYearLines_direct.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.buildPHP/exchangeAll_actCopyrightYearLines_direct.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildPHP/updateAll_fileHeaders.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.buildPHP/updateAll_fileHeaders.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildPHP/updateAll_fileHeaders_direct.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.buildPHP/updateAll_fileHeaders_direct.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildPHP_old/updateAll_fileHeaders.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.buildPHP_old/updateAll_fileHeaders.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cleanPHP/exchangeAll_sinceInFiles_site_RSG2.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.cleanPHP/exchangeAll_sinceInFiles_site_RSG2.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cleanPHP/exchangeAll_sinceInFiles_site_RSG2_log.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.cleanPHP/exchangeAll_sinceInFiles_site_RSG2_log.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cleanPHP/indicateAll_MissingPreFuncCommentInFiles.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.cleanPHP/indicateAll_MissingPreFuncCommentInFiles.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cleanPHP/indicateAll_MissingPreFuncCommentInFiles_log.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.cleanPHP/indicateAll_MissingPreFuncCommentInFiles_log.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,25 +36,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/Entwickl/2025/_gitHub/RSGallery2_J4_Dev",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Entwickl/2025/_gitHub/RSGallery2_J4_Dev&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-PS-251.26927.60" />
-        <option value="bundled-php-predefined-a98d8de5180a-e5747d4f5a45-com.jetbrains.php.sharedIndexes-PS-251.26927.60" />
+        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-PS-252.26199.163" />
+        <option value="bundled-php-predefined-a98d8de5180a-f0a8ef430dfa-com.jetbrains.php.sharedIndexes-PS-252.26199.163" />
       </set>
     </attachedChunks>
   </component>
@@ -65,6 +68,7 @@
       <updated>1725125214883</updated>
       <workItem from="1725125216302" duration="76000" />
       <workItem from="1752919494170" duration="1072000" />
+      <workItem from="1761831867691" duration="8808000" />
     </task>
     <servers />
   </component>
