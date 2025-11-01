@@ -1,5 +1,5 @@
 @ECHO OFF
-REM exchangeAll_sinceInFiles_site_RSG2_log.bat
+REM exchangeAll_sinceInFiles_local_RSG2.bat
 REM calling over doFileTasksCmd.php
 REM
 CLS
@@ -39,8 +39,8 @@ ECHO.
 pushd  ..\..\buildExtension\src
 ECHO Path: %cd% 
 
-echo --- "%ExePath%php.exe" doFileTasksCmd.php -f "../../RSGallery2_J4_Dev/.cleanPHP/exchangeAll_sinceInFiles_site_RSG2_log.tsk" %1
-"%ExePath%php.exe" doFileTasksCmd.php -f "../../RSGallery2_J4_Dev/.cleanPHP/exchangeAll_sinceInFiles_site_RSG2_log.tsk" %1
+echo --- "%ExePath%php.exe" doFileTasksCmd.php -f "../../RSGallery2_J4_Dev/.cleanPHP/exchangeAll_sinceInFiles_local_RSG2.tsk" %1
+"%ExePath%php.exe" doFileTasksCmd.php -f "../../RSGallery2_J4_Dev/.cleanPHP/exchangeAll_sinceInFiles_local_RSG2.tsk" %1
                        
 popd
 
