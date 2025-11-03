@@ -4,7 +4,7 @@ REM Actual ruleset is used from joomla-cms 6.1 dev (2025.10.30)
 
 CLS
 
-ECHO PHP indicateAll_MissingPreFuncCommentInFiles.tsk
+ECHO PHP _phpcs.bat
 ECHO.
 ECHO ----------------------------------------------
 ECHO php path
@@ -30,19 +30,20 @@ REM ECHO PhpExePath: "%PhpExePath%"
 
 ECHO.
 ECHO ----------------------------------------------
-ECHO php assign to system path
+ECHO php check
 
-"%PhpExePath%\php.exe" --version
+php --version
 if errorlevel 1 (
 	set path=%path%;%PhpExePath%
-	ECHO php.exe assigned to path
-)
+	ECHO *** php.exe assigned to path
+    ECHO "%PhpExePath%
 
-php.exe --version
-if errorlevel 1 (
-	ECHO php exe not found in given PATH
-	ECHO %path%
-	GOTO :EOF
+	php --version
+	if errorlevel 1 (
+		ECHO php exe not found in given PATH
+		ECHO %path%
+		GOTO :EOF
+	)
 )
 
 ECHO.
