@@ -1,8 +1,11 @@
-task:indicateAll_MissingPreFuncCommentInFiles
+task:indicateAll_NoDocInPreCommentInFiles
     // /callerProjectId=RSG2
     // /srcRoot="./../../RSGallery2_J4"
 /srcRoot="e:\wamp64\www\joomla5x\components\com_rsgallery2"
 	// /isNoRecursion=true
 /includeExt="php"
     // /fileName="../testData/sinceTestFile.php"
-/isLogOnly=true
+/excludeFolderList=excluded
+/excludeFolderList=postponed
+	// /isLogOnly=true
+	// /isLogDev=true

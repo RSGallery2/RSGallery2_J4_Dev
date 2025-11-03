@@ -1,0 +1,10 @@
+task:indicateAll_NoDocInPreCommentInFiles
+    // /callerProjectId=RSG2
+/srcRoot="./../../RSGallery2_J4"
+	// /isNoRecursion=true
+/includeExt="php"
+    // /fileName="../testData/sinceTestFile.php"
+/excludeFolderList=excluded
+/excludeFolderList=postponed
+	// /isLogOnly=true
+	// /isLogDev=true
