@@ -35,8 +35,8 @@ ECHO.
 pushd  ..\..\buildExtension\src
 ECHO Path: %cd% 
 
-echo --- "%ExePath%php.exe" doFileTasksCmd.php -f .\tsk_file_examples/encloseAll_jexec_Lines.tsk %1
-"%ExePath%php.exe" doFileTasksCmd.php -f .\tsk_file_examples/encloseAll_jexec_Lines.tsk %1
+echo --- "%ExePath%php.exe" doFileTasksCmd.php -f ../../RSGallery2_J4_Dev/.cleanPHP/encloseAll_jexec_Lines.tsk %1
+"%ExePath%php.exe" doFileTasksCmd.php -f ../../RSGallery2_J4_Dev/.cleanPHP/encloseAll_jexec_Lines.tsk %1
 
 popd
 
