@@ -3,6 +3,9 @@
 .buildPHP/*.*.log
 .buildPHP/Translations/.idea/
 
+.cleanPHP/*.*.log
+
+
 .packages/
 .packages_zip/
 

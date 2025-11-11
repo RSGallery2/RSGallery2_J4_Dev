@@ -55,9 +55,9 @@ Set CmdArgs=
 REM more options
 
 @REM  path or file
-set searchPath="d:\Entwickl\2025\_gitHub\RSGallery2_J4"
-REM set searchPath="d:\Entwickl\2025\_gitHub\RSGallery2_J4\administrator\components\com_rsgallery2\helpers"
-REM set searchPath="d:\Entwickl\2025\_gitHub\RSGallery2_J4\administrator\components\com_rsgallery2\helpers\CascadedParam.php"
+REM set searchPath="e:\wamp64\www\joomla5x\administrator\components\com_rsgallery2"
+set searchPath="e:\wamp64\www\joomla5x\components\com_rsgallery2"
+REM set searchPath="model / plugins"
 if NOT %1A==A (
  	set searchPath=%1
 )

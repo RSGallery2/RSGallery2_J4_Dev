@@ -55,10 +55,10 @@ Set CmdArgs=
 REM more options
 
 @REM  path or file
-REM set searchPath="d:\Entwickl\2025\_gitHub\RSGallery2_J4"
+set searchPath="d:\Entwickl\2025\_gitHub\RSGallery2_J4"
 REM set searchPath="d:\Entwickl\2025\_gitHub\RSGallery2_J4\administrator\components\com_rsgallery2\helpers"
 REM set searchPath="d:\Entwickl\2025\_gitHub\RSGallery2_J4\administrator\components\com_rsgallery2\helpers\CascadedParam.php"
-set searchPath="d:\Entwickl\2025\_gitHub\RSGallery2_J4\administrator\components\com_rsgallery2\helpers\rsgallery2.php"
+REM set searchPath="d:\Entwickl\2025\_gitHub\RSGallery2_J4\administrator\components\com_rsgallery2\helpers\rsgallery2.php"
 if NOT %1A==A (
  	set searchPath=%1
 )
