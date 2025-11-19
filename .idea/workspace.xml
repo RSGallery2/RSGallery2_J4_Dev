@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d024d989-b002-42c5-b5d1-da8ed47ceae2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.buildPHP/exchangeAll_actCopyrightYearLines.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.buildPHP/exchangeAll_actCopyrightYearLines.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildPHP/exchangeAll_actCopyrightYearLines_direct.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.buildPHP/exchangeAll_actCopyrightYearLines_direct.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildPHP/updateAll_fileHeaders.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.buildPHP/updateAll_fileHeaders.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildPHP/updateAll_fileHeaders_direct.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.buildPHP/updateAll_fileHeaders_direct.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildPHP_old/updateAll_fileHeaders.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.buildPHP_old/updateAll_fileHeaders.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cleanPHP/exchangeAll_sinceInFiles_site_RSG2.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.cleanPHP/exchangeAll_sinceInFiles_site_RSG2.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cleanPHP/exchangeAll_sinceInFiles_site_RSG2_log.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.cleanPHP/exchangeAll_sinceInFiles_site_RSG2_log.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cleanPHP/indicateAll_MissingPreFuncCommentInFiles.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.cleanPHP/indicateAll_MissingPreFuncCommentInFiles.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cleanPHP/indicateAll_MissingPreFuncCommentInFiles_log.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.cleanPHP/indicateAll_MissingPreFuncCommentInFiles_log.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="d024d989-b002-42c5-b5d1-da8ed47ceae2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,8 +42,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-PS-252.26199.163" />
-        <option value="bundled-php-predefined-a98d8de5180a-f0a8ef430dfa-com.jetbrains.php.sharedIndexes-PS-252.26199.163" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-PS-252.27397.112" />
+        <option value="bundled-php-predefined-a98d8de5180a-b35feea871ed-com.jetbrains.php.sharedIndexes-PS-252.27397.112" />
       </set>
     </attachedChunks>
   </component>
@@ -69,6 +58,7 @@
       <workItem from="1725125216302" duration="76000" />
       <workItem from="1752919494170" duration="1072000" />
       <workItem from="1761831867691" duration="8808000" />
+      <workItem from="1763410752860" duration="8000" />
     </task>
     <servers />
   </component>
