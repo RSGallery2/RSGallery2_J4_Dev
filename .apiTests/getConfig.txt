@@ -6,12 +6,12 @@ Zend Engine v4.4.5, Copyright (c) Zend Technologies
     with Xdebug v3.4.2, Copyright (c) 2002-2025, by Derick Rethans
 ----------------------------------------------
 
---- "e:\wamp64\bin\php\php8.4.5\php.exe" ..\..\apiByCurlHtml\src\CurlApi_HttpCallCmd.php -f .\rsg2_getConfig.tsk 
+--- "e:\wamp64\bin\php\php8.4.5\php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\rsg2_getConfig.tsk 
 idx: f
 option: .\rsg2_getConfig.tsk
 ------------------------------------------
 PHP: Command line extracted: 
-..\..\apiByCurlHtml\src\CurlApi_HttpCallCmd.php -f '.\rsg2_getConfig.tsk' 
+..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f '.\rsg2_getConfig.tsk' 
 Start time:   2025-11-17 15:22:26
 ------------------------------------------
 *********************************************************
