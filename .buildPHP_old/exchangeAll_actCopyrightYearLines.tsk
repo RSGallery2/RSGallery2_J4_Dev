@@ -1,6 +1,0 @@
-task:exchangeAll_actCopyrightYearLines
-/type=component
-/srcRoot="./../../RSGallery2_J4"
-    // /isNoRecursion=true
-/includeExt="php"
-    // excludeExt="ini"
