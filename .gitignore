@@ -1,7 +1,11 @@
 
-// Until valid tests are given
-.cypress/
+//.cypress/
+.cypress/**/downloads/
+.cypress/**/screenshots/
+.cypress/**/videos/
 
+.cypress/**/cypressEnvVars.bat
+.cypress/**/rsgallery2.zip
 
 //.buildPHP/
 .buildPHP/*.log
@@ -9,7 +13,6 @@
 .buildPHP/Translations/.idea/
 
 .cleanPHP/*.*.log
-
 
 .packages/
 .packages_zip/
