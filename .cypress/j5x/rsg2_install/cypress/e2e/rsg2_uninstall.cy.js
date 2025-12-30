@@ -47,7 +47,7 @@ describe('RSG2 uninstall without DB tables', () => {
             .press(Cypress.Keyboard.Keys.ENTER);
         cy.get('select#filter_type').should('have.value', 'component')
 
-        cy.log ('--- Click on "Prepare remove of RSG2" ---');
+        cy.log ('--- Click on "Uninstall" ---');
 
         cy.get('input#cb0');
         cy.get('input#cb0').click();
@@ -58,11 +58,14 @@ describe('RSG2 uninstall without DB tables', () => {
         //cy.get('button').contains(' Actions');
         cy.get('button').contains(' Actions').click();
         cy.get('button').contains(' Uninstall').click();
-
-
         cy.press(Cypress.Keyboard.Keys.ENTER);
 
+        cy.log ('--- confirm "sure to uninstall" ---');
+        cy.get('button').contains('Yes').click();
+
         cy.log ('--- test is uninstalled ---');
+        cy.wait(3000); // 3s
+
         cy.get('.alert-heading').should('exist');
         cy.get('.alert-message').contains('Uninstalling the component was successful.');
 

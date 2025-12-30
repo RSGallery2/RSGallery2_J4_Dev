@@ -32,7 +32,7 @@ describe('RSG2 install from ', () => {
             .selectFile('cypress/fixtures/rsgallery2.zip', {action: 'drag-drop'});
 
         cy.log ('--- Wait for installing ---');
-        cy.wait(5000);
+        cy.wait(5000);  // 5s
 
         cy.log ('--- Answer exists ---');
         cy.get('#system-message-container').should('exist');

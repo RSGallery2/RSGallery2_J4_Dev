@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d024d989-b002-42c5-b5d1-da8ed47ceae2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_install/cypress/e2e/rsg2_install.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_install/cypress/e2e/rsg2_install.cy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_install/cypress/e2e/rsg2_uninstall.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_install/cypress/e2e/rsg2_uninstall.cy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_install/cypress/e2e/rsg2_uninstall_with_tables.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_install/cypress/e2e/rsg2_uninstall_with_tables.cy.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.scripts/rsg2_git2j4.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.scripts/rsg2_git2j4.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.scripts/rsg2_j42git.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.scripts/rsg2_j42git.sh" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +72,7 @@
       <workItem from="1763410752860" duration="8000" />
       <workItem from="1766938893415" duration="5621000" />
       <workItem from="1767017651165" duration="7954000" />
-      <workItem from="1767087963523" duration="13082000" />
+      <workItem from="1767087963523" duration="15048000" />
     </task>
     <servers />
   </component>

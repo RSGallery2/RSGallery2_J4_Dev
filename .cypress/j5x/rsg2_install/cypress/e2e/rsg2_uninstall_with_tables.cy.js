@@ -73,11 +73,14 @@ describe('RSG2 uninstall complete with DB tables', () => {
         //cy.get('button').contains(' Actions');
         cy.get('button').contains(' Actions').click();
         cy.get('button').contains(' Uninstall').click();
-
-
         cy.press(Cypress.Keyboard.Keys.ENTER);
 
+        cy.log ('--- confirm "sure to uninstall" ---');
+        cy.get('button').contains('Yes').click();
+
         cy.log ('--- test is uninstalled ---');
+        cy.wait(3000); // 3s
+
         cy.get('.alert-heading').should('exist');
         cy.get('.alert-message').contains('Uninstalling the component was successful.');
 
