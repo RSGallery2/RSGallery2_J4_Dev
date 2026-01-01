@@ -15,6 +15,9 @@ describe('RSG2 control panel', () => {
 
         // cy.get('[name="Submit"]').click(); // frontend
         cy.get('#btn-login-submit').click(); // backend
+
+        cy.visit('/administrator/index.php?option=com_rsgallery2');
+
     })
 
     // need admin rights

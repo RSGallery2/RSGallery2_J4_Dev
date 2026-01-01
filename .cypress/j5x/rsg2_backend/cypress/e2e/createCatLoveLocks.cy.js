@@ -66,8 +66,9 @@ describe('Create gallery love locks', () => {
 
         cy.log('--- check messages gallery is created');
         // success message ... from code  (actually second one)
-        cy.get('.alert-message').eq(1).should('have.text', 'Item successfully saved.');
-        cy.get('.alert-message').contains('Item successfully saved.');
+        //cy.get('.alert-message').eq(1).should('have.text', 'Item successfully saved.');
+        //cy.get('.alert-message').contains('Item successfully saved.');
+        cy.get('.alert-message').eq(1).should('have.text', 'Item saved.');
 
         //--- select show all ----------------------------------
 

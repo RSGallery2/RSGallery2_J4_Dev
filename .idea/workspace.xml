@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d024d989-b002-42c5-b5d1-da8ed47ceae2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/createCatLoveLocks.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/createCatLoveLocks.cy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/rsg2_console.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/rsg2_console.cy.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_install/cypress/e2e/rsg2_install.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_install/cypress/e2e/rsg2_install.cy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_install/cypress/e2e/rsg2_uninstall.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_install/cypress/e2e/rsg2_uninstall.cy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_install/cypress/e2e/rsg2_uninstall_with_tables.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_install/cypress/e2e/rsg2_uninstall_with_tables.cy.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,21 +30,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/Entwickl/2025/_gitHub/RSGallery2_J4_Dev/.cypress/j5x/rsg2_install/cypress/e2e",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Entwickl/2025/_gitHub/RSGallery2_J4_Dev/.cypress/j5x/rsg2_install/cypress/e2e&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Entwickl\2025\_gitHub\RSGallery2_J4_Dev\.cypress\j5x\rsg2_install\cypress\e2e" />
@@ -72,7 +72,8 @@
       <workItem from="1763410752860" duration="8000" />
       <workItem from="1766938893415" duration="5621000" />
       <workItem from="1767017651165" duration="7954000" />
-      <workItem from="1767087963523" duration="15048000" />
+      <workItem from="1767087963523" duration="16939000" />
+      <workItem from="1767170054616" duration="5198000" />
     </task>
     <servers />
   </component>

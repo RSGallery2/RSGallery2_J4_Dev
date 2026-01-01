@@ -42,7 +42,26 @@ describe('RSG2 install from ', () => {
         cy.get('div.uppy-StatusBar is-error').should('not.exist');
 
         cy.log ('--- Answer positive ---');
-        cy.get('.alert-message').contains('Installation of the component was successful.');
+        cy.get('.alert-message').contains('Installation of the component was successful.').should('exist');
+        cy.get('.alert-success').contains('was installed successfully').should('exist');
+
+        cy.log ('--- Buttons ---');
+        cy.get('a.btn-warning');
+        cy.get('a.btn-warning').contains('Control panel').should('exist');
+        cy.get('a.btn-info').contains('Configuration').should('exist');
+        cy.get('a.btn-success').contains('Galleries').should('exist');
+
+        cy.log ('--- Changelog ---');
+        cy.get('button').contains('Changelog').should('exist');
+
+        cy.log ('--- signature ---');
+        cy.get('h4').contains('⊕∞ω').should('exist');
+
+
+        cy.get('a.btn-warning').contains('Control panel').click();
+
+        cy.get('div.rsg2logo').should('exist');
+        cy.get('.j-links-link').contains('Manage Galleries');
 
     })
 
