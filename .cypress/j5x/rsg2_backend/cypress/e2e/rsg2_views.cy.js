@@ -1,4 +1,4 @@
-describe('RSG2 control panel', () => {
+describe('RSG2 visit all backend views', () => {
 
     beforeEach(() => {
 
@@ -15,44 +15,60 @@ describe('RSG2 control panel', () => {
 
         // cy.get('[name="Submit"]').click();
         cy.get('#btn-login-submit').click();
+
+        cy.visit('/administrator/index.php?option=com_rsgallery2');
     })
 
-    // // needs admin rights
-    // it('finds the content "Configuration"', () => {
-    //
-    //     cy.visit('/administrator/index.php?option=com_config&view=component&component=com_rsgallery2');
-    //     cy.get('h1').contains('RSGallery2 Options');
-    //
-    // })
+    it('Enter all Views (1: main) ', function () {
 
-    it('finds the content "Manage Galleries"', () => {
+        cy.get('#j-main-container a[href="/cypress_5x/administrator/index.php?option=com_rsgallery2&view=galleries"] div.quickicon-icon').click();
+        cy.get('#toolbar-cancel button.button-cancel').click();
+        cy.get('#j-main-container a[href="/cypress_5x/administrator/index.php?option=com_rsgallery2&view=upload"] div.quickicon-icon').click();
+        cy.get('#menu-249 a[href="index.php?option=com_rsgallery2"] span.sidebar-item-title').click();
+        cy.get('#j-main-container a[href="/cypress_5x/administrator/index.php?option=com_rsgallery2&view=images"] div.quickicon-icon').click();
+        cy.get('#toolbar-cancel button.button-cancel').click();
+        cy.get('#j-main-container div.fa-cogs').click();
+        cy.get('#toolbar-cancel button.button-cancel').click();
 
-        cy.visit('/administrator/index.php?option=com_rsgallery2&view=galleries');
-        cy.get('h1').contains(' Manage galleries');
-        cy.get('h1 > span.icon-images'); // Manage galleries
-    })
+    });
 
-    it('finds the content "Upload"', () => {
+    it('At least one gallery exists', function () {
+        cy.visit('/administrator/index.php?option=com_rsgallery2&view=galleries')
 
-        cy.visit('/administrator/index.php?option=com_rsgallery2&view=upload');
-        cy.get('h1').contains(' Do upload');
-        cy.get('h1 > span.icon-upload'); // Do Upload
-    })
+        cy.get('#galleryList tr.row0 td:nth-child(1)').should('exist');
 
-    it('finds the content "Manage Images"', () => {
+        cy.get('#galleryList span.icon-publish').should('have.class', 'icon-publish');
 
-        cy.visit('/administrator/index.php?option=com_rsgallery2&view=images');
-        cy.get('h1').contains(' Manage images');
-        cy.get('h1 > span.icon-image'); // Manage galleries
+    });
 
-    })
+    it('No images ', function () {
+        cy.visit('/administrator/index.php?option=com_rsgallery2&view=images')
 
-    it('finds the content "Maintenance"', () => {
+        cy.get('#adminForm div.alert').should('have.text',
+            '\n                                Info\n                                Empty list. No image has been found (uploaded ?)                            ');
+        cy.get('[name="list[limit]"]').should('have.id', 'list_limit');
 
-        cy.visit('/administrator/index.php?option=com_rsgallery2&view=maintenance');
-        cy.get('h1').contains(' Maintenance');
-        cy.get('h1 > span.icon-cogs'); // Maintenance
+    });
 
-    })
+});
 
-})
+//
+// it('No images ', function () {
+//     cy.visit('/administrator/index.php?option=com_rsgallery2&view=images')
+//
+//     cy.get('[name="username"]').click();
+//     cy.get('[name="username"]').type('cypress_test');
+//     cy.get('[name="passwd"]').type('cypresscypress');
+//     cy.get('#btn-login-submit').click();
+//     cy.get('[name="username"]').click();
+//     cy.get('[name="username"]').type('cypress_test');
+//     cy.get('[name="passwd"]').click();
+//     cy.get('[name="passwd"]').type('rsgallery2rsgallery2');
+//     cy.get('#btn-login-submit').click();
+//     cy.get('#adminForm div.alert').should('have.text',
+//         '\n                                Info\n                                Empty list. No image has been found (uploaded ?)                            ');
+//     cy.get('[name="list[limit]"]').should('have.id', 'list_limit');
+//
+// });
+//
+
