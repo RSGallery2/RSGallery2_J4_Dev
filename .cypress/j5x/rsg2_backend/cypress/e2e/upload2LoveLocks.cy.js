@@ -1,3 +1,7 @@
+
+let galleryName = "cy love locks";
+let imageName = "2015-10-11_00001.jpg";
+
 beforeEach(() => {
 
 	cy.viewport(1200, 1100);
@@ -20,23 +24,24 @@ beforeEach(() => {
 	cy.visit('/administrator/index.php?option=com_rsgallery2&view=upload');
 });
 
-it('upload file into gallery love locks', () => {
+it('upload file into gallery ', () => {
 
 	cy.get('h1').should('exist');
 	cy.get('h1').contains(' Do upload').should('exist');
 
 	cy.get('.alert-heading').should('not.exist');
 
-	//--- select category cy love locks ----------------------------------
+	//--- select gallery ----------------------------------
 
-	cy.log('selection click ');
-	cy.get('[name="SelectGallery"]').contains('cy love locks').should('exist');
-	cy.get('[name="SelectGallery"]').select('cy love locks');
+	cy.log('select gallery ');
+
+	cy.get('[name="SelectGallery"]').select(galleryName);
 
 	//--- upload file (name) ----------------------------------
 		
+	cy.log('upload file ');
 	cy.get('#dragarea-content')
-		.selectFile('cypress/fixtures/images/2015-10-11_00001.jpg', {action: 'drag-drop'});
+		.selectFile('cypress/fixtures/images/' + imageName, {action: 'drag-drop'});
 
 	//--- check result ----------------------------------
 
@@ -45,7 +50,7 @@ it('upload file into gallery love locks', () => {
 
 	cy.get('div.thumb_caption').should('exist');
 	// cy.get('div.thumb_caption > small.thumb_name ').should('exist');
-	cy.get('div.thumb_caption > small.thumb_name ').contains('2015-10-11_00001');
+	cy.get('div.thumb_caption > small.thumb_name ').contains(imageName);
 
 	cy.log('!!! upload success !!!');
 });

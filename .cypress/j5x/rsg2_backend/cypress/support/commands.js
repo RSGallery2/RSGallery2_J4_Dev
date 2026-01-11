@@ -23,3 +23,21 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('loginBackendAdmin', (user) => {
+  cy.session(
+    user,
+    () => {
+      cy.visit('/login')
+      cy.get('input[name=email]').type(user.email)
+      cy.get('input[name=password]').type(user.password)
+      cy.get('button#login').click()
+      cy.get('h1').contains(`Welcome back ${user.name}!`)
+    },
+    {
+      validate: () => {
+        cy.getCookie('auth_key').should('exist')
+      },
+    }
+  )
+})
