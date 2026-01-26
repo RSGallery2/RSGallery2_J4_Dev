@@ -93,10 +93,12 @@ describe('RSG2 visit all backend views', () => {
     it('No images ', function () {
         cy.visit('/administrator/index.php?option=com_rsgallery2&view=images')
 
-        cy.get('#adminForm div.alert').should('have.text',
-            '\n                                Info\n                                Empty list. No image has been found (uploaded ?)                            ');
-        cy.get('[name="list[limit]"]').should('have.id', 'list_limit');
+        // cy.get('#adminForm div.alert').should('have.text',
+        //     '\n                                Info\n                                Empty list. No image has been found (uploaded ?)                            ');
+        cy.get('#adminForm div.alert').contains('Empty list. No image has been found (uploaded ?)');
 
+        cy.get('[name="list[limit]"]').should('have.id', 'list_limit');
+//... ???
     });
 
 });

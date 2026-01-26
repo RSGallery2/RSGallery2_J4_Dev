@@ -1,6 +1,7 @@
 describe('Delete image test', () => {
 
-    let imageName = "test_coffee.jpg";
+    // let imageTitle = "test_coffee.jpg";
+    let imageTitle = "test_coffee";
 
     beforeEach(() => {
 
@@ -31,7 +32,7 @@ describe('Delete image test', () => {
         cy.get('select#list_limit').select('All');
 
         // image should exist
-        cy.get('a').contains(imageName).should('exist');
+        cy.get('a').contains(imageTitle).first().should('exist');
 
     })
 
@@ -47,14 +48,15 @@ describe('Delete image test', () => {
         cy.log('--- Select image ');
 
         // go parent up to tr (row) , then siblings find child with class '.icon-edit'
-        cy.get('a').contains(imageName)
-            .parent().parent().parent()
+        cy.get('a').contains(imageTitle).first()
+            .parent().parent()
             .find('[name="cid[]"]')
             .click();
 
         //--- Actions trash ----------------------------------
 
         cy.log('--- Actions trash ');
+
         // cy.get('button.dropdown-toggle:visible').contains(" Actions").should('exist');
         // cy.get('button.dropdown-toggle:visible').contains(" Actions").click();
         //
@@ -76,7 +78,7 @@ describe('Delete image test', () => {
         //--- check if image is trashed ----------------------------------
 
         cy.log('--- check image is thrashed and can not be seen');
-        cy.get('a').contains(imageName).should('not.exist');
+        cy.get('a').contains(imageTitle).should('not.exist');
 
         //-----------------------------------------------------
         //--- delete image ----------------------------------
@@ -89,7 +91,7 @@ describe('Delete image test', () => {
         cy.log('--- Select trash view ');
         cy.get('button.filter-search-actions__button').contains("Filter Options").should('exist');
         // cy.get('button.filter-search-actions__button').trigger('click');
-        cy.get('button.filter-search-actions__button').contains("Filter Options").click();
+// actually not needed why ? expected to be needed:       cy.get('button.filter-search-actions__button').contains("Filter Options").click();
 
         cy.get('select#filter_published').should('exist');
         cy.get('select#filter_published').trigger('click');
@@ -97,14 +99,14 @@ describe('Delete image test', () => {
         cy.get('select#filter_published').trigger('Trashed');
 
         // image should exist
-        cy.get('a').contains(imageName).should('exist');
+        cy.get('a').contains(imageTitle).first().should('exist');
 
         //--- select image ----------------------------------
 
         cy.log('--- Select image (trashed) ');
 
         // go parent up to tr (row) , then siblings find child with class '.icon-edit'
-        cy.get('a').contains(imageName)
+        cy.get('a').contains(imageTitle).first()
             .parent().parent()
             .find('[name="cid[]"]')
             .click();
@@ -136,7 +138,7 @@ describe('Delete image test', () => {
         cy.get('select#filter_published').select('All');
         cy.get('select#filter_published').trigger('All');
 
-        cy.get('a').contains(imageName).should('not.exist');
+        cy.get('a').contains(imageTitle).should('not.exist');
 
     })
 

@@ -43,9 +43,9 @@ describe('Create gallery love locks', () => {
 
     it('fill out a new gallery (love locks)', () => {
 
-        //--- check gallery form ----------------------------------
+        //--- check gallery edit form ----------------------------------
 
-        cy.log('--- User gallery edit');
+        cy.log('--- gallery edit');
         cy.get('h1').contains(' Edit gallery');
 
         //--- change name and alias ----------------------------------

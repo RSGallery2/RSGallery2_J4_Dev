@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d024d989-b002-42c5-b5d1-da8ed47ceae2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.create.LoveLocks.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.create.loveLocks.cy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.delete.LoveLocks.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.delete.loveLocks.cy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.create._test.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.create.cy_test.cy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.create.loveLocks.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.create.loveLocks.cy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.delete._test.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.delete.cy_test.cy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/img.delete._test_coffee.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/img.delete._test_coffee.cy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/rsg2_views.cy.01.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/rsg2_views.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/rsg2_views.cy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/upload2LoveLocks.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/upload2LoveLocks.cy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/support/commands.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/support/commands.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/upload2_test.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/upload_test_coffee.cy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/uploadImgTooBig.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/uploadImgTooBig.cy.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,33 +35,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Entwickl/2025/_gitHub/RSGallery2_J4_Dev&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\Entwickl\\2025\\_gitHub\\RSGallery2_J4_Dev\\.cypress\\j5x\\rsg2_backend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/Entwickl/2026/_gitHub/RSGallery2_J4_Dev/.cypress/j5x/rsg2_backend/cypress/e2e",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "D:\\Entwickl\\2025\\_gitHub\\RSGallery2_J4_Dev\\.cypress\\j5x\\rsg2_backend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.cypress\j5x\rsg2_backend\cypress\e2e" />
       <recent name="D:\Entwickl\2025\_gitHub\RSGallery2_J4_Dev\.cypress\j5x\rsg2_install\cypress\e2e" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PS-253.29346.151" />
-        <option value="bundled-php-predefined-a98d8de5180a-0e0d91225499-com.jetbrains.php.sharedIndexes-PS-253.29346.151" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PS-253.30387.85" />
+        <option value="bundled-php-predefined-a98d8de5180a-0e0d91225499-com.jetbrains.php.sharedIndexes-PS-253.30387.85" />
       </set>
     </attachedChunks>
   </component>
@@ -81,7 +85,10 @@
       <workItem from="1767544625187" duration="9737000" />
       <workItem from="1767879270537" duration="8963000" />
       <workItem from="1767888977773" duration="3252000" />
-      <workItem from="1768124305827" duration="16905000" />
+      <workItem from="1768124305827" duration="17315000" />
+      <workItem from="1768941484691" duration="884000" />
+      <workItem from="1769369623716" duration="3359000" />
+      <workItem from="1769413577125" duration="17028000" />
     </task>
     <servers />
   </component>

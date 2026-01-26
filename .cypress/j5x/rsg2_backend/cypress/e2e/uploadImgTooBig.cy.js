@@ -51,7 +51,7 @@ cy.get('.alert-heading').should('not.exist');
 
 	//--- change title and author ----------------------------------
 		
-	cy.get('[name="jform[title]"]').type("love it ");
+	cy.get('[name="jform[name]"]').type("love it ");
 	cy.get('[name="jform[author]"]').type("thomas");
 	
 
