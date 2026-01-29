@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d024d989-b002-42c5-b5d1-da8ed47ceae2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.create._test.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.create.cy_test.cy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.create.loveLocks.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.create.loveLocks.cy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.delete._test.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/gal.delete.cy_test.cy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/img.delete._test_coffee.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/img.delete._test_coffee.cy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/rsg2_views.cy.01.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/rsg2_views.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/rsg2_views.cy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/upload2_test.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/upload_test_coffee.cy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/uploadImgTooBig.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_backend/cypress/e2e/uploadImgTooBig.cy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_site/cypress/e2e/j3x_views_sef.cy.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +34,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/Entwickl/2026/_gitHub/RSGallery2_J4_Dev/.cypress/j5x/rsg2_backend/cypress/e2e",
+    "last_opened_file_path": "D:/Entwickl/2026/_gitHub/RSGallery2_J4_Dev/.cypress/j5x/rsg2_site/cypress/e2e",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -54,6 +47,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.cypress\j5x\rsg2_site\cypress\e2e" />
       <recent name="D:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.cypress\j5x\rsg2_backend\cypress\e2e" />
       <recent name="D:\Entwickl\2025\_gitHub\RSGallery2_J4_Dev\.cypress\j5x\rsg2_install\cypress\e2e" />
     </key>
@@ -88,7 +82,8 @@
       <workItem from="1768124305827" duration="17315000" />
       <workItem from="1768941484691" duration="884000" />
       <workItem from="1769369623716" duration="3359000" />
-      <workItem from="1769413577125" duration="17028000" />
+      <workItem from="1769413577125" duration="18378000" />
+      <workItem from="1769507690355" duration="8379000" />
     </task>
     <servers />
   </component>

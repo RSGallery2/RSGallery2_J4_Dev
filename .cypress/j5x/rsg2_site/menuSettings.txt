@@ -1,0 +1,17 @@
+[J3x] Root galleries
+[J3x] Single gallery
+[J3x] Slideshow
+[J3x] Slide page
+
+* RSG2 Single Gallery
+* RSG2 Slideshow
+? RSG2 Slide page
+
+RSG2 default
+RSG2 galleries
+RSG2 Galleries latest
+RSG2 images
+RSG2 Images latest
+RSG2 Images random
+RSG2 J3x Galleries overview
+
