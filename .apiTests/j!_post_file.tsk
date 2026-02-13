@@ -1,0 +1,13 @@
+task:post
+/baseUrl="http://127.0.0.1/joomla5x/api/index.php"
+/apiPath="v1/media/files"
+/joomlaTokenFile="d:\Entwickl\2025\_gitHub\xTokenFiles\token_joomla5x.txt"
+/responseFile=""
+/dataFile="d:\FithBilderRsgallery\Coffee.small\2016-09-22_00010.jpg"
+/dataFileType="base64"
+// /local-images:/rsgallery2/test.jpg
+
+
+
+
+
