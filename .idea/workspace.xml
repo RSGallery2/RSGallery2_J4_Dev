@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d024d989-b002-42c5-b5d1-da8ed47ceae2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.cypress/j5x/rsg2_site/cypress/e2e/j3x_views_sef.cy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildPHP/build_plugin_rsg2_console.tsk" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,23 +28,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/Entwickl/2026/_gitHub/RSGallery2_J4_Dev/.cypress/j5x/rsg2_site/cypress/e2e",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "D:\\Entwickl\\2025\\_gitHub\\RSGallery2_J4_Dev\\.cypress\\j5x\\rsg2_backend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Entwickl/2026/_gitHub/RSGallery2_J4_Dev/.cypress/j5x/rsg2_site/cypress/e2e&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Entwickl\\2025\\_gitHub\\RSGallery2_J4_Dev\\.cypress\\j5x\\rsg2_backend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.cypress\j5x\rsg2_site\cypress\e2e" />
@@ -84,6 +84,13 @@
       <workItem from="1769369623716" duration="3359000" />
       <workItem from="1769413577125" duration="18378000" />
       <workItem from="1769507690355" duration="8379000" />
+      <workItem from="1769803403506" duration="1372000" />
+      <workItem from="1769888134362" duration="781000" />
+      <workItem from="1769957867729" duration="1087000" />
+      <workItem from="1770057522136" duration="1915000" />
+      <workItem from="1770191812784" duration="1277000" />
+      <workItem from="1770798274158" duration="1772000" />
+      <workItem from="1770891569297" duration="2904000" />
     </task>
     <servers />
   </component>
