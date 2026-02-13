@@ -4,4 +4,4 @@ task:buildExtension
    // /isNoRecursion=true
 /buildDir="../../RSGallery2_J4_Dev/.packages"
 /name=mod_rsg2_slideshow
-/extension=rsg2_slideshow
+/extension=mod_rsg2_slideshow
