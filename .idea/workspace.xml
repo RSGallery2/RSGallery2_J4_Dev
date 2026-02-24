@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d024d989-b002-42c5-b5d1-da8ed47ceae2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.buildPHP/build_plugin_rsg2_console.tsk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="d024d989-b002-42c5-b5d1-da8ed47ceae2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,6 +88,7 @@
       <workItem from="1770191812784" duration="1277000" />
       <workItem from="1770798274158" duration="1772000" />
       <workItem from="1770891569297" duration="2904000" />
+      <workItem from="1771525894681" duration="882000" />
     </task>
     <servers />
   </component>
