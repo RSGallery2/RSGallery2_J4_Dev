@@ -1,5 +1,5 @@
 @ECHO OFF
-REM rsg2_getConfig.bat
+REM rsg2_getConfig_isDevelop.bat
 REM
 CLS
 
@@ -21,8 +21,8 @@ if exist "%ExePath%php.exe" (
 ECHO ----------------------------------------------
 ECHO.
 
-echo --- "%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\rsg2_getConfig.tsk %1
-"%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\rsg2_getConfig.tsk %1
+echo --- "%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\rsg2_getConfig_isDevelop.tsk %1
+"%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\rsg2_getConfig_isDevelop.tsk %1
 
 GOTO :EOF
 
