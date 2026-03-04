@@ -1,0 +1,10 @@
+task:post
+/baseUrl="http://127.0.0.1/joomla5x/api/index.php"
+/apiPath="v1/media/files"
+/joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
+/responseFile=""
+	// local-images: 
+/param='"path": "sampledata/test_dir"'
+    // /dataFileType="base64"
+    // /local-images:/rsgallery2/test.jpg
+

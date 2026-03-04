@@ -22,7 +22,7 @@ Call :AddNextArg -e "http"
 REM --- source file and folder ---------------------------------
 
 if "%1" NEQ "" (
-	SET srcFile=%1
+	SET srcFile=%~f1
 ) else (
 	set srcFile=rsg2_getGalleries.tsk
 )
