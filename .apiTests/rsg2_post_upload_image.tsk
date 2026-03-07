@@ -7,3 +7,10 @@ task:post
 /dataFile="d:\FithBilderRsgallery\Coffee.small\2016-09-22_00010.jpg"
     // /dataFileType="base64"
     // /local-images:/rsgallery2/test.jpg
+	// /param='"image_name": "2016-09-22_00010"'
+/param='"image_name": "2016-09-22_00010.jpg"'
+    // /param='"image_id": 1'
+/param='"gallery_id": 16'
+    // /param='"gallery_name": "By API 03"'
+// /param='"override": 1'
+

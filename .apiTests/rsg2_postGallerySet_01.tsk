@@ -6,7 +6,7 @@ task:post
 /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
     // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomgallery5x_dev.txt"
 /responseFile=""
-/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_putGallery_01_First.json"
+/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_postGallery_01_First.json"
 
     //--- 02 put gallery ------------------------------------------------
 task:post
@@ -16,7 +16,7 @@ task:post
 /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
     // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomgallery5x_dev.txt"
 /responseFile=""
-/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_putGallery_02.json"
+/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_postGallery_02.json"
 
     //--- 03 put gallery ------------------------------------------------
 task:post
@@ -26,7 +26,7 @@ task:post
 /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
     // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomgallery5x_dev.txt"
 /responseFile=""
-/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_putGallery_03.json"
+/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_postGallery_03.json"
 
     //--- 04 put gallery ------------------------------------------------
 task:post
@@ -36,7 +36,7 @@ task:post
 /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
     // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomgallery5x_dev.txt"
 /responseFile=""
-/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_putGallery_04.json"
+/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_postGallery_04.json"
 
     //--- 05 put gallery ------------------------------------------------
 task:post
@@ -46,7 +46,7 @@ task:post
 /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
     // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomgallery5x_dev.txt"
 /responseFile=""
-/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_putGallery_05.json"
+/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_postGallery_05.json"
 
     //--- xx put last gallery ------------------------------------------------
 task:post
@@ -56,5 +56,5 @@ task:post
 /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
     // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomgallery5x_dev.txt"
 /responseFile=""
-/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_putGallery_xx_Last.json"
+/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_postGallery_xx_Last.json"
 

@@ -6,11 +6,11 @@ task:post
     // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomgallery5x_dev.txt"
     // standard: /accept="application/vnd.api+json"
     // standard: /contentType="application/json"
-    // /responseFile="d:\Entwickl\2026\_gitHub\apiByCurlHtml\src\results/rsg2_putGallery_result.json"
+    // /responseFile="d:\Entwickl\2026\_gitHub\apiByCurlHtml\src\results/rsg2_postGallery_result.json"
 /responseFile=""
-    // /paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_putGallery_DataBare.json"
+    // /paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_postGallery_DataBare.json"
     // /paramsFile=""
-/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_putGallery_DataBare.json"
+/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_postGallery_DataBare.json"
     // /param='"parent_id": 1'
     // /param='"access": 1'
     // /param='"name": "By API 03"'
