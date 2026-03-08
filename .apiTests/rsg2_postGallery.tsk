@@ -6,8 +6,7 @@ task:post
     // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomgallery5x_dev.txt"
     // standard: /accept="application/vnd.api+json"
     // standard: /contentType="application/json"
-    // /responseFile="d:\Entwickl\2026\_gitHub\apiByCurlHtml\src\results/rsg2_postGallery_result.json"
-/responseFile=""
+/isCreateAutoResponseFile=true
     // /paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_postGallery_DataBare.json"
     // /paramsFile=""
 /paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_postGallery_DataBare.json"

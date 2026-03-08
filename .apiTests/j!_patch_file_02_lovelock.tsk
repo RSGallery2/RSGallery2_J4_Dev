@@ -2,7 +2,7 @@ task:patch
 /baseUrl="http://127.0.0.1/joomla5x/api/index.php"
 /apiPath="v1/media/files"
 /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
-/responseFile=""
+/isCreateAutoResponseFile=true
 /param='"path": "sampledata/next_dir/test.jpg"'
 /dataFile="d:\FithBilderRsgallery\Lovelocks.small\2015-10-11_00012.jpg"
     // /dataFileType="base64"
