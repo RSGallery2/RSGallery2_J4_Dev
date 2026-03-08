@@ -1,0 +1,13 @@
+task:post
+/baseUrl="http://127.0.0.1/joomla5x/api/index.php"
+/apiPath="v1/rsgallery2/images"
+/joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
+/isCreateAutoResponseFile=true
+	// /param='"path": "sampledata/next_dir/test.jpg"'
+/paramsFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\dataFiles\rsg2_postImage_01.json"
+    // /dataFileType="base64"
+    // /local-images:/rsgallery2/test.jpg
+	// /param='"image_name": "2016-09-22_00010"'
+    // /param='"gallery_name": "By API 03"'
+// /param='"override": 1'
+

@@ -1,19 +1,19 @@
 {
     "links": {
-        "self": "http://127.0.0.1/joomla5x/api/index.php/v1/rsgallery2/images/209"
+        "self": "http://127.0.0.1/joomla5x/api/index.php/v1/rsgallery2/images/73"
     },
     "data": {
         "type": "images",
-        "id": "209",
+        "id": "73",
         "attributes": {
             "access": 1,
-            "id": 209,
-            "name": "2023-12-28_00017.jpg",
-            "alias": "2023-12-28-00017",
+            "id": 73,
+            "name": "00025.jpg",
+            "alias": "00025",
             "description": "",
             "original_path": "",
-            "gallery_id": 9,
-            "title": "2023-12-28_00017",
+            "gallery_id": 21,
+            "title": "00025",
             "note": "",
             "params": [],
             "published": 1,
@@ -25,14 +25,14 @@
             "publish_down": null,
             "checked_out": 0,
             "checked_out_time": null,
-            "created": "2025-07-07 16:48:11",
+            "created": "2026-02-04 13:09:41",
             "created_by": 778,
             "created_by_alias": "",
-            "modified": "2025-09-09 13:35:47",
-            "modified_by": 778,
-            "ordering": 209,
+            "modified": "2026-02-04 13:09:41",
+            "modified_by": 0,
+            "ordering": 48,
             "approved": 0,
-            "asset_id": 401,
+            "asset_id": 537,
             "use_j3x_location": 0,
             "sizes": "",
             "version": 1

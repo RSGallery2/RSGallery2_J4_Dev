@@ -1,0 +1,16 @@
+task:post
+/baseUrl="http://127.0.0.1/joomla5x/api/index.php"
+/apiPath="v1/rsgallery2/upload"
+/joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
+/isCreateAutoResponseFile=true
+	// /param='"path": "sampledata/next_dir/test.jpg"'
+/dataFile="d:\FithBilderRsgallery\Coffee.small\2014-12-29_00005.jpg"
+    // /dataFileType="base64"
+    // /local-images:/rsgallery2/test.jpg
+	// /param='"image_name": "2016-09-22_00010"'
+/param='"image_name": "2014-12-29_00005.jpg"'
+    // /param='"image_id": 1'
+/param='"gallery_id": 16'
+    // /param='"gallery_name": "By API 03"'
+// /param='"override": 1'
+
