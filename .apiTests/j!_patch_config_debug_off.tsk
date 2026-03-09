@@ -1,0 +1,7 @@
+task:patch
+/baseUrl="http://127.0.0.1/joomla5x/api/index.php"
+/apiPath="v1/config/application"
+/joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
+/isCreateAutoResponseFile=false
+/param='"debug": true'
+
