@@ -21,8 +21,8 @@ if exist "%ExePath%php.exe" (
 ECHO ----------------------------------------------
 ECHO.
 
-echo --- "%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\rsg2_post_upload_image.tsk %1
-"%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\rsg2_post_upload_image.tsk %1
+echo --- "%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\rsg2_post_upload_image_id81.tsk %1
+"%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\rsg2_post_upload_image_id81.tsk %1
 
 GOTO :EOF
 
