@@ -1,0 +1,10 @@
+task:buildExtension
+/type=package
+/srcRoot="../../RSGallery2_J4"
+    // /isNoRecursion=true
+/buildDir="../../RSGallery2_J4_Dev/.packages"
+/name=pkg_rsgallery2
+/extension=rsgallery2
+/mani:isUpdateActCopyrightYear=true
+	// not working  /mani:manifestFile="package/pkg_rsgallery2.xml"
+/isKeep_CmpModPlg_DateZips=true
