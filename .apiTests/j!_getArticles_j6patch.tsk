@@ -1,0 +1,6 @@
+task:get
+/baseUrl="http://127.0.0.1/joomla6x_patch/api/index.php"
+/apiPath="v1/content/articles"
+/joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla6x_patch.txt"
+/isCreateAutoResponseFile=true
+
