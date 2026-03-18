@@ -5,3 +5,4 @@ task:buildExtension
 /buildDir="../../RSGallery2_J4_Dev/.packages"
 /name=plg_rsgallery2
 /extension=plg_webservices_rsgallery2
+/mani:isUpdateActCopyrightYear=true

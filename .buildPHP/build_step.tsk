@@ -6,3 +6,4 @@ task:buildExtension
 /name=rsgallery2
 /extension=com_rsgallery2
 /isIncreaseBuild=true
+/mani:isUpdateActCopyrightYear=true

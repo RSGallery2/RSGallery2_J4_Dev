@@ -5,3 +5,4 @@ task:buildExtension
 /buildDir="../../RSGallery2_J4_Dev/.packages"
 /name=plg_rsg2_console
 /extension=plg_console_rsg2_console
+/mani:isUpdateActCopyrightYear=true
