@@ -1,7 +1,8 @@
 task:get
-/baseUrl="http://127.0.0.1/joomla5x/api/index.php"
+/baseUrl="http://127.0.0.1/api_6x/api/index.php"
     // was a test, not successful
 /apiPath="v1/stat/cms_version"
-/joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
+    // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
+/joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_api_6x.txt"
 /isCreateAutoResponseFile=true
 

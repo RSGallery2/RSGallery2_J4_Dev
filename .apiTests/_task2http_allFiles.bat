@@ -31,8 +31,11 @@ REM --- transformation -------------------------------
 @echo.
 
 REM Call transformation on each matching file
-ECHO "for %%i in (%srcPath%\*.tsk) do CALL :tsk2httpFile %%i"
-for %%i in (%srcPath%\*.tsk) do CALL :tsk2httpFile %%i 
+
+REM for %%i in (*.tsk) do @echo %%i
+ECHO "for %%i in (*.tsk) do CALL :tsk2httpFile %%i"
+for %%i in (*.tsk) do CALL :tsk2httpFile %%i
+
 
 @ECHO -----------------------------------------------
 @Echo all *.tsk files are transferred

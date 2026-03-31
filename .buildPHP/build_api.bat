@@ -1,5 +1,5 @@
 @ECHO OFF
-REM build_develop.bat
+REM build.bat
 REM options file can be selected 
 REM d:develop, s:step, f:fix, r:release, m:major
 CLS
@@ -44,16 +44,14 @@ if %1A==-mA (
 	set OptionFile=-o options_version_tsk\build_major.opt
 )
 
-
 ECHO ----------------------------------------------
 ECHO.
 
 pushd  ..\..\buildExtension\src
 ECHO Path: %cd% 
 
-rem buildExtension\src\build_tsk\build_test.tsk
-echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ./build_tsk/build_test.tsk %1 %OptionFile%
-"%ExePath%php.exe" buildExtensionCmd.php -f ./build_tsk/build_test.tsk %1 %OptionFile%
+echo --- "%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev/.buildPHP/build_api.tsk %OptionFile%
+"%ExePath%php.exe" buildExtensionCmd.php -f ../../RSGallery2_J4_Dev/.buildPHP/build_api.tsk %OptionFile%
 popd
 
 GOTO :EOF

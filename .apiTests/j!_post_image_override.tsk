@@ -1,7 +1,8 @@
 task:post
-/baseUrl="http://127.0.0.1/joomla5x/api/index.php"
+/baseUrl="http://127.0.0.1/api_6x/api/index.php"
 /apiPath="v1/media/files"
-/joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
+    // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
+/joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_api_6x.txt"
 /isCreateAutoResponseFile=true
 /param='"path": "sampledata/next_dir/test.jpg"'
 /param='"override": 1'

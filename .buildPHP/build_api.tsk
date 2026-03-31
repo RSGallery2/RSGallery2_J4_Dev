@@ -3,7 +3,8 @@ task:buildExtension
 /srcRoot="../../RSGallery2_J4"
    // /isNoRecursion=true
 /buildDir="../../RSGallery2_J4_Dev/.packages"
-/name=rsgallery2
-/extension=com_rsgallery2
-/isIncreaseBuild=true
+/name=com_rsgallery2
+/extension=rsgallery2
 /mani:isUpdateActCopyrightYear=true
+/prefixZipName=api
+/callerProjectId=RSG2

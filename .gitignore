@@ -7,11 +7,11 @@
 .cypress/**/cypressEnvVars.bat
 .cypress/**/rsgallery2.zip
 
-//.buildPHP/
 .buildPHP/*.log
 .buildPHP/*.*.log
 .buildPHP/Translations/.idea/
 
+.cleanPHP/*.log
 .cleanPHP/*.*.log
 
 .packages/

@@ -1,5 +1,5 @@
 @ECHO OFF
-REM build_develop.bat
+REM build_plg_rsg2_webservice.bat
 REM
 CLS
 
