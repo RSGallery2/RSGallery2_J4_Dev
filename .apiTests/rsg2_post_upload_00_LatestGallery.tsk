@@ -1,8 +1,8 @@
 task:get
+// ! not post: wrong name used for '00' alignment before upload sequent 1.. !
 /baseUrl="http://127.0.0.1/api_6x/api/index.php"
 /apiPath="v1/rsgallery2/latestgallery"
     // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
 /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_api_6x.txt"
 /isCreateAutoResponseFile=true
-
 
