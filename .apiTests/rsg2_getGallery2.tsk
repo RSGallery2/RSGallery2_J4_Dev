@@ -1,7 +1,7 @@
 task:get
 /baseUrl="http://127.0.0.1/api_6x/api/index.php"
 /apiPath="v1/rsgallery2/galleries/2"
-	// /joomlaTokenFile="d:/Entwickl/2026/_gitHub/xTokenFiles/token_joomla5x.txt"
+    // /joomlaTokenFile="d:/Entwickl/2026/_gitHub/xTokenFiles/token_joomla5x.txt"
 /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_api_6x.txt"
 /isCreateAutoResponseFile=true
 

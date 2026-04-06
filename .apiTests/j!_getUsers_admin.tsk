@@ -3,8 +3,8 @@ task:get
 /baseUrl="http://127.0.0.1/api_6x/api/index.php"
     // /apiPath="v1/users?filter[search]=adminFinnern"
 /apiPath="v1/users?filter[search]=admin"
-        // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
+    // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
 /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_api_6x.txt"
-	// /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_api_6x.txt"
+    // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_api_6x.txt"
     // /responseFile="d:\Entwickl\2026\_gitHub\JoomGallery_fith_dev\.apiTests/j!_getConfigAll_p1_By30.json"
 /isCreateAutoResponseFile=true

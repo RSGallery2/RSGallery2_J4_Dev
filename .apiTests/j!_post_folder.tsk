@@ -4,7 +4,7 @@ task:post
     // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
 /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_api_6x.txt"
 /isCreateAutoResponseFile=true
-	// local-images: 
+    // local-images:
 /param='"path": "sampledata/test_dir"'
     // /dataFileType="base64"
     // /local-images:/rsgallery2/test.jpg
