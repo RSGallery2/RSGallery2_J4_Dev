@@ -1,0 +1,10 @@
+task:get
+    // /baseUrl="http://127.0.0.1/joomgallery5x_api/api/index.php"
+/baseUrl="http://127.0.0.1/api_6x/api/index.php"
+    // /baseUrl="http://127.0.0.1/api_6x/api/index.php"
+/apiPath="v1/config/com_rsgallery2"
+    // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
+/joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_api_6x.txt"
+    // /responseFile="d:\Entwickl\2026\_gitHub\JoomGallery_fith_dev\.apiTests/jg_getConfigJG.json"
+/isCreateAutoResponseFile=true
+
