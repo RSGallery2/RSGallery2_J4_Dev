@@ -1,0 +1,17 @@
+meta {
+  name: RSG2 Web API
+}
+
+headers {
+  Accept: application/vnd.api+json
+}
+
+auth {
+  mode: apikey
+}
+
+auth:apikey {
+  key: X-Joomla-Token
+  value: {{api_key}}
+  placement: header
+}
