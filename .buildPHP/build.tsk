@@ -4,5 +4,5 @@ task:buildExtension
    // /isNoRecursion=true
 /buildDir="../../RSGallery2_J4_Dev/.packages"
 /name=com_rsgallery2
-/extension=rsgallery2
+// /extension=rsgallery2
 /mani:isUpdateActCopyrightYear=true
