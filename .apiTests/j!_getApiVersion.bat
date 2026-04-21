@@ -1,5 +1,5 @@
 @ECHO OFF
-REM build_fix.bat
+REM J!_getApiVersion.bat
 REM
 CLS
 

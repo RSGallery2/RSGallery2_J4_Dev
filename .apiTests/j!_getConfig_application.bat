@@ -1,5 +1,5 @@
 @ECHO OFF
-REM build_fix.bat
+REM j!_getConfig_application.bat
 REM
 CLS
 
@@ -20,8 +20,6 @@ if exist "%ExePath%php.exe" (
 
 ECHO ----------------------------------------------
 ECHO.
-
-REM j!_getTest
 
 echo --- "%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\j!_getConfig_application.tsk %1
 "%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\j!_getConfig_application.tsk %1

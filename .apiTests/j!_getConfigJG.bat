@@ -1,5 +1,5 @@
 @ECHO OFF
-REM build_fix.bat
+REM j!_getConfigJG.bat
 REM
 CLS
 

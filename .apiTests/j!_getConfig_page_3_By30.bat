@@ -1,5 +1,5 @@
 @ECHO OFF
-REM build_fix.bat
+REM j!_getConfig_page_3_By30.bat
 REM
 CLS
 

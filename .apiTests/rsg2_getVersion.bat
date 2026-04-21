@@ -1,5 +1,5 @@
 @ECHO OFF
-REM build_fix.bat
+REM rsg2_getVersion.bat
 REM
 CLS
 
