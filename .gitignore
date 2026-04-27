@@ -20,6 +20,7 @@
 .apiTests/curl_http_files/
 .apiTests/results/
 .apiTests/*.json
+.apiTests/*.jsonoutside.txt
 
 .test/BackupRestore/.idea/
 .test/RSG2_Backup/
