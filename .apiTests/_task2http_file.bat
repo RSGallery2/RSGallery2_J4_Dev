@@ -1,16 +1,16 @@
-@echo Off
+@ECHO Off
 REM ----------------------------------------
 REM Transform *.tsk files to *.http file format
 REM %1 : path and name to source file
 REM %2 : path to target file or path and name to target file
 REM ----------------------------------------
 
-Set CmdArgs=
+SET CmdArgs=
 
 ECHO ----------------------------------------------
-@echo Transform *.tsk file to *.http file format
+@ECHO Transform *.tsk file to *.http file format
 ECHO ----------------------------------------------
-@echo.
+@ECHO.
 
 REM task command http to tsk conversion
 Call :AddNextArg -t "task:tsk2httpFile"
@@ -39,13 +39,14 @@ if "%1" NEQ "" (
 REM source path
 Call :AddNextArg -s %srcFile%
 
+REM ECHO srcFile (1): %srcFile%
+
 REM --- destination file and folder ---------------------------------
 
 if "%2" NEQ "" (
 	SET dstFileOrPath=%2
 ) else (
-    REM set dstFileOrPath=""
-    set dstFileOrPath=%~dp0curl_http_files\
+    SET dstFileOrPath=%~dp0curl_http_files\
 )
 
 REM source path
@@ -57,7 +58,7 @@ ECHO dstFileOrPath: %dstFileOrPath%
 REM --- Php exe path -------------------------------------------------
 
 REM Path for calling
-set ExePath=e:\wamp64\bin\php\php8.4.5\
+SET ExePath=e:\wamp64\bin\php\php8.4.5\
 REM ECHO ExePath: "%ExePath%"
 
 if exist "%ExePath%php.exe" (
@@ -66,7 +67,7 @@ if exist "%ExePath%php.exe" (
 ) else (
     REM Direct call
     ECHO PHP in path variable
-    set ExePath=
+    SET ExePath=
 )
 
 ECHO.
@@ -90,8 +91,8 @@ ECHO --- "%ExePath%php.exe" tsk2httpFileCmd.php %CmdArgs%
 popd
 
 ECHO ----------------------------------------------
-@echo Transform of %srcFile% done
-@echo.
+@ECHO Transform of %srcFile% done
+@ECHO.
 
 REM ECHO \%NO_PAUSE\%: "%NO_PAUSE%"
 if "%NO_PAUSE%" EQU "" (
@@ -103,9 +104,8 @@ GOTO :EOF
 REM ------------------------------------------
 REM Adds given argument to the already known command arguments
 :AddNextArg
-	Set NextArg=%*
-	Set CmdArgs=%CmdArgs% %NextArg%
+	SET NextArg=%*
+	SET CmdArgs=%CmdArgs% %NextArg%
 	ECHO  '%NextArg%'
 GOTO :EOF
-
 

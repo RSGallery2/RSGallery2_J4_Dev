@@ -28,7 +28,16 @@ Call :AddNextArg -e "tsk"
 REM --- source file and folder ---------------------------------
 
 if "%1" NEQ "" (
-	SET srcFile=%~f1
+	REM ECHO path0: %~dpn0
+	REM ECHO path1: %~dpn1
+    REM ECHO path2: %~dpnx1
+	REM ECHO path3: %~dpx1
+	REM ECHO path4: %~dp0
+	REM ECHO path5: %~f1
+	REM ECHO path6: %~dp0%1
+
+ 	SET srcFile=%~dp0%1
+
 ) else (
 	SET srcFile=%~dp0curl_http_files\rsg2_getGalleries.http
 )
@@ -38,13 +47,11 @@ Call :AddNextArg -s %srcFile%
 
 REM ECHO srcFile (1): %srcFile%
 
-
 REM --- destination file and folder ---------------------------------
 
 if "%2" NEQ "" (
 	SET dstFileOrPath=%2
 ) else (
-	call
     SET dstFileOrPath=%~dp0curl_tsk_files\
 )
 
