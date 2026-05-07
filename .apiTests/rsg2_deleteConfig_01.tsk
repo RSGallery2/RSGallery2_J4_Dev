@@ -1,0 +1,10 @@
+task:delete
+    // /apiPath="v1/config/com_rsgallery2"
+    // /apiPath="v1/rsgallery2/config?filter[search]=isDevelop"
+/apiPath="v1/rsgallery2/config"
+/baseUrl="http://127.0.0.1/api_6x/api/index.php"
+    // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
+/joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_api_6x.txt"
+/isCreateAutoResponseFile=true
+/param='"isNew01": 0'
+/param='"isNew02": 0'
