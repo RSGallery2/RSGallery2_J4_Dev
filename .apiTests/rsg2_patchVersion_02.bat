@@ -1,5 +1,5 @@
 @ECHO OFF
-REM rsg2_post_upload_01_db_reserve_img_g_id.bat
+REM rsg2_patchVersion_02.bat
 REM
 CLS
 
@@ -21,8 +21,8 @@ if exist "%ExePath%php.exe" (
 ECHO ----------------------------------------------
 ECHO.
 
-echo --- "%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\rsg2_post_upload_01_db_reserve_img_g_id.tsk %1
-"%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\rsg2_post_upload_01_db_reserve_img_g_id.tsk %1
+echo --- "%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\rsg2_patchVersion_02.tsk %1
+"%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\rsg2_patchVersion_02.tsk %1
 
 GOTO :EOF
 
