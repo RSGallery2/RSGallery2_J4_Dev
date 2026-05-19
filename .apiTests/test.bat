@@ -1,19 +1,35 @@
 @ECHO OFF
-REM Curl_StartHttpFile.bat
-REM Given http file is read and a curl command is created from it
+REM test.bat
+REM
 CLS
 
-REM ToDo: cmdArgs
+REM Path for calling
+set ExePath=e:\wamp64\bin\php\php8.4.5\
+REM ECHO ExePath: "%ExePath%"
 
-set httpFile=test.http
-if NOT %1A==A (
-	set httpFile=%1
+if exist "%ExePath%php.exe" (
+    REM path known (WT)
+    ECHO ExePath: "%ExePath%"
+) else (
+    REM Direct call
+    ECHO PHP in path variable
+    set ExePath=
 )
 
+"%ExePath%php.exe" --version
 
 ECHO ----------------------------------------------
-echo php -q ./Curl_StartHttpFile.php -f %httpFile% %responseFile% -r
-php -q ./Curl_StartHttpFile.php -f %httpFile% %responseFile% -r
+ECHO.
 
-REM ECHO Press any key
-REM pause
+echo --- "%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\test.tsk %1
+"%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\test.tsk %1
+
+GOTO :EOF
+
+REM ------------------------------------------
+REM Adds given argument to the already known command arguments
+:AddNextArg
+    Set NextArg=%*
+    Set CmdArgs=%CmdArgs% %NextArg%
+    ECHO  '%NextArg%'
+GOTO :EOF
