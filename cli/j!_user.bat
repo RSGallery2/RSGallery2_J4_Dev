@@ -1,7 +1,16 @@
 @ECHO OFF
-REM rsg2_listCmds.bat
+REM j!_user.bat
+REM  show a joomgla user
+REM %1 user id
 REM
 CLS
+
+REM config id
+set usr_id=%1
+
+if "%~1"=="" (
+	set usr_id=285
+)
 
 REM Path for calling
 set ExePath=e:\wamp64\bin\php\php8.4.5\
@@ -21,8 +30,8 @@ if exist "%ExePath%php.exe" (
 ECHO ----------------------------------------------
 ECHO.
 
-echo --- "%ExePath%php.exe" joomla.php list rsgallery2 %1
-"%ExePath%php.exe" joomla.php list rsgallery2 %1
+echo --- "%ExePath%php.exe" joomla.php user --id=%usr_id% 
+"%ExePath%php.exe" joomla.php user --id=%usr_id%
 
 GOTO :EOF
 
