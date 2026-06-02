@@ -215,6 +215,7 @@ foreach ($lines as $idx => $line) {
     $parts = explode(' ', $line, 2);
 
     $testCmd = strtolower(trim($parts[0]));
+    // ToDo: in array 
     if ($testCmd == 'get'
         || $testCmd == 'post'
         || $testCmd == 'put'
