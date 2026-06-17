@@ -13,7 +13,7 @@ if "%1" NEQ "" (
 	SET dstPath=%1
 ) else (
     REM set dstPath=""
-    set dstPath=%~dp0curl_http_files\
+    set dstPath=%~dp0curl_cmdLine\
 )
 
 REM --- source folder folder ---------------------------------
