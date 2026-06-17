@@ -1,9 +1,11 @@
 task:get
-/baseUrl="http://127.0.0.1/api_6x/api/index.php"
-    // /baseUrl="http://127.0.0.1/api_6x/api/index.php"
 /apiPath="v1/config/application"
-    // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
+	///joomlaTokenAuto
 /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_api_6x.txt"
+	// /baseUrl="http://127.0.0.1/api_6x/api/index.php"
+/baseUrlFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\_baseUrls.txt"
+    // /baseUrl="http://127.0.0.1/api_6x/api/index.php"
+    // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
 /isCreateAutoResponseFile=true
 /urlQueryParam='page[offset]=0'
 /urlQueryParam='page[limit]=30'

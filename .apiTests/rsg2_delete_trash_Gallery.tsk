@@ -1,9 +1,12 @@
-task:get
-/apiPath="v1/rsgallery2/images/73"
+task:patch
+/apiPath="v1/rsgallery2/galleries/7"
 	// /baseUrl="http://127.0.0.1/api_6x/api/index.php"
 /baseUrlFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\_baseUrls.txt"
     // /baseUrl="http://127.0.0.1/api_6x/api/index.php"
-    // /apiPath="v1/rsgallery2/images/5"
+    // /apiPath="v1/rsgallery2/galleries/0"
+    // /apiPath="v1/rsgallery2/galleries/1"
+		// // /apiPath="v1/rsgallery2/galleries/2"
+    // /apiPath="v1/rsgallery2/galleries/3"
     // /httpFile="d:\Entwickl\2026\_gitHub\apiByCurlHtml\curl_tsk_files\galleriesGet.http"
     // joomla token should not be in *.tsk file when using git published
     // /joomlaToken="..."
@@ -14,3 +17,5 @@ task:get
     // standard: /accept="application/vnd.api+json"
     // standard: /contentType="application/json"
 /isCreateAutoResponseFile=true
+
+/param='"published": -2'

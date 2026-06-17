@@ -1,0 +1,9 @@
+// List of base urls for *.tsk files (apiCurlHtml project)
+// The first will be taken 
+// http://127.0.0.1/joomgallery5x_api/api/index.php *
+// http://127.0.0.1/api_5x/api/index.php
+http://127.0.0.1/api_6x/api/index.php
+// http://127.0.0.1/joomgallery5x/api/index.php
+// http://127.0.0.1/joomgallery5x_dev/api/index.php
+// http://127.0.0.1/joomla5x/api/index.php
+// http://127.0.0.1/joomla6x/api/index.php
