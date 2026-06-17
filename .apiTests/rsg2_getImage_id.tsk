@@ -7,5 +7,5 @@ task:get
 /joomlaTokenAuto
 /isCreateAutoResponseFile=true
 
-// May be overwritten by *.bat call
-/urlRouterParam=5
+	// if enabled id does not be given to bat
+	// /urlRouterParam=5
