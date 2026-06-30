@@ -1,5 +1,5 @@
 @ECHO OFF
-REM j!_patch_config_debug_on.bat
+REM j!_getArticle_Beginners.bat
 REM
 CLS
 
@@ -21,8 +21,10 @@ if exist "%ExePath%php.exe" (
 ECHO ----------------------------------------------
 ECHO.
 
-echo --- "%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\j!_patch_config_debug_on.tsk %1
-"%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\j!_patch_config_debug_on.tsk %1
+REM j!_getTest
+
+echo --- "%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\j!_getArticle_Beginners.tsk %1
+"%ExePath%php.exe" ..\..\apiByCurlHtml\src\curlApiTasksCmd.php -f .\j!_getArticle_Beginners.tsk %1
 
 GOTO :EOF
 
