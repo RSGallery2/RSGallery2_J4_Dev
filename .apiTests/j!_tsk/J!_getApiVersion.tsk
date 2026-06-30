@@ -1,0 +1,11 @@
+task:get
+    // test, not successful
+/apiPath="v1/stat/cms_version"
+    // /baseUrl="http://127.0.0.1/joomgallery5x_api/api/index.php"
+	// /baseUrl="http://127.0.0.1/api_6x/api/index.php"
+/baseUrlFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\_baseUrls.txt"	
+    // /baseUrl="http://127.0.0.1/api_6x/api/index.php"
+    // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
+/joomlaTokenAuto
+    // /responseFile="d:\Entwickl\2026\_gitHub\JoomGallery_fith_dev\.apiTests\J!_getApiVersion.json"
+/isCreateAutoResponseFile=true

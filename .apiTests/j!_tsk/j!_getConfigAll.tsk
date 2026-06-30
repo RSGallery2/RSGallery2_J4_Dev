@@ -1,12 +1,12 @@
-task:patch
-/apiPath="v1/rsgallery2/version"
-// ToDo: use external file for 
+task:get
+/apiPath="v1/config/application"
 	// /baseUrl="http://127.0.0.1/api_6x/api/index.php"
-/baseUrlFile="d:\Entwickl\2026\_gitHub\RSGallery2_J4_Dev\.apiTests\_baseUrls.txt"
-
+	// /baseUrl="http://127.0.0.1/joomla5x/api/index.php"
+/baseUrlFile="YYY d:\Entwickl\2026\_gitHub\JoomGallery_fith_dev\.apiTests\_baseUrls.txt"	
     // /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_joomla5x.txt"
 	// /joomlaTokenFile="d:\Entwickl\2026\_gitHub\xTokenFiles\token_api_6x.txt"
 /joomlaTokenAuto
 /isCreateAutoResponseFile=true
-/param='"version": "5.0.1.0"'
-/param='"creationDate": "2026.01.01"'
+/urlQueryParam='page[offset]=0'
+/urlQueryParam='page[limit]=200'
+

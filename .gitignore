@@ -17,11 +17,11 @@
 .packages/
 .packages_zip/
 
-.apiTests/curl_cmdLine/
-.apiTests/curl_http_files/
+.apiTests/**/curl_cmdLine/
+.apiTests/**/curl_http_files/
 .apiTests/results/
-.apiTests/*.json
-.apiTests/*.jsonoutside.txt
+.apiTests/**/*.json
+.apiTests/**/*.jsonoutside.txt
 
 .test/BackupRestore/.idea/
 .test/RSG2_Backup/
