@@ -1,0 +1,54 @@
+@ECHO OFF
+REM rsg2_configGet%1.bat
+REM
+CLS
+
+REM Path for calling
+set ExePath=e:\wamp64\bin\php\php8.4.5\
+REM ECHO ExePath: "%ExePath%"
+
+if exist "%ExePath%php.exe" (
+    REM path known (WT)
+    ECHO ExePath: "%ExePath%"
+) else (
+    REM Direct call
+    ECHO PHP in path variable
+    set ExePath=
+)
+
+"%ExePath%php.exe" --version
+
+REM --------------------------------------------------
+REM %1 variable name must exist
+
+if "%1" == "" (
+	ECHO.
+	ECHO !!! ERROR: "Variable name" as first parameter must be given !!!
+	ECHO     Example: j!_configGet%1.bat variable_name
+	goto :EOF 
+)
+
+REM %2 value must exist
+
+if "%2" == "" (
+	ECHO.
+	ECHO !!! ERROR "Values" as second parameter must be given !!! 
+	ECHO    Example: j!_configSet%1%2.bat variable_name value
+	goto :EOF 
+)
+
+ECHO ----------------------------------------------
+ECHO.
+
+echo --- "%ExePath%php.exe" joomla.php rsgallery2:config:set %1 %2
+"%ExePath%php.exe" joomla.php rsgallery2:config:set %1 %2
+
+GOTO :EOF
+
+REM ------------------------------------------
+REM Adds given argument to the already known command arguments
+:AddNextArg
+    Set NextArg=%*
+    Set CmdArgs=%CmdArgs% %NextArg%
+    ECHO  '%NextArg%'
+GOTO :EOF
