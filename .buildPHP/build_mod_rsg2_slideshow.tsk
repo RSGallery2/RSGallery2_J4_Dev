@@ -1,6 +1,6 @@
 task:buildExtension
 /type=module
-/srcRoot="../../RSGallery2_J4/srv/modules/mod_rsg2_slideshow"
+/srcRoot="../../RSGallery2_J4/src/modules/mod_rsg2_slideshow"
    // /isNoRecursion=true
 /buildDir="../../RSGallery2_J4_Dev/.packages"
 /name=mod_rsg2_slideshow
