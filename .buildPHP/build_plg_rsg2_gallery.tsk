@@ -1,6 +1,6 @@
 task:buildExtension
 /type=plugin
-/srcRoot="../../RSGallery2_J4/plugins/content/rsg2_gallery"
+/srcRoot="../../RSGallery2_J4/srv/plugins/content/rsg2_gallery"
    // /isNoRecursion=true
 /buildDir="../../RSGallery2_J4_Dev/.packages"
 /name=plg_content_rsg2_gallery
