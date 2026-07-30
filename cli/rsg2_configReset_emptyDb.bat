@@ -21,8 +21,8 @@ if exist "%ExePath%php.exe" (
 ECHO ----------------------------------------------
 ECHO.
 
-echo --- "%ExePath%php.exe" joomla.php rsgallery2:config %1
-"%ExePath%php.exe" joomla.php rsgallery2:config %1
+echo --- "%ExePath%php.exe" joomla.php rsgallery2:config:reset emptyDb
+"%ExePath%php.exe" joomla.php rsgallery2:config:reset emptyDb
 
 GOTO :EOF
 

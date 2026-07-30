@@ -1,7 +1,16 @@
 @ECHO OFF
-REM rsg2_configList.bat
+REM j!_help%1.bat
+REM  show a joomgla user
+REM %1 user id
 REM
 CLS
+
+REM config id
+set help_var=%1
+
+if "%~1"=="" (
+	set help_var=user:add
+)
 
 REM Path for calling
 set ExePath=e:\wamp64\bin\php\php8.4.5\
@@ -21,8 +30,8 @@ if exist "%ExePath%php.exe" (
 ECHO ----------------------------------------------
 ECHO.
 
-echo --- "%ExePath%php.exe" joomla.php rsgallery2:config %1
-"%ExePath%php.exe" joomla.php rsgallery2:config %1
+echo --- "%ExePath%php.exe" joomla.php --help  rsgallery2:%help_var% 
+"%ExePath%php.exe" joomla.php --help rsgallery2:%help_var%
 
 GOTO :EOF
 
@@ -33,3 +42,4 @@ REM Adds given argument to the already known command arguments
     Set CmdArgs=%CmdArgs% %NextArg%
     ECHO  '%NextArg%'
 GOTO :EOF
+

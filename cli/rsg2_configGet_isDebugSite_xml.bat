@@ -1,5 +1,5 @@
 @ECHO OFF
-REM rsg2_configList.bat
+REM rsg2_configGet%1.bat
 REM
 CLS
 
@@ -21,8 +21,8 @@ if exist "%ExePath%php.exe" (
 ECHO ----------------------------------------------
 ECHO.
 
-echo --- "%ExePath%php.exe" joomla.php rsgallery2:config %1
-"%ExePath%php.exe" joomla.php rsgallery2:config %1
+echo --- "%ExePath%php.exe" joomla.php rsgallery2:config:get isDebugSite xml
+"%ExePath%php.exe" joomla.php rsgallery2:config:get isDebugSite xml
 
 GOTO :EOF
 

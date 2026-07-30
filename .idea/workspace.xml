@@ -13,7 +13,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ComposerSettings">
-    <execution />
+    <execution>
+      <execution>
+        <execution />
+      </execution>
+    </execution>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,8 +59,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-PS-261.26222.71" />
-        <option value="bundled-php-predefined-a98d8de5180a-6bbb74dbab74-com.jetbrains.php.sharedIndexes-PS-261.26222.71" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-PS-262.8665.265" />
+        <option value="bundled-php-predefined-a98d8de5180a-ff90ddd8021d-com.jetbrains.php.sharedIndexes-PS-262.8665.265" />
       </set>
     </attachedChunks>
   </component>
@@ -97,6 +101,8 @@
       <workItem from="1783697870918" duration="109000" />
       <workItem from="1783861098454" duration="1469000" />
       <workItem from="1783929099978" duration="3226000" />
+      <workItem from="1784665844493" duration="294000" />
+      <workItem from="1784816559202" duration="76000" />
     </task>
     <servers />
   </component>
