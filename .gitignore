@@ -27,10 +27,14 @@
 .test/RSG2_Backup/
 .test/.idea 
 
-
 # org and temp files
 **/*.org.*
 **/*.tmp
+
+# vulnerbility CVE timeline ...
+vulnerability/
+
+#--- code ---------------------------------
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
