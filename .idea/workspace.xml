@@ -15,7 +15,13 @@
   <component name="ComposerSettings">
     <execution>
       <execution>
-        <execution />
+        <execution>
+          <execution>
+            <execution>
+              <execution />
+            </execution>
+          </execution>
+        </execution>
       </execution>
     </execution>
   </component>
@@ -59,8 +65,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-PS-262.8665.265" />
-        <option value="bundled-php-predefined-a98d8de5180a-ff90ddd8021d-com.jetbrains.php.sharedIndexes-PS-262.8665.265" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-PS-262.9437.196" />
+        <option value="bundled-php-predefined-a98d8de5180a-9522f28f0b20-com.jetbrains.php.sharedIndexes-PS-262.9437.196" />
       </set>
     </attachedChunks>
   </component>
@@ -103,6 +109,9 @@
       <workItem from="1783929099978" duration="3226000" />
       <workItem from="1784665844493" duration="294000" />
       <workItem from="1784816559202" duration="76000" />
+      <workItem from="1786865615209" duration="1327000" />
+      <workItem from="1786950149581" duration="106000" />
+      <workItem from="1787033154600" duration="5174000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,16 @@
+### Variablen-Definition
+@siteUrl = http://127.0.0.1/joomla5x/administrator/
+@sessionName = e73c8a81a3cabd7503e60fbf3a6a2be3
+@sessionId = 0ad2404e9d8738e3ea691badb83bebf7
+@formToken = b50e1660795e8fafbdf08570d4afeb09
+
+###
+POST {{siteUrl}}/index.php?option=com_rsgallery2&task=image.flip_image_vertical
+X-CSRF-Token: {{formToken}}
+Cookie: {{sessionName}}={{sessionId}}
+Content-Type: application/x-www-form-urlencoded
+Accept: application/vnd.api+json
+
+id=157
+
+# POST {{siteUrl}}/index.php?option=com_rsgallery2&task=image.flip_image_vertical&id=4&name=../../3/original/victim_B-2.jpg
