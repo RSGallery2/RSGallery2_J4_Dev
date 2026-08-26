@@ -78,7 +78,7 @@ ECHO ----------------------------------------------
 ECHO.
 
 
-pushd ..\..\..\apiByCurlHtml\src\task_http_file
+pushd ..\..\apiByCurlHtml\src\task_http_file
 REM dir
 
 ECHO CmdArgs: %CmdArgs%

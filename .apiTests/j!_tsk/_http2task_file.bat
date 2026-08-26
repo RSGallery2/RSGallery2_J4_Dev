@@ -120,7 +120,7 @@ ECHO.
 REM ECHO --- "%ExePath%php.exe" ..\..\apiByCurlHtml\src\task_http_file\tsk2httpFileCmd.php %CmdArgs%
 REM "%ExePath%php.exe" ..\..\apiByCurlHtml\src\task_http_file\tsk2httpFileCmd.php %CmdArgs%
 
-pushd ..\..\..\apiByCurlHtml\src\task_http_file
+pushd ..\..\apiByCurlHtml\src\task_http_file
 REM dir
 
 ECHO CmdArgs: %CmdArgs%
