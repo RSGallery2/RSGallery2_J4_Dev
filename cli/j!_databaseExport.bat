@@ -1,5 +1,5 @@
 @ECHO OFF
-REM j!_user_list.bat
+REM j!_databaseExport.bat
 REM
 CLS
 
@@ -21,8 +21,8 @@ if exist "%ExePath%php.exe" (
 ECHO ----------------------------------------------
 ECHO.
 
-echo --- "%ExePath%php.exe" joomla.php user:list %1
-"%ExePath%php.exe" joomla.php user:list %1
+echo --- "%ExePath%php.exe" joomla.php database:export --zip %1
+"%ExePath%php.exe" joomla.php  database:export --zip %1
 
 GOTO :EOF
 
